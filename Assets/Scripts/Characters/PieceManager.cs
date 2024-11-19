@@ -210,7 +210,7 @@ public class PieceManager : MonoBehaviour
         {
             hoverOnPiece = true;
 
-            if (MapManager._instance.toolMode == MapManager.ToolMode.GameMode && GameModeManager._instance.currentToolMode != GameModeManager.ToolMode.None)
+            if (MapManager._instance.toolMode == MapManager.ToolMode.GameMode) // && GameModeManager._instance.currentToolMode != GameModeManager.ToolMode.None)
                 return;
 
             GameModeManager._instance.ChangeCursor(GameModeManager.CursorTypes.Circle);
@@ -328,7 +328,7 @@ public class PieceManager : MonoBehaviour
             //left click
             if (Input.GetMouseButtonDown(0))
             {
-                if (MapManager._instance.toolMode == MapManager.ToolMode.GameMode && GameModeManager._instance.currentToolMode != GameModeManager.ToolMode.None)
+                if (MapManager._instance.toolMode == MapManager.ToolMode.GameMode) // && GameModeManager._instance.currentToolMode != GameModeManager.ToolMode.None)
                     return;
 
                 preClickButtonValues = pieceOptionButtonActive;
@@ -471,7 +471,7 @@ public class PieceManager : MonoBehaviour
             }
             else if (Input.GetMouseButton(0) && pieceGrabbing)
             {
-                if (MapManager._instance.toolMode == MapManager.ToolMode.GameMode && GameModeManager._instance.currentToolMode != GameModeManager.ToolMode.None)
+                if (MapManager._instance.toolMode == MapManager.ToolMode.GameMode) // && GameModeManager._instance.currentToolMode != GameModeManager.ToolMode.None)
                     return;
 
                 if ((activeCharacterPiece != null || activeFoePiece != null || activeTokenPiece != null) && !pieceGrabbed)
@@ -553,7 +553,7 @@ public class PieceManager : MonoBehaviour
                     MarkManager._instance.CloseMarkEdit();
                 }
 
-                if ((MapManager._instance.toolMode == MapManager.ToolMode.UnitMaker) || (MapManager._instance.toolMode == MapManager.ToolMode.GameMode && GameModeManager._instance.currentToolMode == GameModeManager.ToolMode.None))
+                if ((MapManager._instance.toolMode == MapManager.ToolMode.UnitMaker) || (MapManager._instance.toolMode == MapManager.ToolMode.GameMode)) // && GameModeManager._instance.currentToolMode == GameModeManager.ToolMode.None))
                     SetDisplayPanelActive(true);
 
                 if (MapManager._instance.toolMode == MapManager.ToolMode.GameMode)
@@ -1629,7 +1629,6 @@ public class PieceManager : MonoBehaviour
         }
     }
 
-
     public void CloseInfoPanel()
     {
         if (activePieceType == 0)
@@ -1669,42 +1668,6 @@ public class PieceManager : MonoBehaviour
         UnitManager._instance.optionButton.SetActive(true);
         MapManager._instance.EnableControls(true);
     }
-
-
-
-    #region Wheel of Fate
-    public void ShowWheelOfFate()
-    {
-        if (activeCharacterPiece == null)
-            return;
-
-        activeCharacterPiece.seerDeckController.gameObject.SetActive(true);
-        //activeCharacterPiece.SetMiniPanelActive(false);
-        //activeCharacterPiece.ShowPieceTools(false);
-
-        SetPieceButtonOptions(false);
-        UnitManager._instance.generalInputs.SetActive(false);
-        UnitManager._instance.optionButton.SetActive(false);
-        GameModeManager._instance.toolButtonsParent.SetActive(false);
-        MapManager._instance.EnableControls(false);
-    }
-
-    public void CloseWheelOfFate()
-    {
-        if (activeCharacterPiece == null)
-            return;
-
-        activeCharacterPiece.seerDeckController.gameObject.SetActive(false);
-        //activeCharacterPiece.SetMiniPanelActive(true);
-
-        //activeCharacterPiece.ShowPieceTools(true);
-
-        UnitManager._instance.generalInputs.SetActive(true);
-        UnitManager._instance.optionButton.SetActive(true);
-        GameModeManager._instance.toolButtonsParent.SetActive(true);
-        MapManager._instance.EnableControls(true);
-    }
-    #endregion
 
     public void SetPieceButtonOptions(bool active)
     {

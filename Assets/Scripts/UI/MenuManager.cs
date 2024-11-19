@@ -42,7 +42,8 @@ public class MenuManager : MonoBehaviour
     [Header("Debug Help")]
     public bool circumventEntry = false;
     public bool circumventToLoad = false;
-    public int levelToCircumventTo = 0;
+    public int expeditionCircumventIndex = 0;
+    public int levelCircumventIndex = 0;
 
     [Header("Old Menu Functions")]
     [Space(10f)]
@@ -102,16 +103,6 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
-        if (circumventEntry)
-        {
-            if (circumventToLoad)
-            {
-                ChooseOldFile(levelToCircumventTo);
-            }
-            else
-                MakeNewMap(14, 14);
-        }
-
         versionLabel.text = "v " + Application.version;
 
         nameInput.onValueChanged.AddListener(delegate { UpdateConfirmButton(); });
@@ -119,10 +110,26 @@ public class MenuManager : MonoBehaviour
         currentState = MenuState.Start;
 
         ExpListSetup();
+
+        if (circumventEntry)
+        {
+            if (circumventToLoad)
+            {
+                string[] dirList = Directory.GetDirectories(Application.persistentDataPath + "/Expeditions");
+
+                string expName = Path.GetFileName(dirList[expeditionCircumventIndex]);
+                optionsManager.SetNewExpRoot(expName);
+
+                ChooseOldFile(levelCircumventIndex);
+            }
+            else
+                MakeNewMap(14, 14);
+        }
+
     }
 
     #region Expedition Menu
-    
+
     private void ExpListSetup()
     {
         SetExpList(false);
@@ -723,6 +730,7 @@ public class MenuManager : MonoBehaviour
         string[] fileNames = new string[0];
         if (alphaSorting)
         {
+            Debug.Log(optionsManager.GetMapFolder());
             fileNames = Directory.GetFiles(Application.persistentDataPath + "/" + optionsManager.GetMapFolder(), "*.iconmap");
 
             sortButton.sprite = sortAZIcon;
