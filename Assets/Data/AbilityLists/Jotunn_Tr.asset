@@ -1,0 +1,181 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26145924c7c4eb348905b6d88f10b619, type: 3}
+  m_Name: Jotunn_Tr
+  m_EditorClassIdentifier: 
+  Traits:
+  - traitName: Kin
+    traitEffect: "Ancient Jotunn are kin, can be bargained with, and will flee or
+      surrender if heavily losing a fight \n<b>\u2022 Motivations: </b>Jotunn are
+      motivated strongly by their negative emotions (sadness, anger, distrust, ennui,
+      hunger, etc). Appeasing them or appealing to their feelings can soften them
+      and make them open to negotiation. \n<b>\n\u2022 Flee: </b>Jotunn typically
+      don\u2019t flee but value their lives and will surrender if they see no chance
+      of winning a fight"
+    traitIDInList: 0
+  - traitName: Monsters
+    traitEffect: "Blood Jotunn are infected with the Blood Rage. \n<b>\u2022 Motivations:
+      </b>Born of the slaying of the Titans, they are driven only by their pain and
+      rage and have been reduced to near mindless monsters. They do not flee or negotiate.
+      It might be possible to <i>cure</i> the Rage."
+    traitIDInList: 1
+  - traitName: Elite
+    traitEffect: "All Jotunn have the Elite type if they don\u2019t already have
+      it. They\u2019re worth 2 points in an en<i>counter</i> budget and take 2 turns.
+      Double HP if upgrading from a normal foe."
+    traitIDInList: 2
+  - traitName: Titanblood
+    traitEffect: Increase size to 2 if not already 2.
+    traitIDInList: 3
+  - traitName: Titanfall
+    traitEffect: When defeated, roll 1d6 and assign a compass direction (1 - none,
+      2- N, 3-E, 4-S, 5-W, 6- GM choice). The Jotunn falls into a medium blast area
+      placed adjacent to its space in that direction. Size 1 characters inside must
+      save or take 6 damage, or 3 on a successful save. Move all characters out of
+      the area into the closest available space and place the defeated Jotunn there.
+      They count as a 2x2 height 1 <i>object</i> while defeated.
+    traitIDInList: 4
+  - traitName: Titan Armament
+    traitEffect: "You can arm a Jotunn with Titansteel weaponry. This increases a
+      Jotunn\u2019s en<i>counter</i> budget cost by +1. If you do, they have 50%
+      more hp and take one extra turn a round."
+    traitIDInList: 5
+  - traitName: Two Heads
+    traitEffect: Saves at the start and the end of its turn to end conditions or
+      other <i>effects.</i>
+    traitIDInList: 6
+  - traitName: True Enrage
+    traitEffect: +1 action and unstoppable while <i>bloodied.</i>
+    traitIDInList: 7
+  - traitName: Amorphous
+    traitEffect: Can share space with other characters. Any characters that start
+      their turn inside its space take fray damage.
+    traitIDInList: 8
+  - traitName: Rumble
+    traitEffect: The Alp becomes <i>intangible,</i> then dashes 6 spaces. One foe
+      it passes through becomes <i>dazed.</i>
+    traitIDInList: 9
+  - traitName: Living Deeps
+    traitEffect: Instead of a 2x2 space, this Jotunn occupies an Arc 4 space that
+      can be placed in any configuration. When it moves, move either end space of
+      the Arc, then re-place the Arc in any valid configuration. It can make attacks
+      or use abilities from any of its spaces.
+    traitIDInList: 10
+  - traitName: Whirlgang
+    traitEffect: At the start of its turn, the Mistral and all allies in range 2
+      may fly 1 in the same direction.
+    traitIDInList: 11
+  - traitName: Crystal Perfection
+    traitEffect: This Jotunn can use the average of its damage die (6) instead of
+      rolling for damage.
+    traitIDInList: 12
+  - traitName: Aetherstorm
+    traitEffect: "The Quintessence\u2019s Raging Storm deals 2 divine damage to all
+      foes inside when created, and its allies are immune to its <i>effects.</i>
+      In addition, when any character starts its turn in the area, the Quintessent
+      can apply one of following effects. \\n<b>1. Earth</b> - Create a pit under
+      the character \\n<b>2. Fire</b> - Character deals 2 piercing damage to all
+      adjacent foes. \\n<b>3. Air</b> - Teleport character 2 spaces \\n<b>4. Water</b>
+      - End a status on the character,"
+    traitIDInList: 13
+  - traitName: Sweet Torment
+    traitEffect: "The Hag has aura 2. Foes in the Hag\u2019s aura or in the aura
+      of their cauldron do not save against statuses at the end of their turn."
+    traitIDInList: 14
+  - traitName: Scouring Gaze
+    traitEffect: The Cyclopean shoots a beam of energy at any foe that ends their
+      turn in the Dampen Time area, dealing 4 piercing damage to them. If they are
+      <i>blinded,</i> foes take only 1 piercing damage instead.
+    traitIDInList: 15
+  - traitName: Time Lock
+    traitEffect: After any ability resolves that damages the Watcher, it becomes
+      <i>intangible</i> until the start of the following turn, and may teleport 2.
+    traitIDInList: 16
+  - traitName: Iron Scale
+    traitEffect: Resistant to abilities used from adjacent spaces. Loses this trait
+      when <i>bloodied.</i>
+    traitIDInList: 17
+  - traitName: Quicksilver
+    traitEffect: "The Ire Smith\u2019s abilities leave pools of quicksilver on the
+      ground. Quicksilver is a 1 space difficult terrain terrain <i>effect,</i> which
+      the smith ignores"
+    traitIDInList: 18
+  - traitName: Thinblood
+    traitEffect: "Size 1, takes 1 point in an en<i>counter</i> budget, and doesn\u2019t
+      have the elite trait like other Jotunn"
+    traitIDInList: 19
+  - traitName: Eyeless
+    traitEffect: Immune to <i>blinded.</i>
+    traitIDInList: 20
+  - traitName: Rune-Glamor
+    traitEffect: May be size 1 or size 2 (choose at the start of combat)
+    traitIDInList: 21
+  - traitName: Wild Regeneration
+    traitEffect: "At the end of any turn the Bale Troll takes 10 or more damage to
+      its hp, it gains 10 vigor, then summon a loose limbs summon in free space in
+      range 2. <indent=15%>\\n<b>Loose Limbs</b> \\nSummon \\n<b>Summon <i>effect:</i>
+      </b>At the start of the Troll\u2019s turn, may <i>rush</i> 1 space, then deal
+      2 damage to an adjacent foe."
+    traitIDInList: 22
+  - traitName: Divine Presence
+    traitEffect: Immune to <i>stun</i>
+    traitIDInList: 23
+  - traitName: Static charge
+    traitEffect: "At the start of combat, roll 1d6 for each foe (or flip a coin).
+      On tails, or 1-3, the foe gains a negative charge. On a 4+, the foe gains a
+      positive charge. These charges are ongoing <i>effects:</i>\\n\u2022 If a character
+      ends their turn adjacent to a character with the same charge as them, both
+      characters are each shoved 2 away from each other. \\n\u2022 If a character
+      ends their turn within range 2 of a character with an opposite charge, they
+      are shoved towards that character until adjacent and become stuck to them.
+      <b>While stuck: </b><indent=10%>\\n\u2022 If either character attempts to break
+      adjacency, or is moved by another character in a way that would break adjacency,
+      they must first save. \\n\u2022 On a successful save, they can move or be moved
+      normally. \\n\u2022 On a failed save, they become unable to exit adjacency
+      with the character they are stuck to for any reason for the rest of the current
+      turn (they can still move normally, as long as they don\u2019t break adjacency).
+      \\n\u2022 Being shoved by like polarity (see above) bypasses this save and
+      always works."
+    traitIDInList: 24
+  - traitName: Judgement Bolt
+    traitEffect: "At the start of each round, roll 1d6. At the end of the round,
+      all foes are hit by divine lightning, the <i>effect</i> of which depends on
+      the roll. \n<b>\u2022 (1-3) Judgement of Cowards: </b>Foes take 2 divine damage.
+      Increase this to 6 divine damage if they are adjacent to one or more of their
+      allies. \n<b>\n\u2022 (4-6) Judgment of the Brave: </b>Foes take 2 divine damage.
+      Increase this to 6 divine damage if they are not adjacent to one or more of
+      their allies."
+    traitIDInList: 25
+  - traitName: Call Steed
+    traitEffect: "The Rider gains a massive Titansteed, granting it the following
+      benefits:\n\u2022 Increase the Rider\u2019s speed to 5 \n\u2022 The Rider gains
+      <i>flying.</i> \n\u2022 The Rider may break up any of its movement with actions."
+    traitIDInList: 26
+  - traitName: Divine Presence
+    traitEffect: "Immune to <i>stun\r</i>"
+    traitIDInList: 27
+  - traitName: Quicksilver
+    traitEffect: Certain abilities from the Keeper drop a pool of Quicksilver. Quicksilver
+      is difficult terrain, which the Keeper ignores. Characters that end their turn
+      in quicksilver quench their embers, getting rid of all of them, but also consuming
+      the quicksilver space.
+    traitIDInList: 28
+  - traitName: Great Ignition
+    traitEffect: "At the end of the round, all embers that haven\u2019t been picked
+      up explode, destroying them and dealing 1 divine damage to all foes as an <i>effect.</i>"
+    traitIDInList: 29
+  - traitName: Blade of Creation
+    traitEffect: The Keeper gains aura 1. When the Keeper ends its turn, it draws
+      in any quicksilver in the aura, destroying it. Track the number of pools it
+      picks up with a power die. At the end the round, it makes the Blade of Creation
+      attack.
+    traitIDInList: 30

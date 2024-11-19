@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26145924c7c4eb348905b6d88f10b619, type: 3}
+  m_Name: Folk_Tr
+  m_EditorClassIdentifier: 
+  Traits:
+  - traitName: Kin
+    traitEffect: "<b>Folk are Kin \n\u2022 Motivations: </b>Kin usually fight for
+      their ideals, usually to protect something they care about (even if that something
+      is something as simple as their own survival). \n<b>\n\u2022 Flee: </b>Folk
+      value their own lives and will usually surrender or flee if there\u2019s no
+      chance of winning a fight. Martial-minded cultures like Islanders, Leggio,
+      or Guilders might put up more of a fight."
+    traitIDInList: 0
+  - traitName: Great Faith
+    traitEffect: Chroniclers can take slow turns like players. If they choose to
+      take a slow turn, they gain 3 vigor.
+    traitIDInList: 1
+  - traitName: Defiance
+    traitEffect: "Prevents hit points from being reduced past 1 hp. When this triggers,
+      remove this <i>effect</i> and character becomes immune to all damage for the
+      rest of the current turn.\r"
+    traitIDInList: 2
+  - traitName: Stack Dice
+    traitEffect: Once a combat, when the Churner would roll a random d6 as part of
+      an ability, they can choose which number to roll. A Churner can always spend
+      a free action to roll 1d6 and dash up to that many spaces.
+    traitIDInList: 3
+  - traitName: Aura of Freedom
+    traitEffect: Aura 1. The Guide and allies in the aura are immune to mo
+    traitIDInList: 4
+  - traitName: Hold the Line
+    traitEffect: If the Guard ends any turn without attacking, they gain Sturdy and
+      Vigilance +1.
+    traitIDInList: 5
+  - traitName: Aerial Acrobat
+    traitEffect: If an attack misses the Aeronaut, they may deal 2 damage to the
+      attacker, then fly 2.
+    traitIDInList: 6
+  - traitName: Salty
+    traitEffect: "When the Sailor sacrifices any amount, they gain 3 vigor after
+      the triggering ability resolves.\r"
+    traitIDInList: 7
+  - traitName: Nimble
+    traitEffect: Has evasion unless suffering from a status
+    traitIDInList: 8
+  - traitName: Monster Riding
+    traitEffect: "The Rider starts combat riding a trained monster, and can also
+      mount it as an action or by spending its standard move. While riding, the rider
+      shares space with the monster and moves when it moves, becoming unstoppable
+      while moving this way. If the two are separated, this <i>effect</i> ends until
+      the monster is remounted. <indent=15%>\\n<b>Tame monster</b> \\nSummon, size
+      1 \\n<b>Summon Action: </b>During the rider\u2019s turn, can dash 4, then either
+      shove a character 1 space or deal 2 damage to them."
+    traitIDInList: 9
+  - traitName: Tumbling
+    traitEffect: "Moving up terrain costs no movement. Can <i>phase</i> through characters
+      and doing so costs a maximum of 1 movement.\r"
+    traitIDInList: 10
+  - traitName: Slam
+    traitEffect: "When a character <i>collides</i> from the pole fighter\u2019s moves,
+      they are <i>slashed.</i> Slashed characters take fray damage instead."
+    traitIDInList: 11
+  - traitName: Camaraderie
+    traitEffect: +1 boon on attacks and saves for every adjacent ally.
+    traitIDInList: 12

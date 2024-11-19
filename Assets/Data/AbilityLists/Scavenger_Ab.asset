@@ -1,0 +1,1492 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67141eeaaa860ee4f8df8f96dfaec8c8, type: 3}
+  m_Name: Scavenger_Ab
+  m_EditorClassIdentifier: 
+  abilities:
+  - abilityName: One-Two
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    subCombos: 
+    effect: "<b>On hit: </b>Deal fray damage twice. \n<b>Miss: </b>Once."
+    abilityIDInList: 0
+  - abilityName: Fastball Special
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "An adjacent ally is shoved 3. \n<b><i>Collide:</i> </b>If they collide
+      with a foe, that foe is <i>weakened</i> and shoved 1, and that ally gains 3
+      vigor."
+    abilityIDInList: 1
+  - abilityName: Uppercut
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "<i>Rush</i> 1, then an adjacent character takes 2 damage and is shoved
+      1. \n<b>Greed: </b>they are <i>slashed,</i> take 2 damage, and are shoved 1
+      again."
+    abilityIDInList: 2
+  - abilityName: Haymaker
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - true strike
+    subCombos: 
+    effect: "<i>Rush</i> 2, then an adjacent foe must save or take [D]+fray and become
+      <i>stunned,</i> or just fray damage on a successful save. \n<b>Greed: </b>1
+      action."
+    abilityIDInList: 3
+  - abilityName: Hurl Loot
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Brawler picks up an adjacent valuables token and throws it at a foe
+      in range 4. That foe takes 2 damage, then either picks up the token or becomes
+      <i>slashed.</i>
+    abilityIDInList: 4
+  - abilityName: Rolling Cutter
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "Swap places with an adjacent foe, removing and placing both characters.
+      That foe is <i>slashed,</i> then shoved 1. \n<b>Greed: </b>Free action"
+    abilityIDInList: 5
+  - abilityName: Golden Knuckles
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - true strike
+    subCombos: 
+    effect: "An adjacent foe is shoved 1 for every valuables token the Pit Fighter
+      is holding. \n<b><i>Collide:</i> </b>foe takes 3 damage, once for every valuables
+      token the Pit Fighter is holding."
+    abilityIDInList: 6
+  - abilityName: Uppercut II
+    actionCost: free
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "<i>Rush</i> 1, then an adjacent character takes 2 damage and is shoved
+      1. \n<b>Greed: </b>they are <i>slashed,</i> take 2 damage, and are shoved 1
+      again."
+    abilityIDInList: 7
+  - abilityName: Throw Bottle
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 5
+    - true strike
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Foe
+      is <i>weakened.</i>"
+    abilityIDInList: 8
+  - abilityName: Battle Brew
+    actionCost: free
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "The Brewer swigs a battle brew. Gamble. The brew has random <i>effects.</i>
+      This ability cannot be used again this combat until the Brewer picks up a valuables
+      token. Duplicate results instead move the result up or down by 1 category (brewer\u2019s
+      choice). <indent=15%>\\n1. Brew explodes in a small blast area effect centered
+      on the brewer, dealing [D]+fray with true strike to everyone (including the
+      Brewer!) \\n2-3. Brewer gains <i>counter</i> for the rest of combat. Re-roll
+      if they already have counter. \\n4- 5. Brewer become sturdy for the rest of
+      combat and is immediately <i>cured.</i> \\n6. Brewer becomes unstoppable for
+      the rest of combat and is immediately cured.</indent>"
+    abilityIDInList: 9
+  - abilityName: Uppercut III
+    actionCost: free
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "<i>Rush</i> 1, then an adjacent character takes 2 damage and is shoved
+      1. \n<b>Greed: </b>they are <i>slashed,</i> take 2 damage, and are shoved 1
+      again.\n<b><i>Effect:</i> </b>Deals +1 more damage per valuables token the
+      Scrapper is holding."
+    abilityIDInList: 10
+  - abilityName: Golden Armor
+    actionCost: interrupt
+    isAttack: 0
+    additionals:
+    - requires at least one valuables token
+    subCombos: 
+    effect: "<b>Trigger: </b>Self or an adjacent ally is targeted by ability. \n<b><i>Effect:</i>
+      </b>Grant <i>resistance</i> and unstoppable against the triggering ability,
+      then if this character has at least one valuables token, discard a valuables
+      token, destroying it."
+    abilityIDInList: 11
+  - abilityName: The Block
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - true strike
+    - end turn
+    subCombos: 
+    effect: "The splitter chooses a foe in range. At the end of that foe\u2019s next
+      turn, the Splitter <i>rushes</i> up to 4 spaces towards them. If the splitter
+      ends this movement adjacent to the chosen foe, they must save or take 2[D]+fray,
+      or [D]+fray on a successful save. \n<b>Slay: </b>Gain +2 valuables."
+    abilityIDInList: 12
+  - abilityName: Execute
+    actionCost: 2
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: A foe in range 2 at 25% HP or lower must save. On a failed save, they
+      are defeated, ignoring all other <i>effects.</i> On a successful save, they
+      sacrifice down to 1 hp.
+    abilityIDInList: 13
+  - abilityName: Slice and Dice
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 4
+    - +1 boon
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>May
+      dash 1 both before and after attack"
+    abilityIDInList: 14
+  - abilityName: Mug
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: An adjacent foe is <i>dazed.</i> If they have a valuables token, that
+      foe takes 3 damage, then the looter gains a valuables token
+    abilityIDInList: 15
+  - abilityName: Swing sack
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - arc 3
+    subCombos: 
+    effect: "<b>Area <i>effect:</i> </b>2 damage. \n<b>Greed: </b>Deal 2 damage again
+      to each character for each valuables token the Looter has"
+    abilityIDInList: 16
+  - abilityName: Smoke Bomb
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - 1/combat
+    subCombos: 
+    effect: Create a small blast area of difficult terrain in range, then the Looter
+      gains <i>stealth.</i> The area can overlap characters. Self and allies in the
+      area gain evasion+, and foes inside are <i>blinded+.</i>
+    abilityIDInList: 17
+  - abilityName: Toe Cut
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - +1 boon
+    subCombos: 
+    effect: "<b>On hit: </b>[D]. \n<b>Miss: </b>1 damage.\n<b><i>Effect:</i> </b>The
+      character gains an open wound. While wounded, it takes [D] again at the end
+      of its turns. This effect does not stack, and ends instead if the character
+      ends their turn adjacent to an ally."
+    abilityIDInList: 18
+  - abilityName: Golden Step
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    subCombos: 
+    effect: An ally in range can dash 3 with <i>phasing.</i> Any time the chosen
+      ally picks up a valuables token during that move they deal 2 damage to all
+      adjacent foes, then Plucker gains the token.
+    abilityIDInList: 19
+  - abilityName: Serrated Bolt
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    - unerring
+    subCombos: 
+    effect: "<b><i>Effect:</i> </b>Deal 3 damage to a character in range. \n<b>Greed:
+      </b>Free action"
+    abilityIDInList: 20
+  - abilityName: Collect bounty
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - range 6
+    - +1 boon
+    subCombos: 
+    effect: "<b>On hit: </b>2[D]+fray. \n<b>Miss: </b>[D]+Fray.\n<b><i>Effect:</i>
+      </b>Can only be used against bloodied targets.\n<b>Slay: </b>Gain +2 valuables.\n<b>Greed:
+      </b>Gains <i>unerring.</i>"
+    abilityIDInList: 21
+  - abilityName: Smoke Bomb II
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - 1/combat
+    subCombos: 
+    effect: "Create a small blast area of difficult terrain in range, then the Looter
+      gains <i>stealth.</i> The area can overlap characters. Self and allies in the
+      area gain evasion+, and foes inside are <i>blinded+.</i> \n<b>Greed: </b>Medium
+      Blast"
+    abilityIDInList: 22
+  - abilityName: Smoke Bomb III
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - 1/combat
+    subCombos: 
+    effect: "Create a small blast area of difficult terrain in range, then the Looter
+      gains <i>stealth.</i> The area can overlap characters. Self and allies in the
+      area gain evasion+, and foes inside are <i>blinded+.</i> \n<b>Greed: </b>Medium
+      Blast.\n<b><i>Effect:</i> </b>Creates a cloud of choking gas. When created,
+      all foes in the area take 3 damage and are <i>dazed.</i>"
+    abilityIDInList: 23
+  - abilityName: Jet cloak
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    - requires a valuables token
+    subCombos: 
+    effect: Discard a valuables token, destroying it. Remove self from the battlefield.
+      At the start of the next player turn, return adjacent to any player character.
+      That character takes 2 damage twice and is <i>dazed.</i>
+    abilityIDInList: 24
+  - abilityName: Blinding Venom
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: An adjacent foe is <i>blinded+.</i> They can end this condition by picking
+      up a valuables token, or ending a turn adjacent to an ally.
+    abilityIDInList: 25
+  - abilityName: "Overseer\u2019s Bolt"
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 3
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Foe
+      is <i>sealed.\n<b>Effect:</i> </b>All allies in range 2 of the target foe may
+      dash 1"
+    abilityIDInList: 26
+  - abilityName: Swindle
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    subCombos: 
+    effect: "Swap places with a character in range, removing and placing both characters.
+      Foes can pass a save to avoid this <i>effect,</i> but are <i>pacified</i> on
+      a successful save. \n<b>Greed: </b>Free action"
+    abilityIDInList: 27
+  - abilityName: Incentivize
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - end turn
+    subCombos: 
+    effect: The broker either puts down a valuables token in range, or allows an
+      ally in range 3 to dash 3.
+    abilityIDInList: 28
+  - abilityName: Exact Price
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    - mark
+    subCombos: 
+    effect: A foe in range is marked. At the end of their turn, that foe must sacrifice
+      3. They can avoid paying this cost if they drop a valuables token into an adjacent
+      space. They both avoid the cost and end this mark by dropping two or more valuables
+      tokens instead.
+    abilityIDInList: 29
+  - abilityName: Trick of the Light
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "Gain the following interrupt until the start of the next turn: <indent=15%>\\n<b>Trick
+      of the Light</b> \\nInterrupt 2 \\n<b>Trigger: </b>An ally anywhere is targeted
+      by an attack. \\n<b><i>Effect:</i> </b>That ally gains evasion against that
+      attack. After it resolves, teleport that ally 3 spaces to their \u2018real\u2019
+      location."
+    abilityIDInList: 30
+  - abilityName: Sort Spoils
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 2
+    - end turn
+    subCombos: 
+    effect: "<b>a: </b>Place two valuables tokens in range, then swap the position
+      of any number of characters in range 2 with an equivalent number of valuables
+      tokens. \n<b>Greed: </b>Allies swapped this way can then dash 1."
+    abilityIDInList: 31
+  - abilityName: Aura of Skulduggery
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: "Until the start of their next turn, the underboss is immobile and gains
+      Aura 2. The underboss and allies in the aura have evasion and <i>counter.\r</i>"
+    abilityIDInList: 32
+  - abilityName: Swindle II
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 5
+    subCombos: 
+    effect: "Swap places with a character in range, removing and placing both characters.
+      Foes can pass a save to avoid this <i>effect,</i> but are <i>pacified</i> on
+      a successful save. \n<b>Greed: </b>Free action"
+    abilityIDInList: 33
+  - abilityName: Swindle III
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - no max range
+    subCombos: 
+    effect: "Swap places with a character in range, removing and placing both characters.
+      Foes can pass a save to avoid this <i>effect,</i> but are <i>pacified</i> on
+      a successful save. \n<b>Effect: </b>Allies that are swapped with swindle gain
+      <i>stealth.\n<b>Greed:</i> </b>Free action"
+    abilityIDInList: 34
+  - abilityName: Bribe
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: The Spender creates valuables token, then gives it to a foe in range.
+      That foe is <i>pacified,</i> then must save or become unable to attack until
+      the end of their next turn.
+    abilityIDInList: 35
+  - abilityName: Bulk up
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Blood Broker gains 4 vigor, or 6 if bloodied.
+    abilityIDInList: 36
+  - abilityName: Equivalent exchange
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 5
+    - multimark
+    subCombos: 
+    effect: "The Blood Broker <i>cures</i> and marks an ally in range. If that ally
+      is defeated while marked, the character that defeated them must sacrifice 25%
+      of their maximum hp.\r"
+    abilityIDInList: 37
+  - abilityName: Scrapstorm
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - pierce
+    - small blast
+    - range 8
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray and foe becomes <i>vulnerable.</i> \n<b>Miss
+      or area <i>effect:</i> </b>fray.\n<b>Round 3+: </b>deals bonus damage, becomes
+      a large blast, and also creates a valuables token in its area."
+    abilityIDInList: 38
+  - abilityName: Scrap Turret
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    - summon
+    subCombos: 
+    effect: The Tinker summons a scrap turret in range. <indent=15%>\n<b>Scrap Turret</b>
+      \nSize 1, <i>intangible</i> \n<b>Summon <i>Effect:</i> </b>Once a turn, when
+      a foe in range 3 from the turret takes damage from the Scrapper, the turret
+      deals 1 piercing damage twice to them.
+    abilityIDInList: 39
+  - abilityName: Pile it up
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: "The Junker creates a height 1 scrap pile <i>object</i> in a space in
+      range 6. Characters adjacent to it when it is created takes 1 damage twice
+      and are shoved 1. If created under a character, it pushes them up on top of
+      it instead. \n<b>Greed: </b>Increase damage, height and shove by +1"
+    abilityIDInList: 40
+  - abilityName: Load Scrap
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: The Thumper loads an adjacent valuables token into their mortar, removing
+      the token. The next scrap storm they use deals 5 piercing damage again to all
+      characters, creates a pit under its attack target, and its attack target must
+      save or become <i>stunned.</i> Then, place a valuables token anywhere in the
+      area.
+    abilityIDInList: 41
+  - abilityName: Junk form
+    actionCost: free
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Junk Mage transforms into junk, then swaps places with any free valuables
+      token in range 3, removing and placing itself.
+    abilityIDInList: 42
+  - abilityName: Animate Valuables
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 8
+    subCombos: 
+    effect: The Junk Mage chooses a character in range. That character releases a
+      burst 2 (target) area <i>effect,</i> which deals 2 piercing damage to them
+      once for each loose valuables token in the area.
+    abilityIDInList: 43
+  - abilityName: Hoard Ward
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 8
+    - terrain effect
+    subCombos: 
+    effect: The Tinker creates a small blast area of difficult terrain in range.
+      When the area is created, all characters inside take 2 piercing damage. Foes
+      that pick up a valuables token in the area take 4 piercing damage. Ability
+      cannot be used again until the scrap trapper picks up a valuables token.
+    abilityIDInList: 44
+  - abilityName: Pile it up II
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: "The Junker creates a height 1 scrap pile <i>object</i> in a space in
+      range 6. Characters adjacent to it when it is created takes 1 damage twice
+      and are shoved 1. If created under a character, it pushes them up on top of
+      it instead. \n<b>Greed: </b>Increase damage, height and shove by +1.\n<b>Greed:
+      </b>adjacent foes must save or be <i>shattered.</i>"
+    abilityIDInList: 45
+  - abilityName: Pile it up III
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: "The Junker creates a height 1 scrap pile <i>object</i> in a space in
+      range 6. Characters adjacent to it when it is created takes 1 damage twice
+      and are shoved 1. If created under a character, it pushes them up on top of
+      it instead. \n<b><i>Effect:</i> </b>gains +1 damage, height, and shove per
+      valuables token the hoarder has, to a maximum of 3 height, +3 damage, and +3
+      shove.\n<b>Greed: </b>Increase damage, height and shove by +1.\n<b>Greed: </b>adjacent
+      foes must save or be <i>shattered.</i>"
+    abilityIDInList: 46
+  - abilityName: Rummage
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: '<b><i>Effect:</i> </b>The collector goes through their collection to
+      find something useful. Gamble. <i>Objects</i> can be thrown at a space or character
+      in range 6 as part of this action. \n<b>1. Grenade: </b>Medium blast area effect,
+      fray damage. \n<b>2. Jar of Hornets: </b>Character takes 1 piercing damage
+      5 times. \n<b>3. Arkentech cube: </b>Rapidly expands to creates a height 1
+      destructible object (1o hp). If created under a character, pushes them up.
+      \n<b>4. Gaudy Hat: </b>Put the gaudy hat on a character. A character wearing
+      a hat is <i>vulnerable+.</i> If an attack hits that character, they can throw
+      it at the attacker, forcing the attacker to wear it. \n<b>5. Demon Bone: </b>Creates
+      a pit. Characters in the pit cannot draw line of sight to spaces outside the
+      pit. \n<b>6. Arkentech portal device: </b>Creates two spaces, both within range
+      6 of each other. Characters can spend 1 space of movement to teleport from
+      one to the other, as long as the space they enter on other end is unoccupied.'
+    abilityIDInList: 47
+  - abilityName: Golden hand
+    actionCost: free
+    isAttack: 0
+    additionals:
+    - range 8
+    subCombos: 
+    effect: The wright transmutes an <i>object</i> in range into solid gold. Characters
+      standing adjacent to it count as holding a valuables token.
+    abilityIDInList: 48
+  - abilityName: Flesh to Metal
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 8
+    - 1/ combat
+    subCombos: 
+    effect: "A foe in range must save. On a successful save, they are <i>shattered,</i>
+      and the gildhand can use this ability again this combat. On a failed save,
+      they begin turning into solid gold. At the end of their next turn, remove and
+      replace their character with a size 1 destructible <i>object</i> with 10 hp.
+      Until the terrain piece is destroyed, they cannot take a turn. When it\u2019s
+      destroyed, return them to the battlefield. Characters standing adjacent to
+      the object count as holding a valuables token."
+    abilityIDInList: 49
+  - abilityName: Yes Boss
+    actionCost: 1
+    isAttack: 1
+    additionals: []
+    subCombos: 
+    effect: "<b>On hit: </b>fray, twice. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+      </b>The acting goon may <i>rush</i> 2 before this attack.\n<b>Effect: </b>All
+      other characters standing adjacent to one or more goons take 2 damage."
+    abilityIDInList: 50
+  - abilityName: You got it Boss
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: Up to two goons can <i>rush</i> 1, then daze an adjacent foe. <i>Dazed</i>
+      foes take 4 damage instead.
+    abilityIDInList: 51
+  - abilityName: Fill Em with Daylight
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - Round 3+ only
+    - 1/combat
+    subCombos: 
+    effect: 'A foe in range 4 of any goon takes 3 piercing damage, once, per Goon
+      in range 4. This damage cannot reduce a foe past 1 hp. '
+    abilityIDInList: 52
+  - abilityName: Barricade Slam
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - true strike
+    subCombos: 
+    effect: "<b>On hit: </b>2[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Foe
+      is <i>slashed.</i>"
+    abilityIDInList: 53
+  - abilityName: Build Barricade
+    actionCost: 2
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Tollkin creates a line 4 terrain <i>effect</i> in free space, with
+      at least one space adjacent. The effect is difficult terrain, the Tollkin deals
+      bonus damage to characters in the area, and foes that enter or exit the area
+      are <i>weakened.</i>
+    abilityIDInList: 54
+  - abilityName: Great Golden Knuckles
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - true strike
+    subCombos: 
+    effect: "An adjacent foe is shoved 2 for every valuables token the Tollkin is
+      holding. \n<b><i>Collide:</i> </b>foe takes 4 damage, then 4 damage again,
+      once for every valuables token the Tollkin is holding."
+    abilityIDInList: 55
+  - abilityName: Long Arm of the Law
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - Line 3
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray damage.\n<b>Effect:
+      </b>Characters adjacent to the Judge in the area take double damage and are
+      shoved 3."
+    abilityIDInList: 56
+  - abilityName: Lock
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    subCombos: 
+    effect: <b><i>Effect:</i> </b>The judge throws a bola at a foe in range. That
+      foe either takes 4 damage or becomes <i>weakened</i> and <i>slashed</i> (foe
+      chooses).
+    abilityIDInList: 57
+  - abilityName: Stock
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: <b><i>Effect:</i> </b>The judge shoves an adjacent foe 1 and deals them
+      2 damage, then <i>rushes</i> 1.
+    abilityIDInList: 58
+  - abilityName: Smoking Barrel
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - usable when bloodied
+    subCombos: 
+    effect: "Repeat the following <i>effect</i> three times: \n<b>Effect: </b><i>Rush</i>
+      1, then <b>Area effect: </b>medium blast, fray damage, and shove 1."
+    abilityIDInList: 59
+  - abilityName: Collect bounty
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - unerring
+    - range 6
+    subCombos: 
+    effect: "<b>On hit: </b>2[D]+fray. \n<b>Miss: </b>[D]+Fray.\n<b><i>Effect:</i>
+      </b>Can only be used against bloodied targets or the Bounty Target.\n<b>Slay:
+      </b>Gain +2 valuables."
+    abilityIDInList: 60
+  - abilityName: Kick Off
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Redhand flies 1. Before they fly, they may shove an adjacent character
+      1 space, then deal 2 damage to them if they are a foe. If they do, they fly
+      3 instead.
+    abilityIDInList: 61
+  - abilityName: Lasso
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    subCombos: 
+    effect: "A character in range 4 is shoved 1 towards the redhead. \n<b>Greed:
+      </b>Free action.\n<b><i>Effect:</i> </b>Against the bounty target, shoves them
+      2 instead and dazes them."
+    abilityIDInList: 62
+  - abilityName: Stun Bomb
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - small blast
+    - range 4
+    subCombos: 
+    effect: <b>Area <i>effect:</i> </b>foes are <i>dazed.</i> Dazed foes or the bounty
+      target takes 4 damage.
+    abilityIDInList: 63
+  - abilityName: Rat Out
+    actionCost: interrupt
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "<b>Trigger: </b>The Scum or one of its allies in range 2 is targeted
+      by an attack. \n<b><i>Effect:</i> </b>The attacker must save. On a successful
+      save, the attack gains 1 curse. On a failed save, the Scum chooses a different
+      ally other than the attacker within range 2 of the Scum. That character becomes
+      the new target of the attack, regardless of range or line of sight."
+    abilityIDInList: 64
+  - abilityName: Smack
+    actionCost: 1
+    isAttack: 1
+    additionals: []
+    subCombos: 
+    effect: '<b>Autohit: </b>fray damage'
+    abilityIDInList: 65
+  - abilityName: Cover me!
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    subCombos: 
+    effect: All allies in range of the Scum may dash 2 towards the Scum.
+    abilityIDInList: 66
+  - abilityName: Drop Scraps
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Scum drops a valuables token in an adjacent space.
+    abilityIDInList: 67
+  - abilityName: Master Steal
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: "An adjacent foe has something stolen. They can recover the stolen item
+      by hitting the Scum with an attack from within range 3. The Scum can only steal
+      one of each item, but can steal from a different character each time. \\n\u2022
+      Weapon: Foe is <i>pacified+</i> \\n\u2022 Armor: Foe cannot benefit from armor
+      or <i>resistance. \\n\u2022</i> Boots: Foe cannot dash or <i>rush</i>"
+    abilityIDInList: 68
+  - abilityName: Take Measure
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 8
+    - medium blast
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray and increase Tally by 1. \n<b>Miss or area <i>effect:</i>
+      </b>fray."
+    abilityIDInList: 69
+  - abilityName: Count
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: Increase Tally by 1
+    abilityIDInList: 70
+  - abilityName: Incentivize
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - end turn
+    subCombos: 
+    effect: The aurelian either puts down a valuables token in range, or allows an
+      ally in range 3 to dash 3.
+    abilityIDInList: 71
+  - abilityName: Weight of Conscience
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - multimark
+    - requires 3+ Tally
+    - reduces tally by 1
+    subCombos: 
+    effect: The Aurelian marks a foe in range 5. While marked, the foe can only move
+      a maximum of 3 spaces a round, no matter their abilities or speed. A foe can
+      end this mark by not moving at all for their entire turn.
+    abilityIDInList: 72
+  - abilityName: Lift Burdens
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - multimark
+    - requires 6+ Tally
+    - reduces tally by 2
+    subCombos: 
+    effect: The Aurelian marks an ally in range 5. While marked, the ally gains flying,
+      evasion, dodge and their attacks deal bonus damage.
+    abilityIDInList: 73
+  - abilityName: Collect
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - requires 10 Tally
+    - resets tally
+    subCombos: 
+    effect: Every foe on the battlefield sacrifices down to 50% of their maximum
+      hp. Foes at 50% hp sacrifice down to 25%. Foes at 25% hp or lower are defeated.
+    abilityIDInList: 74
+  - abilityName: MONDO DESTROY!
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: At the start of the round, Mondo chooses any foe. At the end of the round,
+      Mondo <i>rushes</i> up to 6 spaces towards that foe, or until adjacent, with
+      each space of the movement ending closer to the chosen foe. If Mondo ends this
+      movement adjacent, they wallop the foe with awesome force. That foe is <i>stunned</i>
+      and must save or take 2[D] +fray, twice, or just once on a successful save.
+    abilityIDInList: 75
+  - abilityName: MONDO BASH
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    - range 2
+    - combo
+    subCombos: 4d000000
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray damage.\n<b>Greed: </b>Deals
+      bonus damage per valuables token Mondo or their target is holding. If 3+ tokens
+      in total, deals an extra +[D] on hit or miss."
+    abilityIDInList: 76
+  - abilityName: MONDO SMASH
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - true strike
+    - range 2
+    - medium blast
+    - combo
+    subCombos: 
+    effect: "<b>On hit: </b>2[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray
+      damage.\n<b>Greed: </b>Deals bonus damage per valuables token Mondo or any
+      character in the area is holding. If 3+ tokens total, <i>stuns</i> all characters
+      inside."
+    abilityIDInList: 77
+  - abilityName: MONDO SPINNING LARIAT
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: Mondo <i>rushes</i> 2, three times, in the same direction. Each time
+      they finish a rush, they shove all adjacent characters 2.
+    abilityIDInList: 78
+  - abilityName: MONDO SPIRAL CRUSHER
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "Mondo flings an adjacent character high into the air, removing them
+      from the battlefield, then chooses a space in range 3. At the start of that
+      character\u2019s next turn, they return to the battlefield in that space, or
+      as close as possible if it\u2019s occupied, dealing 5 damage to all adjacent
+      characters. That character is <i>weakened.</i>"
+    abilityIDInList: 79
+  - abilityName: Scrapstorm
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - pierce
+    - small blast
+    - range 8
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray and foe becomes <i>vulnerable.</i> \n<b>Miss
+      or area <i>effect:</i> </b>fray.\n<b>Effect: </b>At round 3+, deals bonus damage,
+      becomes a medium blast, and also creates a valuables token in its area."
+    abilityIDInList: 80
+  - abilityName: Pile it up
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: "The Hoarder creates a height 1 scrap pile <i>object</i> in a space in
+      range. Characters adjacent to it when it is created takes 1 damage twice and
+      are shoved 1. If created under a character, it pushes them up on top of it
+      instead. \n<b>Greed: </b>Increase damage, height and shove by +1"
+    abilityIDInList: 81
+  - abilityName: Weigh Down
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    - mark
+    subCombos: 
+    effect: "The Hoarder causes junk to accumulate and stick to a foe of its choice
+      in range. That foe is marked. While marked, the foe cannot dash or <i>rush,</i>
+      and drops a valuables token in an adjacent space of their choice at the end
+      of their turn. A foe can end this mark if they don\u2019t move for their entire
+      turn."
+    abilityIDInList: 82
+  - abilityName: Great Junk form
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Hoarder transforms into junk, then swaps places with any free valuables
+      token, removing and placing it.
+    abilityIDInList: 83
+  - abilityName: Pay the Ferryman
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - +1 boon
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray damage.\n<b><i>Effect:</i>
+      </b>This attack breaks master cloak. If this attack breaks Master cloak, deals
+      added base damage equal to twice the round number plus twice the number of
+      valuables tokens the Ring Finger is holding.\n<b>Effect: </b>The Ring Finger
+      may teleport 2 spaces before and after the attack."
+    abilityIDInList: 84
+  - abilityName: Mug
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - combo
+    subCombos: 56000000
+    effect: An adjacent foe is <i>dazed.</i> If they have a valuables token, that
+      foe takes 3 damage, then the ring finger gains a valuables token.
+    abilityIDInList: 85
+  - abilityName: Swindle
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - combo
+    subCombos: 
+    effect: Swap places with a character in range 3, teleporting. Foes can save to
+      avoid this <i>effect.</i>
+    abilityIDInList: 86
+  - abilityName: Blinding Dust
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    subCombos: 
+    effect: The Ring Finger throws <i>blinding</i> dust at a small blast location
+      in range. Characters within take fray damage and must save or become blinded.
+    abilityIDInList: 87
+  - abilityName: Drop Caltrops
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - terrain effect
+    - 1/ round
+    subCombos: 
+    effect: The Ring Finger creates a line 3 area of difficult and dangerous terrain.
+    abilityIDInList: 88
+  - abilityName: Too Rich to Care
+    actionCost: interrupt
+    isAttack: 0
+    additionals:
+    - costs 3 Assets
+    subCombos: 
+    effect: "<b>Trigger: </b>The Baron or an ally in range 3 is targeted by an ability.
+      \n<b><i>Effect:</i> </b>The target gains <i>resistance</i> and unstoppable
+      against the ability."
+    abilityIDInList: 89
+  - abilityName: Lucky Day
+    actionCost: free
+    isAttack: 0
+    additionals:
+    - costs 1 Assets
+    subCombos: 
+    effect: 'A character in range 6 gains a valuables token. '
+    abilityIDInList: 90
+  - abilityName: Fortune Maker
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - costs 3 Assets
+    - 1/ round
+    - range 4
+    - multi-mark
+    subCombos: 
+    effect: "The Baron chooses an ally in range and motivates them with promises
+      of extreme wealth, marking them. That ally\u2019s attacks can no longer miss
+      and they can no longer fail saves."
+    abilityIDInList: 91
+  - abilityName: Problem Solver
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    - costs 4 Assets
+    - 1/round
+    subCombos: 
+    effect: "The Baron creates a Crony, a new character, in range. The Crony is an
+      ally of the Baron that doesn\u2019t take its turn independently, but acts on
+      the Baron\u2019s turn. <indent=15%>\\n<b>Crony</b> \\nSize 1, no vit, 10 hp,
+      8 def, spd 4/2 \\nWhen created, or on the baron\u2019s turn, may use its standard
+      move to move 4 spaces, then makes one of the following attacks:\\n\u2022 Blunderbuss\\n\u2022
+      Arkentech Explosives"
+    abilityIDInList: 92
+  - abilityName: Blunderbuss
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 6
+    - pierce
+    subCombos: 
+    effect: "<b>On hit: </b>5 damage. \n<b>Miss: </b>2 damage.\n<b>Greed: </b>+2
+      damage"
+    abilityIDInList: 93
+  - abilityName: Arkentech Explosives
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 4
+    - small blast
+    - true strike
+    subCombos: 
+    effect: "<b>Area <i>effect:</i> </b>2 piercing damage, shove 1. \n<b>Greed: </b>+2
+      damage"
+    abilityIDInList: 94
+  - abilityName: Arkentech Force Beam
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 3
+    - pierce
+    subCombos: 
+    effect: "<b>Autohit: </b>fray. \n<b>Area <i>Effect:</i> </b>All foes in range
+      3 of the Baron take fray damage. Shove all affected foes 1 either away from
+      or towards the Baron."
+    abilityIDInList: 95
+  - abilityName: Pay Off
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    - mark
+    subCombos: 
+    effect: The Baron gives a foe in range a valuables token. That foe must then
+      save or become marked. While marked and holding at least one valuables token,
+      they are <i>pacified+.</i>
+    abilityIDInList: 96
+  - abilityName: Count Money
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - end turn
+    - 1/ round
+    subCombos: 
+    effect: The Baron gains 6 Assets and gains <i>resistance</i> until the start
+      of their next turn.
+    abilityIDInList: 97
+  - abilityName: Knife Juggling
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: At the start of the round, the twins choose a character in range 3 of
+      one of the twins. At the end of the round, each twin flings a knife at that
+      character. Each knife deals 4 piercing damage if the chosen character is in
+      range 3, or just 1 piercing damage if they are further away.
+    abilityIDInList: 98
+  - abilityName: Twirling Blade
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: At the start of the round, the twins summon a twirling blade in range
+      3 of one of the twins. The blade is a summon. Foes that <i>collide</i> with
+      a blade or start their turn adjacent to a blade take 2 piercing damage. If
+      a blade collides with a character, it also deals 2 piercing damage to them.
+      Characters can be damaged by multiple blades at once.
+    abilityIDInList: 99
+  - abilityName: Turnabout
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "If both twins are in range 5 of each other, they remove themselves from
+      the battlefield, then switch places, placing them back in each other\u2019s
+      positions. When they land, they deal 2 damage to all adjacent foes."
+    abilityIDInList: 100
+  - abilityName: Gemini
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - combo
+    subCombos: 66000000
+    effect: "<b>On hit: </b>[D] +fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Both
+      twins can dash 3 before the attack is made. If both twins are then adjacent
+      to the target, the target takes bonus damage from this attack."
+    abilityIDInList: 101
+  - abilityName: Twist Knife
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - combo
+    subCombos: 67000000
+    effect: "<b>On hit: </b>2 damage, five times. \n<b>Miss: </b>2 damage.\n<b><i>Effect:</i>
+      </b>Foe is <i>dazed.\n<b>Effect:</i> </b>If both twins are 3 spaces away from
+      each other, they deal 2 piercing damage again to all adjacent foes."
+    abilityIDInList: 102
+  - abilityName: Mortal Wound
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - combo
+    subCombos: 
+    effect: "<b>On hit: </b>2[D]+fray. \n<b>Miss: </b>[D]+fray.\n<b><i>Effect:</i>
+      </b>Deeply wounds the target. While suffering from this effect, they must sacrifice
+      3 after using any ability. This effect ends when they are defeated, or they
+      can remove it by ending their turn without attacking."
+    abilityIDInList: 103
+  - abilityName: Kick Off
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - combo
+    subCombos: 69000000
+    effect: "The twin flies 3, kicking off an adjacent character, with different
+      <i>effects</i> depending on that character: \n\u2022 Foe - Foe takes 2 damage
+      and is shoved 2 \n\u2022 Other Twin - Other twin can fly 3 \n\u2022 Twirling
+      Blade - Blade is shoved 2."
+    abilityIDInList: 104
+  - abilityName: Spin
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - combo
+    subCombos: 
+    effect: Both twins deal 2 damage to all adjacent foes as an area <i>effect.</i>
+      Any Twirling Blades adjacent to a twin spin again, dealing 2 piercing damage
+      to all adjacent foes.
+    abilityIDInList: 105
+  - abilityName: Venom Cloud
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - combo
+    subCombos: 
+    effect: All adjacent foes to a twin must save or become <i>blinded.</i> The twins
+      gain evasion until the end of the current round.
+    abilityIDInList: 106
+  - abilityName: Twirling Blade II
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: At the start of the round, the twins summon two twirling blades in range
+      3 either twin. The blades are a summon. Foes that <i>collide</i> with a blade
+      or start their turn adjacent to a blade take 2 piercing damage. If a blade
+      collides with a character, it also deals 2 piercing damage to them. Characters
+      can be damaged by multiple blades at once.
+    abilityIDInList: 107
+  - abilityName: Blood Bond
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: Swap places with a Blood Brother in range 3, removing and placing both
+      characters.
+    abilityIDInList: 108
+  - abilityName: First Blood
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 3
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>May
+      dash 1 before and after attack.\n<b>Effect: </b>Attack gains +1 dash and deals
+      +2 damage on hit or miss per fallen brother."
+    abilityIDInList: 109
+  - abilityName: The Boot
+    actionCost: free
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "An adjacent foe is shoved 1. If they\u2019re bloody, they are instead
+      shoved 3. \n<b><i>Collide:</i> </b>Foe is <i>weakened.</i>"
+    abilityIDInList: 110
+  - abilityName: Flying Dropkick
+    actionCost: 2
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "Boots <i>rushes</i> 3 towards a foe. Then, if they are adjacent to that
+      foe, that foe takes take D]+fray and is shoved 3. \n<b><i>Collide:</i> </b>Foe
+      is <i>stunned.</i>"
+    abilityIDInList: 111
+  - abilityName: Grapple
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - mark
+    subCombos: 
+    effect: Fixer marks an adjacent foe. While marked, that foe must save if it attempts
+      to break adjacency the first time in a round. On a failed save, it becomes
+      unable to exit adjacency with Fixer by any means for the rest of the current
+      round. On a successful save, the mark and this <i>effect</i> ends, but the
+      foe is <i>weakened.</i>
+    abilityIDInList: 112
+  - abilityName: Poison gas
+    actionCost: 2
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: <b>Area <i>effect:</i> </b>small blast. Characters in the area take 6
+      damage. Then, they must save or take 6 damage again and become <i>blinded.</i>
+      Blinded characters fail this save.
+    abilityIDInList: 113
+  - abilityName: Feline Felicity
+    actionCost: Free
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: Teleport 3, then may deal 2 damage to an adjacent foe. Bloodied foes
+      take 2 damage twice.
+    abilityIDInList: 114
+  - abilityName: Fan of Nya-ives
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "<b>Area <i>effect:</i> </b>Medium Blast. \n<b>Effect: </b>Foes take
+      3 damage. Bloodied foes take 3 damage twice. Then, Cats may teleport 2."
+    abilityIDInList: 115
+  - abilityName: Great Aura of Skulduggery
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: Until the start of their next turn, Sharkie is immobile and gains Aura
+      2. Sharkie and allies in the aura have evasion and <i>counter.</i> Foes that
+      trigger counter or evasion are also shoved 2 after the triggering ability resolves.
+    abilityIDInList: 116
+  - abilityName: Great Swindle
+    actionCost: free
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: A foe in range 3 is <i>sealed,</i> then must save or swap places with
+      Sharkie, teleporting. Bloodied characters fail the save.
+    abilityIDInList: 117
+  - abilityName: Nighthaunt
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - end turn
+    - combo
+    subCombos: 00000000
+    effect: Pale teleports 3, then becomes <i>intangible</i> and gains <i>phasing</i>
+      until the start of their next turn. This action grants evasion instead if they
+      are the only Brother active
+    abilityIDInList: 118
+  - abilityName: Midnight Blade
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - combo
+    subCombos: 
+    effect: "<b>On hit: </b>3D]+fray. \n<b>Miss: </b>[D]+fray.\n<b><i>Effect:</i>
+      </b>Deals half damage if foe has any amount of vigor. Deals bonus damage if
+      foe is bloodied."
+    abilityIDInList: 119
+  - abilityName: Ricochet shot
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - pierce
+    - range 10
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray and foe is <i>shattered.</i> \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+      </b>A different foe in range 3 from the original target takes fray damage.\n<b>Effect:
+      </b>Deals bonus damage against bloodied foes."
+    abilityIDInList: 120
+  - abilityName: Spark
+    actionCost: free
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "Choose a foe in range 6 that has not acted this round. At the end of
+      that foe\u2019s next turn, they explode in a small blast area <i>effect</i>
+      for [D]+fray piercing damage, dealing damage to all foes other than them in
+      the area. Summon a pit under them. If they are standing in a pit when the explosion
+      happens, they are <i>stunned</i> and also take damage."
+    abilityIDInList: 121
+  - abilityName: Blood Pyre
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 6
+    - medium blast
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b>Effect:
+      </b>Summon a pit under every bloodied character in the area. Deals bonus damage
+      to characters inside pits."
+    abilityIDInList: 122
+  - abilityName: Bloody Bond
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - mark
+    subCombos: 
+    effect: "Mark an ally in range 4. While marked and in range, that ally has <i>resistance</i>
+      to all damage, but Broker must sacrifice 3 at the end of that ally\u2019s turn.\r"
+    abilityIDInList: 123
+  - abilityName: Bounty Hunt
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - mark
+    subCombos: 
+    effect: A foe in range 6 is marked. While marked, abilities against the target
+      gain true strike, and allies gain +1 boon to attack the foe. Using this mark
+      again transfers it. A foe can end this mark by ending their turn more than
+      2 spaces away from any Brother.
+    abilityIDInList: 124
+  - abilityName: Weakening Venom
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: A foe in range 6 is <i>pacified+.</i> They can purge the venom from their
+      system at the end of any turn they attack, ending this <i>effect.</i>
+    abilityIDInList: 125
+  - abilityName: Grand Transmutation
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: At the start of the round, all foes gain 1 net worth.
+    abilityIDInList: 126
+  - abilityName: Halcyon World
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: At the start of the round, the Midan creates a height 3 golden pillar
+      in free space anywhere on the battlefield. At the end of the round, a foe increases
+      their net worth by 1 for each of these pillars they are adjacent to.
+    abilityIDInList: 127
+  - abilityName: Glittering World
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "The Midan injects the closest foe to them with powerful metal aether.
+      If there are foes at an equal distance, it can choose. This has the following
+      <i>effects</i>: \n\u2022 Increase that character\u2019s net worth by 1d6. Even
+      if that character would go to 10 net worth, they are not defeated. \n\u2022
+      Instead, at the end of the round, the affected character explodes, dealing
+      piercing damage equal to twice their net worth to all allies and destructible
+      <i>objects</i> in a large blast area effect explosion centered on them with
+      true strike and increasing allies\u2019 net worth in the area by 2. Then, they
+      reduce their net worth by 4 and end this effect."
+    abilityIDInList: 128
+  - abilityName: Molten Creation
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - line 10
+    - 1/ round
+    subCombos: 
+    effect: The Midan blasts a line 10 area <i>effect</i> drawn from its position.
+      Foes in the area increase their net worth by 1. The Midan can then duplicate
+      any of its terrain effects or <i>objects</i> in the area, creating exact copies
+      in a free adjacent space to the original effect.
+    abilityIDInList: 129
+  - abilityName: Market Evaluation
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    - 1/ round
+    subCombos: 
+    effect: The Midan chooses a burst 2 (target space) in range. It may swap the
+      positions of any characters or <i>objects</i> in the area, including itself,
+      removing and placing them. It may then swap the net worth of two characters
+      in the area
+    abilityIDInList: 130
+  - abilityName: Molten Shell
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - 1/round
+    subCombos: 
+    effect: The Midan surrounds itself with a molten gold shell, gaining a d6 power
+      die with 1 charge per player (max 6). The Midan becomes resistant to all damage
+      and unstoppable while the metal shell is active. However, when it would take
+      damage, reduce the metal shell power die by 1, then increase the net worth
+      of whoever dealt the damage by 2. When the die reaches 0, the shell cracks
+      and this <i>effect</i> ends.
+    abilityIDInList: 131
+  - abilityName: Melt
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - 1/round
+    subCombos: 
+    effect: "The Midan removes itself from the battlefield, then places itself in
+      free space in range 3.\r"
+    abilityIDInList: 132
+  - abilityName: The Weight
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 6
+    - small blast
+    - combo
+    subCombos: 86000000
+    effect: "<b>On hit: </b>[D]+ twice net worth. \n<b>Miss or area <i>effect:</i>
+      </b>twice net worth.\n<b>Effect: </b>All characters in the area are shoved
+      1 and have their net worth increased by 1."
+    abilityIDInList: 133
+  - abilityName: Golden Glove
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - +1 boon
+    - true strike
+    - range 3
+    - combo
+    subCombos: 87000000
+    effect: "<b>On hit: </b>[D] +fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Foe
+      must save or be shoved 1 for every 2 net worth they have, or just 1 space on
+      a successful space. Then, they gain 1 net worth.\n<b><i>Collide:</i> </b>Foe
+      is <i>stunned.</i>"
+    abilityIDInList: 134
+  - abilityName: Take Measure
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - range 4
+    - medium blast
+    - pierce
+    - combo
+    subCombos: 
+    effect: "<b>On hit: </b>2[D]+ twice net worth. \n<b>Miss or area <i>effect:</i>
+      </b>twice net worth.\n<b>Effect: </b>Foe is <i>shattered.\n<b>Effect:</i> </b>Foes
+      in the area gain 1 net worth. Bloodied foes gain 2."
+    abilityIDInList: 135
+  - abilityName: Scatter Wealth
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    subCombos: 
+    effect: Create a coin pile difficult terrain space in any space in range. The
+      Midan is not slowed by these spaces, and when it takes this action, it may
+      dive into the ground, then appear inside the coin space. When it emerges, deal
+      2 piercing damage to all adjacent foes.
+    abilityIDInList: 136
+  - abilityName: Glimmer
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - end turn
+    - combo
+    subCombos: 8a000000
+    effect: "<b>Terrain <i>effect:</i> </b>the Midan creates a height 1 volatile
+      gem <i>object</i> in free space in range. <indent=15%>\\n<b>Volatile Gem</b>
+      \\nHeight 1 Object, 1 hp \\n<b>Object effect: </b>Explodes when taking damage
+      from any ability (including the Midan\u2019s), destroying them. When destroyed,
+      each object deals 1 piercing damage, once, to all adjacent foes for every net
+      worth, then increases their net worth by 1."
+    abilityIDInList: 137
+  - abilityName: Crystallize
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - combo
+    subCombos: 8b000000
+    effect: The Midan creates a geode in free space underneath any foe. The geodes
+      are pits, and foes inside are <i>vulnerable+.</i> Foes that end their turn
+      inside a geode increase their net worth by +1 and become vulnerable.
+    abilityIDInList: 138
+  - abilityName: Aurelian bomb
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - combo
+    subCombos: 
+    effect: "<b>Terrain <i>Effect:</i> </b>The Midan creates a bomb of molten gold
+      in range. <indent=15%>\\n<b>Aurelian Bomb</b> \\nHeight 1 <i>object,</i> 10
+      hp \\n<b>Object effect: </b>When the Midan summons a bomb, it may choose to
+      detonate any Aurelian bombs that it didn\u2019t place this turn. Bombs explode
+      with a medium blast area effect centered on them, shattering all foes inside,
+      dealing piercing fray damage four times to all foes and objects inside, then
+      increasing all foes net worth by 2 in the area."
+    abilityIDInList: 139
+  - abilityName: The Price is Right
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "At the start of the round, the Midan shows the characters three golden
+      caskets (a left, right, and center casket). \\n\\nThe GM secretly assigns a
+      number to each casket, from 1 to 3. They must then tell the players what each
+      number does, but not which numbers have been assigned to each casket - that\u2019s
+      up to the players to find out! \\n\\nCharacters must choose a casket (left,
+      right, center), and must decide which casket to choose at the start of the
+      round. \\n\\nThen, the Midan hides the caskets. At the end of the round, they
+      return the caskets and open them, showing the numbers, in order, applying the
+      <i>effects</i> to all characters that chose that casket, then hiding the caskets
+      again. \\n\u2022 <b>Casket #1: </b>Increase net worth by 1, then receive 1
+      dust. \\n\u2022 <b>Casket #2: </b>Reduce net worth to 0 \\n\u2022 <b>Casket
+      #3: </b>Double net worth."
+    abilityIDInList: 140

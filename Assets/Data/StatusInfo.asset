@@ -1,0 +1,158 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac5789a0d039a0d46804c84ed86483a8, type: 3}
+  m_Name: StatusInfo
+  m_EditorClassIdentifier: 
+  displayBlights:
+  - image: {fileID: 21300000, guid: 41c5a0bdd8799cc4aab21e6736e82263, type: 3}
+    blight: 0
+    blightDescription: Receives extra damage from any ability that would deal Burning.
+  - image: {fileID: 21300000, guid: 028c0e54f2326d44ca3bdc788671cef3, type: 3}
+    blight: 1
+    blightDescription: Receives extra damage from any ability that would leave you
+      Electrified.
+  - image: {fileID: 21300000, guid: fa0b239da1528634aac940668912dccf, type: 3}
+    blight: 2
+    blightDescription: Receives extra damage from any ability that would leave you
+      Poisoned.
+  - image: {fileID: 21300000, guid: 8db43ba547b5d574d83ee840076fca2d, type: 3}
+    blight: 3
+    blightDescription: Receives extra damage from any ability that would deal Frostbite.
+  displayStatus:
+  - image: {fileID: 21300000, guid: d1c027e70b164d84b8a9856bfe27ceb9, type: 3}
+    status: 0
+    statusDescription: Max range of all abilities is 2.
+  - image: {fileID: 21300000, guid: 7307a82dce34fab4699d16ad7a329f98, type: 3}
+    status: 1
+    statusDescription: +1 curse on attack rolls.
+  - image: {fileID: 21300000, guid: 00e056bf9ee2144499f9d19bd02b7635, type: 3}
+    status: 2
+    statusDescription: When taking actions against a foe, must include X character
+      as a target for the action to be valid, as long as that character is in line
+      of sight and in range 3 of either you or your target. <b>(Remember to make
+      a mark towards the target of this status!)
+  - image: {fileID: 21300000, guid: f26ffb9ed081ad14bb2d7364fa294ac2, type: 3}
+    status: 4
+    statusDescription: Character deals half damage. Breaks on taking damage from
+      an ability.
+  - image: {fileID: 21300000, guid: deb1d8c896667d34995ef47ece912b9b, type: 3}
+    status: 5
+    statusDescription: Character cannot gain or benefit from vigor.
+  - image: {fileID: 21300000, guid: 5606c3a130b9dc24e89591598b8529e1, type: 3}
+    status: 6
+    statusDescription: "Can\u2019t take interrupts. Your next ability used ends your
+      turn, then end this status"
+  - image: {fileID: 21300000, guid: b448601e5e4bf024999bb60cb71e5464, type: 3}
+    status: 7
+    statusDescription: Take 4 damage after you or an ally uses an ability that moves
+      you, but no more than once a turn
+  - image: {fileID: 21300000, guid: 627c01a09f333f542b230a111a874e8d, type: 3}
+    status: 8
+    statusDescription: All damage taken increased by 1.
+  - image: {fileID: 21300000, guid: ffa96b892e1fb064d8734676a8905b65, type: 3}
+    status: 9
+    statusDescription: At or under 50% hp.
+  - image: {fileID: 21300000, guid: 88aafbcb84734d9428c28755b5c8aaaa, type: 3}
+    status: 10
+    statusDescription: "When a character is reduced to or below 0 hp, they are incapacitated
+      and can\u2019t do anything"
+  - image: {fileID: 21300000, guid: 94d569ddf7b5b9743bf0c2a79f5f1d85, type: 3}
+    status: 11
+    statusDescription: "When a character is immobile, they can\u2019t move in any
+      way. However, other characters can still shove or teleport them."
+  - image: {fileID: 21300000, guid: 2a978a57d50fb224ea80496b734712df, type: 3}
+    status: 12
+    statusDescription: Character cannot inflict statuses
+  - image: {fileID: 21300000, guid: dfb86c5b931a04d42ba675fbaebe0caf, type: 3}
+    status: 3
+    statusDescription: All damage dealt reduced by 2
+  displayEffects:
+  - image: {fileID: 21300000, guid: c4b3512ae4dd0ee4d83042ce5bcba898, type: 3}
+    effect: 0
+    effectDescription: Each time a foe deals damage to you with an ability, deal
+      2 damage back.
+  - image: {fileID: 21300000, guid: 63a8c2f089b2d174fba0ec88f803c6d4, type: 3}
+    effect: 1
+    effectDescription: Prevents hit points from being reduced past 1 hp. When this
+      triggers, remove this effect and character becomes immune to all damage for
+      the rest of the current turn.
+  - image: {fileID: 21300000, guid: 457d830ead31ee740bb066859cf79687, type: 3}
+    effect: 2
+    effectDescription: Damage from this ability ignores armor, resistance, defiance,
+      and bypasses vigor.
+  - image: {fileID: 21300000, guid: 7a4ecb6ed3ec7894789176d85ebb60c9, type: 3}
+    effect: 3
+    effectDescription: Immune to all damage from misses, successful saves, and area
+      effects.
+  - image: {fileID: 21300000, guid: fb8a1a5c6c083ec43ab8a50463cf84ee, type: 3}
+    effect: 4
+    effectDescription: Roll a d6 when targeted by an attack. On a 4+, the attack
+      automatically misses. Check before the attack roll.
+  - image: {fileID: 21300000, guid: 36a5c6d40a52a394e9cdc5e0610a7520, type: 3}
+    effect: 5
+    effectDescription: A flying character ignores all terrain, objects, and terrain
+      effects other than impassable terrain, and ignores engagement and obstruction.
+  - image: {fileID: 21300000, guid: 4ee9bbdf193ac7b46b993cfd0b5d68f9, type: 3}
+    effect: 6
+    effectDescription: Immune to damage and effects from foes. Does not provide obstruction
+      or engagement
+  - image: {fileID: 21300000, guid: ef28a66d1ffbc8442b7b04078b42a7f2, type: 3}
+    effect: 7
+    effectDescription: Can ignore obstruction and pass through, but not end your
+      turn in, terrain, objects, or characters.
+  - image: {fileID: 21300000, guid: a35317502f26176418d4e14cae86b30e, type: 3}
+    effect: 8
+    effectDescription: Damage cannot be reduced by armor or weakened
+  - image: {fileID: 21300000, guid: 107ac22b2ac55da48990c90bed3bef8e, type: 3}
+    effect: 9
+    effectDescription: If bloodied, gain 4 vigor at the end of your turn
+  - image: {fileID: 21300000, guid: 5529adbf7b622cc439f83e12af5d2b32, type: 3}
+    effect: 10
+    effectDescription: Can move diagonally, and dash is full speed.
+  - image: {fileID: 21300000, guid: be619c997f7bf494ba72334ae9a59486, type: 3}
+    effect: 11
+    effectDescription: Cannot be directly targeted except from an adjacent space.
+      Breaks on using any ability other than dash.
+  - image: {fileID: 21300000, guid: 6a1d09b500816b8418a560053534cfd8, type: 3}
+    effect: 12
+    effectDescription: When moved or removed and placed by a foe, can only be moved
+      max 1 space a turn
+  - image: {fileID: 21300000, guid: 3c8146e1710e1db47aa11a25cb8a532e, type: 3}
+    effect: 13
+    effectDescription: Ignores dodge, blind, evasion, and stealth.
+  - image: {fileID: 21300000, guid: 3d914508c3a3a3d4b8aa5ca4cac921b6, type: 3}
+    effect: 14
+    effectDescription: Immune to all statuses. Cannot be moved by foes, and movement
+      ignores engagement and rampart
+  - image: {fileID: 21300000, guid: e2070e4eba61f914a9205a545715f51e, type: 3}
+    effect: 15
+    effectDescription: "A special effect with X charges, each represented by a d6.
+      Like triggered effects, vigilance can only be used once per trigger. Vigilance
+      charges stack if a character gains more than one. A character can spend any
+      number of charges of Vigilance for one of the following effects, rolling 1d6
+      per charge spent and picking the highest result: \u2022 When an ally in range
+      2 is damaged by a foe\u2019s ability, reduce the damage by the amount rolled
+      as if with armor \u2022 When a foe breaks adjacency with you, deal that much
+      damage to them."
+  - image: {fileID: 21300000, guid: 26924f7c618153644bcae6047d6a2a58, type: 3}
+    effect: 16
+    effectDescription: Gain a shield that goes over your hit points, equal to your
+      VIT value. Damage goes to Vigor before Hit Points, and it benefits from armor
+      and resistance. Vigor stacks, but cannot go past 25% of your hp. If you gain
+      a vigor surge, gain maximum vigor. Lose all vigor at the end of combat.
+  - image: {fileID: 21300000, guid: 7b9345579a9826d4eb115a88a8ff4c40, type: 3}
+    effect: 17
+    effectDescription: Foes cannot enter or exit a space affected by a rampart effect
+      by dashing, flying, or teleporting
+  - image: {fileID: 21300000, guid: 943b491a663da6d41975d36f32db469a, type: 3}
+    effect: 18
+    effectDescription: Ignores cover and aetherwall

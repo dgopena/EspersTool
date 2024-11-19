@@ -1,0 +1,948 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67141eeaaa860ee4f8df8f96dfaec8c8, type: 3}
+  m_Name: Folk_Ab
+  m_EditorClassIdentifier: 
+  abilities:
+  - abilityName: Peal of Reckoning
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 3
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Target
+      must save or be shoved 1 three times, or shoved 1 on a successful save. Each
+      shove can be in a different direction.\n<b>Charge: </b>Range 6"
+    abilityIDInList: 0
+  - abilityName: Forbiddance
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    subCombos: 
+    effect: "The temple monk chooses a foe in range. That foe is <i>sealed</i> and
+      until the end of their next turn, takes 2 damage after entering any space that
+      moves them closer to the Temple Monk without being shoved. \r"
+    abilityIDInList: 1
+  - abilityName: Prayer
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    - delay
+    subCombos: 
+    effect: The temple monk ends their turn and gains Delay - Their next turn must
+      be slow. At the start of that turn, this character and all adjacent allies
+      are <i>cured.</i>
+    abilityIDInList: 2
+  - abilityName: Fist of Fury
+    actionCost: 1
+    isAttack: 1
+    additionals: []
+    subCombos: 
+    effect: "<b>On hit: </b>[D] + fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Attack
+      target is <i>weakened.\n<b>Charge:</i> </b>Deal 2 damage to all adjacent foes."
+    abilityIDInList: 3
+  - abilityName: Roundhouse kick
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Bell Warden <i>rushes</i> 1, then adjacent character is shoved 1
+      in any direction, including diagonally.
+    abilityIDInList: 4
+  - abilityName: Temple Bell
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - summon
+    - end turn
+    - delay
+    subCombos: 
+    effect: "The Bell Warden ends their turn and gains Delay: Their next turn must
+      be slow. At the start of that turn, summon a temple bell in a free adjacent
+      space. <indent=15%>\\n<b>Temple Bell</b> \\nSize 1 <i>object</i> Object <i>effect:</i>
+      \\nWhen summoned, or when a character <i>collides</i> with it, releases a massive
+      ringing. All characters in range 2 except the Bellkeeper must save or become
+      <i>weakened.</i> Weakened characters take fray damage twice instead of saving.
+      This effect can\u2019t trigger more than once a round. Multiple bells can be
+      summoned at once.</indent>"
+    abilityIDInList: 5
+  - abilityName: Axe Kick
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - +1 boon
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Deals
+      bonus damage to bloodied foes.\n<b>Charge: </b>Gains range 2 and may dash 2
+      before using this ability."
+    abilityIDInList: 6
+  - abilityName: Roppo
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: 'The Yaman takes a pose and gains the following interrupt until the start
+      of their next turn. \n<indent=15%><b>Roppo</b> \nInterrupt 2 \nTrigger: A foe
+      uses an ability in range 2, and the ability resolves <i>Effect:</i> The Yaman
+      may dash 2, then deal 2 damage to an adjacent foe.</indent>ent>'
+    abilityIDInList: 7
+  - abilityName: Hurl Boulder
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    subCombos: 
+    effect: A foe in range takes 2 damage, is <i>dazed,</i> and is shoved 1.
+    abilityIDInList: 8
+  - abilityName: Izuna Drop
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    - delay
+    subCombos: 
+    effect: 'The Yaman takes a pose, then ends their turn and gains <i>Delay: </i>Their
+      next turn must be slow. At the start of that turn, they may dash 2. Then, if
+      a foe is adjacent the Yaman grabs them, removing both of them from the battlefield,
+      then placing both of them back in free space adjacent to each other in range
+      2. The foe must save. On a successful save, they take fray damage and are <i>dazed.</i>
+      On a failed save, they are <i>stunned</i> and take 2[D]+fray.'
+    abilityIDInList: 9
+  - abilityName: Lightning Spear
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - Line 10
+    subCombos: 
+    effect: "<b>On hi: </b>2[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b>Effect:
+      </b>Attack target is <i>vulnerable.\n<b>Charge:</i> </b>Deal 2 piercing damage
+      again to target and to all foes in range 3 of the target"
+    abilityIDInList: 10
+  - abilityName: Reliquary
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    - mark
+    subCombos: 
+    effect: The inquisitor marks a foe in range. While marked, all damage against
+      the foe gains pierce, and that foe takes 1 piercing damage again after being
+      hit or missed by any attack.
+    abilityIDInList: 11
+  - abilityName: Expurgation
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    - delay
+    subCombos: 
+    effect: 'The Inquisitor ends their turn, chooses a large blast area in range
+      6, and gains <i>Delay: </i>Their next turn must be slow. At the start of that
+      turn, that area erupts with lightning.
+
+      <b>Area <i>effect:</i> </b>Characters
+      inside must save or take piercing fray damage, once, for every character in
+      the area, or just once on a successful save.'
+    abilityIDInList: 12
+  - abilityName: Knee in the back
+    actionCost: 1
+    isAttack: 1
+    additionals: []
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Deals
+      bonus damage if made from <i>stealth.</i>"
+    abilityIDInList: 13
+  - abilityName: Blackjack
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: An adjacent foe is <i>dazed.</i> If made from <i>stealth,</i> this action
+      also deals fray damage.
+    abilityIDInList: 14
+  - abilityName: Prowl
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: Dash 1 and gain <i>stealth</i>
+    abilityIDInList: 15
+  - abilityName: Wild Gamble
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: Roll 1d6. Dash exactly that many spaces in a straight line, or as far
+      as possible, then deal damage equal to the spaces moved to an adjacent foe.
+      If no foes are adjacent, deal no damage.
+    abilityIDInList: 16
+  - abilityName: Raze
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    - range 2
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>All
+      foes in range 2 take 2 damage."
+    abilityIDInList: 17
+  - abilityName: Swing Shovel
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "<i>Rush</i> 1, then Roll 1d6. An adjacent character takes that much
+      damage, and is shoved half that number of spaces. \n<b><i>Collide:</i> </b>Foe
+      is <i>stunned.</i>"
+    abilityIDInList: 18
+  - abilityName: Fertilize
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 2
+    subCombos: 
+    effect: The Deep Farmer chooses a space in range. At the end of their turn, this
+      space grows into a mushroom <i>object.</i> <indent=15%>\n<b>Mushroom</b> \nSize
+      1 object \n<b>Object <i>effect:</i> </b>Aura 1. Characters in the spore-filled
+      aura other than the Deep Farmer choke and are <i>weakened</i></indent>
+    abilityIDInList: 19
+  - abilityName: Pull Vegetable
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: The Deep farmer pulls out a massive vegetable by the roots. Its next
+      attack deals bonus damage and <i>stuns</i> on hit. Stunned foes are critically
+      hit (+[D]) on hit.
+    abilityIDInList: 20
+  - abilityName: Tranquilize
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 6
+    subCombos: 
+    effect: '<b>Autohit: </b>fray damage and foe is <i>pacified.</i> Pacified foes
+      take [D]+fray instead.'
+    abilityIDInList: 21
+  - abilityName: Grappling hook
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    subCombos: 
+    effect: The Guide teleports adjacent to a summon or <i>object</i> in range. Alternately,
+      it can teleport adjacent to a foe in range, then shove that foe 1.
+    abilityIDInList: 22
+  - abilityName: Double Time
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: Roll 1d6. The Guide chooses a number of allies equal to half that number,
+      then shoves them a number of spaces equal to that number in any direction.
+    abilityIDInList: 23
+  - abilityName: Ban from the shop
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    - multimark
+    subCombos: 
+    effect: "<b>Autohit: </b>fray damage. Foe is marked. While marked, if they end
+      their turn in the shop\u2019s aura, they take [D]+fray piercing damage."
+    abilityIDInList: 24
+  - abilityName: Chastise
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: <b><i>Effect:</i> </b>A character in range takes 1 piercing damage. If
+      that character attacks before the end of their next turn, they take [D]+fray
+      piercing damage and this effect ends.
+    abilityIDInList: 25
+  - abilityName: Open Shop
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: 'The Shopkeep opens their shop, a size 1 <i>object,</i> summoning it
+      in an adjacent space. It lasts until the shopkeep is defeated or this ability
+      is used again. <indent=15%>\n<b>Shop</b> \nSize 1 object, immobile \n<b>Object
+      <i>Effect:</i> </b>No fighting in the shop. Aura 1. Characters in the area
+      other than the shopkeep are <i>pacified+.</i> \n<b>Object Effect: </b>While
+      the shop is active, any character in the aura can use the Rummage action, which
+      ignores pacified.\n<indent=20%><b>Rummage (1 action): </b>The character rummages
+      in the shop and throws something at a character in range 3. Roll 1d6.\n<b>1.
+      10 foot pole: </b>Character takes 2 damage and is shoved 2\n<b>2. Lantern:
+      </b>character takes 4 damage and loses <i>stealth.</i> \n<b>3. Ration: </b>character
+      takes 1 damage. Place the ration in a free adjacent space. A character can
+      eat it by entering its space and using 1 action to gain 5 vigor \n<b>4. Bomb:
+      </b> Area effect: medium blast, deals [D]+fray damage \n<b>5. Strange mushroom:
+      </b>character takes fray damage and becomes <i>sealed.</i> \n<b>6. Choose two</b></indent></indent>ent>'
+    abilityIDInList: 26
+  - abilityName: Mace
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+Fray. \n<b>Miss: </b>fray."
+    abilityIDInList: 27
+  - abilityName: Shield Charge
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - repeatable
+    subCombos: 
+    effect: "The Guard <i>rushes</i> 1, then adjacent foe is shoved 1. \n<b><i>Collide:</i>
+      </b>Foe is <i>weakened.</i>"
+    abilityIDInList: 28
+  - abilityName: Get Down!
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: 'The Guard gains the following interrupt until the end of their next
+      turn. If the interrupt goes unused until then, they may <i>rush</i> 2. <indent=15%>\n<b>Get
+      Down</b> \nInterrupt 1 \n<b>Trigger: </b>An ally takes damage that would reduce
+      them to 0 hp. \n<b><i>Effect:</i> </b>The Guard can rush 3. If that puts them
+      adjacent to their ally, that ally goes to 1 hp instead, and the guard sacrifices
+      25% of their hp.</indent>'
+    abilityIDInList: 29
+  - abilityName: On the Spot
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    subCombos: 
+    effect: The Guard chooses a space in range, which could be under themselves.
+      While standing on the spot, the Guard has <i>resistance.</i> This <i>effect</i>
+      lasts until this ability is used again.
+    abilityIDInList: 30
+  - abilityName: Oath Sword
+    actionCost: 1
+    isAttack: 1
+    additionals: []
+    subCombos: 
+    effect: "<b>On hit: </b>[D] +fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Deals
+      bonus damage and <i>slashes</i> on hit if the knight is bloodied."
+    abilityIDInList: 31
+  - abilityName: Strike
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: An adjacent foe is <i>slashed.</i> Slashed foes take fray damage.
+    abilityIDInList: 32
+  - abilityName: Stinger
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Sky knight <i>rushes</i> 2 spaces in a straight line, then deals
+      3 damage, twice, to an adjacent foe. This action can only be taken if there
+      are no foes adjacent.
+    abilityIDInList: 33
+  - abilityName: Great Stride
+    actionCost: 2
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Sky Knight <i>rushes</i> up to 6 spaces in a straight line, <i>phasing</i>
+      through characters. Foes they pass through take 2 damage, and are then shoved
+      1 to either side, and the knight gains 2 vigor per foe passed through.
+    abilityIDInList: 34
+  - abilityName: Strafe shot
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 4
+    - +1 boon
+    subCombos: 
+    effect: "<b><i>Effect:</i> </b>Dash 1. \n<b>On hit: </b>[D] +fray.\n<b>Miss:
+      </b>fray.\n<b>Effect: </b>Dash 1"
+    abilityIDInList: 35
+  - abilityName: Double tap
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Aeronaut flies 3 spaces in a straight line. At the start and end
+      of their movement, they may deal 2 damage to a character in range 3, choosing
+      different characters each time.
+    abilityIDInList: 36
+  - abilityName: Blinding grenade
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    subCombos: 
+    effect: A foe in range 3 is <i>blinded.</i> Blinded foes take 3 damage.
+    abilityIDInList: 37
+  - abilityName: Takeoff
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - stance
+    subCombos: 
+    effect: The Aeronaut launches into the air. While in this stance, they are flying
+      and have evasion. They lose this stance if they are hit by an attack.
+    abilityIDInList: 38
+  - abilityName: High Pressure
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - range 6
+    - large blast
+    - pierce
+    subCombos: 
+    effect: "<b>On hit: </b>fray damage, four times. \n<b>Miss or area <i>effect:</i>
+      </b>fray.\n<b>Effect: </b>Can target one end of a portal. If so, the attack
+      travels through the portal and is then retargeted to a new space or character
+      within range 3 of the other end of the portal, as if by rebound."
+    abilityIDInList: 39
+  - abilityName: Whisk
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: A foe in range becomes <i>vulnerable,</i> then is teleported 1. Vulnerable
+      foes are teleported 3 instead.
+    abilityIDInList: 40
+  - abilityName: Aether Portal
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Aerothurge chooses any two free spaces on the battlefield and links
+      them with glowing portals. <indent=15%>\n<b>Portal</b> \nSize 1 <i>object</i>
+      \n<b>Object <i>effect:</i> </b>Any character adjacent to a portal can spend
+      2 spaces of movement to teleport adjacent to the other linked portal, or vice
+      versa.</indent>
+    abilityIDInList: 41
+  - abilityName: Hot Griddle
+    actionCost: 1
+    isAttack: 1
+    additionals: []
+    subCombos: 
+    effect: "<b>On hit: </b>[D] +fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Foe
+      is <i>sealed.\n<b>Effect:</i> </b>Critical hit (+[D]) against sealed foes."
+    abilityIDInList: 42
+  - abilityName: Flapjack
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    - repeatable
+    subCombos: 
+    effect: "The cook summons a flapjack in range. <indent=15%>\\n<b>Flapjack</b>
+      \\nSize 1 summon, <i>intangible</i> \\n<b>Summon <i>Effect:</i> </b>A character
+      other than the cook moving into the flapjack\u2019s space can pick it up, removing
+      it. That character gains defiance. A character that already has defiance gains
+      6 vigor. A character with vigor becomes unstoppable until the end of their
+      next turn.</indent>"
+    abilityIDInList: 43
+  - abilityName: Cook up a storm
+    actionCost: 2
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "The Cook creates a burst 2 (self) terrain <i>effect</i> until the start
+      of their next turn. Foes in the area are shoved until outside the of area when
+      it is created. The area is dangerous terrain for foes, provides cover for allies,
+      and allies in the area when it is created gain 3 vigor.\r"
+    abilityIDInList: 44
+  - abilityName: Bloody crescent
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    - arc 3
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray"
+    abilityIDInList: 45
+  - abilityName: Sea Legs
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "Shove all adjacent characters 1 space in the same direction. \n<b><i>Collide:</i>
+      </b>foes are <i>slashed.</i>"
+    abilityIDInList: 46
+  - abilityName: Plunder
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - repeatable
+    subCombos: 
+    effect: The Sailor dashes 1, then deals 2 damage and shoves an adjacent foe 1
+    abilityIDInList: 47
+  - abilityName: Send to Erenhelion
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - true strike
+    subCombos: 
+    effect: "The Sailor winds up for a massive blow. An adjacent foe must save or
+      take 3[D]+fray and become <i>slashed,</i> or just [D]+fray on a successful
+      save. \n<b><i>Effect:</i> </b>The Sailor sacrifices 25% of their maximum hp
+      after this ability resolves."
+    abilityIDInList: 48
+  - abilityName: Spear Slash
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 3
+    - +1 boon
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Deals
+      bonus damage to and gains <i>unerring</i> against foes at exactly range 3."
+    abilityIDInList: 49
+  - abilityName: Slide
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - repeatable
+    subCombos: 
+    effect: The Diver dashes 3 with <i>phasing,</i> dealing 2 damage to all characters
+      it passes through.
+    abilityIDInList: 50
+  - abilityName: Dive
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - range 4
+    - end turn
+    subCombos: 
+    effect: "The Diver chooses a foe in range, then removes themselves from the battlefield.
+      At the end of that foe\u2019s next turn, that foe must save as the Diver descends,
+      dealing [D]+fray three times on a failed save, or just once on a successful
+      save. Lower this damage by [D]+fray for every adjacent ally of the target,
+      which could cause it to do no damage. Then, place the Diver in any free space
+      in range 2.\r"
+    abilityIDInList: 51
+  - abilityName: Spear
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - pierce
+    - Line 6
+    subCombos: 
+    effect: "<b>On hit: </b>[D] +fray. \n<b>Miss or Area <i>Effect:</i> </b>fray.\n<b>Effect:
+      </b>If attacking an adjacent foe, deals bonus damage."
+    abilityIDInList: 52
+  - abilityName: Backflip
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - repeatable
+    subCombos: 
+    effect: The Harpooner dashes 1. If there is an adjacent foe, increase this dash
+      to 2, and shove that foe 1.
+    abilityIDInList: 53
+  - abilityName: Net
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: The Harpooner creates a net terrain <i>effect</i> in a free space range.
+      The net space is treated as a pit and difficult terrain.
+    abilityIDInList: 54
+  - abilityName: Main Harpoon
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: A foe in range must save or take 2[D]+fray, become <i>shattered,</i>
+      and be shoved towards the Harpooner until adjacent. On a success, the foe takes
+      fray and is shoved 1 towards the harpooner instead.
+    abilityIDInList: 55
+  - abilityName: Story Staff
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 2
+    subCombos: 
+    effect: '<b>Autohit: </b>fray damage and foe is <i>pacified.</i> Pacified foes
+      instead take [D]+fray.'
+    abilityIDInList: 56
+  - abilityName: Felicity
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    - multimark
+    - combo
+    subCombos: 00000000
+    effect: "An ally in range is marked. When marked, and at the start of the storyteller\u2019s
+      turn, the marked ally may dash 1."
+    abilityIDInList: 57
+  - abilityName: Fleet
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: An ally in range 4 may fly 4
+    abilityIDInList: 58
+  - abilityName: Heroism
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - stance
+    subCombos: 
+    effect: The Storyteller gains aura 2. Allies in the aura gain +1 boon on all
+      saves and may save against statuses at the start instead of end of their turn.
+    abilityIDInList: 59
+  - abilityName: Double Team
+    actionCost: 1
+    isAttack: 1
+    additionals: []
+    subCombos: 
+    effect: "<b>On hit: </b>[D]. \n<b>Miss: </b>1 damage.\n<b><i>Effect:</i> </b>The
+      rider and an ally in range 3 can each dash 1, then deal 2 damage to an adjacent
+      foe."
+    abilityIDInList: 60
+  - abilityName: Call out
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    subCombos: 
+    effect: A foe in range 3 must save or be shoved towards the rider as far as possible,
+      then gain <i>hatred</i> of the rider. On a successful save, they are shoved
+      1 towards the rider.
+    abilityIDInList: 61
+  - abilityName: "Lancer\u2019s Splendor"
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - stance
+    subCombos: 
+    effect: The rider takes a magnificent pose and gains aura 1. The rider and allies
+      in the aura are sturdy and deal bonus damage with all abilities.
+    abilityIDInList: 62
+  - abilityName: Spinning kick
+    actionCost: 1
+    isAttack: 1
+    additionals: []
+    subCombos: 
+    effect: 'Repeat the following <i>effect</i> three times: Dash 1, then deal 2
+      damage to all adjacent foes. Must move in the same direction.'
+    abilityIDInList: 63
+  - abilityName: Cartwheel
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Acrobat dashes up to 3 spaces, then deals damage to an adjacent foe
+      equal to the number of spaces it dashed.
+    abilityIDInList: 64
+  - abilityName: Partner Work
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - mark
+    subCombos: 
+    effect: The Acrobat marks an ally. That ally gains evasion and +1 boon on attacks
+      while in range 3 of the Acrobat.
+    abilityIDInList: 65
+  - abilityName: Acrobatics
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - stance
+    subCombos: 
+    effect: The acrobat takes a nimble stance. While in this stance, they gain evasion,
+      and when targeted by an ability, may dash 1 after the ability resolves.
+    abilityIDInList: 66
+  - abilityName: Pole Slam
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - line 3
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b>Effect:
+      </b>shove all characters 1."
+    abilityIDInList: 67
+  - abilityName: Rebound
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Pole Fighter pushes off an adjacent character. They shove that character
+      1 space, then <i>rush</i> 1. \n<b><i>Collide:</i> </b>If their target collides
+      with an ally, that ally may also rush 1
+    abilityIDInList: 68
+  - abilityName: High Flyer
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - stance
+    - combo
+    subCombos: 46000000
+    effect: The Pole Fighter balances on their pole and uses it to move, ignoring
+      all terrain damage and movement penalties, rampart, and engagement while in
+      this stance.
+    abilityIDInList: 69
+  - abilityName: Dive kick
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: The Pole fighter <i>rushes</i> 1, ending their High Flyer stance. An
+      adjacent foe is <i>stunned</i> and must save or take 2[D]+fray, or just [D]+fray
+      on a successful save
+    abilityIDInList: 70
+  - abilityName: Flame Dance
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - pierce
+    - range 6
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Dash
+      1, then deal piercing fray damage to a different character in range 6."
+    abilityIDInList: 71
+  - abilityName: Carnivale
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - summon
+    - end turn
+    subCombos: 
+    effect: The Fire dancer summons a bomb in range 4. <indent=15%> \n<b>Bomb</b>
+      \nSummon \n<b>Summon <i>Effect:</i> </b>When any character enters its space,
+      it explodes for a small blast area effect explosion. Characters within become
+      <i>vulnerable,</i> then must save or take 2 piercing damage twice, or just
+      2 piercing damage on a successful save.</indent>
+    abilityIDInList: 72
+  - abilityName: Juggle
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - stance
+    subCombos: 
+    effect: The fire dancer starts juggling flames. While in this stance, at the
+      start and end of their turn, they may dash 2, then deal 2 piercing damage as
+      an area <i>effect</i> to all foes in range 3.
+    abilityIDInList: 73
+  - abilityName: Valorous Strike
+    actionCost: 1
+    isAttack: 1
+    additionals: []
+    subCombos: 
+    effect: "<b>Autohit: </b>fray damage. \n<b><i>Effect:</i> </b>An ally in range
+      3 of a villager gains 2 vigor, or 4 vigor if bloodied.\n<b>Effect: </b>May
+      dash 1 before the attack."
+    abilityIDInList: 74
+  - abilityName: Rally
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: <b><i>Effect:</i> </b>Up to three allies adjacent to a villager may dash
+      1 space, or one ally adjacent to a villager may dash 3 spaces.
+    abilityIDInList: 75
+  - abilityName: Take heart
+    actionCost: 2
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: All allies adjacent to a villager may end a status and gain 2 vigor,
+      or 4 vigor if they are bloodied.
+    abilityIDInList: 76
+  - abilityName: Righteous fist
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray and shove 2. \n<b>Miss: </b>fray and shove 1.\n<b><i>Effect:</i>
+      </b>Deals bonus damage to <i>weakened</i> foes.\n<b><i>Collide:</i> </b>Foe
+      is weakened."
+    abilityIDInList: 77
+  - abilityName: Community Watch
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: Shove all allies in range 2 1 space towards this character, then any
+      adjacent allies gain 2 vigor
+    abilityIDInList: 78
+  - abilityName: Bale
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Farmer uses a pitchfork, shovel, or sheer strength and picks up an
+      adjacent character size 1 or smaller, removing them from the battlefield and
+      placing them in an adjacent space, then shoving them 1. <i>Weakened</i> foes
+      are shoved 3 instead.
+    abilityIDInList: 79
+  - abilityName: On the Chin
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - end turn
+    - stance
+    subCombos: 
+    effect: "The Farmer gains aura 1. The farmer and allies in the aura are sturdy,
+      and gain 3 vigor at the start of the farmer\u2019s turn."
+    abilityIDInList: 80
+  - abilityName: Flaming Cocktail
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 6
+    - small blast
+    - pierce
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b>Round
+      3+: </b>Large blast"
+    abilityIDInList: 81
+  - abilityName: Bar Brawler
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - stance
+    subCombos: 
+    effect: "The Barkeep takes a fighting stance, with the following benefits:\n\u2022
+      They gain <i>counter</i> and sturdy. \n\u2022 Any time a foe ends their turn
+      adjacent to the barkeep in this stance, they take 2 piercing damage and are
+      shoved 1. \n\u2022 If a foe <i>collides</i> with the Barkeep, they take 2 piercing
+      damage and are shoved 1, but only once a round."
+    abilityIDInList: 82
+  - abilityName: Barrel Roll
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 5
+    - end turn
+    - small blast
+    subCombos: 
+    effect: <b>Area <i>effect:</i> </b>2 damage, and shove 2 away from the origin
+      point. At round 3+, becomes a large blast and any character in the center space
+      must save or become <i>stunned.</i>
+    abilityIDInList: 83
+  - abilityName: Greenwrath
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 6
+    subCombos: 
+    effect: "<b>Attack: </b>On hit [D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+      </b>Deals bonus damage and inflicts <i>sealed</i> if a character is inside
+      dangerous or difficult terrain."
+    abilityIDInList: 84
+  - abilityName: Sow
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    - mutimark
+    - combo
+    subCombos: 56000000
+    effect: The village priest marks a foe in range. That foe takes 1 piercing damage
+      when marked.
+    abilityIDInList: 85
+  - abilityName: Reap
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: All foes marked by Sow take 3 piercing damage once for every foe marked
+      by Sow.
+    abilityIDInList: 86
+  - abilityName: Sanctify
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - range 2
+    subCombos: 
+    effect: <b>Terrain <i>effect:</i> </b>The village priest scatters salt in a medium
+      blast area in range. Foes that end their turn in the area become <i>pacified.</i>
+      Allies that end their turn in the area gain 2 vigor. This area ends if this
+      ability is used again.
+    abilityIDInList: 87
+  - abilityName: Whirling Blade
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - unerring
+    - range 3
+    - +1 boon
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>All
+      foes at exactly range 3 take 2 damage, including the attack target."
+    abilityIDInList: 88
+  - abilityName: Shadow clone
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - summon
+    subCombos: 
+    effect: Summon a shadow clone in a free space in range. <indent=15%>\n<b>Shadow
+      Clone</b> \nSummon, size 1 \n<b>Summon <i>Effect:</i> </b>Foes adjacent to
+      a shadow clone at the start of their turn take 3 damage from the clone. The
+      Shinobi and any of its allies may gain <i>stealth</i> if they end their turn
+      adjacent to a clone. Clones disappear at the end of combat or if the Shinobi
+      is defeated. </indent>
+    abilityIDInList: 89
+  - abilityName: Shadow Swap
+    actionCost: free
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Shinobi or an ally swaps places with a shadow clone in range 3 of
+      them, teleporting.
+    abilityIDInList: 90
+  - abilityName: Raiton
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: "The Shinobi calls down lightning on a foe in range. At the end of that
+      foe\u2019s turn, they take 4 damage, five times and are <i>blinded,</i> then
+      this <i>effect</i> ends. Reduce this damage by one time for every other adjacent
+      character to the target, which could cause it to do no damage."
+    abilityIDInList: 91
+  - abilityName: Strive
+    actionCost: free
+    isAttack: 0
+    additionals:
+    - 1/ combat
+    subCombos: 
+    effect: Until the start of their next turn, the Guider increases the distance
+      of any dash, <i>rush,</i> teleport or flight by +3.
+    abilityIDInList: 92
+  - abilityName: Bravado
+    actionCost: free
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: This character sacrifices 50% of their max hp but immediately gains +1
+      action.
+    abilityIDInList: 93

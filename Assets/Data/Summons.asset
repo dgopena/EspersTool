@@ -1,0 +1,2789 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a81398eafd8bb14bb704878f0aa48b4, type: 3}
+  m_Name: Summons
+  m_EditorClassIdentifier: 
+  classes: []
+  eliteClasses: []
+  legendClasses: []
+  mobs: []
+  specialSummons:
+  - name: Lord Evictor [Dread Lord]
+    description: Lord of the Center, the Black Iron Lord. Arken nobles granted this
+      title were renowned and greatly feared generals tasked with controlling and
+      holding the center mass of a combat, and in other times protecting the homelands
+      of the Empire and keeping order by rooting out seditionists and rebels. In
+      life, they crushed all before them with cold-hearted brutality. In death, there
+      is little difference.
+    stats:
+      HP: Shares HP with the Other Lords
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 0
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData: []
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 4
+        docID: 8
+        traitName: Sturdy
+        traitDescription: When moved or removed and placed by a foe, can only be
+          moved max 1 space a turn.
+        phaseIndex: 0
+      - traitID: 40
+        docID: 8
+        traitName: Rampart
+        traitDescription: Foes cannot enter or exit a space affected by a rampart
+          <i>effect</i> by dashing, flying, or teleporting.
+        phaseIndex: 0
+      - traitID: 39
+        docID: 8
+        traitName: Armor
+        traitDescription: 2
+        phaseIndex: 0
+      abilities:
+      - abilityID: 124
+        docID: 8
+        abilityName: Strength of Hell
+        actionCost: Round
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "The Lord Evictor prepares to strike a seismic blow. At the
+          end of the round, they slam the battlefield, affecting all characters in
+          range 3 from them. Characters take differing <i>effects</i> depending on
+          how far away they are from the Lord Evictor: \\n\u2022 adjacent: 3 damage,
+          three times, and shoved 3 \\n\u2022 2 spaces: 2 damage, twice, and shoved
+          2 \\n\u2022 3 spaces: 1 damage and shoved 1 1"
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 125
+        docID: 8
+        abilityName: Dread March
+        actionCost: free
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "The Lord Evictor <i>rushes</i> 1, then shoves all adjacent
+          foes 1. \n<b>Imperium: </b>The other lords can also rush 1."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 126
+        docID: 8
+        abilityName: Blood Rush
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - true strike
+        - range 2
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+          </b>The Lord Evictor may <i>rush</i> 1 before this attack.\n<b>Effect:
+          </b>The Lord swings their weapon in a massive arc after this ability resolves.
+          Foes adjacent to the Lord take 2 damage again and are shoved 1."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 127
+        docID: 8
+        abilityName: Crush Peon
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "An adjacent foe is picked up and c<i>rushed</i> by the Lord
+          Evictor. Remove them from the battlefield as they are hurled into the air,
+          then smashed down in any space in range 2, returning them. They are <i>slashed.</i>
+          Slashed characters are <i>stunned</i> instead. \n<b>Imperium: </b>If the
+          other one or two lords are in range 3 of the target\u2019s landing point,
+          they juggle the target with attacks before they land, each dealing 2 piercing
+          damage."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 128
+        docID: 8
+        abilityName: Break Earth
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - range 3
+        subCombos: 
+        abilityEffect: "The Lord Evictor smashes the ground with the hilt of their
+          weapon, dealing fray damage to and weakening a character in range. <i>Weakened</i>
+          characters are <i>stunned.</i> \n<b>Imperium: </b>If another Lord is in
+          range 3, the Lord Evictor can cause a shockwave that creates a height 1
+          debris <i>object</i> underneath that Lord, or raises the height of such
+          an object by 1."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 129
+        docID: 8
+        abilityName: Dark Grip
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - range 4+
+        subCombos: 
+        abilityEffect: A foe at or further away than range 4 must save. On a successful
+          save, they are shoved 2 spaces towards the Lord Evictor. On a failed save,
+          they are shoved until adjacent, or as far as possible.
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Lord Prelictor [Dread Lord]
+    description: Lord of the Right Flank, the Pure Silver Lord. Arken nobles granted
+      this title were wrights and warrior-philosophers of great power. They were
+      master strategists and quartermasters, as skilled with the organization and
+      upkeep of the legions as they were with scathing the battlefield with blasts
+      of primal magic. In death, they are able to muster and catalogue the dead with
+      the same ruthless efficiency as they did in life.
+    stats:
+      HP: Shares HP with the Other Lords
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 0
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData: []
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 41
+        docID: 8
+        traitName: Aetherwall
+        traitDescription: "Gains <i>resistance</i> against all abilities from characters
+          that are outside of range 2 from them (Cover halves ranged damage).\r"
+        phaseIndex: 0
+      abilities:
+      - abilityID: 130
+        docID: 8
+        abilityName: Muster the Dead
+        actionCost: Round
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: At the start of the round, the Lord Prelictor summons three
+          wailing souls, in free space anywhere on the battlefield not adjacent to
+          a foe. <indent=15%>\n<b>Wailing Soul</b> \nSummon, size 1, <i>intangible</i>
+          \n<b>Summon <i>effect:</i> </b>Foes adjacent to souls are <i>vulnerable+</i>
+          and all damage dealt to them becomes piercing. If a foe <i>collides</i>
+          with a soul, they release a large blast shriek area effect centered on
+          them, dealing 2 piercing damage to all foes inside, then removing the soul.</indent>
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 131
+        docID: 8
+        abilityName: Master of the Secret Places
+        actionCost: free
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: The Lord swaps the positions of any or all of the three Lords,
+          removing and placing them.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 132
+        docID: 8
+        abilityName: Imperishable Star
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - pierce
+        - range 5
+        - large blast
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i>
+          </b>fray.\n<b>Effect: </b>Create a pit under the attack target."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 133
+        docID: 8
+        abilityName: Yawning Void
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - range 3
+        - terrain effect
+        subCombos: 
+        abilityEffect: "Summon a pit in a free space in range. Characters that start
+          or end their turn in the pit can be teleported by the Lord Prelictor to
+          any other pit created by this ability or Imperishable Star. \n<b>Imperium:
+          </b>The Lord Prelictor can then teleport another Lord in range 3 2 spaces."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 134
+        docID: 8
+        abilityName: Drain Essence
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - range 5
+        - small blast
+        subCombos: 
+        abilityEffect: <b>Area <i>Effect:</i> </b>Foes inside take 2 piercing damage
+          and must save or become <i>pacified.</i>
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 135
+        docID: 8
+        abilityName: Dark Astra
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - mark
+        subCombos: 
+        abilityEffect: "The Lord Prelictor marks itself or another Lord with a ward
+          of energy. That Lord gains 10 vigor. When this vigor is destroyed, or at
+          the end of the round, the ward explodes, ending this mark. Foes in a large
+          blast area <i>effect</i> centered on the targeted Lord take 2 piercing
+          damage twice and must save or be <i>shattered.</i> A character also loses
+          this vigor if the mark is transferred, but it doesn\u2019t cause the ward
+          to explode."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Lord Vexator [Dread Lord]
+    description: Lord of the Left Flank, the True Bronze Lord. Arken nobles granted
+      this title were rangers, scouts, and vanguards tasked with scouting new lands
+      for conquest and with the purgation and subjugation of barbarians. Their bloodlust
+      and cruelty was unparalleled.
+    stats:
+      HP: Shares HP with the Other Lords
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 0
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData: []
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 42
+        docID: 8
+        traitName: Skirmisher
+        traitDescription: Can move diagonally, and dash is full speed
+        phaseIndex: 0
+      - traitID: 43
+        docID: 8
+        traitName: Dodge
+        traitDescription: Immune to all damage from misses, successful saves, and
+          area <i>effects.</i>
+        phaseIndex: 0
+      abilities:
+      - abilityID: 136
+        docID: 8
+        abilityName: Punishment of Heaven
+        actionCost: Round
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "The Lord Vexator prepares to shoot a massive flurry of bolts
+          from a greatbow at all characters close to it. At the end of the round,
+          they release a flurry of shots, affecting all characters in range 3 from
+          them. Characters take differing <i>effects</i> depending on how far away
+          they are to the Lord Vexator: \\n\u2022 adjacent: 1 damage and shove 1
+          \\n\u2022 2 spaces: 2 damage, twice, and shoved 2 \\n\u2022 3 spaces: 3
+          damage, three times and shoved 3"
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 137
+        docID: 8
+        abilityName: Raid
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "The Lord Vexator leaps and flies up to 3 spaces. \n<b>Imperium:
+          </b>If they land next to another Lord, both Lords can leap and fly up to
+          3 spaces again, then each can deal 2 damage to an adjacent foe after landing."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 138
+        docID: 8
+        abilityName: Scathe Barbarians
+        actionCost: 2
+        isAttack: 1
+        abilityAspects:
+        - range 4
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>2[D]+fray. \n<b>Miss: </b>[D]+fray.\n<b><i>Effect:</i>
+          </b>Deals bonus damage for every difference in height between the Lord
+          Vexator and their target. If the difference is 2+, this ability gains <i>unerring,</i>
+          foe takes 2 damage twice again and is <i>dazed.</i>"
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 139
+        docID: 8
+        abilityName: The Language of the Shadows
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "The Lord Vexator gains <i>stealth,</i> and adjacent foes
+          must save or become <i>blinded.</i> \n<b>Imperium: </b>Another Lord in
+          range 3 gains stealth."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 140
+        docID: 8
+        abilityName: Essence Arrow
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - line 6
+        subCombos: 
+        abilityEffect: "The Lord Vexator shoots a line 6 area <i>effect.</i> Foes
+          inside take fray damage. \n<b>Imperium: </b>If the Lord Evictor is caught
+          in the area, the area gains true strike, and foes in the line are then
+          shoved 1 towards or away from the Lord Vexator. If the Lord Prelictor is
+          caught in the line, the arrow deals 2 piercing damage twice instead."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Lion [Chimaera]
+    description: 
+    stats:
+      HP: Head has 1/3 of the chimaera's max HP, rounded up
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 3
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData: []
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 49
+        docID: 1
+        traitName: "Lion\u2019s pride"
+        traitDescription: While the Lion is undefeated, reduces damage to all other
+          heads by 2, as if from Armor.
+        phaseIndex: 0
+      abilities:
+      - abilityID: 109
+        docID: 1
+        abilityName: Savage bite
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 2
+        - true strike
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray damage"
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 110
+        docID: 1
+        abilityName: Roar
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "Adjacent characters take fray damage, are shoved 1 and become
+          <i>slashed.</i> \n<b>2 heads: </b>Affects foes in range 2, and slashed
+          foes must save or be <i>stunned.\n<b>Final</i> head: </b>Affects all foes,
+          everywhere, and ignores cover."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Bull [Chimaera]
+    description: 
+    stats:
+      HP: Head has 1/3 of the chimaera's max HP, rounded up
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 3
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData: []
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 50
+        docID: 1
+        traitName: "Bull\u2019s Fortitude"
+        traitDescription: While the Bull is undefeated, the Chimaera is immune to
+          being shoved.
+        phaseIndex: 0
+      abilities:
+      - abilityID: 111
+        docID: 1
+        abilityName: Headbutt
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - true strike
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray and shove 1. \n<b>Miss: </b>fray.\n<b><i>Collide:</i>
+          </b>Foe is <i>weakened.\n<b><i>Effect:</i></i> </b>The Chimaera can <i>rush</i>
+          2 spaces before making this attack."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 112
+        docID: 1
+        abilityName: Rampant Galloping
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "<b><i>Effect:</i> </b>The Bull <i>rushes</i> 1, twice. Each
+          time it rushes, it deals 2 damage to all adjacent foes and shoves them
+          1. \n<b>Two heads: </b>Rushes twice.\n<b>Final head: </b>Rushes three times."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Serpent [Chimaera]
+    description: 
+    stats:
+      HP: Head has 1/3 of the chimaera's max HP, rounded up
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 3
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData: []
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 51
+        docID: 1
+        traitName: "Serpent\u2019s Guile"
+        traitDescription: While the Serpent is alive and undefeated, bloodied foes
+          deal only half damage to the Chimaera.
+        phaseIndex: 0
+      abilities:
+      - abilityID: 113
+        docID: 1
+        abilityName: Numbing Bite
+        actionCost: 1
+        isAttack: 1
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>Fray.\n<b><i>Effect:</i>
+          </b>Foe is <i>pacified.</i> This attack does not break the pacified condition
+          and deals bonus damage to pacified foes."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 114
+        docID: 1
+        abilityName: Poison Bliss
+        actionCost: 2
+        isAttack: 0
+        abilityAspects:
+        - range 4
+        subCombos: 
+        abilityEffect: "The Serpent creates a small blast terrain <i>effect</i> in
+          range. The area is dangerous terrain for foes and foes are <i>pacified+</i>
+          inside. While at least partly inside the area, the Serpent attacks and
+          saves with +1 boon. This area lasts until used again. \n<b>Two heads: </b>Costs
+          1 action.\n<b>Final head: </b>The Serpent can have up to three of these
+          areas active."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Crocodile [Chimaera]
+    description: 
+    stats:
+      HP: Head has 1/3 of the chimaera's max HP, rounded up
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 3
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData: []
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 52
+        docID: 1
+        traitName: "Crocodile\u2019s Savagery"
+        traitDescription: "While the Crocodile is undefeated, the Chimaera\u2019s
+          attacks can critical hit (+[D])."
+        phaseIndex: 0
+      abilities:
+      - abilityID: 115
+        docID: 1
+        abilityName: Open Wound
+        actionCost: 1
+        isAttack: 1
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]. \n<b>Miss: </b>1 damage.\n<b><i>Effect:</i>
+          </b>The character gains an open wound. While wounded, it takes [D] again
+          at the end of its turns. This effect does not stack, and ends instead if
+          the character ends their turn adjacent to an ally."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 116
+        docID: 1
+        abilityName: Death Roll
+        actionCost: 2
+        isAttack: 0
+        abilityAspects:
+        - range 3
+        subCombos: 
+        abilityEffect: "The Crocodile chooses a foe in range. At the end of the very
+          next player turn, if that foe is still in range 3, the Chimaera lunges.
+          It can remove itself from the battlefield, then place itself adjacent to
+          that foe, who must save. Foes are <i>dazed</i> and take 2[D] +fray on a
+          failed save, or just fray damage on a successful save. Dazed foes fail
+          the save. \n<b>Two heads: </b>Range 5.\n<b>Final head: </b>No maximum range."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Toad [Chimaera]
+    description: 
+    stats:
+      HP: Head has 1/3 of the chimaera's max HP, rounded up
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 3
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData: []
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 53
+        docID: 1
+        traitName: "Toad\u2019s Repulsion"
+        traitDescription: While the Toad head is alive, all heads have <i>counter.</i>
+        phaseIndex: 0
+      abilities:
+      - abilityID: 117
+        docID: 1
+        abilityName: Tongue
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 3
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>Fray.\n<b><i>Effect:</i>
+          </b>The target is shoved 2 towards the chimaera."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 118
+        docID: 1
+        abilityName: Swallow Whole
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "A adjacent character must save or be swallowed whole. On
+          a successful save, they are <i>weakened.</i> Remove them from the battlefield.
+          At the start of their turn, the toad spits them out, placing them in any
+          adjacent space to the chimaera\u2019s current location, then shoving them
+          2 spaces. \n<b><i>Collide:</i> </b>Character takes [D]+fray.\n<b>Two heads:
+          </b>Weakened characters fail the save.\n<b>Final head: </b>Character also
+          takes damage on being spit out equal to 25% of their maximum hp."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Baboon [Chimaera]
+    description: 
+    stats:
+      HP: Head has 1/3 of the chimaera's max HP, rounded up
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 3
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData: []
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 54
+        docID: 1
+        traitName: "Baboon\u2019s Malice"
+        traitDescription: "While the Baboon head is undefeated, all the Chimaera\u2019s
+          damage is piercing."
+        phaseIndex: 0
+      abilities:
+      - abilityID: 119
+        docID: 1
+        abilityName: Deep Breath
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - combo
+        subCombos: 78000000
+        abilityEffect: Adjacent foes to the Chimera are shoved 1 towards or away
+          from it.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 121
+        docID: 1
+        abilityName: Pyroclast
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - range 8
+        - small blast
+        subCombos: 
+        abilityEffect: Characters in the area takes 2 piercing damage. Summon a height
+          1 smoldering debris <i>object</i> in the area.
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Wolf [Chimaera]
+    description: 
+    stats:
+      HP: Head has 1/3 of the chimaera's max HP, rounded up
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 3
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData: []
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 55
+        docID: 1
+        traitName: "Wolf\u2019s Brutality"
+        traitDescription: While the Wolf head is undefeated, the Chimaera gains <i>stealth</i>
+          if it ends its turn with no foes adjacent
+        phaseIndex: 0
+      abilities:
+      - abilityID: 122
+        docID: 1
+        abilityName: Savage Claw
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - arc 3
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i>
+          </b>Fray.\n<b>Effect: </b>Deals bonus damage to <i>blinded</i> foes.\n<b>Effect:
+          </b>May dash 2 after using this ability."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 123
+        docID: 1
+        abilityName: Shadow Breath
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - range 2
+        - medium blast
+        subCombos: 
+        abilityEffect: "<b>Area <i>effect:</i> </b>fray damage and foes must save
+          or become <i>blinded.</i> \n<b>Two heads: </b>Large Blast.\n<b>Three heads:
+          </b>Deals fray damage twice instead. Bloodied foes take fray damage three
+          times instead."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Goat [Chimaera]
+    description: 
+    stats:
+      HP: Head has 1/3 of the chimaera's max HP, rounded up
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 3
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData: []
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits: []
+      abilities:
+      - abilityID: 124
+        docID: 1
+        abilityName: "Goat\u2019s Wisdom"
+        actionCost: Round
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: While the goat is alive, at the start of the round, mark a
+          visible space. At the end of the round, a meteor smashes into the space,
+          inflicting fray damage twice in a large blast area <i>effect</i> centered
+          on the space to all foes within and <i>stunning</i> any foe in the center
+          space. Then, create a height 1 comet <i>object</i> anywhere in the area.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 125
+        docID: 1
+        abilityName: Cross Bolt
+        actionCost: 2
+        isAttack: 1
+        abilityAspects:
+        - range 8
+        - small blast
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>2[D]+fray . \n<b>Miss or area <i>effect:</i>
+          </b>fray.\n<b>Effect: </b>Attack target is <i>vulnerable.\n<b>Effect:</i>
+          </b>Shove all foes in the area 1."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 126
+        docID: 1
+        abilityName: Primal Meteor
+        actionCost: 2
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "All characters not in cover from the Chimaera must save or
+          take fray damage twice and become <i>vulnerable,</i> or once on a successful
+          save. Then, summon a height 1 meteor <i>object</i> adjacent to any character
+          affected. \n<b>Two heads: </b>Fray damage three times on a failed save.\n<b>Final
+          head: </b>Fray damage five times on a failed save."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Chicken [Chimaera]
+    description: 
+    stats:
+      HP: Head has 1/3 of the chimaera's max HP, rounded up
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 3
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData: []
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 56
+        docID: 1
+        traitName: "Chicken\u2019s Spite"
+        traitDescription: While the Chicken head is undefeated, all attacks against
+          the Chimaera take +1 curse.
+        phaseIndex: 0
+      abilities:
+      - abilityID: 127
+        docID: 1
+        abilityName: Peck
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 2
+        - true strike
+        - pierce
+        subCombos: 
+        abilityEffect: "<b>Autohit: </b>fray. \n<b>Two heads: </b>Fray, twice.\n<b>Final
+          head: </b>Three times."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 128
+        docID: 1
+        abilityName: Return to Egg
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - range 6
+        subCombos: 
+        abilityEffect: "A character in range becomes <i>pacified</i> and starts to
+          be encased in a stone egg. If they don\u2019t attack during their turn,
+          the petrification <i>effect</i> ends. Otherwise, at the end of that turn,
+          they must save. On a failed save, they are encased in stone, removing them
+          from the battlefield and becoming replaced with a destructible (5 hp) height
+          1 egg <i>object.</i> Until the is destroyed, they cannot take a turn. When
+          it\u2019s destroyed, they are returned to the battlefield in the space
+          they left and can take a turn as normal."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Bear [Chimaera]
+    description: 
+    stats:
+      HP: Head has 1/3 of the chimaera's max HP, rounded up
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 3
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData: []
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 57
+        docID: 1
+        traitName: "Bear\u2019s Vitality"
+        traitDescription: "While the Bear is undefeated, the Chimaera\u2019s Juggernaut
+          trait triggers twice at the start of the round."
+        phaseIndex: 0
+      abilities:
+      - abilityID: 129
+        docID: 1
+        abilityName: Icy path
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - true strike
+        - Arc 6
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i>
+          </b>fray.\n<b>Effect: </b>Deals bonus damage per status affecting the target."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 130
+        docID: 1
+        abilityName: Cold Feet
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "A character in range 8 is <i>slashed.</i> Unless that character
+          moves at least 3 spaces on their next turn, at the end of that turn they
+          are also <i>stunned.</i> \n<b>Two heads: </b>Also winds characters.\n<b>Final
+          head: </b>Also deals fray damage to a chosen character, and fray damage
+          again if they fail to move."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Crony [Churn Baron]
+    description: 
+    stats:
+      HP: 10
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 0
+      frayDamage: 0
+      damageDie: 0
+      dieAmount: 0
+      specialData:
+      - Summon of the Churn Baron
+      - Size 1
+      - "When created, or on the baron\u2019s turn, may use its standard move to
+        move 4 spaces, then make one attack."
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits: []
+      abilities:
+      - abilityID: 93
+        docID: 9
+        abilityName: Blunderbuss
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 6
+        - pierce
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>5 damage. \n<b>Miss: </b>2 damage.\n<b>Greed:
+          </b>+2 damage"
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 94
+        docID: 9
+        abilityName: Arkentech Explosives
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 4
+        - small blast
+        - true strike
+        subCombos: 
+        abilityEffect: "<b>Area <i>effect:</i> </b>2 piercing damage, shove 1. \n<b>Greed:
+          </b>+2 damage"
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Airship Engine [Veridian Weapon]
+    description: 
+    stats:
+      HP: (60 per player) * 1/3, rounded up
+      speed: 0
+      dash: 0
+      defense: 0
+      armor: 0
+      frayDamage: 0
+      damageDie: 0
+      dieAmount: 0
+      specialData:
+      - Section of the Veridian Weapon
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 38
+        docID: 5
+        traitName: Destruction (Airship Engine)
+        traitDescription: "If this section is destroyed, all remaining sections gain
+          Lurch as a 1/round free action.\r"
+        phaseIndex: 0
+      abilities:
+      - abilityID: 128
+        docID: 5
+        abilityName: Overlock piston
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - 1/round
+        subCombos: 
+        abilityEffect: "\rThe Engine pops a piston out of the deck. <indent=15%>\\n<b>Overclock
+          Piston</b> \\nHeight 1 <i>Object</i> (destructible) 10 hp \\n<b>Summon
+          <i>Effect:</i> </b>All engine sections and automata gain +1 boon on all
+          attacks per overlock piston active. If three or more are active at the
+          end of the round, also increase the Megabomb <i>counter</i> by 1."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 129
+        docID: 5
+        abilityName: Repair Automaton
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - 2/round
+        subCombos: 
+        abilityEffect: The Engine releases a repair Automaton. <indent=15%>\n<b>Repair
+          Automaton</b> \nSummon, 5 defense, 5 hp \n<b>Summon <i>Effect:</i> </b>At
+          the end of the round, the engine grants 3 vigor to any section per active
+          repair automata. It can only repair one section at a time this way.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 130
+        docID: 5
+        abilityName: Steam Vent
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 4
+        - medium blast
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i>
+          </b>Fray.\n<b>Effect: </b>Attack target is <i>pacified.</i>"
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 131
+        docID: 5
+        abilityName: Lurch
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - repeatable
+        subCombos: 
+        abilityEffect: "All characters, including Automata, are shoved 1 in the same
+          direction as the ship speeds up or slows down. \n<b><i>Collide:</i> </b>Foes
+          take 2 piercing damage"
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Forward Turret [Veridian Weapon]
+    description: 
+    stats:
+      HP: (60 per player) * 1/3, rounded up
+      speed: 0
+      dash: 0
+      defense: 0
+      armor: 0
+      frayDamage: 0
+      damageDie: 0
+      dieAmount: 0
+      specialData:
+      - Section of the Veridian Weapon
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 39
+        docID: 5
+        traitName: Destruction (Forward Turret)
+        traitDescription: If this section is destroyed, all remaining sections gain
+          Collateral Damage as a 1/round free action.
+        phaseIndex: 0
+      abilities:
+      - abilityID: 133
+        docID: 5
+        abilityName: Mega Gun Turret
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 8
+        - small blast
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i>
+          </b>fray.\n<b>Effect: </b>Attack target is <i>sealed</i> and shoved 1."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 134
+        docID: 5
+        abilityName: Pop-up turret
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - summon
+        - combo
+        subCombos: 87000000
+        abilityEffect: "The Turret summons an automaton turret anywhere on the battlefield.
+          <indent=15%>\\n<b>Turret Automaton</b> \\nSize 1 summon, 5 defense, 5 hp
+          \\n<b>Summon <i>Effect:</i> </b>While undefeated, also counts as a height
+          1 <i>object</i> and can be moved on or used as cover by other characters.
+          \\n<b>Summon Action: </b>Once a round on the forward turret\u2019s turn,
+          including when summoned, the automaton can deal 2 damage twice to a character
+          in range 4"
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Aft Turret [Veridian Weapon]
+    description: 
+    stats:
+      HP: (60 per player) * 1/3, rounded up
+      speed: 0
+      dash: 0
+      defense: 0
+      armor: 0
+      frayDamage: 0
+      damageDie: 0
+      dieAmount: 0
+      specialData:
+      - Section of the Veridian Weapon
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 40
+        docID: 5
+        traitName: Destruction (Aft Turret)
+        traitDescription: If this section is destroyed, remaining sections gain the
+          ability to summon Combat Automaton as a 1/round free action.
+        phaseIndex: 0
+      abilities:
+      - abilityID: 136
+        docID: 5
+        abilityName: Gatling Cannons
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 6
+        subCombos: 
+        abilityEffect: "<b>Autohit: </b>3 piercing damage. \n<b>Area <i>effect:</i>
+          </b>All foes in range 6 take 3 piercing damage."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 137
+        docID: 5
+        abilityName: Shield Automaton
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - combo
+        subCombos: 8a000000
+        abilityEffect: "The section summons a shield automaton. <indent=15%>\\n<b>Shield
+          Automaton</b> \\nSize 1, 5 defense, 5 hp \\n<b>Summon <i>Effect:</i> </b>The
+          automata has aura 1. Foes in the area gain cover from all directions, but
+          automata in the area reduce all damage taken to 1. \\n<b>Summon Action:
+          </b>Once a round, during the Aft Turret\u2019s turn (including when summoned)
+          the automaton can move 3 spaces."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Repair Automaton [Veridian Weapon]
+    description: 
+    stats:
+      HP: 5
+      speed: 0
+      dash: 0
+      defense: 5
+      armor: 0
+      frayDamage: 0
+      damageDie: 0
+      dieAmount: 0
+      specialData:
+      - Summon of the Airship Engine section of the Veridian Weapon
+      - Created in any free space in range 4 of the section that created it
+      - At the end of the round, the engine grants 3 vigor to any section per active
+        repair automata. It can only repair one section at a time this way.
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 40
+        docID: 2
+        traitName: Summon
+        traitDescription: "A character controlled by its Summoner. Summons are <i>intangible,</i>
+          and cannot be marked, and do not count as allies or foes for the purposes
+          of abilities. Summons do not take turns. Instead, they have a summon action
+          that they use on their summoner\u2019s turn, or a summon <i>effect</i>
+          that is always active, and otherwise don\u2019t take actions or move on
+          their own. Summons are removed from the battlefield when their summoner
+          is defeated."
+        phaseIndex: 0
+      abilities: []
+  - name: Turret Automaton [Veridian Weapon]
+    description: 
+    stats:
+      HP: 5
+      speed: 0
+      dash: 0
+      defense: 5
+      armor: 0
+      frayDamage: 0
+      damageDie: 0
+      dieAmount: 0
+      specialData:
+      - Summon of the Forward Turret section of the Veridian Weapon
+      - Created in any free space in range 4 of the section that created it
+      - While undefeated, also counts as a height 1 object and can be moved on or
+        used as cover by other characters
+      - " Once a round on the forward turret\u2019s turn, including when summoned,
+        the automaton can deal 2 damage twice to a character in range 4"
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 40
+        docID: 2
+        traitName: Summon
+        traitDescription: "A character controlled by its Summoner. Summons are <i>intangible,</i>
+          and cannot be marked, and do not count as allies or foes for the purposes
+          of abilities. Summons do not take turns. Instead, they have a summon action
+          that they use on their summoner\u2019s turn, or a summon <i>effect</i>
+          that is always active, and otherwise don\u2019t take actions or move on
+          their own. Summons are removed from the battlefield when their summoner
+          is defeated."
+        phaseIndex: 0
+      abilities: []
+  - name: Shield Automaton [Veridian Weapon]
+    description: 
+    stats:
+      HP: 5
+      speed: 0
+      dash: 0
+      defense: 5
+      armor: 0
+      frayDamage: 0
+      damageDie: 0
+      dieAmount: 0
+      specialData:
+      - Summon of the Aft Turret section of the Veridian Weapon
+      - Created in any free space in range 4 of the section that created it
+      - The automata has aura 1. Foes in the area gain cover from all directions,
+        but automata in the area reduce all damage taken to 1.
+      - "Once a round, during the Aft Turret\u2019s turn (including when summoned)
+        the automaton can move 3 spaces."
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 40
+        docID: 2
+        traitName: Summon
+        traitDescription: "A character controlled by its Summoner. Summons are <i>intangible,</i>
+          and cannot be marked, and do not count as allies or foes for the purposes
+          of abilities. Summons do not take turns. Instead, they have a summon action
+          that they use on their summoner\u2019s turn, or a summon <i>effect</i>
+          that is always active, and otherwise don\u2019t take actions or move on
+          their own. Summons are removed from the battlefield when their summoner
+          is defeated."
+        phaseIndex: 0
+      abilities: []
+  - name: Combat Automaton [Veridian Weapon]
+    description: 
+    stats:
+      HP: 5
+      speed: 0
+      dash: 0
+      defense: 5
+      armor: 0
+      frayDamage: 0
+      damageDie: 0
+      dieAmount: 0
+      specialData:
+      - Summon of the Aft Turret section of the Veridian Weapon
+      - Created in any free space in range 4 of the section that created it
+      - "Once a round, during the Aft Turret\u2019s turn (including when summoned)
+        the automaton can move 3 spaces, then make activate the Automaton Gun ability"
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 40
+        docID: 2
+        traitName: Summon
+        traitDescription: "A character controlled by its Summoner. Summons are <i>intangible,</i>
+          and cannot be marked, and do not count as allies or foes for the purposes
+          of abilities. Summons do not take turns. Instead, they have a summon action
+          that they use on their summoner\u2019s turn, or a summon <i>effect</i>
+          that is always active, and otherwise don\u2019t take actions or move on
+          their own. Summons are removed from the battlefield when their summoner
+          is defeated."
+        phaseIndex: 0
+      abilities:
+      - abilityID: 139
+        docID: 5
+        abilityName: Automaton gun
+        actionCost: free
+        isAttack: 1
+        abilityAspects:
+        - range 4
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>5 damage. \n<b>Miss: </b>2 damage."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: The Sycophant [Majesty Demon]
+    description: Majesty Demon Summon
+    stats:
+      HP: 5
+      speed: 0
+      dash: 0
+      defense: 0
+      armor: 0
+      frayDamage: 0
+      damageDie: 0
+      dieAmount: 0
+      specialData:
+      - must be placed within range 2 of a player character or the Majesty Demon
+        and cannot be placed within range 2 of each other.
+      - Counts as an ally for player abilities. Projects aura 2 around it. The aura
+        reduces all damage to to player characters to 1 while it is inside. At the
+        end of any turn in which the aura was used to reduce damage, the Sycophant
+        is destroyed.
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 40
+        docID: 2
+        traitName: Summon
+        traitDescription: "A character controlled by its Summoner. Summons are <i>intangible,</i>
+          and cannot be marked, and do not count as allies or foes for the purposes
+          of abilities. Summons do not take turns. Instead, they have a summon action
+          that they use on their summoner\u2019s turn, or a summon <i>effect</i>
+          that is always active, and otherwise don\u2019t take actions or move on
+          their own. Summons are removed from the battlefield when their summoner
+          is defeated."
+        phaseIndex: 0
+      - traitID: 41
+        docID: 2
+        traitName: Intangible
+        traitDescription: Immune to damage and <i>effects</i> from foes. Does not
+          provide obstruction or engagement.
+        phaseIndex: 0
+      abilities: []
+  - name: The Scepter Bearer [Majesty Demon]
+    description: Majesty Demon Summon
+    stats:
+      HP: 10
+      speed: 0
+      dash: 0
+      defense: 5
+      armor: 0
+      frayDamage: 0
+      damageDie: 0
+      dieAmount: 0
+      specialData:
+      - must be placed within range 2 of a player character or the Majesty Demon
+        and cannot be placed within range 2 of each other.
+      - "When summoned, and on each of the Majesty Demon\u2019s turns, flies 1. Cannot
+        move unless it\u2019s within range 4 of a player character. When defeated,
+        drops its scepter in its space as a terrain effect. Any character standing
+        in the scepter space other than the Majesty Demon deals double damage with
+        abilities (double all damage after rolling and totaling up all damage). The
+        scepter disappears when this summon is re-summoned."
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 40
+        docID: 2
+        traitName: Summon
+        traitDescription: "A character controlled by its Summoner. Summons are <i>intangible,</i>
+          and cannot be marked, and do not count as allies or foes for the purposes
+          of abilities. Summons do not take turns. Instead, they have a summon action
+          that they use on their summoner\u2019s turn, or a summon <i>effect</i>
+          that is always active, and otherwise don\u2019t take actions or move on
+          their own. Summons are removed from the battlefield when their summoner
+          is defeated."
+        phaseIndex: 0
+      - traitID: 14
+        docID: 0
+        traitName: Flying
+        traitDescription: A flying character ignores terrain damage and movement
+          penalties, height movement penalties, obstruction, and engagement.
+        phaseIndex: 0
+      abilities: []
+  - name: The Shrouded Lady [Majesty Demon]
+    description: Majesty Demon Summon
+    stats:
+      HP: 1
+      speed: 0
+      dash: 0
+      defense: 0
+      armor: 0
+      frayDamage: 0
+      damageDie: 0
+      dieAmount: 0
+      specialData:
+      - must be placed within range 2 of a player character or the Majesty Demon
+        and cannot be placed within range 2 of each other.
+      - Teleports 4 spaces when summoned, and at the start of each round towards
+        the closest player character. At the end of the round, deals 40 damage to
+        all adjacent characters other than the Majesty Demon.
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 40
+        docID: 2
+        traitName: Summon
+        traitDescription: "A character controlled by its Summoner. Summons are <i>intangible,</i>
+          and cannot be marked, and do not count as allies or foes for the purposes
+          of abilities. Summons do not take turns. Instead, they have a summon action
+          that they use on their summoner\u2019s turn, or a summon <i>effect</i>
+          that is always active, and otherwise don\u2019t take actions or move on
+          their own. Summons are removed from the battlefield when their summoner
+          is defeated."
+        phaseIndex: 0
+      - traitID: 41
+        docID: 2
+        traitName: Intangible
+        traitDescription: Immune to damage and <i>effects</i> from foes. Does not
+          provide obstruction or engagement.
+        phaseIndex: 0
+      - traitID: 14
+        docID: 0
+        traitName: Flying
+        traitDescription: A flying character ignores terrain damage and movement
+          penalties, height movement penalties, obstruction, and engagement.
+        phaseIndex: 0
+      abilities: []
+  - name: The Maiden [Majesty Demon]
+    description: Majesty Demon Summon
+    stats:
+      HP: 10
+      speed: 0
+      dash: 0
+      defense: 5
+      armor: 0
+      frayDamage: 0
+      damageDie: 0
+      dieAmount: 0
+      specialData:
+      - must be placed within range 2 of a player character or the Majesty Demon
+        and cannot be placed within range 2 of each other.
+      - Has aura 2. Characters other than the Maiden in the aura are pacified+, but
+        have resistance.
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 40
+        docID: 2
+        traitName: Summon
+        traitDescription: "A character controlled by its Summoner. Summons are <i>intangible,</i>
+          and cannot be marked, and do not count as allies or foes for the purposes
+          of abilities. Summons do not take turns. Instead, they have a summon action
+          that they use on their summoner\u2019s turn, or a summon <i>effect</i>
+          that is always active, and otherwise don\u2019t take actions or move on
+          their own. Summons are removed from the battlefield when their summoner
+          is defeated."
+        phaseIndex: 0
+      abilities: []
+  - name: Flagellant Knight [Majesty Demon]
+    description: Majesty Demon Summon
+    stats:
+      HP: 40
+      speed: 0
+      dash: 0
+      defense: 5
+      armor: 0
+      frayDamage: 0
+      damageDie: 0
+      dieAmount: 0
+      specialData:
+      - must be placed within range 2 of a player character or the Majesty Demon
+        and cannot be placed within range 2 of each other.
+      - "Once a round on the demon\u2019s turn, one flagellant knight may rush 2
+        towards the nearest foe and and use Wicked Blade on them"
+      - "When any character takes damage adjacent to the knight that wasn\u2019t
+        dealt by a knight, the knight reduces it by 5, as if by armor, then takes
+        5 damage."
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 40
+        docID: 2
+        traitName: Summon
+        traitDescription: "A character controlled by its Summoner. Summons are <i>intangible,</i>
+          and cannot be marked, and do not count as allies or foes for the purposes
+          of abilities. Summons do not take turns. Instead, they have a summon action
+          that they use on their summoner\u2019s turn, or a summon <i>effect</i>
+          that is always active, and otherwise don\u2019t take actions or move on
+          their own. Summons are removed from the battlefield when their summoner
+          is defeated."
+        phaseIndex: 0
+      - traitID: 41
+        docID: 2
+        traitName: Intangible
+        traitDescription: Immune to damage and <i>effects</i> from foes. Does not
+          provide obstruction or engagement.
+        phaseIndex: 0
+      abilities:
+      - abilityID: 136
+        docID: 2
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Hound Fly [Wrangler]
+    description: 
+    stats:
+      HP: 20
+      speed: 0
+      dash: 0
+      defense: 5
+      armor: 0
+      frayDamage: 3
+      damageDie: 6
+      dieAmount: 1
+      specialData:
+      - Trained Beast summon of the Wrangler
+      - Size 1
+      - Flies 3, then attacks
+      - If the Wrangler is bloodied, deal bonus damage.
+      - 'Unlike other summons, these summons have defense and health and lack intangible
+        (so they can take damage and effects). When defeated, the summons disappear
+        as normal, and they do not cause obstruction or engagement. '
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 40
+        docID: 2
+        traitName: Summon
+        traitDescription: "A character controlled by its Summoner. Summons are <i>intangible,</i>
+          and cannot be marked, and do not count as allies or foes for the purposes
+          of abilities. Summons do not take turns. Instead, they have a summon action
+          that they use on their summoner\u2019s turn, or a summon <i>effect</i>
+          that is always active, and otherwise don\u2019t take actions or move on
+          their own. Summons are removed from the battlefield when their summoner
+          is defeated."
+        phaseIndex: 0
+      abilities:
+      - abilityID: -1
+        docID: -1
+        abilityName: Sic
+        actionCost: Round
+        isAttack: 1
+        abilityAspects:
+        - Line 4
+        - Unerring
+        subCombos: 
+        abilityEffect: 'On hit: [D]+fray. Miss or area effect: Fray.'
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Gorebeast [Wrangler]
+    description: 
+    stats:
+      HP: 20
+      speed: 0
+      dash: 0
+      defense: 5
+      armor: 0
+      frayDamage: 3
+      damageDie: 6
+      dieAmount: 1
+      specialData:
+      - Trained Beast summon of the Wrangler
+      - Size 1
+      - May Rush 2, then attack
+      - If the Wrangler is bloodied, deal bonus damage.
+      - 'Unlike other summons, these summons have defense and health and lack intangible
+        (so they can take damage and effects). When defeated, the summons disappear
+        as normal, and they do not cause obstruction or engagement. '
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 40
+        docID: 2
+        traitName: Summon
+        traitDescription: "A character controlled by its Summoner. Summons are <i>intangible,</i>
+          and cannot be marked, and do not count as allies or foes for the purposes
+          of abilities. Summons do not take turns. Instead, they have a summon action
+          that they use on their summoner\u2019s turn, or a summon <i>effect</i>
+          that is always active, and otherwise don\u2019t take actions or move on
+          their own. Summons are removed from the battlefield when their summoner
+          is defeated."
+        phaseIndex: 0
+      - traitID: 7
+        docID: 0
+        traitName: Sturdy
+        traitDescription: When moved or removed and placed by a foe, can only be
+          moved max 1 space a turn.
+        phaseIndex: 0
+      abilities:
+      - abilityID: -1
+        docID: -1
+        abilityName: Sic
+        actionCost: Round
+        isAttack: 1
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 'On hit: Fray damage 3 times. Miss: Fray damage.'
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Spitter [Wrangler]
+    description: 
+    stats:
+      HP: 20
+      speed: 0
+      dash: 0
+      defense: 5
+      armor: 0
+      frayDamage: 3
+      damageDie: 6
+      dieAmount: 1
+      specialData:
+      - Trained Beast summon of the Wrangler
+      - Size 1
+      - May move 2, then attack
+      - If the Wrangler is bloodied, deal bonus damage.
+      - 'Unlike other summons, these summons have defense and health and lack intangible
+        (so they can take damage and effects). When defeated, the summons disappear
+        as normal, and they do not cause obstruction or engagement. '
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 40
+        docID: 2
+        traitName: Summon
+        traitDescription: "A character controlled by its Summoner. Summons are <i>intangible,</i>
+          and cannot be marked, and do not count as allies or foes for the purposes
+          of abilities. Summons do not take turns. Instead, they have a summon action
+          that they use on their summoner\u2019s turn, or a summon <i>effect</i>
+          that is always active, and otherwise don\u2019t take actions or move on
+          their own. Summons are removed from the battlefield when their summoner
+          is defeated."
+        phaseIndex: 0
+      abilities:
+      - abilityID: -1
+        docID: -1
+        abilityName: Sic
+        actionCost: Round
+        isAttack: 1
+        abilityAspects:
+        - range 8
+        - pierce
+        subCombos: 
+        abilityEffect: 'On hit: Fray damage 3 times. Miss: Fray damage.'
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Lesser Clot [Fetid Idol]
+    description: 
+    stats:
+      HP: 1
+      speed: 4
+      dash: 0
+      defense: 5
+      armor: 0
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData:
+      - Summon of the Lowlander Legend Fetid Idol
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 5
+        docID: 0
+        traitName: Mob
+        traitDescription: "This character doesn\u2019t trigger slay <i>effects,</i>
+          and is removed when defeated."
+        phaseIndex: 0
+      - traitID: 32
+        docID: 7
+        traitName: Filth Body
+        traitDescription: Lesser Clots are immune to all damage while inside difficult
+          or dangerous terrain or adjacent to the Idol
+        phaseIndex: 0
+      abilities:
+      - abilityID: 91
+        docID: 7
+        abilityName: Fetid Grasp
+        actionCost: 2
+        isAttack: 1
+        abilityAspects:
+        - range 2
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+          </b>Shove foe 1 space towards the acting clot.\n<b>Effect: </b>All other
+          clots may shove a foe in range 2 one space towards them, then all foes
+          that were shoved this way take 2 damage."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Cultist [Fetid Idol]
+    description: 
+    stats:
+      HP: 15
+      speed: 4
+      dash: 0
+      defense: 10
+      armor: 0
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData:
+      - Summon of the Lowlander Legend Fetid Idol
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 0
+        docID: 0
+        traitName: Skirmisher
+        traitDescription: Can move diagonally, and dash moves full speed
+        phaseIndex: 0
+      - traitID: 1
+        docID: 0
+        traitName: Dodge
+        traitDescription: Immune to damage from missed attacks, area <i>effects</i>
+          and successful saves.
+        phaseIndex: 0
+      abilities:
+      - abilityID: 92
+        docID: 7
+        abilityName: Blood spiller
+        actionCost: 1
+        isAttack: 1
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D] +fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+          </b>Deals fray damage again to bloodied characters, or fray damage twice
+          again to characters at 25% hp or lower.\n<b>Effect: </b>Dash 2 before or
+          after the attack"
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 93
+        docID: 7
+        abilityName: Drag Hook
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - unerring
+        subCombos: 
+        abilityEffect: A character in range 5 takes 2 damage, is <i>dazed</i> and
+          shoved 1 in any direction. Bloodied characters are shoved 3 instead.
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Vile Darter [Fetid Idol]
+    description: 
+    stats:
+      HP: 15
+      speed: 4
+      dash: 0
+      defense: 8
+      armor: 0
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData:
+      - Summon of the Lowlander Legend Fetid Idol
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 3
+        docID: 0
+        traitName: Aetherwall
+        traitDescription: Gains <i>resistance</i> against all abilities from characters
+          that are outside of range 2 from them (Cover halves ranged damage).
+        phaseIndex: 0
+      abilities:
+      - abilityID: 94
+        docID: 7
+        abilityName: Blowdart
+        actionCost: 2
+        isAttack: 1
+        abilityAspects:
+        - range 8
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>2[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+          </b>Deals bonus damage to bloodied foes.\n<b>Effect: </b>If foe is standing
+          adjacent to the idol or in difficult or dangerous terrain, they are <i>shattered.</i>"
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Giant Beetle [Fetid Idol]
+    description: 
+    stats:
+      HP: 20
+      speed: 4
+      dash: 0
+      defense: 6
+      armor: 0
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData:
+      - Summon of the Lowlander Legend Fetid Idol
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 32
+        docID: 0
+        traitName: Guard
+        traitDescription: Has <i>Rampart</i>. Reduce all damage to self and allies
+          in orthogonal spaces by 2, as if by armor.
+        phaseIndex: 0
+      abilities:
+      - abilityID: 95
+        docID: 7
+        abilityName: Crush
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - true strike
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+          </b>Shove 1, or shove 3 if foe is bloodied.\n<b><i>Collide:</i> </b>Character
+          is <i>weakened.</i>"
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 96
+        docID: 7
+        abilityName: Pound
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - medium blast
+        subCombos: 
+        abilityEffect: "Dash 2 spaces. \n<b>Area <i>effect:</i> </b>characters take
+          2 damage and are shoved 1."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Boots [Blood Bound Band]
+    description: Blood Brother of the Bound Band
+    stats:
+      HP: 13 hp per player character (min 26)
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 0
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData:
+      - 'Blessing: All remaining Brothers become sturdy and gain The Boot'
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 32
+        docID: 0
+        traitName: Guard
+        traitDescription: Has <i>Rampart</i>. Reduce all damage to self and allies
+          in orthogonal spaces by 2, as if by armor.
+        phaseIndex: 0
+      abilities:
+      - abilityID: 108
+        docID: 9
+        abilityName: Blood Bond
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: Swap places with a Blood Brother in range 3, removing and
+          placing both characters.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 141
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 142
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 109
+        docID: 9
+        abilityName: First Blood
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 3
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+          </b>May dash 1 before and after attack.\n<b>Effect: </b>Attack gains +1
+          dash and deals +2 damage on hit or miss per fallen brother."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 110
+        docID: 9
+        abilityName: The Boot
+        actionCost: free
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "An adjacent foe is shoved 1. If they\u2019re bloody, they
+          are instead shoved 3. \n<b><i>Collide:</i> </b>Foe is <i>weakened.</i>"
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 111
+        docID: 9
+        abilityName: Flying Dropkick
+        actionCost: 2
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "Boots <i>rushes</i> 3 towards a foe. Then, if they are adjacent
+          to that foe, that foe takes take D]+fray and is shoved 3. \n<b><i>Collide:</i>
+          </b>Foe is <i>stunned.</i>"
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Fixer [Blood Bound Band]
+    description: Blood Brother of the Bound Band
+    stats:
+      HP: 13 hp per player character (min 26)
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 0
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData:
+      - 
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits: []
+      abilities:
+      - abilityID: 108
+        docID: 9
+        abilityName: Blood Bond
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: Swap places with a Blood Brother in range 3, removing and
+          placing both characters.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 141
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 142
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 109
+        docID: 9
+        abilityName: First Blood
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 3
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+          </b>May dash 1 before and after attack.\n<b>Effect: </b>Attack gains +1
+          dash and deals +2 damage on hit or miss per fallen brother."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Filth [Blood Bound Band]
+    description: Blood Brother of the Bound Band
+    stats:
+      HP: 13 hp per player character (min 26)
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 0
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData:
+      - 'Blessing: All remaining Brothers gain Dripping Blade '
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 0
+        docID: 0
+        traitName: Skirmisher
+        traitDescription: Can move diagonally, and dash moves full speed
+        phaseIndex: 0
+      - traitID: 1
+        docID: 0
+        traitName: Dodge
+        traitDescription: Immune to damage from missed attacks, area <i>effects</i>
+          and successful saves.
+        phaseIndex: 0
+      - traitID: 32
+        docID: 9
+        traitName: 
+        traitDescription: 
+        phaseIndex: 0
+      abilities:
+      - abilityID: 108
+        docID: 9
+        abilityName: Blood Bond
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: Swap places with a Blood Brother in range 3, removing and
+          placing both characters.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 141
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 142
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 109
+        docID: 9
+        abilityName: First Blood
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 3
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+          </b>May dash 1 before and after attack.\n<b>Effect: </b>Attack gains +1
+          dash and deals +2 damage on hit or miss per fallen brother."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 113
+        docID: 9
+        abilityName: Poison gas
+        actionCost: 2
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: <b>Area <i>effect:</i> </b>small blast. Characters in the
+          area take 6 damage. Then, they must save or take 6 damage again and become
+          <i>blinded.</i> Blinded characters fail this save.
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Cats [Blood Bound Band]
+    description: Blood Brother of the Bound Band
+    stats:
+      HP: 13 hp per player character (min 26)
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 0
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData:
+      - 'Blessing: All Brothers gain Feline Felicity.'
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 0
+        docID: 0
+        traitName: Skirmisher
+        traitDescription: Can move diagonally, and dash moves full speed
+        phaseIndex: 0
+      - traitID: 1
+        docID: 0
+        traitName: Dodge
+        traitDescription: Immune to damage from missed attacks, area <i>effects</i>
+          and successful saves.
+        phaseIndex: 0
+      abilities:
+      - abilityID: 108
+        docID: 9
+        abilityName: Blood Bond
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: Swap places with a Blood Brother in range 3, removing and
+          placing both characters.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 141
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 142
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 109
+        docID: 9
+        abilityName: First Blood
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 3
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+          </b>May dash 1 before and after attack.\n<b>Effect: </b>Attack gains +1
+          dash and deals +2 damage on hit or miss per fallen brother."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 114
+        docID: 9
+        abilityName: Feline Felicity
+        actionCost: Free
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: Teleport 3, then may deal 2 damage to an adjacent foe. Bloodied
+          foes take 2 damage twice.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 115
+        docID: 9
+        abilityName: Fan of Nya-ives
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "<b>Area <i>effect:</i> </b>Medium Blast. \n<b>Effect: </b>Foes
+          take 3 damage. Bloodied foes take 3 damage twice. Then, Cats may teleport
+          2."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Sharkie [Blood Bound Band]
+    description: Blood Brother of the Bound Band
+    stats:
+      HP: 13 hp per player character (min 26)
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 0
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData:
+      - 'Blessing: All Brothers gain Great Swindle '
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits: []
+      abilities:
+      - abilityID: 108
+        docID: 9
+        abilityName: Blood Bond
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: Swap places with a Blood Brother in range 3, removing and
+          placing both characters.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 141
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 142
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 109
+        docID: 9
+        abilityName: First Blood
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 3
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+          </b>May dash 1 before and after attack.\n<b>Effect: </b>Attack gains +1
+          dash and deals +2 damage on hit or miss per fallen brother."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 184
+        docID: 0
+        abilityName: Diaga
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: An ally in range 4 is <i>cured</i>.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 116
+        docID: 9
+        abilityName: Great Aura of Skulduggery
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - end turn
+        subCombos: 
+        abilityEffect: Until the start of their next turn, Sharkie is immobile and
+          gains Aura 2. Sharkie and allies in the aura have evasion and <i>counter.</i>
+          Foes that trigger counter or evasion are also shoved 2 after the triggering
+          ability resolves.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 117
+        docID: 9
+        abilityName: Great Swindle
+        actionCost: free
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: A foe in range 3 is <i>sealed,</i> then must save or swap
+          places with Sharkie, teleporting. Bloodied characters fail the save.
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Pale [Blood Bound Band]
+    description: Blood Brother of the Bound Band
+    stats:
+      HP: 13 hp per player character (min 26)
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 0
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData:
+      - 'Blessing: All Brothers go to speed 5 and gain phasing'
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 0
+        docID: 0
+        traitName: Skirmisher
+        traitDescription: Can move diagonally, and dash moves full speed
+        phaseIndex: 0
+      - traitID: 1
+        docID: 0
+        traitName: Dodge
+        traitDescription: Immune to damage from missed attacks, area <i>effects</i>
+          and successful saves.
+        phaseIndex: 0
+      abilities:
+      - abilityID: 108
+        docID: 9
+        abilityName: Blood Bond
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: Swap places with a Blood Brother in range 3, removing and
+          placing both characters.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 141
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 142
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 109
+        docID: 9
+        abilityName: First Blood
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 3
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+          </b>May dash 1 before and after attack.\n<b>Effect: </b>Attack gains +1
+          dash and deals +2 damage on hit or miss per fallen brother."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 118
+        docID: 9
+        abilityName: Nighthaunt
+        actionCost: 2
+        isAttack: 0
+        abilityAspects:
+        - end turn
+        - combo
+        subCombos: 00000000
+        abilityEffect: Pale teleports 3, then becomes <i>intangible</i> and gains
+          <i>phasing</i> until the start of their next turn. This action grants evasion
+          instead if they are the only Brother active
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Sharp [Blood Bound Band]
+    description: Blood Brother of the Bound Band
+    stats:
+      HP: 13 hp per player character (min 26)
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 0
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData:
+      - 'Blessing: All Brothers gain Keen Eye, and one brother can use Ricochet Shot
+        once a round.'
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 3
+        docID: 0
+        traitName: Aetherwall
+        traitDescription: Gains <i>resistance</i> against all abilities from characters
+          that are outside of range 2 from them (Cover halves ranged damage).
+        phaseIndex: 0
+      - traitID: 2
+        docID: 0
+        traitName: Slip
+        traitDescription: Movement ignores rampart, interrupts, and vigilance.
+        phaseIndex: 0
+      - traitID: 33
+        docID: 9
+        traitName: 
+        traitDescription: 
+        phaseIndex: 0
+      abilities:
+      - abilityID: 108
+        docID: 9
+        abilityName: Blood Bond
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: Swap places with a Blood Brother in range 3, removing and
+          placing both characters.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 141
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 142
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 109
+        docID: 9
+        abilityName: First Blood
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 3
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+          </b>May dash 1 before and after attack.\n<b>Effect: </b>Attack gains +1
+          dash and deals +2 damage on hit or miss per fallen brother."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 120
+        docID: 9
+        abilityName: Ricochet shot
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - pierce
+        - range 10
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray and foe is <i>shattered.</i> \n<b>Miss:
+          </b>fray.\n<b><i>Effect:</i> </b>A different foe in range 3 from the original
+          target takes fray damage.\n<b>Effect: </b>Deals bonus damage against bloodied
+          foes."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Fanatic [Blood Bound Band]
+    description: Blood Brother of the Bound Band
+    stats:
+      HP: 13 hp per player character (min 26)
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 0
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData:
+      - 'Blessing: One brother can use Spark once a round'
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 3
+        docID: 0
+        traitName: Aetherwall
+        traitDescription: Gains <i>resistance</i> against all abilities from characters
+          that are outside of range 2 from them (Cover halves ranged damage).
+        phaseIndex: 0
+      - traitID: 2
+        docID: 0
+        traitName: Slip
+        traitDescription: Movement ignores rampart, interrupts, and vigilance.
+        phaseIndex: 0
+      abilities:
+      - abilityID: 108
+        docID: 9
+        abilityName: Blood Bond
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: Swap places with a Blood Brother in range 3, removing and
+          placing both characters.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 141
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 142
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 109
+        docID: 9
+        abilityName: First Blood
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 3
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+          </b>May dash 1 before and after attack.\n<b>Effect: </b>Attack gains +1
+          dash and deals +2 damage on hit or miss per fallen brother."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 121
+        docID: 9
+        abilityName: Spark
+        actionCost: free
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: "Choose a foe in range 6 that has not acted this round. At
+          the end of that foe\u2019s next turn, they explode in a small blast area
+          <i>effect</i> for [D]+fray piercing damage, dealing damage to all foes
+          other than them in the area. Summon a pit under them. If they are standing
+          in a pit when the explosion happens, they are <i>stunned</i> and also take
+          damage."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 122
+        docID: 9
+        abilityName: Blood Pyre
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 6
+        - medium blast
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i>
+          </b>fray.\n<b>Effect: </b>Summon a pit under every bloodied character in
+          the area. Deals bonus damage to characters inside pits."
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Broker [Blood Bound Band]
+    description: Blood Brother of the Bound Band
+    stats:
+      HP: 13 hp per player character (min 26)
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 0
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData:
+      - 'Blessing: All Brothers gain Defiance'
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits:
+      - traitID: 10
+        docID: 0
+        traitName: Defiance
+        traitDescription: Prevents hit points from being reduced past 1 hp. When
+          this triggers, remove this <i>effect</i> and character becomes immune to
+          all damage for the rest of the current turn.
+        phaseIndex: 0
+      - traitID: 34
+        docID: 9
+        traitName: 
+        traitDescription: 
+        phaseIndex: 0
+      abilities:
+      - abilityID: 108
+        docID: 9
+        abilityName: Blood Bond
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: Swap places with a Blood Brother in range 3, removing and
+          placing both characters.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 141
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 142
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 109
+        docID: 9
+        abilityName: First Blood
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 3
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+          </b>May dash 1 before and after attack.\n<b>Effect: </b>Attack gains +1
+          dash and deals +2 damage on hit or miss per fallen brother."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 184
+        docID: 0
+        abilityName: Diaga
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: An ally in range 4 is <i>cured</i>.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 134
+        docID: 9
+        abilityName: Golden Glove
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - +1 boon
+        - true strike
+        - range 3
+        - combo
+        subCombos: 87000000
+        abilityEffect: "<b>On hit: </b>[D] +fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+          </b>Foe must save or be shoved 1 for every 2 net worth they have, or just
+          1 space on a successful space. Then, they gain 1 net worth.\n<b><i>Collide:</i>
+          </b>Foe is <i>stunned.</i>"
+        abilityComboDepth: 0
+        phaseIndex: 0
+  - name: Monger [Blood Bound Band]
+    description: Blood Brother of the Bound Band
+    stats:
+      HP: 13 hp per player character (min 26)
+      speed: 4
+      dash: 2
+      defense: 8
+      armor: 0
+      frayDamage: 3
+      damageDie: 8
+      dieAmount: 1
+      specialData:
+      - 'Blessing: All foes are marked by Bounty Hunt'
+    factionIndex: 0
+    factions: []
+    aspectSet:
+    - setName: 
+      setCondition: 
+      traits: []
+      abilities:
+      - abilityID: 108
+        docID: 9
+        abilityName: Blood Bond
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: Swap places with a Blood Brother in range 3, removing and
+          placing both characters.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 141
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 142
+        docID: 9
+        abilityName: 
+        actionCost: 
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: 
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 109
+        docID: 9
+        abilityName: First Blood
+        actionCost: 1
+        isAttack: 1
+        abilityAspects:
+        - range 3
+        subCombos: 
+        abilityEffect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+          </b>May dash 1 before and after attack.\n<b>Effect: </b>Attack gains +1
+          dash and deals +2 damage on hit or miss per fallen brother."
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 184
+        docID: 0
+        abilityName: Diaga
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: An ally in range 4 is <i>cured</i>.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 124
+        docID: 9
+        abilityName: Bounty Hunt
+        actionCost: 1
+        isAttack: 0
+        abilityAspects:
+        - mark
+        subCombos: 
+        abilityEffect: A foe in range 6 is marked. While marked, abilities against
+          the target gain true strike, and allies gain +1 boon to attack the foe.
+          Using this mark again transfers it. A foe can end this mark by ending their
+          turn more than 2 spaces away from any Brother.
+        abilityComboDepth: 0
+        phaseIndex: 0
+      - abilityID: 125
+        docID: 9
+        abilityName: Weakening Venom
+        actionCost: 1
+        isAttack: 0
+        abilityAspects: []
+        subCombos: 
+        abilityEffect: A foe in range 6 is <i>pacified+.</i> They can purge the venom
+          from their system at the end of any turn they attack, ending this <i>effect.</i>
+        abilityComboDepth: 0
+        phaseIndex: 0

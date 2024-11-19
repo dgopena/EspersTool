@@ -1,0 +1,221 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26145924c7c4eb348905b6d88f10b619, type: 3}
+  m_Name: Imperial_Tr
+  m_EditorClassIdentifier: 
+  Traits:
+  - traitName: Kin
+    traitEffect: "<b>Imperials are kin, can be bargained with, and will flee or surrender
+      if heavily outnumbered or heavily losing a fight \n\u2022 Motivations: </b>Imperials
+      have orders they are following from whatever guild master, warlord, or under-baron
+      they serve. Usually this is to capture a location, <i>object</i> of power,
+      or person of interest. If characters can work around those orders, Imperials
+      can usually be bargained with or even be helpful. \n\u2022 All Imperials have
+      the Chain of Command trait"
+    traitIDInList: 0
+  - traitName: Commanding Officer
+    traitEffect: Designate one foe the commanding officer of the imperial detachment.
+      They get a special template.
+    traitIDInList: 1
+  - traitName: Orders
+    traitEffect: At the start of the round, give an orders token to any imperial
+      character. That character automatically activates any exceed <i>effects</i>
+      of their attacks, deals bonus damage, and gains +1 action, but can only take
+      their turn after all other imperials have acted. At the end of the round, discard
+      that token.
+    traitIDInList: 2
+  - traitName: Promotion
+    traitEffect: Starts combat with vigor equal to their VIT
+    traitIDInList: 3
+  - traitName: Imperial Command Aura
+    traitEffect: Aura 2. Allies in the aura gain +1 boon on attacks.
+    traitIDInList: 4
+  - traitName: Blood Rush
+    traitEffect: May <i>rush</i> 2 before making any attack. If the attack triggers
+      exceed, may rush 2 again.
+    traitIDInList: 5
+  - traitName: Lone Wolf
+    traitEffect: When ending their turn with no foes or allies in range 2, gains
+      <i>stealth.</i>
+    traitIDInList: 6
+  - traitName: Low Profile
+    traitEffect: Has evasion against ranged attacks
+    traitIDInList: 7
+  - traitName: Tactics Aura
+    traitEffect: Aura 1. Allies ignore engagement and rampart <i>effects</i> while
+      in the aura, and may dash 1 if they start their turn there.
+    traitIDInList: 8
+  - traitName: Forced March
+    traitEffect: At the start of their turn, the Evocatus and all allies may dash
+      1 in the same direction.
+    traitIDInList: 9
+  - traitName: Master of Strategy
+    traitEffect: Before combat starts, may move every character to any space up to
+      2 spaces in any direction from their starting location
+    traitIDInList: 10
+  - traitName: Brace
+    traitEffect: When adjacent to an <i>object,</i> increase the range of all abilities
+      with a listed range by +4.
+    traitIDInList: 11
+  - traitName: Expert Overwatch
+    traitEffect: "<b>The Janissary is a masterful gunner, granting the following
+      benefits: </b>\n\u2022 When Overwatch\u2019s area is created, the Janissary
+      can deal 2 piercing damage to all foes inside as an area <i>effect.</i> \n\u2022
+      Any foe entering or exiting Overwatch\u2019s area takes 2 piercing damage from
+      the Janissary, but no more than once a turn."
+    traitIDInList: 12
+  - traitName: Enrage
+    traitEffect: Gain +1 action while <i>bloodied.</i>
+    traitIDInList: 13
+  - traitName: Counter
+    traitEffect: When damaged by an ability, deal 2 damage back, each time damage
+      is applied.
+    traitIDInList: 14
+  - traitName: Heavy Arkentech Armor
+    traitEffect: "<b>The Soldat is fitted with heavy power armor that is only strong
+      from the front, with the following <i>effects:</i> </b>\n\u2022 They cannot
+      dash, fly, or teleport \n\u2022 They can be used for cover by allies as if
+      a height 1 <i>object</i> \n\u2022 At the end of the Soldat\u2019s turn, decide
+      which character they are facing towards. They become resistant to all damage
+      from that character and unstoppable against any of their abilities. It can
+      instead choose to grant these benefits to an adjacent ally. It must choose
+      a different character each turn from the last."
+    traitIDInList: 15
+  - traitName: Automata
+    traitEffect: If this character attacks the same character as last turn, it deals
+      bonus damage and gains +1 boon. This <i>effect</i> stacks.
+    traitIDInList: 16
+  - traitName: Empty Husk
+    traitEffect: This character becomes a height 1 <i>object</i> when defeated.
+    traitIDInList: 17
+  - traitName: Arkentech Bike
+    traitEffect: The Biker ignores difficult terrain. It can only move in straight
+      lines, but has <i>phasing.</i> Any character it passes through takes 2 damage,
+      but no more than once a turn.
+    traitIDInList: 18
+  - traitName: Long Legs
+    traitEffect: "Ignores all obstruction and terrain movement penalties.\r"
+    traitIDInList: 19
+  - traitName: Hovering
+    traitEffect: Immune to rampart
+    traitIDInList: 20
+  - traitName: Deflate
+    traitEffect: If the War Balloon is prevented from <i>flying,</i> it becomes immobile
+      until it can fly again.
+    traitIDInList: 21
+  - traitName: Battle Platform
+    traitEffect: "Characters can mount or dismount the War Balloon by spending 1
+      space of movement, placing them adjacent when dismounting, with the following
+      rules:\n\u2022 Imperials can start the battle mounted on the balloon. \n\u2022
+      While mounted, place characters inside a free space in the balloon (so the
+      balloon has space for 4 size 1 characters). They share its space, move when
+      it moves, and have cover. While moving with the balloon, characters are unstoppable.
+      \n\u2022 Characters hostile to the balloon must pass a save to mount it. \n\u2022
+      Characters mounting it the balloon when it is defeated are placed in any free
+      adjacent space of the balloon\u2019s choice and take 3 damage."
+    traitIDInList: 22
+  - traitName: Vantage Point
+    traitEffect: Characters mounted on the War Balloon ignore height disadvantage,
+      have +1 boon on attacks and increase the range of all their abilities with
+      a listed range by +4
+    traitIDInList: 23
+  - traitName: Master of Gun
+    traitEffect: Has <i>counter</i> against all abilities used from a range of 3
+      or greater. Damage from counter ignores cover.
+    traitIDInList: 24
+  - traitName: Heavy Armor
+    traitEffect: <i>Resistance</i> against abilities used from adjacent spaces.
+    traitIDInList: 25
+  - traitName: Aura of Dread
+    traitEffect: The Praetorian has aura 2. Foes inside the aura take +1 curse on
+      saves. Any foe that fails a save inside the area must sacrifice 3.
+    traitIDInList: 26
+  - traitName: Boiling Shroud
+    traitEffect: While <i>bloodied,</i> the steam wright has permanent <i>stealth</i>
+      and gains aura 1. All other characters inside the aura are <i>blinded+</i>
+      while inside.
+    traitIDInList: 27
+  - traitName: All Terrain Vehicle
+    traitEffect: Unaffected by terrain and height movement penalties
+    traitIDInList: 28
+  - traitName: Battle Platform
+    traitEffect: "Characters can mount or dismount the Battle Wagon by spending 1
+      space of movement, placing them adjacent when dismounting, with the following
+      rules:\n\u2022 Imperials can start the battle mounted on the wagon. \n\u2022
+      While mounted, place characters inside a free space in the wagon (so the wagon
+      has space for 4 size 1 characters). They share its space, move when it moves,
+      and have cover. While moving with the wagon, characters are unstoppable. \n\u2022
+      Characters hostile to the wagon must pass a save to mount it, and cannot attempt
+      to mount it for the rest of the turn on a failed save. \n\u2022 Characters
+      mounting it the wagon when it is defeated are placed in any free adjacent space
+      of the wagon\u2019s choice and take 3 damage."
+    traitIDInList: 29
+  - traitName: Master of Strategy
+    traitEffect: Before combat starts, may move every character to any space up to
+      2 spaces in any direction from their starting location
+    traitIDInList: 30
+  - traitName: Imperial Command Aura
+    traitEffect: Aura 2. Allies in the aura gain +1 boon on attacks.
+    traitIDInList: 31
+  - traitName: Hellforged
+    traitEffect: Immune to its own terrain <i>effects.</i>
+    traitIDInList: 32
+  - traitName: Advanced Scopes
+    traitEffect: Immune to <i>blinded,</i> and abilities have no maximum range.
+    traitIDInList: 33
+  - traitName: Landship
+    traitEffect: The weapon is immobile. It occupies 1 space along the entire edge
+      of one side of the battlefield (imagine it lined up along the edge). Characters
+      and <i>objects</i> cannot share space with the weapon. If it is removed from
+      the battlefield, it always returns in the same spot.
+    traitIDInList: 34
+  - traitName: Airship
+    traitEffect: "This Weapon fight takes place on the Weapon, an airship that could
+      be any shape, but is better run on a smaller, rectangular map of no more than
+      10 or 12 spaces on its longest side. The deck of the airship is treated as
+      basic terrain and not a character (it\u2019s too heavily armored), but its
+      three sections can be attacked to deal damage to it."
+    traitIDInList: 35
+  - traitName: Arkentech Megabomb
+    traitEffect: The Weapon has a massive Arkentech weapon that is constantly charging.
+      If it is allowed to fire it, it ends the fight, resulting in a player loss.
+      Usually the weapon firing will result in some massive loss of life, like a
+      town being wiped out, but you can decide what the stakes are for your game.\n\nTrack
+      the bomb's energy charge with a d6. It starts at 1, and ticks up by 1 at the
+      start of each round past the first. If the Veridian Weapon ends a round with
+      its charge at 6 or higher, the fight is over. Players can deplete the charge
+      by destroying sections, and the weapon can increase it with certain abilities.
+    traitIDInList: 36
+  - traitName: Viridian Weapon Section
+    traitEffect: "\u2022 Each section is a separate size 2 character that is immobile
+      and has 1/3 of the Weapon\u2019s total HP. If removed from the battlefield,
+      can only be placed in the same space. \n\u2022 Sections cannot be placed within
+      range 2 of each other. \n\u2022 The Sections also count as height 2 <i>objects.</i>
+      Other characters can move on them or use them as cover \n\u2022 When acting,
+      the Weapon acts with only one of its sections at a time. It must take a turn
+      with each of its sections in a round before taking a turn with a different
+      section. \n\u2022 When a section is reduced to 0 hp, it is destroyed and removed
+      from the battlefield. \n\u2022 When all three are destroyed, the Weapon is
+      defeated."
+    traitIDInList: 37
+  - traitName: Destruction (Airship Engine)
+    traitEffect: "If this section is destroyed, all remaining sections gain Lurch
+      as a 1/round free action.\r"
+    traitIDInList: 38
+  - traitName: Destruction (Forward Turret)
+    traitEffect: If this section is destroyed, all remaining sections gain Collateral
+      Damage as a 1/round free action.
+    traitIDInList: 39
+  - traitName: Destruction (Aft Turret)
+    traitEffect: If this section is destroyed, remaining sections gain the ability
+      to summon Combat Automaton as a 1/round free action.
+    traitIDInList: 40

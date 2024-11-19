@@ -1,0 +1,1527 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67141eeaaa860ee4f8df8f96dfaec8c8, type: 3}
+  m_Name: Hob_Ab
+  m_EditorClassIdentifier: 
+  abilities:
+  - abilityName: Spirit Away
+    actionCost: free
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Hob swaps places with an adjacent character, removing and placing
+      both characters.
+    abilityIDInList: 0
+  - abilityName: Frolic
+    actionCost: 2
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The acting Sprigg swaps places with an ally in range 3, removing and
+      placing both characters.
+    abilityIDInList: 1
+  - abilityName: Mischief
+    actionCost: 2
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The acting Sprigg swaps the places of two other characters in range 2
+      of the Sprigg, removing and placing both of them.
+    abilityIDInList: 2
+  - abilityName: Pummel
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>Fray.\n<b>Charge: </b>Shove
+      all adjacent foes 2"
+    abilityIDInList: 3
+  - abilityName: Root
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - multimark
+    subCombos: 
+    effect: The hob chooses itself or an ally in range, marking them. When marked,
+      that character gains 3 vigor, and while marked, that character is immune to
+      all shove, teleport, and remove from the battlefield <i>effects</i> from foes.
+      This mark ends if the marked character moves, but does not end if its allies
+      move them.
+    abilityIDInList: 4
+  - abilityName: Twist Leg
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - mark
+    subCombos: 
+    effect: <b><i>Effect:</i> </b>A foe in range is <i>slashed,</i> then marked.
+      While marked, each time that foe is shoved, teleported, or removed and placed
+      on the battlefield, they take 2 damage. A foe can end this mark by not moving
+      for their entire turn.
+    abilityIDInList: 5
+  - abilityName: Seismic Slam
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: "<b>The Hob ends its turn and gains Delay: </b>it\u2019s next turn must
+      be slow. At the start of that turn, all adjacent foes must save or take 2[D]+fray
+      and be shoved 1, or [D]+fray on a successful save. \n<b><i>Collide:</i> </b>Foe
+      is <i>stunned.</i>"
+    abilityIDInList: 6
+  - abilityName: Seismic Slam II
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: "The Hob ends its turn and gains Delay: it\u2019s next turn must be slow.
+      At the start of that turn, all adjacent foes must save or take 2[D]+fray and
+      be shoved 1, or [D]+fray on a successful save. \\n<b><i>Effect:</i></b> Deals
+      bonus damage for every object caught in its area of effect.\\n<b><i>Collide:</i>
+      </b>Foe is <i>stunned.</i>"
+    abilityIDInList: 7
+  - abilityName: Seismic Slam III
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: "The Hob ends its turn and gains Delay: it\u2019s next turn must be slow.
+      At the start of that turn, all foes in <b>range 2</b> must save or take 2[D]+fray
+      and be shoved 1, or [D]+fray on a successful save. \\n<b><i>Effect:</i></b>
+      Deals bonus damage for every object caught in its area of effect.\\n<b><i>Collide:</i>
+      </b>Foe is <i>stunned.</i>i>"
+    abilityIDInList: 8
+  - abilityName: Twisting Thorn
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: '<b>Repeat the following <i>effect</i> twice: </b>A foe in range 3 takes
+      1 damage, then is shoved 1 in any direction.'
+    abilityIDInList: 9
+  - abilityName: Poison Burst
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - range 2
+    subCombos: 
+    effect: "The Ruddcap releases a burst of poisonous spores that becomes a small
+      blast blast area of difficult terrain that lasts until the hob uses this ability
+      again. Foes that start or end their turn in the area are <i>weakened</i> and
+      take 2 damage. Weakened foes are <i>stunned.</i> \n<b>Charge: </b>Range 4 and
+      medium Blast"
+    abilityIDInList: 10
+  - abilityName: Mudslide
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "The Hob <i>rushes</i> 3 with <i>phasing,</i> then creates a terrain
+      <i>effect</i> in the spaces it just passed through. Characters that enter the
+      space for the first time on their turn or start their turn there must save
+      or slip and be shoved 2 in a direction of the hob\u2019s choice."
+    abilityIDInList: 11
+  - abilityName: Dive Kick
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "The hob <i>rushes</i> up to 2s spaces in a straight line, then an adjacent
+      foe is shoved the number of spaces the hob rushed. \n<b>Charge: </b>Up to 5
+      spaces instead."
+    abilityIDInList: 12
+  - abilityName: Drag Under
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - usable when bloodied
+    subCombos: 
+    effect: "An adjacent foe takes fray damage, and remove both the Hob and that
+      foe from play as they dive into a pool of magicked water. Both return to play
+      at the start of that foe\u2019s next turn, in any free space in range 3 of
+      their original location.\r"
+    abilityIDInList: 13
+  - abilityName: Tongue Lash
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    subCombos: 
+    effect: "A foe in range is shoved 1 towards the Hob. \n<b>Charge: </b>Range 5,
+      and shove 3"
+    abilityIDInList: 14
+  - abilityName: Latch On
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    - usable while bloodied
+    subCombos: 
+    effect: "The Hob ends its turn and clamps fangs down on an adjacent foe\u2019s
+      leg. The Hob becomes unstoppable, and moves into and shares their space, moving
+      when they dash, <i>rush,</i> fly or teleport. After any ability resolves that
+      damages that foe, the hob deals 2 damage to them and shoves them 1 in any direction.
+      At the start of the Hob\u2019s next turn, they detach, ending this <i>effect.</i>
+      It also ends if the Hob and their target are separated for any reason."
+    abilityIDInList: 15
+  - abilityName: Spirit Orb
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - small blast
+    - range 8
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+2, twice. \n<b>Miss or area <i>effect:</i> </b>2
+      damage, twice.\n<b>Charge: </b>Teleport affected foes 2 spaces.\n<b>Round 3+:
+      </b>Gains charge effect for free"
+    abilityIDInList: 16
+  - abilityName: Whisk
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: A foe in range becomes <i>vulnerable,</i> then is teleported 1. Vulnerable
+      foes are teleported 3 instead.
+    abilityIDInList: 17
+  - abilityName: Playful Pricking
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    - mark
+    subCombos: 
+    effect: A character in range of the spirit is marked. While marked, each time
+      they teleport, they take 1 piercing damage. This damage cannot reduce them
+      past 1 hp. A character can end this mark by not moving for their entire turn.
+    abilityIDInList: 18
+  - abilityName: Fell spirit
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: "The spirit hob ends its turn and chooses a terrain space in range 6.
+      \n<b>Delay: </b>The hob\u2019s next turn must be slow. At the start of that
+      turn, the space explodes, releasing a massive blast of sonic energy in a medium
+      blast area <i>effect</i> centered on it. Foes inside are teleport 2 spaces,
+      <i>shattered,</i> then must save or take [D]+fray twice, or once on a successful
+      save."
+    abilityIDInList: 19
+  - abilityName: Whisk II
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: A foe in range becomes <i>vulnerable,</i> then is teleported 1. Vulnerable
+      foes are teleported 3 instead. <i>Whisk</i> can be used on allies. If so, it
+      always teleports them 2 spaces and does not inflict statuses.
+    abilityIDInList: 20
+  - abilityName: Whisk III
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    - repeatable
+    subCombos: 
+    effect: A foe in range becomes <i>vulnerable,</i> then is teleported 1. Vulnerable
+      foes are teleported 3 instead. <i>Whisk</i> can be used on allies. If so, it
+      always teleports them 2 spaces and does not inflict statuses.
+    abilityIDInList: 21
+  - abilityName: Spirit Trickery
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "The Nixie gains the following interrupt until the start of its next
+      turn <indent=15%>\\n<b>Spirit Trickery</b> \\nInterrupt 2 \\n<b>Trigger: </b>The
+      nixie or an ally in range 2 is damaged by a foe\u2019s ability, and the ability
+      resolves. \\n<b><i>Effect:</i> </b>The triggering foe, the nixie, and their
+      ally (if applicable) are all teleported 2"
+    abilityIDInList: 22
+  - abilityName: Horrific Screech
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: 'The Banshee gains the following interrupt until the start of its next
+      turn <indent=15%>\n<b>Screech</b> \nInterrupt 1 \n<b>Trigger: </b>A foe in
+      range 6 of the Banshee rolls a save, and the result is determined. \n<b><i>Effect:</i>
+      </b>The triggering foe, re-rolls their save with +1 curse, taking the new result
+      as final. If they fail the save, they also become <i>vulnerable.</i>'
+    abilityIDInList: 23
+  - abilityName: Thorny Thicket
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    - 1/ combat
+    subCombos: 
+    effect: The spirit creates a line 3 area of dangerous terrain in range.
+    abilityIDInList: 24
+  - abilityName: Dancing Light
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    - end turn
+    - summon
+    subCombos: 
+    effect: 'The Hob summons a dancing light in range in any space not adjacent to
+      a character. <indent=15%>\n<b>Dancing Light</b> \nSize 1, <i>intangible</i>
+      \n<b>Summon <i>Effect:</i> </b>When a foe starts or ends a turn adjacent to
+      the light, it explodes in a medium blast area effect centered on it. Characters
+      inside must save or take fray damage twice, or once on a successful save. If
+      the light is destroyed, it fizzles out without exploding. </indent>\n<b>Charge:
+      </b>Summons two lights'
+    abilityIDInList: 25
+  - abilityName: Great Slip
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: Remove the Hob from the battlefield, then place it in any space in range
+      4.
+    abilityIDInList: 26
+  - abilityName: Flash Freeze
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: A character in range has an encasing of ice cover them. While encased,
+      the targeted foe is immobile until they take any amount of damage. They or
+      an adjacent ally can also use the interact ability to break them out, dealing
+      6 piercing damage to them but ending this <i>effect.</i>
+    abilityIDInList: 27
+  - abilityName: Longfinger
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - +1 boon
+    - range 2
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Deals
+      3 damage again its target if they are marked.\n<b>Charge: </b>Dash 3 and gain
+      <i>stealth</i>"
+    abilityIDInList: 28
+  - abilityName: Steal Speed
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - unerring
+    - range 3
+    subCombos: 
+    effect: The hob may dash up to 2, then foe in range is <i>dazed.</i> Dazed foes
+      take fray damage.
+    abilityIDInList: 29
+  - abilityName: Snatch Memory
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "The Hob prepares to pilfer its foe\u2019s memories, gaining the following
+      interrupt until the start of its next turn: <indent=15%>\\n<b>Snatch Memory</b>
+      \\nInterrupt 1 \\n<b>Trigger: </b>A foe in range 3 uses an ability and the
+      ability resolves.\\n<b><i>Effect:</i> </b>The foe loses the memory of that
+      ability, becoming unable to use it again until the end of their next turn.
+      Any passive effects of the ability for that duration still continue as normal."
+    abilityIDInList: 30
+  - abilityName: Cavort
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: "<b>The Hob ends its turn and gains Delay: </b>it\u2019s next turn must
+      be slow. At the start of that turn, it teleports 3, then deals 3 damage to
+      an adjacent foe. Can repeat this <i>effect,</i> but must choose a different
+      foe in range each time unless a foe has already been chosen by this ability,
+      or this effect has triggered three times."
+    abilityIDInList: 31
+  - abilityName: Displacement
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - mark
+    subCombos: 
+    effect: The hob marks itself or an ally in range. That character gains evasion
+      and dodge, and may teleport whenever it would move any number of spaces. These
+      mark <i>effects</i> turn off if the marked character is adjacent to a foe.
+    abilityIDInList: 32
+  - abilityName: Weave Garment
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - mark
+    - end turn
+    subCombos: 
+    effect: The Spinhob weaves an incredibly odd or ugly garment, placing it on a
+      character in range 3. While under this <i>effect,</i> the character fails all
+      saves. After the character fails a save, they may transfer this mark and effect
+      to a new character in range 3, including a foe. If there are no characters
+      in range, this effect ends.
+    abilityIDInList: 33
+  - abilityName: Snatch Memory II
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: "The Hob prepares to pilfer its foe\u2019s memories, gaining the following
+      interrupt until the start of its next turn: <indent=15%>\\n<b>Snatch Memory</b>
+      \\nInterrupt 1 \\n<b>Trigger: </b>A foe in range 3 uses an ability and the
+      ability resolves.\\n<b><i>Effect:</i> </b>The foe loses the memory of that
+      ability, becoming unable to use it again until the end of their next turn.
+      Any passive effects of the ability for that duration still continue as normal."
+    abilityIDInList: 34
+  - abilityName: Snatch Memory III
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: "The Hob prepares to pilfer its foe\u2019s memories, gaining the following
+      interrupt until the start of its next turn: <indent=15%>\\n<b>Snatch Memory</b>
+      \\nInterrupt 1 \\n<b>Trigger: </b>A foe in range 3 uses an ability and the
+      ability resolves.\\n<b><i>Effect:</i> </b>The foe loses the memory of that
+      ability, becoming unable to use it again until the end of their next turn.
+      Any passive effects of the ability for that duration still continue as normal.\\n<b><i>Effect:</i>
+      </b> <i>Bloodied</i> characters are left <i>blind</i> and <i>dazed</i>.mal."
+    abilityIDInList: 35
+  - abilityName: Steal skill
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    - multimark
+    subCombos: 
+    effect: "The Hob chooses a foe in range, marking them. While marked, they treat
+      all foes as having evasion and dodge. A character ends this mark if they hit
+      with an attack.\r"
+    abilityIDInList: 36
+  - abilityName: Lost Object
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    subCombos: 
+    effect: 'The Hob produces and throws a lost <i>object</i> at a foe in range.
+      Roll 1d6 \n1. <b>Elixir: </b>Foe gains 4 vigor \n2. <b>Kettle full of Tea:
+      </b>Hot tea inflicts 5 damage and <i>blinds</i> the character \n3. <b>Portable
+      Hole: </b>Create a pit under the foe \n4. <b>Old Sandwich: </b>Foe is <i>dazed,</i>
+      then must save or lose all vigor. \n5. <b>Spare Sword: </b>Foe takes [D]+fray
+      damage. \n6. <b>Bag of Hammers: </b>Foe must save or take 3 damage five times,
+      or just once on a successful save.'
+    abilityIDInList: 37
+  - abilityName: Pilfer Luck
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - mark
+    subCombos: 
+    effect: The hob marks a foe in range. While marked the foe cannot gain boons,
+      and the Hob gains +1 boon on all its attacks and saves. A foe can end this
+      mark by choosing to roll all attacks and saves with +1 curse for their entire
+      turn. The mark then ends.
+    abilityIDInList: 38
+  - abilityName: Crow storm
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - range 4
+    subCombos: 
+    effect: "The hob chooses a foe in range. At the end of that foe\u2019s next turn,
+      a huge storm of crows descends on their location for a medium blast area <i>effect</i>
+      centered on them. That foe takes 4 damage six times. Reduce this damage once
+      for each other character in the area of effect."
+    abilityIDInList: 39
+  - abilityName: Bounding Leaps
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "The hob flies 3. \n<b><i>Effect:</i> </b>If it lands on an <i>object</i>
+      or adjacent to a character, it can repeat this flight once more."
+    abilityIDInList: 40
+  - abilityName: The Old Magic
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 5
+    subCombos: 
+    effect: "<b>On hit: </b>[D]. \n<b>Miss: </b>1 damage.\n<b><i>Effect:</i> </b>The
+      Hob inflicts a status it is currently suffering from on its foe, then deals
+      2 damage, once, per status its foe is afflicted by.\n<b>Charge: </b>All statuses."
+    abilityIDInList: 41
+  - abilityName: The Old Magic II
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 5
+    subCombos: 
+    effect: '<b>On hit: </b>[D]. Deals 2 damage per mark the foe is suffering from.
+      \n<b>Miss: </b>1 damage. \n<b><i>Effect:</i> </b>The Hob inflicts a status
+      it is currently suffering from on its foe, then deals 2 damage, once, per status
+      its foe is afflicted by. \n<b>Charge: </b>All statuses.'
+    abilityIDInList: 42
+  - abilityName: The Old Magic III
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 5
+    subCombos: 
+    effect: '<b>On hit: </b>[D]. Deals 2 damage per mark the foe is suffering from.
+      \n<b>Miss: </b>1 damage. \n<b><i>Effect:</i> </b>The Hob inflicts a status
+      it is currently suffering from on its foe, then deals 2 damage, once, per status
+      its foe is afflicted by. \n<b><i>Effect: </i></b> If the hob or its target
+      is bloodied, The Old Magic also may end all statuses affecting the hob after
+      transferring them.\n<b>Charge: </b>All statuses.'
+    abilityIDInList: 43
+  - abilityName: Yank Thread
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    subCombos: 
+    effect: A foe in range is <i>sealed.</i> Sealed foes are shoved 2 in any direction.
+    abilityIDInList: 44
+  - abilityName: Cut Deal
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: 'The Hob gains the following interrupt until the start of its next turn
+      <indent=15%>\n<b>Cut Deal</b> \nInterrupt 2 \n<b>Trigger: </b>A character in
+      range 3 of the Hob gains a status. \n<b><i>Effect:</i> </b>The Hob transfers
+      the status to itself or an ally in range 3 of the Hob. If it removed a status
+      from an ally, that ally gains 2 vigor.'
+    abilityIDInList: 45
+  - abilityName: Marry
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - mark
+    subCombos: 
+    effect: The Hob marks any two characters in range. While marked, if a marked
+      character ends their turn in range 3 of their marked partner, they are both
+      <i>pacified</i> and gain 3 vigor.
+    abilityIDInList: 46
+  - abilityName: Seal Form
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - mark
+    - range 4
+    subCombos: 
+    effect: "The seal spirit transforms itself or character in range 4 into a seal,
+      teleporting them 2, marking them and leaving that character\u2019s original
+      body as a set of clothes as a 1 space terrain <i>effect,</i> placed adjacent
+      to them. While a character is a seal, they cannot attack, but have evasion
+      and <i>phasing.</i> A character other than the transformed character can pick
+      up the clothes by using the interact ability (1 action) while standing on the
+      space, ending this effect. The marked character is removed from the battlefield
+      and placed adjacent to the space."
+    abilityIDInList: 47
+  - abilityName: Fireworks
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - Burst 3 (self
+    subCombos: 
+    effect: <b>Area <i>effect:</i> </b>All foes in range 2 take 2 damage. Foes at
+      exactly range 3 are <i>sealed.</i>
+    abilityIDInList: 48
+  - abilityName: Bonfire Festival
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - terrain effect
+    - 1/combat
+    subCombos: 
+    effect: "\rThe Bonfire spirit creates a height 1 bonfire <i>object.</i> <indent=15%>\\n<b>Bonfire</b>
+      \\nHeight 1 object \\n<b>Object <i>effect:</i> </b>The area on top of the object
+      is dangerous terrain, and the object emits aura 1. Allies in the aura gain
+      the charged effects of all abilities, even on normal turns."
+    abilityIDInList: 49
+  - abilityName: Curse of Bounty
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    subCombos: 
+    effect: "A character in range from the Bark Spirit is cursed. At the end of that
+      foe\u2019s next turn, they grant 4 vigor to all hobs in range 2, then this
+      <i>effect</i> ends."
+    abilityIDInList: 50
+  - abilityName: Toad
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - 2/combat
+    - range 4
+    subCombos: 
+    effect: A character in range is transformed into a frog. While a frog, a character
+      has defense 20 and dodge, but cannot deal damage or inflict statuses. A character
+      can save against this <i>effect</i> at the end of their turn, ending it on
+      a success and becoming immune to it for the rest of combat.
+    abilityIDInList: 51
+  - abilityName: Love-struck
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    subCombos: 
+    effect: "A foe of the Aesi\u2019s choice in range4 must save. On a successful
+      save, the foe is <i>pacified.</i> On a failed save, the Aesi chooses itself
+      or one of its allies. Until the end of their next turn, all other characters
+      than the chosen character are immune to all damage and <i>effects</i> from
+      the chosen foe."
+    abilityIDInList: 52
+  - abilityName: Donkey
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    - mark
+    - 2/ combat
+    subCombos: 
+    effect: The Aesi marks a character in range. They grow donkey ears on the top
+      of their head. While marked, they are <i>pacified+,</i> and after they use
+      any non-basic ability, the Aesi may shove them 2 in any direction. At the end
+      of their turn, they may save to end this mark, ending it on a success.
+    abilityIDInList: 53
+  - abilityName: Wild Rage
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Shove
+      1.\n<b>Charge: </b>Shove 3."
+    abilityIDInList: 54
+  - abilityName: Majestic Galloping
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The beast spirit flies 3. If it has a rider, it can then fly 3 again.
+    abilityIDInList: 55
+  - abilityName: Rampage
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - repeatable
+    subCombos: 
+    effect: <b><i>Effect:</i> </b>The beast spirit dashes up to 2 spaces. When it
+      ends this movement, adjacent foes take 2 damage and are shoved 1.
+    abilityIDInList: 56
+  - abilityName: Marching Pipes
+    actionCost: 1
+    isAttack: 1
+    additionals: []
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>The
+      Faun and a single ally in range 2 may dash 2 before this attack.\n<b>Charge:
+      </b>Repeat the effect."
+    abilityIDInList: 57
+  - abilityName: Dancing Curse
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - mark
+    subCombos: 
+    effect: "The faun curses a foe in range, marking them. While marked, after any
+      ability resolves that allows that character to dash, fly, or teleport, all
+      the faun\u2019s allies everywhere may dash 2, and that foe becomes <i>dazed.</i>"
+    abilityIDInList: 58
+  - abilityName: Hot Foot
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    subCombos: 
+    effect: "The faun chooses a foe in range. That foe must move at least 5 spaces
+      during its next turn, or else sacrifice 5. Then, this <i>effect</i> ends. \n<b>Charge:
+      </b>At least 8 spaces."
+    abilityIDInList: 59
+  - abilityName: Swirling Leaves
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 2
+    subCombos: 
+    effect: "The Faun puts down a terrain <i>effect</i> in range. Characters that
+      enter the space can fly 3 spaces as an effect, but only once a turn.\r"
+    abilityIDInList: 60
+  - abilityName: Body Slam
+    actionCost: 1
+    isAttack: 1
+    additionals: []
+    subCombos: 
+    effect: "<b>On hit: </b>fray damage, twice. \n<b>Miss: </b>once.\n<b><i>Effect:</i>
+      </b>Foe is <i>weakened.</i>"
+    abilityIDInList: 61
+  - abilityName: Tidepool
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 2
+    subCombos: 
+    effect: Shove all characters in range 1 space toward the Kappa.
+    abilityIDInList: 62
+  - abilityName: Great Suplex
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - usable when bloodied
+    subCombos: 
+    effect: The Kappa grabs an adjacent foe, the removes both the Kappa and them
+      from the battlefield. Return them in free space within range 3, adjacent to
+      each other. The foe takes fray damage, is <i>slashed,</i> and then shoved 1.
+    abilityIDInList: 63
+  - abilityName: Spinning Geyser
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    - terrain effect
+    - delay
+    subCombos: 
+    effect: "<b>The Kappa ends its turn and gain Delay: </b>The Kappa\u2019s next
+      turn must be slow. At the start of that turn, it summons a massive geyser underneath
+      it. Adjacent characters are shoved 3. \n<b><i>Collide:</i> </b>Character is
+      <i>stunned</i> and takes [D]+fray. The Geyser becomes a pit space terrain <i>effect</i>
+      for the rest of combat. Whenever the Kappa uses this ability again, repeat
+      the shove effect on all active geysers. The Kappa can choose whether or not
+      to be shoved by this effect, and is immune to the pit space."
+    abilityIDInList: 64
+  - abilityName: Yew bow
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - pierce
+    - range 6
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Deals
+      bonus damage for every character adjacent to the target.\n<b>Charge: </b>Range
+      12"
+    abilityIDInList: 65
+  - abilityName: Enthrall
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: The Nymph chooses a foe in range 6. That foe must save. On a successful
+      save, they are <i>vulnerable.</i> On a failed save, they are vulnerable and
+      Nymph controls their standard movement on their next turn. Already vulnerable
+      characters fail the save.
+    abilityIDInList: 66
+  - abilityName: Riven
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - round 3+ only
+    subCombos: 
+    effect: "The Nymph chooses a character in range 8. At the end of that character\u2019s
+      turn, they take 5 piercing damage once for every 3 spaces of distance between
+      them and the Nymph. Then, end this <i>effect.</i>"
+    abilityIDInList: 67
+  - abilityName: Greenpath
+    actionCost: 2
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: Remove the Nymph from play, then place them anywhere on the battlefield
+      in free space. Clear all statuses from them.
+    abilityIDInList: 68
+  - abilityName: Hungry Forest
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - range 4
+    - medium blast
+    subCombos: 
+    effect: "<b>Autohit: </b>[D]+ fray and foe is <i>sealed.</i> \n<b>Area <i>effect:</i>
+      </b>fray.\n<b>Delay: </b>The Greenkeeper\u2019s next turn must be slow. At
+      the start of that turn, the area erupts again. Foes in the area take fray damage
+      twice. Allies in the area are <i>cured</i>"
+    abilityIDInList: 69
+  - abilityName: Bloom
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    subCombos: 
+    effect: "The Greenkeeper creates a space of difficult terrain in the area. Allies
+      in the area when it is created gain 2 vigor. \n<b>Charge: </b>small blast."
+    abilityIDInList: 70
+  - abilityName: Ancient Heal
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Greenkeeper gains aura 2 until the start of their next turn. All
+      characters in the aura that start their turn there gain 2 vigor.
+    abilityIDInList: 71
+  - abilityName: Overgrow
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    subCombos: 
+    effect: "The Greenkeeper chooses a foe in range. At the end of that foe\u2019s
+      turn, if they have not moved at least 4 spaces at the start of their turn,
+      they become immobile as the undergrowth grows over their feet. This <i>effect</i>
+      ends when they take any amount of damage, or they or an adjacent character
+      can hack the growth away with the interact ability (1 action), dealing 4 piercing
+      damage to them but ending the effect."
+    abilityIDInList: 72
+  - abilityName: Snap Shot
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - unerring
+    - range 4
+    - combo
+    subCombos: 4a000000
+    effect: "<b>On hit: </b>[D] +fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>May
+      dash up to 2 before this attack.\n<b>Effect: </b>Gain <i>stealth.</i>"
+    abilityIDInList: 73
+  - abilityName: Warping Shot
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - range 4
+    - combo
+    subCombos: 
+    effect: "<b>On hit: </b>2[D] +fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Foe
+      warps and stretches, swapping places with another character in range 2 from
+      them, then becoming <i>dazed.\n<b>Charge:</i> </b>Increase all ranges by +2."
+    abilityIDInList: 74
+  - abilityName: Blinding Dust
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 2
+    subCombos: 
+    effect: A foe in range 2 is <i>blinded,</i> then the changeling gains <i>stealth.</i>
+    abilityIDInList: 75
+  - abilityName: Warped Reflection
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: "The Changeling\u2019s appearance and that of those around them ripples
+      disconcertingly. The Changeling gains aura 2 until the start of its next turn.
+      All characters in the aura gain evasion and dodge."
+    abilityIDInList: 76
+  - abilityName: Ancient Geo
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - arc 4
+    subCombos: 
+    effect: "<b>On hit: </b>2[D]+1. \n<b>Area <i>effect</i> or miss: </b>2 damage.\n<b>Effect:
+      </b>Attack target releases a medium blast explosion centered on them, dealing
+      2 damage to all characters within.\n<b>Effect: </b>If the attack target is
+      bloody or <i>dazed,</i> they explode again, repeating this effect.\n<b>Charge:
+      </b>Repeat the effect"
+    abilityIDInList: 77
+  - abilityName: Great Stone Toss
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    subCombos: 
+    effect: <b><i>Effect:</i> </b>A foe in range takes 2 damage and is shoved 1,
+      then create a height 1 boulder <i>object</i> next to them.
+    abilityIDInList: 78
+  - abilityName: Earthforce
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "An adjacent <i>object</i> is shoved 3. Characters in its path are shoved
+      1 to either side and become <i>slashed.</i> \n<b><i>Collide:</i> </b>Characters
+      also take 4 damage."
+    abilityIDInList: 79
+  - abilityName: Hurl Self
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - usable when bloodied
+    subCombos: 
+    effect: The Boulder hob sacrifices 25% of its maximum hp, hurling part of itself
+      at a foe. A foe in range 5 must save or take 3[D]+fray, be shoved 3, and become
+      <i>stunned.</i> On a successful save, they are shoved 1, <i>slashed,</i> and
+      take [D]+fray. Then, create a height 1 boulder <i>object</i> adjacent to that
+      foe. If the hob is at 1 hp, it defeats itself with this move.
+    abilityIDInList: 80
+  - abilityName: Savage Swipes
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - Burst 2 (self)
+    subCombos: 
+    effect: "<b>Attack: </b>On hit, [D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b>Effect:
+      </b>If there\u2019s only one valid character in range, deals bonus damage.\n<b>Charge:
+      </b>Burst 3"
+    abilityIDInList: 81
+  - abilityName: Bounding Leaps
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: <b>The Banderhob flies 4. <i>Effect:</i> </b>If it lands on an <i>object</i>
+      or adjacent to a character, it can repeat this flight once more.
+    abilityIDInList: 82
+  - abilityName: Pounce
+    actionCost: 2
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The hob flies 4, then an adjacent foe is <i>dazed</i> and must save or
+      take [D] +fray, twice, or fray on a successful save.
+    abilityIDInList: 83
+  - abilityName: Wish
+    actionCost: interrupt
+    isAttack: 0
+    additionals:
+    - 1/combat
+    subCombos: 
+    effect: "<b>Trigger: </b>An ally in range 6 is reduced to 0 hp. \n<b><i>Effect:</i>
+      </b>That ally returns to 25% hp instead, then the the Geryan sacrifices 25%
+      of its maximum hp."
+    abilityIDInList: 84
+  - abilityName: Old Staff
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - small blast
+    - range 4
+    subCombos: 
+    effect: "<b>On hit: </b>D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Attack
+      target is <i>pacified.</i>"
+    abilityIDInList: 85
+  - abilityName: Chastise
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    subCombos: 
+    effect: <b><i>Effect:</i> </b>A character in range takes 1 piercing damage. If
+      that character attacks before the end of their next turn, they take [D]+fray
+      piercing damage again and this effect ends.
+    abilityIDInList: 86
+  - abilityName: Pilfer Luck
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - multimark
+    subCombos: 
+    effect: The Geryan marks a foe in range. While marked the foe cannot gain boons,
+      and the Hob gains +1 boon on all its attacks and saves. A foe can end this
+      mark by choosing to roll all attacks and saves with +1 curse for their entire
+      turn. The mark then ends.
+    abilityIDInList: 87
+  - abilityName: Inside Out
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    - 1/combat
+    subCombos: 
+    effect: The Geryan curses a foe with awful nausea. If that foe moves more than
+      1 space or uses any ability that costs 2 actions on their turn, they must save.
+      On a failed save, they take damage equal to 50% of their maximum HP and are
+      <i>stunned.</i> If they succeed on the save, they take damage equal to 25%
+      of their maximum HP.
+    abilityIDInList: 88
+  - abilityName: Ancient Heal
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Geryan gains aura 2 until the start of their next turn. All characters
+      in the aura that start their turn there gain 2 vigor.
+    abilityIDInList: 89
+  - abilityName: Ancient Bolt
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - pierce
+    - Line 8
+    subCombos: 
+    effect: "<b>Attack: </b>On hit [D]+fray. \n<b>Miss: </b>Fray.\n<b><i>Effect:</i>
+      </b>Attack target takes 2 damage, once, for every adjacent foe or ally."
+    abilityIDInList: 90
+  - abilityName: Root Lash
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: A character in range 4 from a root summon or a deep root takes 3 damage,
+      then must save or be shoved as far as possible towards that root, or 1 space
+      on a successful save.
+    abilityIDInList: 91
+  - abilityName: Ancient Rime
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - 1/round
+    - pierce
+    - line 6
+    subCombos: 
+    effect: "<b>Area <i>effect:</i> </b>Characters in the area take fray damage.
+      \n<b>Delay: </b>The hob\u2019s next turn must be slow but at the start of that
+      turn, a freezing weapon made of water coalesces at the end of the line, repeating
+      the area. Characters in the area effect take [D]+fray. Then this effect ends."
+    abilityIDInList: 92
+  - abilityName: Summon Root
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: 'The Wissan creates a lesser root in a free space in range. <indent=15%>\n<b>Lesser
+      Root</b> \nSize 1, <i>intangible</i> \n<b>Summon <i>effect:</i> </b>The root
+      emits aura 1 around it. Foes in the aura are <i>vulnerable+.</i> \n<b>Summon
+      effect: </b>When a root is summoned, deal 1 damage, once, to one foe in range
+      2 for every lesser root or deep root in range 2 of that character, including
+      this one.'
+    abilityIDInList: 93
+  - abilityName: Wild Hunt
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: At the start of the round, the beast can choose an edge of the map. At
+      the end of that round, a huge stampede of animals sweeps across the map from
+      that end to the next. All foes take 2 damage, three times. However, characters
+      that are standing on the other side of <i>objects</i> or terrain as if they
+      were in cover from this <i>effect</i> are immune to it.
+    abilityIDInList: 94
+  - abilityName: Prance
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: At the start of the round, the beast flies 3 spaces, then creates a height
+      3 blooming tree <i>object</i> in any space it vacated.
+    abilityIDInList: 95
+  - abilityName: Primal Stars
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - piercing
+    - range 6
+    - burst 3(target)
+    - combo
+    subCombos: 61000000
+    effect: "<b>Autohit: </b>2 damage, twice. \n<b>Area <i>effect:</i> </b>2 damage,
+      twice."
+    abilityIDInList: 96
+  - abilityName: Breath of the Wild
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 4
+    - pierce
+    - small blast
+    - combo
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b>Effect:
+      </b>Deals bonus damage and increase to large blast if it catches a tree in
+      the area. Doesn\u2019t affect allies."
+    abilityIDInList: 97
+  - abilityName: Overgrow
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: "The beast chooses a foe in range. At the end of that foe\u2019s turn,
+      if they have not moved at least 4 spaces at the start of their turn, they become
+      immobile as the undergrowth grows over their feet. This <i>effect</i> ends
+      when they take any amount of damage, or they or an adjacent character can hack
+      the growth away with the interact ability (1 action), dealing 4 piercing damage
+      to them but ending the effect."
+    abilityIDInList: 98
+  - abilityName: Horn Smash
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 2
+    subCombos: 
+    effect: A foe in range 2 is <i>shattered.</i> Shattered foes are shoved 2.
+    abilityIDInList: 99
+  - abilityName: Pollen Haze
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    - small blast
+    subCombos: 
+    effect: <b>Area <i>effect:</i> </b>Foes in the area take 1 damage twice. A foe
+      in the center spaces then becomes <i>vulnerable.</i> If the area catches a
+      tree in the area, foes take 1 piercing damage three times instead.
+    abilityIDInList: 100
+  - abilityName: Fire Pit
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - 2/round
+    subCombos: 
+    effect: The Aesi creates a pit space that is also dangerous terrain.
+    abilityIDInList: 101
+  - abilityName: Stiff Drink
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - true strike
+    - 1/round
+    subCombos: 
+    effect: The Aesi implores an adjacent character to drink before giving them a
+      stiff whack. If the character drinks, they gain a vigor surge but increase
+      their intoxication by 2. Then, they must save or take 2[D]+fray damage from
+      the Aesi and become <i>slashed,</i> or [D]+fray on a successful save. Slashed
+      foes fail the save.
+    abilityIDInList: 102
+  - abilityName: Brew Smash
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    - small blast
+    - range 3
+    - combo
+    subCombos: 68000000
+    effect: "<b>On hit: </b>[D] +fray. \n<b>Miss or area <i>effect:</i> </b>Fray.\n<b>Effect:
+      </b>All affected foes take +1 intoxication if they have less than 4.\n<b>Effect:
+      </b>Deals bonus damage to <i>weakened</i> foes."
+    abilityIDInList: 103
+  - abilityName: Wild Blow
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - +1 curse
+    - small blast
+    - combo
+    subCombos: 
+    effect: "<b>On hit: </b>[D] +fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b>Effect:
+      </b>May <i>rush</i> 2 before this attack.\n<b>Effect: </b>Deals 1 damage again
+      to the target, once, hit or miss, for each level of intoxication."
+    abilityIDInList: 104
+  - abilityName: Uncork
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - combo
+    subCombos: 6a000000
+    effect: The Aesi summons a height 1 keg <i>object</i> in range. <indent=15%>\n<b>Keg</b>
+      \nObject, destructible (5 hp), size 1 \n<b>Object <i>effect:</i> </b>The object
+      has aura 1. Characters in the aura are <i>weakened+,</i> and if they start
+      their turn there, they increase their intoxication by +1.
+    abilityIDInList: 105
+  - abilityName: Steal Sip
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - combo
+    subCombos: 
+    effect: The Aesi drinks from all adjacent kegs, gaining 2 vigor per keg. If it
+      drinks from 3 or more kegs, its next attack deals maximum damage.
+    abilityIDInList: 106
+  - abilityName: Raucous Dance
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - burst 2(self
+    subCombos: 
+    effect: "<b>: </b>The Aesi implores all foes in the area to dance, shoving them
+      2 spaces. Characters can choose the direction by taking +1 intoxication, otherwise
+      the Aesi chooses the direction. \n<b><i>Collide:</i> </b>Foe takes 5 damage"
+    abilityIDInList: 107
+  - abilityName: Wandering Haze
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Aesi <i>rushes</i> 3, then shoves all adjacent foes 1
+    abilityIDInList: 108
+  - abilityName: Haze of Ambrosia
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: All foes increase their intoxication by +1
+    abilityIDInList: 109
+  - abilityName: Ignite
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    - 1/round
+    subCombos: 
+    effect: The Aesi shows off its fire breathing. A foe in range 4 must save or
+      take 4 piercing damage, once, (reduced to 2 piercing, once, on a successful
+      save) for every stack of intoxication they have, but then clears all intoxication,
+      resetting the die to 1.
+    abilityIDInList: 110
+  - abilityName: Duel of Flagons
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - 1/ round
+    subCombos: 
+    effect: "The Aesi chooses a foe in range and tosses them a flagon. \n\u2022 If
+      that character chooses not to drink, the Aesi gains 10 vigor and clears all
+      statuses. \n\u2022 If that character chooses to drink, they increase their
+      intoxication by 2. The foe rolls 1d6 and the Aesi rolls 1d8. The loser of the
+      contest become <i>weakened</i> and sacrifices 4. If they were already weakened,
+      they sacrifice 6 instead. If a character wins, they can repeat the challenge,
+      repeating this <i>effect.</i>"
+    abilityIDInList: 111
+  - abilityName: Swirling Leaves
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: At the start of each round, the Aesi puts down a space of swirling wind,
+      a 1 space terrain <i>effect,</i> adjacent to its space. Characters that enter
+      such a space, including the Aesi, can fly 3 spaces as an effect, but only once
+      a turn. Spaces persist until the end of combat.
+    abilityIDInList: 112
+  - abilityName: Steal Ability
+    actionCost: interrupt
+    isAttack: 0
+    additionals:
+    - 2/round
+    - thievery
+    subCombos: 
+    effect: "<b>Trigger: </b>A foe in range 2 uses an ability and the ability resolves.
+      \n<b><i>Effect:</i> </b>The foe loses the memory of that ability, becoming
+      unable to use it until they pick up a memory."
+    abilityIDInList: 113
+  - abilityName: Greenpath
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - 1/round
+    subCombos: 
+    effect: Remove the Aesi from play, then place them anywhere on the battlefield
+      in free space. Clear all statuses from them.
+    abilityIDInList: 114
+  - abilityName: Wall of Thorns
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - 2/round
+    subCombos: 
+    effect: The Aesi creates a line 3 area of height 1 thorny wall <i>objects.</i>
+      Each object is destructible (5 hp) and also considered dangerous terrain, but
+      only for foes. Foes that <i>collide</i> with it take 2 piercing damage.
+    abilityIDInList: 115
+  - abilityName: Fae Thief
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - thievery
+    - 2/round
+    subCombos: 
+    effect: "The Aesi steals something from a foe in range 5, marking them. Roll
+      1d6 to see what. Picking up a memory ends this <i>effect.</i> Re-roll repeat
+      effects. \\n1. <b>Friendship: </b>Foe\u2019s abilities can't target allies
+      and treat all allies as immune to their effects, including any active marks,
+      stances, auras, etc. \\n2. <b>Sight: </b>Foe is <i>blinded+</i> \\n3. <b>Luck:
+      </b>Foe makes all attacks and saves with +1 curse, cannot gain boons, and cannot
+      critical hit. \\n4. <b>Heart: </b>Foe cannot gain vigor or benefit from defiance.
+      \\n5. <b>Grace: </b>Aesi cannot miss this foe with attacks, and they cannot
+      reduce damage from the Aesi in any way. \\n6. <b>Youth: </b>Foe cannot dash
+      and is <i>dazed+</i>"
+    abilityIDInList: 116
+  - abilityName: Leaf Dance
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - +1 boon
+    - combo
+    subCombos: 76000000
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Aesi
+      may dash 2 spaces before this attack."
+    abilityIDInList: 117
+  - abilityName: Cutting Wit
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - +1 boon
+    - range 2
+    - small blast
+    subCombos: 77000000
+    effect: "<b>On hit: </b>[D] +fray. \n<b>Miss or are <i>effect:</i> </b>fray.\n<b>Effect:
+      </b>All foes are <i>dazed.</i> Shove all memories outside of the area."
+    abilityIDInList: 118
+  - abilityName: Artery Cut
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - mark
+    - line 4
+    - combo
+    subCombos: 
+    effect: "<b>On hit: </b>2[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b>Effect:
+      </b>Attack target is marked and gains an open wound. While marked, it takes
+      [D] again at the end of its turns. This mark ends instead if the character
+      ends their turn adjacent to an ally."
+    abilityIDInList: 119
+  - abilityName: Gust strike
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Aesi flies exactly 3 spaces in a straight line, dealing 2 damage
+      to all foes it passes over. If it lands on an <i>object</i> height 1 or higher,
+      it may repeat this <i>effect,</i> but only once a turn, and may only damage
+      foes once per use of this ability.
+    abilityIDInList: 120
+  - abilityName: Whirling Branches
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: <b><i>Effect:</i> </b>Teleport 1, then deal 1 damage to all adjacent
+      foes and shove all adjacent foes and memories 1. Repeat this effect three times.
+    abilityIDInList: 121
+  - abilityName: Mortal Mockery
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "The Aesi transforms its physical form into a mockery of the closest
+      foe. The <i>effects</i> depend on the foe\u2019s class. If the same effect
+      would be chosen twice, the Aesi can choose a different one of its choice to
+      apply. \\n\\nNaturally, all of these effects stack if the Aesi is allowed to
+      use them again. Why be one class when you can be all of them? \\n\u2022 Mock
+      Stalwart \\n<indent=15%>The Aesi gains armor 2 and rampart. In addition, Leaf
+      dance and Cutting Wit gain true strike. </indent>\\n\u2022 Mock Vagabond \\n<indent=15%>The
+      Aesi may split up all its movement with actions. In addition, Leaf dance and
+      Cutting Wit gain <i>unerring</i> and the ability to critically hit, dealing
+      +[D] on a crit. </indent>\\n\u2022 Mock Mendicant \\n<indent=15%>The Aesi gains
+      regeneration. In addition, Leaf Dance and Cutting Wit deal bonus damage. </indent>\\n\u2022
+      Mock Wright \\n<indent=15%>The Aesi gains the Aetherwall trait. In addition,
+      Leaf Dance and Cutting Wit gain pierce.</indent>"
+    abilityIDInList: 122
+  - abilityName: Creeping Cold
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "At the start of combat, the Aesi creates a Creeping Cold <i>effect</i>
+      in every space along the edge of the map, a creeping black frost terrain effect.
+      The Aesi ignores its effects, but cannot voluntarily enter the area and must
+      end its turn outside it if possible. \n\u2022 The area is difficult terrain,
+      even for flying characters \n\u2022 Foes that either start or end their turn
+      in Creeping Cold sacrifice 25% of their maximum hp. Foes at 1 hp are defeated
+      instantly, and removed from the battlefield as they freeze solid and replaced
+      with a frozen statue <i>object</i> with 10 hp. When the statue is destroyed,
+      return that foe to the battlefield, in its space, still defeated. At the start
+      of every two rounds thereafter (3, 5, 7, etc), the effect creeps in by 1 space
+      on all sides, shrinking the available battlefield space until it covers all
+      spaces."
+    abilityIDInList: 123
+  - abilityName: Stiffen Limbs
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    - 2/round
+    subCombos: 
+    effect: The Aesi chooses a foe in range. During their next turn, that foe must
+      move at least 5 spaces, or else take 5 piercing damage and become <i>stunned.</i>
+      Then, this <i>effect</i> ends.
+    abilityIDInList: 124
+  - abilityName: Frozen Impaler
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    - 2/ round
+    subCombos: 
+    effect: "The Aesi chooses a character in range 6. At the end of that character\u2019
+      turn, an icicle coalesces and falls on that character for a small blast area
+      <i>effect</i> centered on them. Characters inside take 2 piercing damage, then
+      create the icicle adjacent to the targeted character. <indent=15%>\\n<b>Icicle</b>
+      \\n<i>Object,</i> destructible (8 hp) \\n<b><i>Effect: </i></b>The icicle has
+      aura 1. The aura has the following effects:\\n\u2022 Foes that start their
+      turn in the aura take 2 piercing damage \\n\u2022 Foes are <i>vulnerable+</i>
+      while in the aura. \\n\u2022 The aura is difficult terrain"
+    abilityIDInList: 125
+  - abilityName: Freeze Solid
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    - 1/round
+    subCombos: 
+    effect: "A character in range becomes <i>shattered.</i> At the end of that character\u2019s
+      next turn, they must save. On a failed save, they are encased in ice, removing
+      them from the battlefield and becoming replaced with a destructible (10 hp)
+      height 1 frozen statue <i>object.</i> Until the statue is destroyed, they cannot
+      take a turn. When it\u2019s destroyed, they are returned to the battlefield
+      in the space they left and can take a turn as normal."
+    abilityIDInList: 126
+  - abilityName: Biting Cold
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    - multi mark
+    - 1/round
+    subCombos: 
+    effect: The Aesi marks a foe in range. While marked, that foe cannot benefit
+      from sturdy or unstoppable. This mark ends if this foe starts their turn adjacent
+      to an ally.
+    abilityIDInList: 127
+  - abilityName: Storm Whip
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    - range 4
+    - small blast
+    - combo
+    subCombos: 81000000
+    effect: "<b>On hit: </b>[D] +fray. \n<b>Miss or area <i>effect:</i> </b>fray
+      damage.\n<b>Effect: </b>Shove all foes 1 away from the center space.\n<b><i>Collide:</i>
+      </b>Foe is <i>vulnerable.</i>"
+    abilityIDInList: 128
+  - abilityName: Diamond dust
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - Large Blast
+    subCombos: 82000000
+    effect: "<b>On hit: </b>2[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray
+      damage.\n<b>Effect: </b>Deals 1 piercing damage, again, to all foes for every
+      foe or <i>object</i> in the area"
+    abilityIDInList: 129
+  - abilityName: Crystalline Lance
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - unerring
+    - line 10
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray damage.\n<b>Effect:
+      </b>Foe must save or be shoved 4, or shoved 1 on a successful save.\n<b><i>Collide:</i>
+      </b>Foe takes 5 damage and is <i>shattered.</i>"
+    abilityIDInList: 130
+  - abilityName: Northern Winds
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Aesi flies 2. It becomes <i>intangible</i> while moving.
+    abilityIDInList: 131
+  - abilityName: Scatterfrost
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    subCombos: 
+    effect: "The Aesi shoves up to three foes 1 space. Foes in difficult terrain
+      are shoved 2 in any direction instead. \n<b><i>Collide:</i> </b>Foe takes 2
+      damage."
+    abilityIDInList: 132
+  - abilityName: Howling Blizzard
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - stance
+    - combo
+    subCombos: 86000000
+    effect: "The Aesi gains aura 2 while in this stance, gaining <i>resistance</i>
+      to damage from foes in the aura and unstoppable against their abilities. This
+      aura cancels out Whipping Winds.\r"
+    abilityIDInList: 133
+  - abilityName: Whipping Winds
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - stance
+    - combo
+    subCombos: 
+    effect: The Aesi gains aura 2, gaining <i>resistance</i> to damage from foes
+      outside the aura, and unstoppable against their abilities. This aura cancels
+      out Howling Blizzard.
+    abilityIDInList: 134
+  - abilityName: Frozen Impaler II
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    - 3/ round
+    subCombos: 
+    effect: "The Aesi chooses a character in range 6. At the end of that character\u2019
+      turn, an icicle coalesces and falls on that character for a large blast area
+      <i>effect</i> centered on them. Characters inside take 2 piercing damage, then
+      create the icicle adjacent to the targeted character. <indent=15%> \\n<b>Icicle</b> 
+      \\n<i>Object,</i> destructible (8 hp)  \\n<b><i>Effect: </i></b>The icicle
+      has aura 1. The aura has the following effects: \\n\u2022 Foes that start their
+      turn in the aura take 2 piercing damage  \\n\u2022 Foes are <i>vulnerable+</i>
+      while in the aura.  \\n\u2022 The aura is difficult terrain"
+    abilityIDInList: 135
+  - abilityName: Creeping Cold II
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "At the start of combat, the Aesi creates a Creeping Cold <i>effect</i>
+      in every space along the edge of the map, a creeping black frost terrain effect.
+      The Aesi ignores its effects, but cannot voluntarily enter the area and must
+      end its turn outside it if possible. \n\u2022 The area is difficult terrain,
+      even for flying characters \n\u2022 Foes that either start or end their turn
+      in Creeping Cold sacrifice 50% of their maximum hp. Foes at 1 hp are defeated
+      instantly, and removed from the battlefield as they freeze solid and replaced
+      with a frozen statue <i>object</i> with 10 hp. When the statue is destroyed,
+      return that foe to the battlefield, in its space, still defeated. At the start
+      of every two rounds thereafter (3, 5, 7, etc), the effect creeps in by 1 space
+      on all sides, shrinking the available battlefield space until it covers all
+      spaces."
+    abilityIDInList: 136
+  - abilityName: Icy Death
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: A wind begins blowing from one side of the map, which the Aesi chooses
+      at the start of each around. After using any ability, a foe is shoved 1 in
+      the direction of the wind.
+    abilityIDInList: 137

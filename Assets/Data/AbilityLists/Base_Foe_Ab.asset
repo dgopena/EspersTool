@@ -1,0 +1,1883 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67141eeaaa860ee4f8df8f96dfaec8c8, type: 3}
+  m_Name: Base_Foe_Ab
+  m_EditorClassIdentifier: 
+  abilities:
+  - abilityName: Rabble
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 3
+    subCombos: 
+    effect: '<b>On hit: </b>[D]+fray.
+
+      <b>Miss: </b>fray.
+
+      <b><i>Effect:</i>
+      </b>Target foe takes 2 damage once again for every other mob member in adjacent
+      spaces to them, up to three times.'
+    abilityIDInList: 0
+  - abilityName: Rush
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: <b><i>Effect:</i> </b>Up to three members in any order may dash 2, then
+      deal 1 damage to a foe and shove them 1 space.
+    abilityIDInList: 1
+  - abilityName: Rally
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: <b><i>Effect:</i> </b>Up to three allies adjacent to a member may dash
+      1 space, or one ally adjacent to a member may dash 3 spaces.
+    abilityIDInList: 2
+  - abilityName: Redondo
+    actionCost: free
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: Swap places with an adjacent ally, removing and placing both characters.
+    abilityIDInList: 3
+  - abilityName: Cleave
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - true strike
+    subCombos: 
+    effect: '<b>On hit: </b>2[D]+fray.
+
+      <b>Miss: </b>fray.
+
+      <b><i>Effect:</i>
+      </b>All foes adjacent to the warrior or its attack target take fray damage.'
+    abilityIDInList: 4
+  - abilityName: Bull rush
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - repeatable
+    subCombos: 
+    effect: The Warrior rushes 1. An adjacent character when it finishes its movement
+      is either weakened or shoved 1.
+    abilityIDInList: 5
+  - abilityName: Slash
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    subCombos: 
+    effect: '<b>On hit: </b>[D] + fray.
+
+      <b>Miss: </b>fray.
+
+      <b><i>Effect:</i>
+      </b>Foe is <i>slashed.</i>'
+    abilityIDInList: 6
+  - abilityName: Bash
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - repeatable
+    subCombos: 
+    effect: An adjacent foe is shoved 2.
+    abilityIDInList: 7
+  - abilityName: Valiant
+    actionCost: 2
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The soldier rushes up to 4 spaces in a straight line, then may use Bash
+      as a free action
+    abilityIDInList: 8
+  - abilityName: Advance
+    actionCost: free
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: Rush 1.
+    abilityIDInList: 9
+  - abilityName: Spike
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - range 2
+    - combo
+    subCombos: 0b000000
+    effect: '<b>2[D]+fray and shove 2. Miss: </b>fray and shove 1.
+
+      <b><i>Collide:</i>
+      </b>Foe is <i>slashed.</i>'
+    abilityIDInList: 10
+  - abilityName: Impale
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - range 2
+    - true strike
+    - combo
+    subCombos: 
+    effect: '<b>On hit: </b>2[D]+fray and shove 4. The Impaler <i>rushes</i> 3 towards
+      the foe after shoving them.
+
+      <b>Miss: </b>fray and shove 2.
+
+      <b><i>Collide:</i>
+      </b>foe is <i>slashed</i> and <i>stunned.</i>'
+    abilityIDInList: 11
+  - abilityName: Weapon Vault
+    actionCost: free
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Greatsword targets a character in range 2, then removes itself from
+      the battlefield and places itself in any space adjacent to that character.
+      Then, it may shove that character 1.
+    abilityIDInList: 12
+  - abilityName: Great Slice
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - line 4
+    - combo
+    subCombos: 0e000000
+    effect: "<b><i>Effect:</i> </b><i>Rush</i> 1. \n<b>On hit: </b>2[D]+fray.\n<b>Miss
+      or area <i>effect:</i> </b>fray.\n<b><i>Effect:</i> </b><i>Slash</i> attack
+      target."
+    abilityIDInList: 13
+  - abilityName: Whirlwind
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - melee
+    - true strike
+    - combo
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray damage.\n<b><i>Effect:</i>
+      </b>The Greatsword <i>rushes</i> 1 space, three times. After it rushes, each
+      time, it deals 2 damage to adjacent characters."
+    abilityIDInList: 14
+  - abilityName: Backhand
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    - combo
+    subCombos: 10000000
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray."
+    abilityIDInList: 15
+  - abilityName: Backbreaker
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - combo
+    subCombos: 
+    effect: "<b>On hit: </b>2[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Foe
+      is <i>stunned.</i>\n<b><i>Effect:</i> </b>Brute may <i>rush</i> 2 before using
+      this ability."
+    abilityIDInList: 16
+  - abilityName: Bulk up
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: Gain 4 vigor, or 6 if bloodied.
+    abilityIDInList: 17
+  - abilityName: Hurl
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - repeatable
+    subCombos: 
+    effect: The Brute shoves an adjacent character or object 2. <b><i>Collide:</i>
+      </b>Character is <i>weakened.</i>
+    abilityIDInList: 18
+  - abilityName: Overpower
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>All
+      foes adjacent to the attack target take 2 damage"
+    abilityIDInList: 19
+  - abilityName: Crushing Advance
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Knuckle and all allies in range 2 may rush 1 space. Then, all foes
+      adjacent to the Knuckle take 2 damage.
+    abilityIDInList: 20
+  - abilityName: Call out
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: A foe in range 3 must save or be shoved 2 towards the knuckle, then gain
+      hatred of the knuckle. On a successful save, they are shoved 1 towards the
+      knuckle.
+    abilityIDInList: 21
+  - abilityName: Bloody crescent
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    - arc 3
+    - combo
+    subCombos: 17000000
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b><i>Effect:</i>
+      </b>Attack target is <i>slashed.</i>"
+    abilityIDInList: 22
+  - abilityName: Full Moon
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - burst 1 (target
+    subCombos: 
+    effect: "<b>On hit: </b>2[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b><i>Effect:</i>
+      </b>Berserker gains 4 vigor."
+    abilityIDInList: 23
+  - abilityName: Furious Leap
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - repeatable
+    subCombos: 
+    effect: The berserker flies 2, then foes adjacent to the berserker take 2 damage.
+    abilityIDInList: 24
+  - abilityName: Trip
+    actionCost: free
+    isAttack: 0
+    additionals:
+    - range 2
+    subCombos: 
+    effect: A foe is shoved 1 in any direction.
+    abilityIDInList: 25
+  - abilityName: Sweep
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - range 2
+    - arc 3
+    subCombos: 
+    effect: "<b>On hit: </b>2[D]+ fray. \n<b>Miss or area <i>effect:</i> </b>fray.
+      Shove 1."
+    abilityIDInList: 26
+  - abilityName: Fortress
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: "The Sentinel may <i>rush</i> 1, then gains aura 1 until the start of
+      its next turn. While this aura is active:\n\u2022 The Sentinel gains <i>counter</i>
+      \n\u2022 Allies without this ability in the aura gain <i>resistance.</i> \n\u2022
+      Any foe that enters the area without being shoved takes 3 damage, but no more
+      than once a turn."
+    abilityIDInList: 27
+  - abilityName: Headbutt
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Foe
+      is <i>weakened.</i>\n<b><i>Effect:</i> </b>Deals bonus damage to <i>weakened</i>
+      foes."
+    abilityIDInList: 28
+  - abilityName: Mighty Blow
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Crusher deals 2 damage to an adjacent foe and either shoves them
+      1 or creates a pit under them.
+    abilityIDInList: 29
+  - abilityName: Grapple
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - mark
+    subCombos: 
+    effect: The Crusher marks an adjacent foe. While marked, that foe must save if
+      it attempts to break adjacency. On a failed save, it becomes unable to exit
+      adjacency with the Crusher by any means for the rest of the current turn. On
+      a successful save, the mark and this effect ends, but the foe is <i>weakened</i>.
+    abilityIDInList: 30
+  - abilityName: Chain hook
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: A character in range 3 is shoved 2 towards the Sledge.
+    abilityIDInList: 31
+  - abilityName: Shoulder check
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - combo
+    subCombos: 21000000
+    effect: Rush 1. An adjacent foe is shoved 1.
+    abilityIDInList: 32
+  - abilityName: Crushing Overhead
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - true strike
+    - combo
+    subCombos: 
+    effect: '<b>Attack: </b>
+
+      <b>On hit: </b>3[D] +fray and foe is <i>stunned</i>
+      and shoved 1.
+
+      <b>Miss: </b>fray damage and foe is <i>slashed.</i>
+
+      <b><i>Effect:</i>
+      </b>Deals bonus damage to <i>slashed</i> or <i>weakened</i> characters.'
+    abilityIDInList: 33
+  - abilityName: Riddle
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 4
+    - +1 boon
+    subCombos: 
+    effect: "<b>On hit: </b>3 damage, three times. \n<b>Miss: </b>3 damage.\n<b><i>Effect:</i>
+      </b>Against foes at exactly range 3, inflicts <i>dazed</i> and gains <i>unerring.</i>"
+    abilityIDInList: 34
+  - abilityName: Strafe
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Pepperbox dashes 2, then deals 2 damage to a foe in range 3.
+    abilityIDInList: 35
+  - abilityName: Flash Bomb
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - range 3
+    - small blast
+    subCombos: 
+    effect: "<b>Area <i>effect:</i> </b>All foes take 3 damage twice and are <i>blinded</i>.
+      \n<b><i>Effect:</i> </b>If the Pepperbox catches itself or allies in the area,
+      they gain <i>stealth</i>."
+    abilityIDInList: 36
+  - abilityName: Hunter shot
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - ranged 4
+    - +1 boon
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Bloodied
+      characters are shoved 1 in a direction of the Hunter\u2019s choice and <i>dazed.</i>"
+    abilityIDInList: 37
+  - abilityName: Set Trap
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Hunter creates a trap dangerous terrain space in free space in range
+      2.
+    abilityIDInList: 38
+  - abilityName: Prowl
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: Dash 1 and gain stealth.
+    abilityIDInList: 39
+  - abilityName: Hunt
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    - mark
+    subCombos: 
+    effect: A character in range is marked. The hunter deals bonus damage to the
+      marked character and their abilities gain unerring against them.
+    abilityIDInList: 40
+  - abilityName: Iron Kiss
+    actionCost: 1
+    isAttack: 1
+    additionals: []
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>May
+      dash 3 after the attack."
+    abilityIDInList: 41
+  - abilityName: Skewer
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: Dash up to 3 spaces in a straight line, then deal damage to an adjacent
+      foe equal to the number of spaces moved +2.
+    abilityIDInList: 42
+  - abilityName: Duel
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - mark
+    subCombos: 
+    effect: Mark a character in range. Gain <i>evasion</i> against the marked character,
+      and when the marked character uses an ability, may dash 1 after the ability
+      resolves. End the mark if the marked character hits the Fencer with an attack.
+    abilityIDInList: 43
+  - abilityName: Razor Wind
+    actionCost: 1
+    isAttack: 1
+    additionals: []
+    subCombos: 
+    effect: "<b>On hit: </b>[D]. \n<b>Miss: </b>1 damage.\n<b><i>Effect:</i> </b>
+      Repeat the following <i>effect</i> twice: Dash 1, then area <i>effect:</i>
+      burst 1(self): 2 damage."
+    abilityIDInList: 44
+  - abilityName: Gust
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 2
+    subCombos: 
+    effect: The Assassin or an ally in range may fly 2.
+    abilityIDInList: 45
+  - abilityName: Assassinate
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - end turn
+    subCombos: 
+    effect: "The Assassin chooses a foe in range. At the end of that foe\u2019s turn,
+      as long as they\u2019re in range 3, teleport to any space adjacent to them,
+      deal 2 damage, three times to them, and <i>blind</i> them. Reduce this damage
+      to just 2 damage if they have an adjacent ally. Then, fly 1."
+    abilityIDInList: 46
+  - abilityName: Rake
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - Line 4
+    subCombos: 
+    effect: "<b>On Hit: </b>[D] + fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b><i>Effect:</i>
+      </b>Hellion can fly to any point on the line after the ability resolves. Foes
+      in the area must save or be <i>dazed.</i>"
+    abilityIDInList: 47
+  - abilityName: Pinions
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    subCombos: 
+    effect: Deal 2 damage three times to a foe in range. Reduce this damage by one
+      instance for every ally of that foe in range 2 of them.
+    abilityIDInList: 48
+  - abilityName: Swoop
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: Leave the battlefield. Return to the battlefield in a visible free space
+      at the end of the very next player turn with <i>stealth</i>.
+    abilityIDInList: 49
+  - abilityName: Sneaky Stab
+    actionCost: 1
+    isAttack: 1
+    additionals: []
+    subCombos: 
+    effect: "<b>On hit: </b>[D] +fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Attack
+      deals bonus damage to and does not break <i>stealth</i> against bloodied or
+      <i>blinded</i> foes."
+    abilityIDInList: 50
+  - abilityName: Throwing Knife
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - unerring
+    subCombos: 
+    effect: A foe in range takes damage equal to its distance from the skulk.
+    abilityIDInList: 51
+  - abilityName: Blinding Dust
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: An adjacent foe becomes blinded. The Skulk then may dash 2 and gains
+      stealth.
+    abilityIDInList: 52
+  - abilityName: Shadow Cloak
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - combo
+    subCombos: 36000000
+    effect: The Shadow teleports 4, then gains stealth.
+    abilityIDInList: 53
+  - abilityName: Shadow Scour
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - unerring
+    - range 4
+    - +1 boon
+    - combo
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+2, twice. \n<b>Miss: </b>[D]+ fray, once.\n<b><i>Effect:</i>
+      </b><i>Blinds</i> foe.\n<b><i>Effect:</i> </b>Deals bonus damage to bloodied
+      or <i>blinded</i> foes."
+    abilityIDInList: 54
+  - abilityName: Dark Arts
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    subCombos: 
+    effect: Swap places with a character in range, teleporting. Foes can save to
+      avoid this effect.
+    abilityIDInList: 55
+  - abilityName: Smothering darkness
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    subCombos: 
+    effect: "The Shadow creates a darkness terrain effect in a single space in range.
+      The area is dangerous terrain for foes, and foes inside are blinded+.\r"
+    abilityIDInList: 56
+  - abilityName: Bomb
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    - small blast
+    - +1 boon
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b><i>Effect:</i>
+      </b>If only one character is caught in the area of effect, deal 2 damage again
+      to that character and they are <i>dazed.</i>"
+    abilityIDInList: 57
+  - abilityName: Kick Off
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Arsonist flies 1. Before they fly, they may shove an adjacent character
+      1 space, then deal 2 damage to them if they are a foe. If they do, they fly
+      3 instead.
+    abilityIDInList: 58
+  - abilityName: Sticky Bomb
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    subCombos: 
+    effect: "The Arsonist sticks a bomb at a character in range. At the end of that
+      character\u2019s turn, the bomb explodes and they take 2 damage four times.
+      For every adjacent foe or ally, reduce the number of times the targeted character
+      takes damage by one, but deal 2 damage instead to that character. Then, end
+      this effect."
+    abilityIDInList: 59
+  - abilityName: Shining Sword
+    actionCost: 1
+    isAttack: 1
+    additionals: []
+    subCombos: 
+    effect: "<b>On hit: </b>[D] + fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Foe
+      is <i>pacified.</i>\n<b><i>Effect:</i> </b>Damage from this ability does not
+      break <i>pacified.</i>"
+    abilityIDInList: 60
+  - abilityName: Intervention
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: 'The Errant gains the following interrupt until the start of its next
+      turn. If this interrupt is unused at the start of their turn, the errant can
+      teleport 3 instead. \n<indent=15%><b>Intervene: </b>\nInterrupt 1\nTrigger:
+      An ally in range 3 is targeted by an ability.\n<b><i>Effect:</i> </b>The ally
+      gains <i>resistance</i> against that ability and +1 boon on any saves against
+      it. The errant may then teleport adjacent to that ally.</indent>ly.'
+    abilityIDInList: 61
+  - abilityName: Blink Strike
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - repeatable
+    subCombos: 
+    effect: "An adjacent foe is teleported 1 space, then the errant and all its allies
+      in range 3 of that foe can teleport 1 space towards the foe.\r"
+    abilityIDInList: 62
+  - abilityName: Holy
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - medium blast
+    - range 4
+    subCombos: 
+    effect: "<b>Autohit: </b>[D] + fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b><i>Effect:</i>
+      </b>Attack target is <i>pacified.</i>\n<b><i>Effect:</i> </b>Allies in the
+      area gain 2 vigor"
+    abilityIDInList: 63
+  - abilityName: Pandaemonium
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - range 4
+    subCombos: 
+    effect: The Priest targets a large blast area in range. It may remove all characters
+      in the area, then place them back in any other space in the area. Foes can
+      save to avoid this effect, but are sealed on a successful save.
+    abilityIDInList: 64
+  - abilityName: Shield of Faith
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - range 2
+    - mark
+    subCombos: 
+    effect: Allied character in range becomes marked. When marked, the ally is cured.
+      While marked and in range of the priest, the marked ally has resistance and
+      +1 boon on saves.
+    abilityIDInList: 65
+  - abilityName: "Leader\u2019s strike"
+    actionCost: 1
+    isAttack: 1
+    additionals: []
+    subCombos: 
+    effect: "<b>On hit: </b>[D] +fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Up
+      to two allies in range 3 can dash 2 spaces and gain 2 vigor."
+    abilityIDInList: 66
+  - abilityName: Coordinate Strikes
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    subCombos: 
+    effect: A foe in range takes 2 damage once for every ally of the commander adjacent
+      to them, up to three times.
+    abilityIDInList: 67
+  - abilityName: Marching Orders
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - stance
+    subCombos: 
+    effect: "When Commander takes this stance, as an action while in this stance,
+      and at start of each of the commander\u2019s turns, the commander and all allies
+      in range 2 can dash 2 in the same direction, or as far as possible."
+    abilityIDInList: 68
+  - abilityName: Cleansing Bolt
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - small blast
+    - range 5
+    subCombos: 
+    effect: "<b>Autohit: </b>fray damage. \n<b>Miss or area <i>Effect:</i> </b>fray.\n<b><i>Effect:</i>
+      </b>Does not damage allies. Deals bonus damage for each ally caught in its
+      area of effect."
+    abilityIDInList: 69
+  - abilityName: Cleansing Charm
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - terrain effect
+    subCombos: 
+    effect: The Abjurer places a charm in a free space in range. An ally that ends
+      their turn adjacent to the charm can consume it to cure themselves and fly
+      2.
+    abilityIDInList: 70
+  - abilityName: Empower Shield
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - stance
+    subCombos: 
+    effect: The Abjurer becomes immobile, but their aura of shielding increases to
+      aura 2 and also grants cover from abilities used from outside the aura. They
+      can exit this stance as an action.
+    abilityIDInList: 71
+  - abilityName: Divination
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 5
+    - multi mark
+    subCombos: 
+    effect: "<b>Autohit: </b>1 damage and the foe is marked. \n<b>Mark: </b>A card
+      attaches to the target. The next time the target is damaged by an attack, the
+      card explodes in a small blast <i>area effect</i> explosion centered on them
+      for [D]+fray. Foes within must save or become sealed. Then, the mark clears."
+    abilityIDInList: 72
+  - abilityName: Dark Fate
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 5
+    subCombos: 
+    effect: The Abjurer chooses a foe in range. That foe is either <i>pacified</i>
+      (1-3) and shoved 1 away from them, or sealed (4-6) and shoved 1 towards them.
+    abilityIDInList: 73
+  - abilityName: Bend Fate
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 5
+    subCombos: 
+    effect: The Abjurer chooses an ally in range, then gambles, applying the <i>effect:</i>
+      <indent=15%>\n1. Ally deals fray damage to all adjacent characters. \n2. Ally
+      may teleport 4 \n3. Ally gains flying for the rest of combat. \n4. Ally gains
+      <i>stealth</i> \n5. Ally creates 3 spaces of difficult terrain in adjacent
+      spaces. \n6. Ally becomes unstoppable until bloodied, or until defeated if
+      already bloodied.</indent>
+    abilityIDInList: 74
+  - abilityName: Greenwrath
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 5
+    subCombos: 
+    effect: "<b>Attack: </b>On hit [D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+      </b>Deals bonus damage and inflicts <i>sealed</i> if a character is inside
+      dangerous or difficult terrain."
+    abilityIDInList: 75
+  - abilityName: Vine lash
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 5
+    subCombos: 
+    effect: A character in range is shoved 2 in any direction. If they move into
+      difficult terrain during this shove, they take 3 piercing damage.
+    abilityIDInList: 76
+  - abilityName: Healing Spore
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 5terrain effect
+    subCombos: 
+    effect: The Greenseer creates a spore terrain <i>effect</i> in range. Foes are
+      <i>pacified+</i> while adjacent to the spore, and the spore grants 2 vigor
+      to all adjacent allies when created. Only one spore can be created at once.
+    abilityIDInList: 77
+  - abilityName: Wild Growth
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: <b>Terrain <i>effect:</i> </b>Create a small blast area of difficult
+      terrain. The difficult terrain provides cover for allies from abilities from
+      the outside.
+    abilityIDInList: 78
+  - abilityName: Justice Fist
+    actionCost: 1
+    isAttack: 1
+    additionals: []
+    subCombos: 
+    effect: "<b>On hit: </b>[D] +fray. \n<b>Miss: </b>fray damage.\n<b><i>Effect:</i>
+      </b>Foe is <i>sealed.</i> Shove 1 and deal bonus damage against sealed characters.\n<b><i>Collide:</i>
+      </b>Foe is <i>stunned.</i>"
+    abilityIDInList: 79
+  - abilityName: Chastise
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: <b><i>Effect:</i> </b>A character in range 4 takes 1 piercing damage.
+      If that character attacks before the end of their next turn, they take [D]+fray
+      piercing damage again and this effect ends.
+    abilityIDInList: 80
+  - abilityName: Shrine of Sanctuary
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - range 2
+    subCombos: 
+    effect: Summon a height 1 shrine destructible <i>object</i> in range (10 HP,
+      attacks automatically hit). While adjacent to the shrine, allies have <i>resistance</i>
+      and gain +1 boon on attacks.
+    abilityIDInList: 81
+  - abilityName: Starcall
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - arc 6
+    subCombos: 
+    effect: "<b>Autohit: </b>[D]+fray and foe is <i>pacified.</i> \n<b>Area <i>effect:</i>
+      </b>fray.\n<b>Effect: </b>Foe explodes for a burst 2 (target) area effect,
+      dealing 3 damage to all foes within and granting 3 vigor to all allies."
+    abilityIDInList: 82
+  - abilityName: Gentleness
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - stance
+    subCombos: 
+    effect: The Saint becomes immobile and gains aura 2 until the start of its next
+      turn. While in the aura, all characters gain +1 curse on attacks and take 1
+      divine damage each time they deal damage to another character with an ability.
+      Allies at 25% hp or lower than end their turn in the aura are <i>cured.</i>
+    abilityIDInList: 83
+  - abilityName: Immaculate
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - 1/combat
+    subCombos: 
+    effect: "An ally in range 5 becomes immune to all damage until the end of its
+      next turn.\r"
+    abilityIDInList: 84
+  - abilityName: Discord
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 8
+    - pierce
+    subCombos: 
+    effect: '<b>Autohit: </b>Fray damage.'
+    abilityIDInList: 85
+  - abilityName: Chant of investiture
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - range 10
+    - mark
+    - stance
+    subCombos: 
+    effect: An ally in range is marked by the Cantrix and gains <i>resistance,</i>
+      sturdy, and +1 boon on all attacks and saves. While in this stance, the Cantrix
+      is immobile and must spend 1 action during their turn to maintain this stance.
+      It ends if the Cantrix takes damage.
+    abilityIDInList: 86
+  - abilityName: Hypnogogia
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 8
+    subCombos: 
+    effect: A character in range 8 of the Cantrix becomes <i>pacified.</i> If already
+      pacified, the character becomes unable to dash, <i>rush,</i> or fly until the
+      end of their next turn.
+    abilityIDInList: 87
+  - abilityName: Escape
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Cantrix swaps place with a marked ally, removing and placing both
+      of them.
+    abilityIDInList: 88
+  - abilityName: Blast
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - range 8
+    - medium blast
+    subCombos: 
+    effect: "<b>On hit: </b>2[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray
+      damage.\n<b>Area Effect: </b>Deal 1 piercing damage again to all characters
+      for each character caught in the area, up to a maximum of three times.\n<b>Effect:
+      </b>At round 3+, increase blast to a large blast and deals bonus damage"
+    abilityIDInList: 89
+  - abilityName: Emberflash
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - small blast
+    - range 6
+    subCombos: 
+    effect: <b>Area <i>effect:</i> </b>2 piercing damage and create a dangerous terrain
+      space in the center, which can be placed under a character.
+    abilityIDInList: 90
+  - abilityName: Flash Fire
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: A character in range 6 becomes vulnerable. Vulnerable foes are shoved
+      2 and take 1 piercing damage twice.
+    abilityIDInList: 91
+  - abilityName: Rumble
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - arc 6
+    subCombos: 
+    effect: "<b>On hit: </b>2[D]. \n<b>Miss or area <i>effect:</i> </b>1 damage.\n<b>Effect:
+      </b>Releases a medium blast on the attack target as an area effect, dealing
+      3 piercing damage again.\n<b>Effect: </b>Deals bonus damage for every <i>object</i>
+      or pit in the area.\n<b>Effect: </b>At round 3+, <i>stuns</i> any character
+      on an object or inside a pit in the area."
+    abilityIDInList: 92
+  - abilityName: Seismic Rumble
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - line 6
+    subCombos: 
+    effect: Characters are shoved 1 in the direction of the line, in any order. <b><i>Collide:</i>
+      </b>Character is shattered and takes 1 piercing damage twice
+    abilityIDInList: 93
+  - abilityName: Upheaval
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - repeatable
+    subCombos: 
+    effect: Summon a height 1 boulder <i>object</i> or a a pit in free space in range
+      6.
+    abilityIDInList: 94
+  - abilityName: Blizzard
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 8
+    - small blast
+    - pierce
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b>Effect:
+      </b>Summon a pit in a free space in the area."
+    abilityIDInList: 95
+  - abilityName: Frozen Spear
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - line 4
+    - range 6
+    subCombos: 
+    effect: The first character in the line takes 2 piercing damage twice and is
+      shattered. All other foes take 2 piercing damage.
+    abilityIDInList: 96
+  - abilityName: Summon Storm
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - range 6
+    - terrain effect
+    subCombos: 
+    effect: "Summon a medium blast terrain <i>effect</i> in range. The area is difficult
+      terrain for foes and while inside, foes are vulnerable+. Allies have flying
+      while inside. The storm caller can redirect any of its storms with 1 action,
+      moving them up to 3 spaces, then dealing fray damage to any characters in their
+      area. \n<b>Effect: </b>At round 3+, becomes 1 action"
+    abilityIDInList: 97
+  - abilityName: Dissonant Bolt
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - line 6
+    - pierce
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b>Effect:
+      </b>Attack target is vulnerable.\n<b>Effect: </b>Foes in the line may be teleported
+      1.\n<b>Effect: </b>At round 3+, increase this teleport to 2 and deal 2 piercing
+      damage again to foes teleported this way"
+    abilityIDInList: 98
+  - abilityName: Flash step
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - repeatable
+    subCombos: 
+    effect: Teleport 1, then either Teleport 2, or deal 2 piercing damage to a foe
+      in range 3
+    abilityIDInList: 99
+  - abilityName: Crackling Rift
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - terrain effect
+    subCombos: 
+    effect: The Rift Dancer creates a line 3 dangerous terrain <i>effect</i> in range
+      4. Allies are immune to damage from the effect and can teleport 1 if they end
+      their turn in the area. Foes are <i>vulnerable+</i> while in the area.
+    abilityIDInList: 100
+  - abilityName: Chaos Shard
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 6
+    - pierce
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>Fray.\n<b><i>Effect:</i> </b>Foe
+      is <i>shattered.</i>"
+    abilityIDInList: 101
+  - abilityName: Destabilize Matter
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    - mark
+    subCombos: 
+    effect: The Chaos wright marks a character in range. While marked, the chaos
+      wright may teleport that character 2 spaces at the start of their turn. A foe
+      can save at the end of their turns to clear this mark.
+    abilityIDInList: 102
+  - abilityName: Chaos Rift
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - terrain effect
+    subCombos: 
+    effect: Create a pit in free space in range. The pit is also dangerous terrain,
+      and characters cannot attack while inside. The Chaos wright is immune to damage
+      and <i>effects</i> from its chaos rifts, and can teleport to the location of
+      any active rift in range 3 as a free action during its turn.
+    abilityIDInList: 103
+  - abilityName: Chaos Storm
+    actionCost: 2
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "Teleport all characters 2 spaces. Foes take 2 piercing damage as an
+      area <i>effect.</i> \n<b>Effect: </b>At round 3+, becomes 1 action."
+    abilityIDInList: 104
+  - abilityName: Magnetism
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 8
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>Fray.\n<b><i>Effect:</i> </b>All
+      characters in range 2 of the foe are shoved 1 towards or away from that character
+      (Disruptor chooses).\n<b>Effect: </b>At round 3+, deals bonus damage and shatters
+      all foes targeted."
+    abilityIDInList: 105
+  - abilityName: Anchor
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - repeatable
+    subCombos: 
+    effect: An ally in range 6 is shoved up to 4 spaces towards the Disruptor with
+      phasing.
+    abilityIDInList: 106
+  - abilityName: Disrupt
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - mark
+    subCombos: 
+    effect: A character in range 8 is marked. While marked, they are <i>vulnerable+</i>
+      and take 1 piercing damage, once, for every adjacent character every time they
+      end their turn. If they end their turn with no characters adjacent, end this
+      mark.
+    abilityIDInList: 107
+  - abilityName: Scour
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - Line 8
+    - mark
+    subCombos: 
+    effect: "<b>On hit: </b>2[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b>Effect:
+      </b>Mark the target. Attacks against the marked target for the rest of combat
+      gain +1 boon, deal bonus damage, ignore cover, and inflict <i>shattered.</i>
+      This effect does not stack.\n<b>Effect: </b>At round 3+, this effect can mark
+      any number of targets."
+    abilityIDInList: 108
+  - abilityName: Boiling Bolus
+    actionCost: 2
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: Create a medium blast terrain <i>effect</i> in range. Characters in the
+      area take piercing fray damage as an area effect when the area is created.
+      The area is difficult and dangerous terrain and new <i>objects</i> or terrain
+      effects cannot be created in the area. The area lasts until this ability is
+      used again.
+    abilityIDInList: 109
+  - abilityName: Chain Bolt
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 8
+    - pierce
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b>Area <i>effect:</i>
+      </b>One or two different foes in range 4 from the target foe also take 2 piercing
+      damage."
+    abilityIDInList: 110
+  - abilityName: Entrench
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - terrain effect
+    subCombos: 
+    effect: The Sapper puts down a siege rune under itself, or in an adjacent space.
+      While standing in a siege rune, the Sapper or its allies deal bonus damage,
+      and their attacks shove 1 and inflict <i>vulnerable</i> on their attack target.
+    abilityIDInList: 111
+  - abilityName: Fell Shot
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - terrain effect
+    - range 8
+    - end turn
+    subCombos: 
+    effect: "Choose one or two free spaces in range. \n<b>Terrain <i>Effect:</i>
+      </b>Characters that enter that space or start their turn there are struck by
+      a projectile, taking 2 piercing damage twice, and ending this effect. Otherwise,
+      it expires if the Sapper is defeated."
+    abilityIDInList: 112
+  - abilityName: Spray
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - large blast
+    - range 3
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b>Area
+      Effect: </b>Attack target explodes, shoving adjacent characters 1 away from
+      them and dealing 2 piercing damage to them"
+    abilityIDInList: 113
+  - abilityName: Volatile Mix
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: "The Alchemist chooses a foe in range. At the end of that foe\u2019s
+      next turn, they explode, taking 2 piercing damage and dealing 2 piercing damage
+      in a large blast area <i>effect</i> centered on themselves."
+    abilityIDInList: 114
+  - abilityName: Sticky solution
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 6
+    subCombos: 
+    effect: A character in range must save. On a successful save, they are <i>shattered.</i>
+      On a failed save, they are <i>shattered</i> and cannot target adjacent characters
+      or spaces with abilities until the end of their next turn.
+    abilityIDInList: 115
+  - abilityName: Bolt
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 8
+    - small blast
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b>Effect:
+      </b>At round 3+, increase area to large blast and deals bonus damage."
+    abilityIDInList: 116
+  - abilityName: Mighty Summoning
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: An ally in range 4 is removed from the battlefield, then placed in any
+      space adjacent to the Justicar. Alternately, the Justicar can remove any adjacent
+      ally, then place them in any space in range 4.
+    abilityIDInList: 117
+  - abilityName: Riven
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: "Choose a foe in range 8. At the end of that character\u2019s turn, they
+      take 3 piercing damage, once, for every 3 spaces of distance between them and
+      the Justicar."
+    abilityIDInList: 118
+  - abilityName: Aim
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - combo
+    subCombos: 78000000
+    effect: The Sniper ends its turn
+    abilityIDInList: 119
+  - abilityName: Heart Seeker
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - range 12
+    - +1 boon
+    subCombos: 
+    effect: "<b>On hit: </b>3[D]+fray. \n<b>Miss: </b>[D]+fray.\n<b><i>Effect:</i>
+      </b>Cannot target characters in range 3.\n<b>Effect: </b>At round 3+, costs
+      only 1 action and deals bonus damage."
+    abilityIDInList: 120
+  - abilityName: Brace
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: Create a 1 space terrain <i>effect</i> underneath the Sniper. While standing
+      in a brace, the Sniper ignores height disadvantage and deals bonus damage.
+    abilityIDInList: 121
+  - abilityName: Grappling Hook
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: The Sniper flies 2. It may fly 4 if it ends its turn in a brace.
+    abilityIDInList: 122
+  - abilityName: Dark Edge
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - medium blast
+    - combo
+    subCombos: 
+    effect: "<b>On hit: </b>2[D]+fray and shove 2. \n<b>Miss or area <i>effect:</i>
+      </b>[D]+fray and shove 1.\n<b><i>Collide:</i> </b>Foe is <i>weakened.</i>"
+    abilityIDInList: 123
+  - abilityName: Iron Blades
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - repeatable
+    subCombos: 
+    effect: <b><i>Effect:</i> </b>An adjacent foe is <i>slashed,</i> if they are
+      already slashed, they take 2 damage.
+    abilityIDInList: 124
+  - abilityName: Great Slam
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "<i>Rush</i> 2 spaces, then all adjacent foes are shoved 1 space. \n<b><i>Collide:</i>
+      </b>foe is <i>weakened</i>"
+    abilityIDInList: 125
+  - abilityName: Great Shieldwall
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - stance
+    - usable when bloodied
+    subCombos: 
+    effect: "While in this stance, becomes immobile, but attacks against adjacent
+      allies gain +1 curse and adjacent allies have <i>resistance.</i> Ends at the
+      start of the Archon\u2019s next turn."
+    abilityIDInList: 126
+  - abilityName: Disappearing Act
+    actionCost: interrupt
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "<b>Trigger: </b>When bloodied. \n<b><i>Effect:</i> </b>Remove self from
+      the battlefield. At the start of the Rogue\u2019s next turn, return them to
+      the battlefield anywhere in range 3 of a character, with <i>stealth.</i>"
+    abilityIDInList: 127
+  - abilityName: Wicked Slice
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - +1 boon
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Deals
+      2 damage again to the target for each of the following on the target - bloodied,
+      <i>blinded,</i> <i>dazed.\n<b>Effect:</i> </b>Dash 1 before and after the attack"
+    abilityIDInList: 128
+  - abilityName: Blinding Dust
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: An adjacent foe becomes <i>blinded.</i> The Rogue then may dash 3 and
+      gains <i>stealth.</i>
+    abilityIDInList: 129
+  - abilityName: Dirty Fighting
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - combo
+    subCombos: 83000000
+    effect: Daze two foes in range 3 of the Rogue and each other, then swap their
+      places, removing and placing them.
+    abilityIDInList: 130
+  - abilityName: Foul Play
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - combo
+    subCombos: 
+    effect: <b><i>Effect:</i> </b>Teleport 4, then deal 4 damage to an adjacent foe.
+      Can repeat this effect, but must choose a different foe in range each time
+      unless a foe has already been chosen by this ability, or this effect has triggered
+      three times.
+    abilityIDInList: 131
+  - abilityName: Great Holy
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - range 6
+    - large blast
+    subCombos: 
+    effect: "<b>Autohit: </b>[D] + Fray. \n<b>Miss or area <i>effect:</i> </b>Fray.\n<b>Effect:
+      </b>Attack target is <i>pacified.\n<b>Effect:</i> </b>Allies in the area gain
+      3 vigor."
+    abilityIDInList: 132
+  - abilityName: Denial
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 5
+    subCombos: 
+    effect: A foe in range must save or become unable to attack until the end of
+      their next turn. On a successful save, they take 2 damage and are <i>sealed</i>
+      instead.
+    abilityIDInList: 133
+  - abilityName: Gust
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - repeatable
+    subCombos: 
+    effect: The Scion or an ally in range may fly 2.
+    abilityIDInList: 134
+  - abilityName: Blessed Ground
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 2
+    - terrain effect
+    subCombos: 
+    effect: The Scion creates a space of Blessed Ground in range. The Scion and allies
+      have <i>resistance</i> and deal bonus damage while inside. The spaces disappear
+      if the Scion is defeated, and it may have a maximum of four, choosing which
+      to keep and end.
+    abilityIDInList: 135
+  - abilityName: Immaculate
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - 1/combat
+    subCombos: 
+    effect: "An ally in range 5 becomes <i>Intangible</i> until the end of its next
+      turn.\r"
+    abilityIDInList: 136
+  - abilityName: Unstable reality
+    actionCost: Free
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "Self or an ally in range 3 may teleport 2\r"
+    abilityIDInList: 137
+  - abilityName: Annihilate
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - range 10
+    - medium blast
+    - combo
+    subCombos: 8b000000
+    effect: "<b>On hit: </b>2[D]+fray. \n<b>Miss or area <i>effect:</i> </b>[D]+fray.\n<b>Effect:
+      </b>Attack target becomes <i>vulnerable.\n<b>Terrain</i> effect: </b>Create
+      a pit under target.\n<b>Effect: </b>At round 3+, increase blast size to large
+      blast, and deals 2 piercing damage again to all foes on the battlefield."
+    abilityIDInList: 138
+  - abilityName: Great Slip
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - combo
+    subCombos: 
+    effect: Remove self from the battlefield, then return in a free space in range
+      3
+    abilityIDInList: 139
+  - abilityName: Fell Shot
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 8
+    - repeatable
+    subCombos: 
+    effect: "Mark an unoccupied space in range. \n<b>Area <i>effect:</i> </b>Characters
+      that enter that space or start their turn there are struck by a projectile,
+      taking 2 piercing damage twice, and ending this effect."
+    abilityIDInList: 140
+  - abilityName: Liminal Arrows
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 10
+    subCombos: 
+    effect: "Choose a foe in line of sight and range. At the end of that character\u2019s
+      turn, it takes piercing fray damage 3 times if not in cover from the Crucible,
+      or just piercing fray damage if it is. Then this <i>effect</i> ends."
+    abilityIDInList: 141
+  - abilityName: Juggernaut
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: At the start of the round, this character may clear a status or mark.
+    abilityIDInList: 142
+  - abilityName: Lumbering Charge
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "At the end of the round, the Demolisher may <i>Rush</i> 1 up to four
+      times. Before each space of this rush, it shoves all adjacent foes 1 space
+      and deals 1 damage to them.\r"
+    abilityIDInList: 143
+  - abilityName: Pound
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    - range 2
+    - combo
+    subCombos: 9100000092000000
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray damage. \\nDeals bonus
+      damage for each character is <i>weakened,</i> <i>slashed,</i> or <i>stunned.</i>"
+    abilityIDInList: 144
+  - abilityName: Battle Roar
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - end turn
+    subCombos: 
+    effect: Foes in range 2 take 2 piercing damage. Bloodied foes are <i>slashed.</i>
+    abilityIDInList: 145
+  - abilityName: Quake Strike
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - range 2
+    - burst 1
+    subCombos: 
+    effect: "<b>On hit: </b>3[D]+fray. \n<b>Miss or Area <i>effect:</i> </b>[D]+fray.\n<b>Effect:
+      </b>Create a pit under attack target."
+    abilityIDInList: 146
+  - abilityName: Hurl Boulder
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    subCombos: 
+    effect: <b><i>Effect:</i> </b>A foe in range takes 2 damage and is shoved 1,
+      then create a height 1 boulder <i>object</i> next to them.
+    abilityIDInList: 147
+  - abilityName: Lash
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    subCombos: 
+    effect: "The Demolisher whips a chain, hook, or weapon around a foe in range,
+      shoving them 2 spaces towards the Demolisher. \n<b><i>Collide:</i> </b>Foe
+      is <i>weakened.</i> Weakened foes take fray damage."
+    abilityIDInList: 148
+  - abilityName: Heavy Vault
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - 1/round
+    subCombos: 
+    effect: The Demolisher removes itself from the battlefield, then places itself
+      in range 3. Characters under it when its placed take 2 damage and are removed
+      and placed in any adjacent space as they are tossed around.
+    abilityIDInList: 149
+  - abilityName: Lumbering Charge II
+    actionCost: 2 x round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: At the end of the round, the Demolisher may <i>Rush</i> 1 up to four
+      times. Before each space of this rush, it shoves all adjacent foes 1 space
+      and deals 1 damage to them.
+    abilityIDInList: 150
+  - abilityName: Great Lash
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    - 1/round
+    subCombos: 
+    effect: "The Demolisher whips a chain or hook around all foes in range. They
+      are shoved 2 spaces towards the demolisher. \n<b><i>Collide:</i> </b>Foes are
+      <i>weakened.</i> Weakened foes take fray damage."
+    abilityIDInList: 151
+  - abilityName: Crippling Paranoia
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "At the start of the round, the Nocturnal chooses a foe. At the end of
+      the round, that foe deals 6 damage to all allies in adjacent spaces and dazes
+      them, then the nocturnal can shove them 1 in any direction.\r"
+    abilityIDInList: 152
+  - abilityName: The Pain
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 3
+    - true strike
+    - combo
+    subCombos: 9a0000009b000000
+    effect: "<b><i>Effect:</i> </b>Teleport 1. \n<b>Attack: </b>\n<b>On hit: </b>[D]+fray
+      and shove 1.\n<b>Miss: </b>fray damage.\n<b>Effect: </b>Teleport 1"
+    abilityIDInList: 153
+  - abilityName: The Agony
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 5
+    - combo
+    subCombos: 
+    effect: "<b>On hit: </b>3 piercing damage, three times. \n<b>Miss: </b>3 piercing
+      damage once."
+    abilityIDInList: 154
+  - abilityName: The Horror
+    actionCost: 2
+    isAttack: 1
+    additionals:
+    - combo
+    subCombos: 
+    effect: "<b>On hit: </b>2[D]+fray. \n<b>Miss: </b>[D]+fray.\n<b><i>Effect:</i>
+      </b>Deals 2 damage again to the target for each that is true - bloodied, <i>blinded,</i>
+      <i>dazed.</i>"
+    abilityIDInList: 155
+  - abilityName: Bloody Slash
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - area effect
+    - line 4
+    subCombos: 
+    effect: <b>Area <i>effect:</i> </b>Foes in the area take 2 damage once for every
+      foe in the line, up to three times. The Nocturnal may teleport to any space
+      in the area after this ability resolves.
+    abilityIDInList: 156
+  - abilityName: Great Fell Shot
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 4
+    - 2/ round
+    subCombos: 
+    effect: Choose two free spaces in range. Characters that enter that space or
+      start their turn there are struck by a projectile, taking 3 piercing damage
+      twice, and ending this <i>effect.</i> This area lasts until triggered.
+    abilityIDInList: 157
+  - abilityName: Lost and Alone
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - 2/ round
+    subCombos: 
+    effect: The Nocturnal swaps the places of two foes in range 3 of the Nocturnal
+      and each other, removing and placing them. One foe is then <i>dazed.</i>
+    abilityIDInList: 158
+  - abilityName: Assassinate
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - 1/round
+    subCombos: 
+    effect: "The Nocturnal chooses a foe in range 3 that has not acted yet this round.
+      At the end of that foe\u2019s turn, as long as they\u2019re in range 3, teleport
+      to any space adjacent to them, deal 2 damage, three times to them, and <i>blind</i>
+      them. Reduce this damage to just 2 damage if they have an adjacent ally. Then,
+      fly 1."
+    abilityIDInList: 159
+  - abilityName: Amygdala
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 2
+    - 2/round
+    subCombos: 
+    effect: "All foes in range are inflicted with supernatural fear. They must save
+      or be shoved 3 spaces in a direction of the Nocturnal\u2019s choice, or 1 space
+      on a successful save."
+    abilityIDInList: 160
+  - abilityName: Bloody Nightmare
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "At the start of the round, the Nocturnal supernaturally <i>slashes</i>
+      all foes. For the rest of combat, all foes take 2 piercing damage at the start
+      of their turns. This <i>effect</i> stacks.\r"
+    abilityIDInList: 161
+  - abilityName: Kidnap
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - 2/round
+    subCombos: 
+    effect: The Nocturnal dashes 4. A foe adjacent to any point during its dash is
+      removed from the battlefield, then placed adjacent when it finishes its movement.
+      Foes can save to avoid this <i>effect,</i> but are <i>dazed</i> on a successful
+      save.
+    abilityIDInList: 162
+  - abilityName: Press the Assault
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - Minion Mob Action
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray damage.\n<b><i>Effect:</i>
+      </b>Up to four other minions can dash 2. Then, any foes adjacent to at least
+      one minion that dashed this way take 2 piercing damage."
+    abilityIDInList: 163
+  - abilityName: Guardian Stance
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "Up to four minions take a defensive stance until the start of the mob\u2019s
+      next turn. For the duration, if the master is targeted by an ability and is
+      adjacent to one of these minions, the minion can sacrifice themself as an interrupt,
+      destroying them, to grant the master <i>resistance</i> to that ability and
+      +1 boon on any saves. The mob can take this interrupt any number of times a
+      round, but only once a turn."
+    abilityIDInList: 164
+  - abilityName: Skewering Wall
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "Up to four minions take an aggressive stance until the start of the
+      mob\u2019s next turn. For the duration, any foe that starts or ends their turn
+      adjacent to one of these minions takes 2 piercing damage and is shoved 1."
+    abilityIDInList: 165
+  - abilityName: Assault Wave
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: At the start of the round, the master chooses a burst 2 (target space)
+      area of the battlefield. At the end of the round, foes in the area are charged
+      by all minions in the area. They must save or take 3 piercing damage per minion
+      in the area, up to a maximum of six times, or just 1 piercing damage per minion
+      on a successful save.
+    abilityIDInList: 166
+  - abilityName: Aggressive Tempo
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    - range 2
+    - combo
+    subCombos: 
+    effect: "<b> On hit: </b>[D]+fray. \n<b>Miss: </b>fray damage.\n<b><i>Effect:</i>
+      </b>Foe is <i>sealed.</i> The Master and any minions in range 2 may dash 2
+      before or after this attack."
+    abilityIDInList: 167
+  - abilityName: Defensive Tempo
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 2
+    - combo
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray damage.\n<b><i>Effect:</i>
+      </b>The Master shoves all foes in range 2 one space, then the Master gains
+      <i>counter</i> until the start of its next turn, and grants counter to any
+      adjacent minions for the same duration."
+    abilityIDInList: 168
+  - abilityName: Promote
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - 1/round
+    subCombos: 
+    effect: "A minion gains 6 vigor and can immediately use Press the Assault, ignoring
+      the attack limit. Damage that spills over from this vigor deals one \u2018hit\u2019
+      of damage as normal to the minion."
+    abilityIDInList: 169
+  - abilityName: Rally
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - object
+    - 1/round
+    subCombos: 
+    effect: The Master summons a Rally Point <i>object</i> in free space not adjacent
+      to a foe in range 3. If using this action again with an active rally point,
+      it moves the rally point rather than summoning a new one.\n<indent=15%>\n<b>Rally
+      Point</b> \nSize 1 <i>object</i>, destructible (10 hp)\n<b>Object <i>effect:</i>
+      </b>Aura 1. Minions in the aura are immune to all damage and Press the Assault
+      against characters in the area deals maximum damage.</indent>
+    abilityIDInList: 170
+  - abilityName: Disabling Strike
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    subCombos: 
+    effect: A foe in range 3 is <i>pacified,</i> then shoved 1 in any direction.
+      Pacified foes are shoved 3 instead.
+    abilityIDInList: 171
+  - abilityName: Barrage
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 3
+    - burst 1 (target space
+    subCombos: 
+    effect: "<b>Area <i>effect:</i> </b>Foes take 2 piercing damage. Allies are immune.\r"
+    abilityIDInList: 172
+  - abilityName: Reinforcements
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: At the start of the round, the Master summons extra reinforcements. The
+      Minion mob is replenished by 2 new minions per player, which can be placed
+      in any space on the battlefield not adjacent to a foe. There is no maximum
+      on minions placed.
+    abilityIDInList: 173
+  - abilityName: Cataclysm
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: At the start of the round, create 2 rock spires, height 1 <i>objects,</i>
+      in free space within range 2 of a foe. Foes adjacent when the spires are created
+      take 2 piercing damage.
+    abilityIDInList: 174
+  - abilityName: Scorch
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: "At the start of the round, choose a character in range 6. At the end
+      of that character\u2019s turn, the Razer shoots an energy blast at them for
+      a medium blast explosion area <i>effect.</i> Characters within must save. On
+      a successful save, they take piercing fray damage. On a failed save they take
+      [D]+fray piercing damage. Rock spires in the area are destroyed."
+    abilityIDInList: 175
+  - abilityName: Raze
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    - range 6
+    subCombos: b1000000
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i> </b>Attack
+      target is <i>vulnerable.\n<b>Effect:</i> </b>Vulnerable foes release a burst
+      1 explosion centered on them, dealing 2 damage to all foes within."
+    abilityIDInList: 176
+  - abilityName: Resonant Blast
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - range 6
+    - pierce
+    - medium blast
+    subCombos: 
+    effect: "<b>On hit: </b>[D]+fray. \n<b>Miss or area <i>effect:</i> </b>fray.\n<b>Effect:
+      </b>Deal fray damage again to all foes for every <i>object</i> or pit caught
+      in the area."
+    abilityIDInList: 177
+  - abilityName: Swat
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 2
+    subCombos: 
+    effect: "A foe in range is shoved 2. \n<b><i>Collide:</i> </b>Foe is <i>shattered.</i>"
+    abilityIDInList: 178
+  - abilityName: Aether Split
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 5
+    - medium blast
+    subCombos: 
+    effect: "<b>Area <i>effect:</i> </b>2 damage. \n<b>Effect: </b>teleport all characters
+      in the area 1. Teleport self 3 instead if in the area."
+    abilityIDInList: 179
+  - abilityName: Eruption
+    actionCost: 1
+    isAttack: 0
+    additionals:
+    - range 5
+    - 2/round
+    subCombos: 
+    effect: A Rock spire in range erupts. Adjacent characters take 2 damage, then
+      the spire creates 3 spaces of difficult terrain in adjacent spaces.
+    abilityIDInList: 180
+  - abilityName: Orbital Strike
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: Choose a space in range 5. At the end of the round, the Razer removes
+      itself from the battlefield and lands in the space, placing itself. Foes in
+      a large blast area centered on them take [D]+fray damage as an area <i>effect</i>
+      and have a pit created under them.
+    abilityIDInList: 181
+  - abilityName: Soar
+    actionCost: free
+    isAttack: 0
+    additionals:
+    - 2/round
+    subCombos: 
+    effect: Fly 3
+    abilityIDInList: 182
+  - abilityName: Elden Chaos
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: At the end of the round, the Razer fires a blast of pure ancient chaos.
+      The blast is a large blast area <i>effect</i> centered on any space in line
+      of sight from the Razer. Foes in the area must save. On a failed save, they
+      take 2[D]+fray piercing damage, twice. On a successful save, they take piercing
+      fray damage, twice . Characters in cover automatically succeed the save. Then
+      destroy all rock spires.
+    abilityIDInList: 183
+  - abilityName: Diaga
+    actionCost: 1
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: An ally in range 4 is <i>cured</i>.
+    abilityIDInList: 184
+  - abilityName: Blackheart
+    actionCost: 1
+    isAttack: 1
+    additionals:
+    - true strike
+    - combo
+    subCombos: 7b000000
+    effect: "<b>On hit: </b>Deal [D]+fray. \n<b>Miss: </b>fray.\n<b><i>Effect:</i>
+      </b>\n<b>Gains +1 boon and deals bonus damage for each of the following: </b>character
+      is <i>stunned,</i> <i>slashed,</i> or <i>weakened.</i>"
+    abilityIDInList: 185
+  - abilityName: Lumbering Charge II
+    actionCost: Round
+    isAttack: 0
+    additionals: []
+    subCombos: 
+    effect: At the end of the round, the Demolisher may <i>Rush</i> 1 up to eight
+      times. Before each space of this rush, it shoves all adjacent foes 1 space
+      and deals 1 damage to them.
+    abilityIDInList: 186

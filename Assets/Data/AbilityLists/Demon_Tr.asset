@@ -1,0 +1,247 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26145924c7c4eb348905b6d88f10b619, type: 3}
+  m_Name: Demon_Tr
+  m_EditorClassIdentifier: 
+  Traits:
+  - traitName: Monsters
+    traitEffect: "<b>Demons do not flee or negotiate. All Demons have the Devour
+      trait. \n\u2022 Motivations: </b>Most demons are mindless, extra dimensional
+      killing machines that exist to kill and eat living things. Those that have
+      the intelligence or wherewithal to communicate with Kin usually reveal a cruel
+      and sadistic malice. They delight in inflicting pain, fear, violence, and destruction
+      - including on each other. \n\u2022 All have the Abyssal Legion trait"
+    traitIDInList: 0
+  - traitName: Legion
+    traitEffect: "When fighting demons, at the start of combat, place a Natal mob,
+      this faction\u2019s special mob, on the map. The mob does not count for the
+      total faction budget."
+    traitIDInList: 1
+  - traitName: Engorge
+    traitEffect: Becomes unstoppable if it devours another non-natal demon.
+    traitIDInList: 2
+  - traitName: Power from pain
+    traitEffect: Has <i>counter,</i> and grants counter to all adjacent allies. Each
+      time counter triggers on self or adjacent allies, this demon gains 1 vigor.
+    traitIDInList: 3
+  - traitName: Painwrack
+    traitEffect: Characters that <i>collide</i> with the Nail Demon take 4 damage,
+      but no more than once a round.
+    traitIDInList: 4
+  - traitName: Engorge II
+    traitEffect: "Becomes unstoppable if it devours another non-natal demon. \n<b><i>Effect:</i>
+      </b>Bonus damage on all abilities"
+    traitIDInList: 5
+  - traitName: Engorge III
+    traitEffect: "Becomes unstoppable if it devours another non-natal demon. \n<b><i>Effect:</i>
+      </b>Incrase the demons' size to 2. Other characters in the demon\u2019s area
+      when its size are increased are removed and placed adjacent to the demon.\n<b>Effect:
+      </b>Bonus damage on all abilities"
+    traitIDInList: 6
+  - traitName: Hurl Body
+    traitEffect: "When the Horn Demon devours another demon or a natal, it uses its
+      prey\u2019s leftover body as a weapon, hurling it at foes. A foe in range 4
+      of the demon becomes <i>weakened</i> and takes 4 damage if devour was used,
+      or just 2 damage if devour natal was used."
+    traitIDInList: 7
+  - traitName: Void Prowler
+    traitEffect: "<b>Void Demons can create void rifts, which are 1 space pit terrain
+      <i>effects</i> with the following features: </b>\n\u2022 Foes inside void rifts
+      are <i>blinded+.</i> \n\u2022 Demons inside void rifts have evasion and ignore
+      movement penalties when entering or exiting a rift space \n\u2022 Void demons
+      can treat any two void rifts as adjacent spaces when moving, teleporting when
+      they move between them. However, they can only teleport this way once a turn."
+    traitIDInList: 8
+  - traitName: Ethereal
+    traitEffect: <i>Phasing,</i> and has evasion unless adjacent to a foe.
+    traitIDInList: 9
+  - traitName: Phase slip
+    traitEffect: After being damaged for the first time on any turn, become <i>intangible</i>
+      until the start of the following turn
+    traitIDInList: 10
+  - traitName: Void Prowler II
+    traitEffect: "<b>Void Demons can create void rifts, which are 1 space pit terrain
+      <i>effects</i> with the following features: </b>\n\u2022 Foes inside void rifts
+      are <i>blinded+.</i> \n\u2022 Void Rifts are also dangerous terrain spaces
+      for foes. \n\u2022 Demons inside void rifts have evasion and ignore movement
+      penalties when entering or exiting a rift space \n\u2022 Void demons can treat
+      any two void rifts as adjacent spaces when moving, teleporting when they move
+      between them. However, they can only teleport this way once a turn."
+    traitIDInList: 11
+  - traitName: Void Prowler III
+    traitEffect: "<b>Void Demons can create void rifts, which are 1 space pit terrain
+      <i>effects</i> with the following features: </b>\n\u2022 Foes inside void rifts
+      are <i>blinded+.</i> \n\u2022 Void Rifts are also dangerous terrain spaces
+      for foes. \n\u2022 Demons inside void rifts have evasion and ignore movement
+      penalties when entering or exiting a rift space \n\u2022 Void demons can treat
+      any two void rifts as adjacent spaces when moving, teleporting when they move
+      between them. However, they can only teleport this way once a turn. \n\u2022
+      Void Demons gain <i>stealth+</i> while adjacent to void rifts"
+    traitIDInList: 12
+  - traitName: Lurker in the dark
+    traitEffect: Has <i>stealth+</i> if no other characters are in range 2.
+    traitIDInList: 13
+  - traitName: Crystal Dagger
+    traitEffect: When the demon teleports, it may deal 1 damage to a foe in range
+      3.
+    traitIDInList: 14
+  - traitName: Crystal Burst
+    traitEffect: When the demon is destroyed or devoured, it shatters, teleporting
+      all characters in range 2 from it 2 spaces and dazing them.
+    traitIDInList: 15
+  - traitName: Aura of Terror
+    traitEffect: The Demon has aura 2. Foes in the aura are <i>pacified+</i> unless
+      adjacent to an ally
+    traitIDInList: 16
+  - traitName: Aura of Terror II
+    traitEffect: "The Demon has aura 2. Foes in the aura are <i>pacified+</i> unless
+      adjacent to an ally \n\u2022 <i>Bloodied</i> foes also have +1 curse on attacks
+      and saves inside Aura of Terror."
+    traitIDInList: 17
+  - traitName: Aura of Terror III
+    traitEffect: "The Demon has aura 2. Foes in the aura are <i>pacified+</i> unless
+      adjacent to an ally \n\u2022 <i>Bloodied</i> foes also have +1 curse on attacks
+      and saves inside Aura of Terror. \n\u2022 Bloodied foes must save before entering
+      any space of Aura of Terror during their turn. On a failed save, they cannot
+      move into the aura by any means until the end of their turn."
+    traitIDInList: 18
+  - traitName: Death Shriek
+    traitEffect: When defeated, all foes on the battlefield take 2 piercing damage
+      and gain +1 curse on attacks and saves for the rest of the round.
+    traitIDInList: 19
+  - traitName: Disgorge
+    traitEffect: Whenever this demon loses all vigor, create a natal in range 2
+    traitIDInList: 20
+  - traitName: Last Revenge
+    traitEffect: When defeated (not devoured), explodes in a medium blast area <i>effect</i>
+      centered on it. Non-demons in the area take [D]+fray, then summon 2 Natals
+      in free spaces in the area.
+    traitIDInList: 21
+  - traitName: Implode
+    traitEffect: At the start of round 4, this demon explodes, destroying the demon
+      and dealing [D] +fray piercing damage as an area <i>effect</i> to all nondemon
+      characters on the battlefield.
+    traitIDInList: 22
+  - traitName: Distorted Soul
+    traitEffect: "\u2022 When not <i>bloodied,</i> gain <i>resistance</i> to all
+      abilities from adjacent spaces. However, abilities used against them from range
+      2 or greater gain pierce and ignore resistance. \n\u2022 When bloodied, gain
+      resistance to damage from any ability not from adjacent spaces. However, all
+      abilities used against them from adjacent spaces gain pierce and ignore resistance.\r"
+    traitIDInList: 23
+  - traitName: Amorphous
+    traitEffect: <i>Phasing</i> and can share space with other characters. Characters
+      that end their turn in its space take fray damage.
+    traitIDInList: 24
+  - traitName: Split
+    traitEffect: At the start of any turn that it is <i>bloodied,</i> the Ooze creates
+      an ooze duplicate in an adjacent space. The duplicate is a new character that
+      is an exact copy of the Ooze at the time this split happens, except without
+      this trait. It may act starting next round. An ooze can create multiple copies
+      of itself this way in a fight.
+    traitIDInList: 25
+  - traitName: Spindly Limbs
+    traitEffect: Ignores engagement from other character, and spends no additional
+      movement moving up or down terrain.
+    traitIDInList: 26
+  - traitName: Mimicry
+    traitEffect: In any battle with the Mimic, place 5 decoys on the battlefield
+      at the start of the battle. Unlike other summons, they lack the <i>intangible</i>
+      trait and can be destroyed. <indent=15%>\n<b>Decoy</b> \nSize 1 summon, immobile,
+      1 hp, 1 defense \n<b>Summon <i>Effect:</i> </b>The GM secretly picks one of
+      the decoys that is actually the Mimic. When that decoy is targeted by an ability,
+      before the ability is made, replace the decoy with the mimic and retarget the
+      attack to the mimic. This reveals the mimic.
+    traitIDInList: 27
+  - traitName: Black Temple Bell
+    traitEffect: "This demon\u2019s huge bell is so heavy it can only attack once
+      a round."
+    traitIDInList: 28
+  - traitName: Burning Wheel
+    traitEffect: "This demon\u2019s speed is 15. However, the demon must move in
+      the same direction for each ability it uses, and can only move in straight
+      lines."
+    traitIDInList: 29
+  - traitName: Eyeless
+    traitEffect: Immune to <i>blinded.</i>
+    traitIDInList: 30
+  - traitName: Eyes within Eyes
+    traitEffect: "Immune to <i>blinded.</i> Simply grows more eyes.\r"
+    traitIDInList: 31
+  - traitName: Dissolving Reality
+    traitEffect: At the start of round 1, 3, and 5, the Maze demon creates a special
+      terrain <i>effect</i> of Dissolving Reality anywhere on the battlefield, a
+      medium blast zone. The zone is dangerous terrain to characters other than Demons.
+    traitIDInList: 32
+  - traitName: Amorphous
+    traitEffect: Can share space with other characters and <i>objects.</i> Any foes
+      that end their turn inside its space take 2 damage. Does not provide obstruction,
+      but characters treat its space as difficult terrain. Area <i>effects</i> this
+      character creates can overlap its space, and it is immune to damage and effects
+      from its own attacks.
+    traitIDInList: 33
+  - traitName: Crawling Chaos
+    traitEffect: When the Demon hits with an attack or uses certain abilities, it
+      summons a crawling mass of loose limbs in a free space in range 3 of its location.
+      The mass counts as a pit and dangerous terrain to all characters but the demon.
+      A character can destroy a crawling mass by spending the interact action while
+      adjacent to it.
+    traitIDInList: 34
+  - traitName: A Thousand Hands
+    traitEffect: The demon deals +1 base damage with its amorphous trait and all
+      its abilities per crawling mass it is sharing space with.
+    traitIDInList: 35
+  - traitName: Soul Suffering
+    traitEffect: The violence demon can stack any number of marks on foes
+    traitIDInList: 36
+  - traitName: Regard
+    traitEffect: Critically hitting the demon earns its regard until the end of the
+      round, giving the demon <i>hatred+</i> of that character for the duration.
+      This <i>effect</i> can switch targets if the demon is critically hit again.
+    traitIDInList: 37
+  - traitName: Blade of Agony
+    traitEffect: "Many actions from this legend summon a blade of agony, an incredibly
+      sharp, bonelike demon blade. Blades can be summoned in range 3 from the demon.
+      <indent=15%>\\n<b>Blade of Agony</b> \\nSize 1, summon \\n<b>Summon <i>Effect:</i>
+      </b>Foes may pass through the space of a blade, but treat them as difficult
+      terrain. It also has the following effects. \\n<b>\u2022 Blade <i>Slash:</i>
+      </b>Whenever a blade is summoned, all blades, including the one that was just
+      summoned, slash every space adjacent to them, dealing 1 divine damage to all
+      foes. A character can hit by multiple blades at once.\\n<b>\u2022 Blade consume
+      X: </b>Certain actions must consume X blades of agony to be used. Blades are
+      consumed at the start of the action and must be in range 3 of the demon to
+      be valid. This destroys the blades, removing them from the battlefield."
+    traitIDInList: 38
+  - traitName: Court of the Covenant
+    traitEffect: 'At the start of combat, or as a round action, the Majesty Demon
+      summons until it has the following set of summons active: The Sycophant, the
+      Scepter Bearer, the Shrouded Lady, the Maiden, and one Flagellant Knight per
+      character. All summons are demons that must be placed within range 2 of a player
+      character or the Majesty Demon and cannot be placed within range 2 of each
+      other. Unlike other summons, some can be attacked and take damage, and are
+      removed when defeated. The Majesty demon cannot directly target its summons
+      with attacks and <i>effects</i> unless specified. When the Majesty Demon re-summons
+      one of these special summons, it takes damage equal to twice their maximum
+      hp, which cannot be reduced in any way.'
+    traitIDInList: 39
+  - traitName: Summon
+    traitEffect: "A character controlled by its Summoner. Summons are <i>intangible,</i>
+      and cannot be marked, and do not count as allies or foes for the purposes of
+      abilities. Summons do not take turns. Instead, they have a summon action that
+      they use on their summoner\u2019s turn, or a summon <i>effect</i> that is always
+      active, and otherwise don\u2019t take actions or move on their own. Summons
+      are removed from the battlefield when their summoner is defeated."
+    traitIDInList: 40
+  - traitName: Intangible
+    traitEffect: Immune to damage and <i>effects</i> from foes. Does not provide
+      obstruction or engagement.
+    traitIDInList: 41

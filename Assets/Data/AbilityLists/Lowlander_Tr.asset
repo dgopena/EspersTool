@@ -1,0 +1,183 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26145924c7c4eb348905b6d88f10b619, type: 3}
+  m_Name: Lowlander_Tr
+  m_EditorClassIdentifier: 
+  Traits:
+  - traitName: Kin
+    traitEffect: "Lowlanders are kin, can be bargained with, and will flee or surrender
+      if heavily outnumbered or heavily losing a fight \n<b>\u2022 Motivations: </b>Lowlanders
+      nearly always fight for territory or supplies. Negotiating for them for passage
+      through their territory usually involves doing a favor or payment, and they
+      typically respect fair deals. They prefer to take captives in battle and ransom
+      them back later. \n<b>\n\u2022 Flee: </b>Lowlanders are survivors and won't
+      hesitate to back down from a fight they know they will lose - conversely, they
+      won\u2019t hesitate to exploit weaknesses."
+    traitIDInList: 0
+  - traitName: Lowlander Toxin
+    traitEffect: "At the start of each round in any combat featuring lowlanders,
+      all nonlowlander characters sacrifice 2 hp.\r"
+    traitIDInList: 1
+  - traitName: Pit expert
+    traitEffect: Lowlanders ignore movement and height disadvantage from pits
+    traitIDInList: 2
+  - traitName: Suddenly!
+    traitEffect: "At the start of any round, the GM can spring a lowlander trap in
+      any unoccupied space not adjacent to a player character, with the following
+      features: \u2022 The trap is a pit. \n\u2022 When activated, a foe in range
+      2 of the trap must save or be shoved until inside the trap. \n\u2022 Foes that
+      end their turn inside the pit take 3 piercing damage. \n\u2022 All traps can
+      be disarmed by a character taking the interact action adjacent, removing it."
+    traitIDInList: 3
+  - traitName: Blightlands Brawn
+    traitEffect: "When <i>bloodied,</i> becomes <i>sturdy,</i> kidnap goes +2 more
+      spaces, and kidnap also <i>slashes</i> foes.\r"
+    traitIDInList: 4
+  - traitName: Stench
+    traitEffect: This character has aura 1. Foes in the aura take +1 curse on attacks
+      and saves.
+    traitIDInList: 5
+  - traitName: Toxic Revenge
+    traitEffect: <b>Area <i>effect:</i> </b>When defeated, explodes with venom, inflicting
+      [D]+fray damage as a burst 1 (self) area effect.
+    traitIDInList: 6
+  - traitName: Great Kidnap
+    traitEffect: The Slab can spend both actions on Kidnap to increase its distance
+      to 6 spaces.
+    traitIDInList: 7
+  - traitName: Entrenched
+    traitEffect: Unstoppable while in a pit.
+    traitIDInList: 8
+  - traitName: Bloodwhetter
+    traitEffect: When the Slaughterer is damaged by an ability they may deal 2 damage
+      to an adjacent foe, each time they are damaged.
+    traitIDInList: 9
+  - traitName: Master of the underway
+    traitEffect: The grub gains <i>stealth</i> if they start or end their turn in
+      a pit and can use 2 spaces of movement to teleport from any pit space to any
+      other free pit space.
+    traitIDInList: 10
+  - traitName: Lick Knife
+    traitEffect: "<b>The Tick\u2019s abilities all have Slay: </b>gain +1 action.
+      This trait can only trigger once a turn."
+    traitIDInList: 11
+  - traitName: Noxious Censer
+    traitEffect: The priest has Aura 2. Characters in the aura have cover against
+      abilities used from the outside, and foes in the aura get +1 curse on attacks
+    traitIDInList: 12
+  - traitName: Aura of Rot
+    traitEffect: The Mycowright has aura 2. Foes that start or end their turn in
+      the aura lose all vigor, then take 2 piercing damage.
+    traitIDInList: 13
+  - traitName: Swarm Shroud
+    traitEffect: Aura 2. Attacks against the wright and allies in the aura gain +1
+      curse, and foes that start their turn in the area take 1 piercing damage.
+    traitIDInList: 14
+  - traitName: Walking Dead
+    traitEffect: Disintegrates and is defeated if all other foes are defeated.
+    traitIDInList: 15
+  - traitName: Swarm Detonation
+    traitEffect: When any zombie is defeated, it deals 2 piercing damage to all adjacent
+      foes.
+    traitIDInList: 16
+  - traitName: Saddle Up
+    traitEffect: "Lowlanders can mount or dismount the Riding Insect by spending
+      1 space of movement, placing them adjacent when dismounting, with the following
+      rules:\n\u2022 Lowlanders can start the battle mounted \n\u2022 While mounted,
+      place characters inside a free space on the insect (so the insect has space
+      for 4 size 1 characters). They share its space, move when it moves, and have
+      cover. While moving with the insect, characters are unstoppable. \n\u2022 Characters
+      mounting it the insect when it is defeated are placed in any free adjacent
+      space of the insect\u2019s choice and take 3 damage."
+    traitIDInList: 17
+  - traitName: Mud Body
+    traitEffect: Has <i>resistance</i> while inside difficult or dangerous terrain,
+      or pits. If outside those terrain areas, takes bonus damage and +1 curse on
+      attacks and saves.
+    traitIDInList: 18
+  - traitName: Harden
+    traitEffect: The Clot hardens over time, and increases all damage it deals by
+      an amount equal to twice the round number. At the end of round 6, it finally
+      petrifies and is defeated.
+    traitIDInList: 19
+  - traitName: Camouflage
+    traitEffect: If this character ends its turn adjacent to an <i>object</i> or
+      or inside difficult or dangerous terrain, it gains <i>stealth</i>
+    traitIDInList: 20
+  - traitName: Mutate
+    traitEffect: "When <i>bloodied,</i> the Pariah deals bonus damage and becomes
+      unstoppable.\r"
+    traitIDInList: 21
+  - traitName: Battle Platform
+    traitEffect: "Characters can mount or dismount the Beetle by spending 1 space
+      of movement, placing them adjacent when dismounting, with the following rules:
+      \n\u2022 Lowlanders can start the battle mounted on the Beetle. \n\u2022 While
+      mounted, place characters inside a free space in the beetle (so the beetle
+      has space for 9 size 1 characters). They share its space, move when it moves,
+      and have cover. While moving with the beetle, characters are unstoppable. \n\u2022
+      Characters hostile to the beetle must pass a save to mount it. \n\u2022 Characters
+      mounting it the beetle when it is defeated are placed in any free adjacent
+      space of the beetle\u2019s choice and take 3 damage."
+    traitIDInList: 22
+  - traitName: Zipline dismount
+    traitEffect: Characters mounted on the beetle can fly 3 and dismount it as free
+      action ability
+    traitIDInList: 23
+  - traitName: Ruin lord
+    traitEffect: Can stack up to two marks on characters.
+    traitIDInList: 24
+  - traitName: Master of the underway
+    traitEffect: The Borer gains <i>stealth</i> if they start or end their turn in
+      a pit and can use 2 spaces of movement to teleport from any pit space to any
+      other free pit space.
+    traitIDInList: 25
+  - traitName: Tunnel
+    traitEffect: When the Borer ends its turn, create a pit underneath it.
+    traitIDInList: 26
+  - traitName: Beastmaster
+    traitEffect: The Wrangler starts combat with 3 unique trained beast summons.
+      Place them within range 3. <indent=15%>\n<b>Trained Beasts</b> \nSize 1, 5
+      defense, 20 hp \n<b>Summon <i>Effect:</i> </b>Unlike other summons, these summons
+      have defense and health and lack <i>intangible</i> (so they can take damage
+      and effects). When defeated, the summons disappear as normal, and they do not
+      cause obstruction or engagement.
+    traitIDInList: 27
+  - traitName: Hunting Horror
+    traitEffect: The Larder Spider has evasion unless there are two or more adjacent
+      foes.
+    traitIDInList: 28
+  - traitName: The Idol
+    traitEffect: The Idol is a 2x2 height 3 immobile <i>object</i> on the map that
+      is not a character and is immune to all damage and <i>effects</i> except from
+      its own worshippers. It cannot be removed for any reason.
+    traitIDInList: 29
+  - traitName: Aura of Sacrifice
+    traitEffect: Damage deal to characters adjacent to the idol becomes divine.
+    traitIDInList: 30
+  - traitName: Worshippers
+    traitEffect: "At the start of combat and the start of every round, the Idol creates
+      worshippers. It always has a mob of lesser clots, and a number of total worshippers
+      (including the mob) equal to twice the number of players. Worshippers use the
+      idol\u2019s damage die (d8) and fray damage (3). \n\u2022 Worshippers are new
+      characters that only act on the idol\u2019s turn. When created, they can be
+      created in range 3 of the idol or any of its terrain <i>effects.</i> \n\u2022
+      On each of the Idol\u2019s turns, it chooses a different worshipper to act,
+      including the clot mob. A worshipper may use their standard move, dash, or
+      use the abilities in their profile. \n\u2022 Worshippers can act again in a
+      round, but only when all worshippers have acted at least once. \n\u2022 When
+      defeated, worshippers other than Clots deal damage to the idol equal to their
+      maximum hp. This is only way to damage the idol"
+    traitIDInList: 31
+  - traitName: Filth Body
+    traitEffect: Lesser Clots are immune to all damage while inside difficult or
+      dangerous terrain or adjacent to the Idol
+    traitIDInList: 32
