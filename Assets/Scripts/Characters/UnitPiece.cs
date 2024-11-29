@@ -56,8 +56,6 @@ public class UnitPiece : MonoBehaviour
 
         BuildFrames();
 
-        pieceSize = source.size;
-
         if (source.graphicImageID != null)
         {
             pieceIsGraphic = source.graphicImageID.Length > 0;
@@ -69,16 +67,10 @@ public class UnitPiece : MonoBehaviour
             pieceImageID = "";
         }
 
-        if (!pieceIsGraphic)
-            UpdatePieceModel(source.headPartID, source.bodyPartID, source.lWeaponPartID, source.rWeaponPartID);
-        else
+        bool graphicFound = RequestPieceGraphicModel(source.graphicImageID);
+        if (!graphicFound)
         {
-            bool graphicFound = RequestPieceGraphicModel(source.graphicImageID);
-            if (!graphicFound)
-            {
-                NotificationSystem.Instance.PushNotification("Graphic for this piece was not found. Replacing with 3D Piece.");
-                UpdatePieceModel(source.headPartID, source.bodyPartID, source.lWeaponPartID, source.rWeaponPartID);
-            }
+            NotificationSystem.Instance.PushNotification("Graphic for this piece was not found.");
         }
 
         SetPieceColor(source.colorChoice);

@@ -634,7 +634,6 @@ public class UnitManager : MonoBehaviour
         workCharacter = workCharacter.MakeCopy();
 
         int[] pieceIds = PieceCamera._instance.GetCurrentSamplePartIDs();
-        workCharacter.GivePartIDs(pieceIds[0], pieceIds[1], pieceIds[2], pieceIds[3]);
 
         workCharacter.lastModified = DateTime.Now;
 
@@ -740,7 +739,7 @@ public class UnitManager : MonoBehaviour
             int charaID = sortedUnits[i].unitID;
             int charaEntryChildIndex = childCount;
 
-            entryListRT.GetChild(1).GetComponent<TextMeshProUGUI>().text = classes.classes[sortedUnits[i].classIndex].jobs[sortedUnits[i].jobIndex].name;
+            entryListRT.GetChild(1).GetComponent<TextMeshProUGUI>().text = "DEPREC.";
 
             entryListRT.GetChild(2).GetComponent<HoldButton>().onRelease.AddListener(delegate {
                 generalInputs.SetActive(false);
@@ -815,9 +814,9 @@ public class UnitManager : MonoBehaviour
                 IconCharacter charaInfo = characterUnits[i];
                 charaDetailPanel.GetComponent<Image>().color = charaInfo.colorChoice;
                 charaDetailNameLabel.text = charaInfo.unitName;
-                charaDetailGeneralLabel.text = "<b>Lvl " + charaInfo.level + "</b> - <i>" + charaInfo.kin.ToString() + "</i>";
-                charaDetailNarrativeLabel.text = "<b>Narrative Aspect</b><size=90%>\n\n� Culture - <i>" + cultures.cultures[charaInfo.narrativeAspect.cultureIndex].name + "</i>\n\n� Bond - <i>" + bonds.bonds[charaInfo.narrativeAspect.bondIndex].name + "</i>";
-                charaDetailTacticalLabel.text = "<b>Tactical Combat</b><size=90%>\n\n� Class - <i>" + classes.classes[charaInfo.classIndex].name + "</i>\n\n� Job - <i>" + classes.classes[charaInfo.classIndex].jobs[charaInfo.jobIndex].name + "</i>";
+                charaDetailGeneralLabel.text = "DEPREC.";
+                charaDetailNarrativeLabel.text = "DEPREC.";
+                charaDetailTacticalLabel.text = "DEPREC.";
 
                 charaDetailPanel.SetActive(true);
             }
@@ -853,12 +852,11 @@ public class UnitManager : MonoBehaviour
         PieceCamera._instance.SetSamplerAtStartRotation();
         PieceCamera._instance.SetSamplerMeepleConfig(0, 0, 0, 0);
 
-        charaHeadPiecePartLabel.text = PieceCamera._instance.GetHeadPart(workCharacter.headPartID).partName;
-        charaLWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(workCharacter.lWeaponPartID).partName;
-        charaRWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(workCharacter.rWeaponPartID).partName;
+        charaHeadPiecePartLabel.text = "DEPREC.";
+        charaLWeaponPiecePartLabel.text = "DEPREC.";
+        charaRWeaponPiecePartLabel.text = "DEPREC.";
 
         SetScrollTipRectsActive(false);
-        UpdateNarrativePage(0);
     }
 
     public void StartCharacterEditing(int charaID)
@@ -895,13 +893,11 @@ public class UnitManager : MonoBehaviour
         PieceCamera._instance.SetSamplerAtStartRotation();
         PieceCamera._instance.SetSamplerConfig(workCharacter, true);
 
-        charaHeadPiecePartLabel.text = PieceCamera._instance.GetHeadPart(workCharacter.headPartID).partName;
-        charaLWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(workCharacter.lWeaponPartID).partName;
-        charaRWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(workCharacter.rWeaponPartID).partName;
+        charaHeadPiecePartLabel.text = "DEPREC.";
+        charaLWeaponPiecePartLabel.text = "DEPREC.";
+        charaRWeaponPiecePartLabel.text = "DEPREC.";
 
-        workCharacter.narrativeAspect.UpdateBaseActionValues();
         SetScrollTipRectsActive(false);
-        UpdateNarrativePage(0);
     }
 
     public void DeleteCharaCall(int charaID)
@@ -1041,13 +1037,6 @@ public class UnitManager : MonoBehaviour
         Vector3 listOrigin = bondButtonRT.position + (0.5f * bondButtonRT.rect.size.x * bondButtonRT.lossyScale.x * Vector3.right);
         List<string> startBondTypes = new List<string>();
 
-        CultureData.SimpleActionModifier[] modList = bonds.bonds[workCharacter.narrativeAspect.bondIndex].modifier;
-
-        for (int i = 0; i < modList.Length; i++)
-        {
-            startBondTypes.Add(modList[i].targetAction.ToString());
-        }
-
         listPanel.ShowPanel(listOrigin, startBondTypes, true);
         kinListOpen = false;
         bondListOpen = false;
@@ -1118,44 +1107,34 @@ public class UnitManager : MonoBehaviour
     {
         if (kinListOpen)
         {
-            workCharacter.kin = (Kin)index;
             listPanel.ShowPanel(false);
             listPanel.OnEntryClick -= CharaListClick;
             kinListOpen = false;
-            UpdateNarrativePage(0);
         }
         else if (cultureListOpen)
         {
-            workCharacter.narrativeAspect.SetCulture(index);
             dotChangeFlag = true;
             listPanel.ShowPanel(false);
             listPanel.OnEntryClick -= CharaListClick;
             cultureListOpen = false;
-            UpdateNarrativePage(0);
         }
         else if (bondListOpen)
         {
-            workCharacter.narrativeAspect.SetBond(index);
             dotChangeFlag = true;
             listPanel.ShowPanel(false);
             listPanel.OnEntryClick -= CharaListClick;
             bondListOpen = false;
-            UpdateNarrativePage(1);
         }
         else if (startActionListOpen)
         {
-            workCharacter.narrativeAspect.SetStartActionIndex(index);
-            workCharacter.narrativeAspect.UpdateBaseActionValues();
             dotChangeFlag = true;
             listPanel.ShowPanel(false);
             listPanel.OnEntryClick -= CharaListClick;
             startActionListOpen = false;
-            UpdateNarrativePage(1);
         }
         else if (classListOpen)
         {
             workCharacter.classIndex = index;
-            workCharacter.jobIndex = 0;
             listPanel.ShowPanel(false);
             listPanel.OnEntryClick -= CharaListClick;
             classListOpen = false;
@@ -1163,7 +1142,6 @@ public class UnitManager : MonoBehaviour
         }
         else if (jobListOpen)
         {
-            workCharacter.jobIndex = index;
             listPanel.ShowPanel(false);
             listPanel.OnEntryClick -= CharaListClick;
             jobListOpen = false;
@@ -1188,8 +1166,10 @@ public class UnitManager : MonoBehaviour
 
         SetCharacterPage(currentCharacterPage);
 
-        if (currentCharacterPage < 4)
-            UpdateNarrativePage(currentCharacterPage - 1);
+        if (currentCharacterPage < 4) 
+        {
+
+        }
         else
             UpdateTacticalPage(currentCharacterPage - 4);
     }
@@ -1205,88 +1185,6 @@ public class UnitManager : MonoBehaviour
         
         backCharPageButton.alpha = (currentCharacterPage > 1) ? 1f : 0.3f;
         forwardCharPageButton.alpha = (currentCharacterPage < (characterEntries.transform.childCount - 1)) ? 1f : 0.3f;
-    }
-
-    public void UpdateNarrativePage(int index)
-    {
-        //update narrative pages
-        if (workCharacter == null)
-            return;
-
-        if (index == 0)
-        {
-            charaKinLabel.text = workCharacter.kin.ToString();
-            charaCultureLabel.text = cultures.cultures[workCharacter.narrativeAspect.cultureIndex].name;
-
-            string cultureData = "<size=120%><b>" + cultures.cultures[workCharacter.narrativeAspect.cultureIndex].name + "</b>\n<size=100%><i>" + cultures.cultures[workCharacter.narrativeAspect.cultureIndex].description +
-                "</i>\n\n<b>Values:</b> <i>";
-
-            for (int i = 0; i < cultures.cultures[workCharacter.narrativeAspect.cultureIndex].values.Length; i++)
-            {
-                cultureData += cultures.cultures[workCharacter.narrativeAspect.cultureIndex].values[i];
-
-                if (i != (cultures.cultures[workCharacter.narrativeAspect.cultureIndex].values.Length - 1))
-                    cultureData += ", ";
-                else
-                    cultureData += ".";
-            }
-
-            cultureData += "</i>\n";
-
-            for (int i = 0; i < cultures.cultures[workCharacter.narrativeAspect.cultureIndex].modifiers.Length; i++)
-            {
-                CultureData.SimpleActionModifier tAct = cultures.cultures[workCharacter.narrativeAspect.cultureIndex].modifiers[i];
-                cultureData += "\n\t� " + tAct.targetAction.ToString() + " <b>+" + tAct.modifier.ToString() + "</b>";
-            }
-
-            charaCultureData.text = cultureData;
-        }
-        else if(index == 1)
-        {
-            charaBondLabel.text = bonds.bonds[workCharacter.narrativeAspect.bondIndex].name;
-            charaBondActionModifier.text = "<b>" + bonds.bonds[workCharacter.narrativeAspect.bondIndex].modifier[workCharacter.narrativeAspect.startActionChoiceIndex].modifier + "+ in </b>";
-            charaBondStartButtonLabel.text = bonds.bonds[workCharacter.narrativeAspect.bondIndex].modifier[workCharacter.narrativeAspect.startActionChoiceIndex].targetAction.ToString();
-
-            string idealsString = "<b>Ideals:</b>";
-            for(int i = 0; i < bonds.bonds[workCharacter.narrativeAspect.bondIndex].ideals.Length; i++)
-            {
-                idealsString += "\n� " + bonds.bonds[workCharacter.narrativeAspect.bondIndex].ideals[i];
-            }
-            idealsString += "\n\n<size=90%><i><alpha=#99>At end of session, if at least one ticked, gain 1 xp. \nIf all ticked, gain 2 xp.</i>";
-
-            charaIdealsLabel.text = idealsString;
-
-            charaStressLabels[0].text = bonds.bonds[workCharacter.narrativeAspect.bondIndex].effort.ToString();
-            charaStressLabels[1].text = bonds.bonds[workCharacter.narrativeAspect.bondIndex].secondWind;
-            charaStressLabels[2].text = bonds.bonds[workCharacter.narrativeAspect.bondIndex].stressSpecial;
-            charaStressLabels[3].text = bonds.bonds[workCharacter.narrativeAspect.bondIndex].strain.ToString();
-        }
-        else
-        {
-            for (int i = 0; i < actionDots.Length; i++)
-            {
-                //Debug.Log(workCharacter.narrativeAspect.actionValues[i].targetAction.ToString() + ":\nCulture-> " + workCharacter.narrativeAspect.actionValues[i].cultureModifier + "\nBond-> " + workCharacter.narrativeAspect.actionValues[i].bondModifier);
-
-                int baseValue = workCharacter.narrativeAspect.actionValues[i].bondModifier + workCharacter.narrativeAspect.actionValues[i].cultureModifier;
-
-                /*
-                actionDots[i].SetBaseValue(baseValue);
-                actionDots[i].SetBarValue(baseValue + workCharacter.narrativeAspect.actionValues[i].dotModifier);
-                */
-
-                actionDots[i].SetBarStartValues(baseValue + workCharacter.narrativeAspect.actionValues[i].dotModifier, baseValue);
-
-                //Debug.Log(workCharacter.narrativeAspect.actionValues[i].targetAction.ToString() + " dotM - " + workCharacter.narrativeAspect.actionValues[i].dotModifier);
-
-                /*
-                if (dotChangeFlag)
-                    actionDots[i].SetAtZero();
-                    */
-            }
-
-            if (dotChangeFlag)
-                dotChangeFlag = false;
-        }
     }
 
     public void UpdateTacticalPage(int index)
@@ -1353,66 +1251,6 @@ public class UnitManager : MonoBehaviour
         else if(index == 1)
         {
             finishCharaButtonLabel.text = (currentMode == UnitEditMode.CharacterNew) ? "Make character" : "Save changes";
-
-            charaJobLabel.text = classes.classes[workCharacter.classIndex].jobs[workCharacter.jobIndex].name;
-
-            string jobTraits = "<b>Job Traits</b>";
-            for (int i = 0; i < classes.classes[workCharacter.classIndex].jobs[workCharacter.jobIndex].jobTraits.Length; i++)
-            {
-                jobTraits += "\n\n<b>�" + classes.classes[workCharacter.classIndex].jobs[workCharacter.jobIndex].jobTraits[i].traitName;
-
-                string auxText = classes.classes[workCharacter.classIndex].jobs[workCharacter.jobIndex].jobTraits[i].traitDescription;
-                string traitDescription = "";
-
-                for(int c = 0; c < auxText.Length; c++)
-                {
-                    if (((int)auxText[c] == 8226) || ((int)auxText[c] == 183))
-                    {
-                        string sub = auxText.Substring(0, c) + "\n ";
-                        auxText = auxText.Substring(c);
-                        auxText = sub + auxText;
-                        c += 3;
-                    }
-                }
-
-                traitDescription = auxText;
-                jobTraits += ":</b> <i>" + traitDescription + "</i>";
-            }
-            charaJobTraitLabel.text = jobTraits;
-        }
-    }
-
-    public void UpdatePiecePartLabels(int headIndex, int lWeaponIndex, int rWeaponIndex)
-    {
-        if (workCharacter == null && workFoe == null)
-            return;
-
-        if ((currentMode == UnitEditMode.CharacterNew) || (currentMode == UnitEditMode.CharacterEdit))
-        {
-            if (workCharacter == null)
-                return;
-
-            charaHeadPiecePartLabel.text = PieceCamera._instance.GetHeadPart(headIndex).partName;
-            charaLWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(lWeaponIndex).partName;
-            charaRWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(rWeaponIndex).partName;
-        }
-        else
-        {
-            if (workFoe == null)
-                return;
-
-            if (workFoe.type == FoeType.Mob || workFoe.type == FoeType.SpecialSummon)
-            {
-                mobHeadPiecePartLabel.text = PieceCamera._instance.GetHeadPart(headIndex).partName;
-                mobLWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(lWeaponIndex).partName;
-                mobRWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(rWeaponIndex).partName;
-            }
-            else
-            {
-                foeHeadPiecePartLabel.text = PieceCamera._instance.GetHeadPart(headIndex).partName;
-                foeLWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(lWeaponIndex).partName;
-                foeRWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(rWeaponIndex).partName;
-            }
         }
     }
 
@@ -1422,7 +1260,6 @@ public class UnitManager : MonoBehaviour
             return;
 
         int dotMod = actionDots[barIndex].value - actionDots[barIndex].baseValue;
-        workCharacter.narrativeAspect.ChangeDotModifier(barIndex, dotMod);
     }
 
     public IconCharacter MakeNewCharacter()
@@ -1430,8 +1267,6 @@ public class UnitManager : MonoBehaviour
         IconCharacter nuChara = new IconCharacter();
         currentChosenLevel = 0;
         nuChara.level = currentChosenLevel;
-        nuChara.kin = (Kin)0;
-        nuChara.GiveNarrativeAspect(GetBaseNarrativeChara());
 
         return nuChara;
     }
@@ -1477,17 +1312,7 @@ public class UnitManager : MonoBehaviour
 
     public void UpdateCharacterPiece(int id, IconCharacter nuChara)
     {
-        if (characterUnits == null)
-            return;
-
-        for (int i = 0; i < characterUnits.Count; i++)
-        {
-            if (characterUnits[i].unitID == id)
-            {
-                characterUnits[i].GivePartIDs(nuChara.headPartID, nuChara.bodyPartID, nuChara.lWeaponPartID, nuChara.rWeaponPartID);
-                return;
-            }
-        }
+        Debug.Log("Update Chara Missing");
     }
 
     public List<IconCharacter> GetCharacters()
@@ -1563,7 +1388,6 @@ public class UnitManager : MonoBehaviour
         workFoe = workFoe.MakeCopy();
 
         int[] pieceIds = PieceCamera._instance.GetCurrentSamplePartIDs();
-        workFoe.GivePartIDs(pieceIds[0], pieceIds[1], pieceIds[2], pieceIds[3]);
 
         workFoe.lastModified = DateTime.Now;
 
@@ -1682,16 +1506,7 @@ public class UnitManager : MonoBehaviour
                 detailLabel += details[1];
             else
             {
-                if (sortedUnits[i].factionIndex < 0)
-                {
-                    if (details[2] != "None")
-                    {
-                        detailLabel += details[2] + " ";
-                    }
-                    detailLabel += details[1];
-                }
-                else
-                    detailLabel += details[2] + " " + details[1];
+                detailLabel += details[2] + " " + details[1];
             }
 
             entryListRT.GetChild(1).GetComponent<TextMeshProUGUI>().text = "<i>" + detailLabel + "</i>";
@@ -1782,26 +1597,7 @@ public class UnitManager : MonoBehaviour
                 string[] deets = GetFoeDetails(foeUnits[i]);
 
                 string additional = "";
-                if (foeUnits[i].factionIndex < 0)
-                {
-                    if (foeUnits[i].templateIndex >= 0)
-                        additional += "\n\n�" + deets[2] + " template";
-
-                    if (foeInfo.type == FoeType.Foe)
-                        foeDetailTacticalLabel.text = "<b>Tactical Combat</b><size=90%>\n\n� Class - <i>" + deets[0] + "</i>\n\n� Job - <i>" + deets[1] + "</i>" + additional;
-                    else if (foeInfo.type == FoeType.Mob)
-                        foeDetailTacticalLabel.text = "<b>Tactical Combat</b><size=90%>\n\n� Type - <i>" + deets[1] + "</i>" + additional;
-                    else if(foeInfo.type == FoeType.SpecialSummon)
-                    {
-                        foeDetailTacticalLabel.text = "<b>Tactical Combat</b><size=90%>\n\n� <i>" + deets[1] + "</i>\n\n� <i>" + deets[2] + "</i>";
-                    }
-                    else
-                        foeDetailTacticalLabel.text = "<b>Tactical Combat</b><size=90%>\n\n� Class - <i>" + deets[1] + "</i>" + additional;
-                }
-                else
-                {
-                    foeDetailTacticalLabel.text = "<b>Tactical Combat</b><size=90%>\n\n� Class - <i>" + deets[0] + "</i>\n\n� Job - <i>" + deets[2] + " (" + deets[1] + ")" + "</i>";
-                }
+                foeDetailTacticalLabel.text = "<b>Tactical Combat</b><size=90%>\n\n� Class - <i>" + deets[0] + "</i>\n\n� Job - <i>" + deets[2] + " (" + deets[1] + ")" + "</i>";
 
                 foeDetailPanel.SetActive(true);
             }
@@ -1937,20 +1733,6 @@ public class UnitManager : MonoBehaviour
         PieceCamera._instance.SetSamplerAtStartRotation();
         PieceCamera._instance.SetSamplerMeepleConfig(0, 1, 0, 0);
 
-
-        if ((FoeType)currentFoeType == FoeType.Mob || (FoeType)currentFoeType == FoeType.SpecialSummon)
-        {
-            mobHeadPiecePartLabel.text = PieceCamera._instance.GetHeadPart(workFoe.headPartID).partName;
-            mobLWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(workFoe.lWeaponPartID).partName;
-            mobRWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(workFoe.rWeaponPartID).partName;
-        }
-        else
-        {
-            foeHeadPiecePartLabel.text = PieceCamera._instance.GetHeadPart(workFoe.headPartID).partName;
-            foeLWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(workFoe.lWeaponPartID).partName;
-            foeRWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(workFoe.rWeaponPartID).partName;
-        }
-
         currentMode = UnitEditMode.FoeNew;
 
         miniFoesSet.SetActive(workFoe.type == FoeType.Mob || workFoe.type == FoeType.SpecialSummon);
@@ -2023,37 +1805,10 @@ public class UnitManager : MonoBehaviour
         }
         */
 
-        if ((FoeType)currentFoeType == FoeType.Mob || (FoeType)currentFoeType == FoeType.SpecialSummon)
-        {
-
-        }
-        else
-        {
-            choiceWasClassJob = workFoe.factionIndex < 0;
-
-            if (!choiceWasClassJob)
-            {
-                choiceWasFactionJob = !GetFoeSubFaction(workFoe).isUnique;
-            }
-            else
-                choiceWasFactionJob = true;
-        }
+        choiceWasFactionJob = true;
 
         PieceCamera._instance.SetSamplerAtStartRotation();
         PieceCamera._instance.SetSamplerConfig(workFoe, true);
-
-        if ((FoeType)currentFoeType == FoeType.Mob || (FoeType)currentFoeType == FoeType.SpecialSummon)
-        {
-            mobHeadPiecePartLabel.text = PieceCamera._instance.GetHeadPart(workFoe.headPartID).partName;
-            mobLWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(workFoe.lWeaponPartID).partName;
-            mobRWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(workFoe.rWeaponPartID).partName;
-        }
-        else
-        {
-            foeHeadPiecePartLabel.text = PieceCamera._instance.GetHeadPart(workFoe.headPartID).partName;
-            foeLWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(workFoe.lWeaponPartID).partName;
-            foeRWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(workFoe.rWeaponPartID).partName;
-        }
 
         currentMode = UnitEditMode.FoeEdit;
 
@@ -2096,13 +1851,6 @@ public class UnitManager : MonoBehaviour
         currentChosenChapter = 1;
         nuFoe.level = currentChosenChapter;
         nuFoe.classIndex = 0;
-        nuFoe.jobIndex = -1;
-        nuFoe.factionIndex = -1;
-        nuFoe.subFactionIndex = -1;
-        nuFoe.templateIndex = -1;
-        nuFoe.subTemplate = 0;
-
-        nuFoe.ChangePhase(1, false);
 
         return nuFoe;
     }
@@ -2112,9 +1860,6 @@ public class UnitManager : MonoBehaviour
         IconFoe baseFoe = MakeNewFoe();
         baseFoe.type = (FoeType)type;
         baseFoe.GiveID(RequestNextUnitID());
-
-        if (baseFoe.type == FoeType.Foe)
-            baseFoe.jobIndex = 0;
 
         return baseFoe;
     }
@@ -2141,8 +1886,6 @@ public class UnitManager : MonoBehaviour
 
         int auxChapter = currentChosenChapter + (forward ? 1 : -1);
         auxChapter = Mathf.Clamp(currentChosenChapter, 1, 3);
-
-        SubFaction sbf = workFoe.GetFactionJob();
 
         //check chapter limits
 
@@ -2513,13 +2256,6 @@ public class UnitManager : MonoBehaviour
         Vector3 listOrigin = subChoiceButtonRT.position + (0.5f * subChoiceButtonRT.rect.size.x*subChoiceButtonRT.lossyScale.x * Vector3.right);
         List<string> subChoices = new List<string>();
 
-        SubFactionIndexTuple[] filteredOptions = GetFilteredSubfactionOptions(workFoe, !choiceWasFactionJob);
-
-        for(int i = 0; i < filteredOptions.Length; i++)
-        {
-            subChoices.Add(filteredOptions[i].subfaction.templateName);
-        }
-
         listPanel.ShowPanel(listOrigin, subChoices, true);
         kinListOpen = false;
         bondListOpen = false;
@@ -2545,8 +2281,6 @@ public class UnitManager : MonoBehaviour
 
     public void FoeListClick(int index)
     {
-        // colorListOpen || classListOpen || foeJobFactionChoiceOpen || foeJobFactionListOpen || foeTemplateListOpen || foeJobUniqueChoiceOpen || foeJobUniqueListOpen;
-
         if (foeTypeListOpen)
         {
             listPanel.ShowPanel(false);
@@ -2565,10 +2299,6 @@ public class UnitManager : MonoBehaviour
             bool wasChanged = workFoe.classIndex != index;
 
             workFoe.classIndex = index;
-            workFoe.jobIndex = 0;
-            workFoe.factionIndex = -1; //default is none
-            workFoe.subFactionIndex = -1;
-            workFoe.templateIndex = -1;
 
             choiceWasClassJob = true;
             choiceWasFactionJob = true;
@@ -2597,10 +2327,6 @@ public class UnitManager : MonoBehaviour
             bool wasChanged = workFoe.classIndex != index;
 
             workFoe.classIndex = index;
-            workFoe.jobIndex = -1;
-            workFoe.factionIndex = -1; //default is none
-            workFoe.subFactionIndex = -1;
-            workFoe.templateIndex = -1;
 
             listPanel.ShowPanel(false);
             listPanel.OnEntryClick -= FoeListClick;
@@ -2621,26 +2347,6 @@ public class UnitManager : MonoBehaviour
             bool wasChanged = choiceWasClassJob != (index == 0);
 
             choiceWasClassJob = index == 0;
-            if (choiceWasClassJob)
-            {
-                workFoe.factionIndex = -1;
-                workFoe.subFactionIndex = -1;
-            }
-            else
-            {
-                if (workFoe.factionIndex < 0)
-                    workFoe.factionIndex = 0;
-
-                //need to filter these results. maybe make a translative method. from universal subfaction index to internal subfaction index
-                SubFactionIndexTuple[] filteredSubfactions = GetFilteredSubfactionOptions(workFoe, !choiceWasFactionJob);
-
-                if (filteredSubfactions.Length > 0)
-                    workFoe.subFactionIndex = filteredSubfactions[0].originalSubfactionIndex;
-                else
-                    workFoe.subFactionIndex = -1;
-
-                workFoe.templateIndex = -1;
-            }
             listPanel.ShowPanel(false);
             listPanel.OnEntryClick -= FoeListClick;
             jobListOpen = false;
@@ -2660,39 +2366,7 @@ public class UnitManager : MonoBehaviour
 
             bool wasChanged = false;
 
-            if (choiceWasClassJob)
-            {
-                workFoe.factionIndex = -1;
 
-                if (workFoe.subFactionIndex != -1)
-                    pageChangedFlags[2] = true;
-                workFoe.subFactionIndex = -1;
-
-                int newJobIndex = 0;
-                if (workFoe.type == FoeType.Foe)
-                    newJobIndex = index;
-
-                wasChanged = workFoe.jobIndex != newJobIndex;
-                workFoe.jobIndex = newJobIndex;
-            }
-            else
-            {
-                workFoe.templateIndex = -1;
-
-                wasChanged = workFoe.factionIndex != index;
-                workFoe.factionIndex = index;
-
-                SubFactionIndexTuple[] filteredSubfactions = GetFilteredSubfactionOptions(workFoe, !choiceWasFactionJob);
-
-                int newSubfactionIndex = -1;
-                if (filteredSubfactions.Length > 0)
-                    newSubfactionIndex = filteredSubfactions[0].originalSubfactionIndex;
-
-                if (workFoe.subFactionIndex != newSubfactionIndex)
-                    pageChangedFlags[2] = true;
-
-                workFoe.subFactionIndex = newSubfactionIndex;
-            }
 
             listPanel.ShowPanel(false);
             listPanel.OnEntryClick -= FoeListClick;
@@ -2705,102 +2379,6 @@ public class UnitManager : MonoBehaviour
                 {
                     pageChangedFlags[i] = true;
                 }
-            }
-        }
-        else if (templateListOpen)
-        {
-            if (workFoe == null)
-                return;
-
-            int foeType = (int)workFoe.type;
-
-            bool wasChanged = workFoe.templateIndex != index - 1;
-            workFoe.templateIndex = index - 1;
-
-            listPanel.ShowPanel(false);
-            listPanel.OnEntryClick -= FoeListClick;
-            templateListOpen = false;
-
-            if (wasChanged)
-            {
-                UpdateFoePage(foeType, 2);
-                pageChangedFlags[3] = true;
-            }
-        }
-        else if (foeSubTemplateListOpen)
-        {
-            if (workFoe == null)
-                return;
-
-            int foeType = (int)workFoe.type;
-
-            bool wasChanged = workFoe.subTemplate != index;
-            workFoe.subTemplate = index;
-
-            listPanel.ShowPanel(false);
-            listPanel.OnEntryClick -= FoeListClick;
-            foeSubTemplateListOpen = false;
-
-            if (wasChanged)
-            {
-                UpdateFoePage(foeType, 2);
-                pageChangedFlags[3] = true;
-            }
-        }
-        else if (foeJobUniqueChoiceOpen)
-        {
-            if (workFoe == null)
-                return;
-
-            int foeType = (int)workFoe.type;
-
-            bool wasChanged = choiceWasFactionJob != (index == 0);
-            choiceWasFactionJob = index == 0;
-
-            if (workFoe.factionIndex < 0)
-                workFoe.factionIndex = 0;
-
-            SubFactionIndexTuple[] filteredSubfactions = GetFilteredSubfactionOptions(workFoe, !choiceWasFactionJob);
-
-            if (filteredSubfactions.Length > 0)
-                workFoe.subFactionIndex = filteredSubfactions[0].originalSubfactionIndex;
-            else
-                workFoe.subFactionIndex = -1;
-
-            workFoe.templateIndex = -1;
-
-            listPanel.ShowPanel(false);
-            listPanel.OnEntryClick -= FoeListClick;
-            foeJobUniqueChoiceOpen = false;
-            if (wasChanged)
-            {
-                UpdateFoePage(foeType, 2);
-                pageChangedFlags[3] = true;
-            }
-        }
-        else if (foeJobUniqueListOpen)
-        {
-            if (workFoe == null)
-                return;
-
-            int foeType = (int)workFoe.type;
-
-            SubFactionIndexTuple[] filteredSubfactions = GetFilteredSubfactionOptions(workFoe, !choiceWasFactionJob);
-            
-            bool wasChanged = workFoe.subFactionIndex != filteredSubfactions[index].originalSubfactionIndex;
-
-            workFoe.subFactionIndex = filteredSubfactions[index].originalSubfactionIndex;
-
-            workFoe.templateIndex = -1;
-
-            listPanel.ShowPanel(false);
-            listPanel.OnEntryClick -= FoeListClick;
-            foeJobUniqueListOpen = false;
-
-            if (wasChanged)
-            {
-                UpdateFoePage(foeType, 2);
-                pageChangedFlags[3] = true;
             }
         }
         else if (colorListOpen)
@@ -2863,52 +2441,6 @@ public class UnitManager : MonoBehaviour
 
                 string enemyAttackTraits = "";
 
-                List<ClassData.Trait> foeTraits = workFoe.GetTraits();
-                if (foeTraits.Count > 0)
-                {
-                    enemyAttackTraits += "<b>Traits:</b>\n";
-
-                    for (int i = 0; i < foeTraits.Count; i++)
-                    {
-                        enemyAttackTraits += "\n><b>" + foeTraits[i].traitName + ":</b> <i>" + foeTraits[i].traitDescription + "</i>";
-                    }
-                }
-
-                List<ClassData.Ability> foeAttacks = workFoe.GetAbilities();
-                if (foeAttacks.Count > 0)
-                {
-                    enemyAttackTraits += "\n\n<b>Abilities:</b>\n";
-
-                    for (int i = 0; i < foeAttacks.Count; i++)
-                    {
-                        string actionTraitText = "\n><b>" + foeAttacks[i].abilityName;
-
-                        actionTraitText += " (";
-
-                        actionTraitText += foeAttacks[i].actionCost + " action";
-
-                        string[] aspects = foeAttacks[i].abilityAspects;
-                        if (aspects != null && aspects.Length > 0)
-                        {
-                            actionTraitText += ", ";
-                            for (int c = 0; c < aspects.Length; c++)
-                            {
-                                actionTraitText += aspects[c];
-                                if (c < (aspects.Length - 1))
-                                    actionTraitText += ", ";
-                                else
-                                    actionTraitText += ")";
-                            }
-                        }
-                        else
-                            actionTraitText += ")";
-
-                        actionTraitText += ":</b> <i>" + foeAttacks[i].abilityEffect + "</i>";
-
-                        enemyAttackTraits += actionTraitText;
-                    }
-                }
-
                 CheckDiffPreUpdate(mobSummonOverallTraitsActionsContent, mobSummonOverallTraitsActionsText, enemyAttackTraits, 200, 1.2f);
             }
             else
@@ -2951,549 +2483,12 @@ public class UnitManager : MonoBehaviour
             if(choiceWasClassJob)
             {
                 foeJobFactionChoiceLabel.text = "Class Job";
-                if (workFoe.type == FoeType.Foe) {
-                    foeJobFactionSubChoiceLabel.text = foes.classes[workFoe.classIndex].jobs[workFoe.jobIndex].name;
-                }
-                else if(workFoe.type == FoeType.Elite)
-                {
-                    foeJobFactionSubChoiceLabel.text = foes.eliteClasses[workFoe.classIndex].name;
-                }
-                else if(workFoe.type == FoeType.Legend)
-                {
-                    foeJobFactionSubChoiceLabel.text = foes.legendClasses[workFoe.classIndex].name;
-                }
-
-                string classTraits = "<b>Class Traits</b>\n";
-                List<ClassData.Trait> traitSet = workFoe.GetTraits();
-                for(int i = 0; i < traitSet.Count; i++)
-                {
-                    classTraits += "\n\n<b>" + traitSet[i].traitName + "</b>:";
-                    classTraits += " <i>" + traitSet[i].traitDescription + "</i>";
-                }
-
-                CheckDiffPreUpdate(foeJobFactionContent, foeJobFactionChoiceText, classTraits, 100, 1.2f);
-
-                return;
-            }
-            else
-            {
-                foeJobFactionChoiceLabel.text = "Faction Options";
-
-                int factionIndexAdapted = workFoe.factionIndex;
-                int subIndex = 0;
-                if (factionIndexAdapted >= factions.Length) {
-                    subIndex = workFoe.factionIndex - (factions.Length - 1);
-                    factionIndexAdapted = factions.Length - 1;
-                }
-
-                foeJobFactionSubChoiceLabel.text = factions[factionIndexAdapted].foeFactions[subIndex].factionName;
-
-                string factionGeneralTraits = "<b>Faction General Traits</b>\n";
-                ClassData.Trait[] traitSet = factions[factionIndexAdapted].foeFactions[subIndex].generalTraits;
-                for (int i = 0; i < traitSet.Length; i++)
-                {
-                    factionGeneralTraits += "\n\n<b>" + traitSet[i].traitName + ":</b>";
-                    string auxText = traitSet[i].traitDescription;
-                    factionGeneralTraits += " <i>" + MiscTools.GetLineJumpedForm(auxText) + "</i>";
-                }
-
-                CheckDiffPreUpdate(foeJobFactionContent, foeJobFactionChoiceText, factionGeneralTraits, 100, 1.2f);
 
                 return;
             }
         }
         else if(pageNumber == 2)
         {
-            foeTemplateSet.SetActive(choiceWasClassJob);
-            foeFactionSet.SetActive(!choiceWasClassJob);
-            foeTemplateSubPageChosen = choiceWasClassJob;
-
-            if (choiceWasClassJob)
-            {
-                //offer template options
-                if(workFoe.templateIndex < 0)
-                    foeTemplateButtonLabel.text = "None";
-                else
-                    foeTemplateButtonLabel.text = templates.templates[workFoe.templateIndex].templateName;
-
-                string classSubTemplateChosen = "None";
-                if (workFoe.subTemplate == 1)
-                    classSubTemplateChosen = "Mob";
-                else if (workFoe.subTemplate == 2)
-                    classSubTemplateChosen = "Elite";
-
-                templatePageSubTemplateButtonLabel.text = classSubTemplateChosen;
-
-                if(workFoe.templateIndex < 0  && workFoe.subTemplate == 0)
-                {
-                    Vector2 sd = foeTemplateContent.sizeDelta;
-                    sd.x = 10f;
-                    foeTemplateContent.sizeDelta = sd;
-                    CheckDiffPreUpdate(foeTemplateContent, foeTemplateText, "", 40, 1.2f);
-                    return;
-                }
-
-                if (workFoe.templateIndex >= 0)
-                {
-                    FoeTemplate targetTemplate = templates.templates[workFoe.templateIndex];
-                    string templateDetails = "<b>Template Aspects:</b>\n";
-
-                    StatOverride[] oStats = new StatOverride[targetTemplate.statOverrides.Length];
-                    for(int i = 0; i < oStats.Length; i++)
-                    {
-                        oStats[i] = new StatOverride();
-                        oStats[i].statType = targetTemplate.statOverrides[i].statType;
-                        oStats[i].intChangedValue = targetTemplate.statOverrides[i].intChangedValue;
-                        oStats[i].stringChangedValue = targetTemplate.statOverrides[i].stringChangedValue;
-                    }
-
-                    if (workFoe.subTemplate > 0)
-                    {
-                        bool hpOverrideFound = false;
-                        //subtemplate overriden stat values
-                        for (int i = 0; i < oStats.Length; i++)
-                        {
-                            if (oStats[i].statType == StatOverride.StatType.HP)
-                            {
-                                if (workFoe.subTemplate == 1 && workFoe.type != FoeType.Mob)
-                                    oStats[i].intChangedValue = 1;
-                                else if (workFoe.subTemplate == 2 && workFoe.type != FoeType.Elite)
-                                {
-                                    if (oStats[i].stringChangedValue != null && oStats[i].stringChangedValue.Length > 0)
-                                    {
-                                        oStats[i].stringChangedValue = "(" + oStats[i].stringChangedValue + ") x 2";
-                                    }
-                                    else
-                                        oStats[i].intChangedValue = oStats[i].intChangedValue * 2;
-                                }
-
-                                hpOverrideFound = true;
-                            }
-                        }
-
-                        if (!hpOverrideFound)
-                        {
-                            StatOverride hpOstat = new StatOverride();
-                            hpOstat.statType = StatOverride.StatType.HP;
-
-                            if (workFoe.subTemplate == 1)
-                            {
-                                hpOstat.intChangedValue = 1;
-                                hpOstat.stringChangedValue = "";
-                            }
-                            else if (workFoe.subTemplate == 2)
-                            {
-                                string baseHP = foes.classes[workFoe.classIndex].classStats.HP;
-                                if (int.TryParse(baseHP, out int intHP))
-                                {
-                                    hpOstat.intChangedValue = ((intHP) * 2);
-                                    hpOstat.stringChangedValue = "";
-                                }
-                                else
-                                {
-                                    hpOstat.intChangedValue = 0;
-                                    hpOstat.stringChangedValue += "(" + baseHP + ") x2";
-                                }
-                            }
-
-                            StatOverride[] auxSO = new StatOverride[oStats.Length + 1];
-                            auxSO[0] = hpOstat;
-                            for (int i = 1; i <= oStats.Length; i++)
-                                auxSO[i] = oStats[i - 1];
-
-                            oStats = auxSO;
-                        }
-                    }
-
-                    if (oStats.Length > 0)
-                    {
-                        templateDetails += "\n<size=90%>Stat Changes:\n";
-
-                        //stats
-                        for (int i = 0; i < oStats.Length; i++)
-                        {
-                            string line = "\n-" + oStats[i].statType.ToString() + ": ";
-                            if (oStats[i].stringChangedValue != null && oStats[i].stringChangedValue.Length > 0)
-                                line += oStats[i].stringChangedValue;
-                            else if (oStats[i].intChangedValue > 0)
-                                line += oStats[i].intChangedValue;
-                            templateDetails += line;
-                        }
-
-                        templateDetails += "\n";
-                    }
-
-                    if (targetTemplate.templateTraits.Length > 0)
-                    {
-                        templateDetails += "\n<size=90%>Added Traits:\n";
-
-                        //traits
-                        for (int i = 0; i < targetTemplate.templateTraits.Length; i++)
-                        {
-                            string line = "\n\n<b>" + targetTemplate.templateTraits[i].traitName + ":</b> ";
-                            line += "<i>" + MiscTools.GetLineJumpedForm(targetTemplate.templateTraits[i].traitDescription) + "</i>";
-                            templateDetails += line;
-                        }
-
-                        //added subtemplate traits
-                        if (workFoe.subTemplate == 1 && workFoe.type != FoeType.Mob)
-                        {
-                            string line = "\n\n<b>Mob Template:</b> ";
-                            line += "<i>톂his character doesn뭪 trigger slay effects\n�1 point in an encounter budget gets 5 mobs of the same type\n텶f they have more than two active abilities available to them, pick two and discard the others. \n텮bilities can deal a maximum of 1 damage if they cost 1 action, or 3 damage if they cost 2, have a recharge, or require some condition to activate.</i>";
-                            templateDetails += line;
-                        }
-                        else if (workFoe.subTemplate == 2 && workFoe.type != FoeType.Elite)
-                        {
-                            string line = "\n\n<b>Elite Template:</b> ";
-                            line += "<i>\n톂his foe takes 2 turns\n톂he foe takes up 2 points in an encounter budget\n텶ncrease the recharge of any of their abilities at 4+ or lower to 5+";
-                            templateDetails += line;
-                        }
-
-                        templateDetails += "\n";
-                    }
-
-                    if (targetTemplate.templateAttacks.Length > 0)
-                    {
-                        templateDetails += "\n<size=90%>Added Attacks:";
-
-                        //attacks
-                        for (int i = 0; i < targetTemplate.templateAttacks.Length; i++)
-                        {
-                            string line = "\n\n<b>" + targetTemplate.templateAttacks[i].abilityName + " (";
-
-                            string[] aspects = targetTemplate.templateAttacks[i].abilityAspects;
-                            for (int c = 0; c < aspects.Length; c++)
-                            {
-                                line += aspects[c];
-                                if (c == aspects.Length - 1)
-                                    line += ")";
-                                else
-                                    line += ", ";
-                            }
-
-                            line += ":</b>\n ";
-                            line += "<i>" + MiscTools.GetLineJumpedForm(targetTemplate.templateAttacks[i].abilityEffect) + "</i>";
-                            templateDetails += line;
-                        }
-
-                        templateDetails += "\n";
-                    }
-
-                    CheckDiffPreUpdate(foeTemplateContent, foeTemplateText, templateDetails, 400, 1.2f);
-                }
-                else
-                {
-                    //just subtemplate
-                    string templateDetails = "<b>Template Aspects:</b>\n";
-
-                    templateDetails += "\n<size=90%>Stat Changes:\n";
-
-                    string line = "\n-HP: ";
-                    if (workFoe.subTemplate == 1)
-                        line += "1";
-                    else if (workFoe.subTemplate == 2)
-                    {
-                        string baseHP = foes.classes[workFoe.classIndex].classStats.HP;
-                        if (int.TryParse(baseHP, out int intHP))
-                        {
-                            line += ((intHP) * 2).ToString();
-                        }
-                        else
-                            line += "(" + baseHP + ") x2";
-                    }
-                    templateDetails += line;
-
-                    templateDetails += "\n";
-
-                    templateDetails += "\n<size=90%>Added Traits:\n";
-
-                    //added subtemplate traits
-                    if (workFoe.subTemplate == 1 && workFoe.type != FoeType.Mob)
-                    {
-                        line = "\n\n<b>Mob Template:</b> ";
-                        line += "<i>톂his character doesn뭪 trigger slay effects\n�1 point in an encounter budget gets 5 mobs of the same type\n텶f they have more than two active abilities available to them, pick two and discard the others. \n텮bilities can deal a maximum of 1 damage if they cost 1 action, or 3 damage if they cost 2, have a recharge, or require some condition to activate.</i>";
-                        templateDetails += line;
-                    }
-                    else if (workFoe.subTemplate == 2 && workFoe.type != FoeType.Elite)
-                    {
-                        line = "\n\n<b>Elite Template:</b> ";
-                        line += "<i>\n톂his foe takes 2 turns\n톂he foe takes up 2 points in an encounter budget\n텶ncrease the recharge of any of their abilities at 4+ or lower to 5+";
-                        templateDetails += line;
-                    }
-
-                    CheckDiffPreUpdate(foeTemplateContent, foeTemplateText, templateDetails, 400, 1.2f);
-                }
-
-                return;
-            }
-
-            if (choiceWasFactionJob) {
-                foeJobUniqueChoiceLabel.text = "Faction Job";
-
-                //already chose a subfaction
-                if(workFoe.subFactionIndex > 0)
-                {
-                    SubFaction chosenSub = GetFoeSubFaction(workFoe);
-                    if (chosenSub.isUnique)
-                    {
-                        //the choice was faction job, not unique. we must display and correct the choice
-                        SubFactionIndexTuple[] appropiate = GetFilteredSubfactionOptions(workFoe, false);
-                        if(appropiate.Length > 0)
-                        {
-                            workFoe.subFactionIndex = appropiate[0].originalSubfactionIndex;
-                            foeJobUniqueSubChoiceLabel.text = appropiate[0].subfaction.templateName;
-                        }
-                        else
-                        {
-                            //shouldn't happen, but it might
-                            workFoe.subFactionIndex = -1;
-                            foeJobUniqueSubChoiceLabel.text = "Unavailable";
-                        }
-                    }
-                    else
-                    {
-                        foeJobUniqueSubChoiceLabel.text = chosenSub.templateName;
-                    }
-                }
-                else
-                {
-                    //has not chosen a subfaction yet. present and assign first possibility
-                    SubFactionIndexTuple[] appropiate = GetFilteredSubfactionOptions(workFoe, false);
-                    if (appropiate.Length > 0)
-                    {
-                        workFoe.subFactionIndex = appropiate[0].originalSubfactionIndex;
-                        foeJobUniqueSubChoiceLabel.text = appropiate[0].subfaction.templateName;
-                    }
-                    else
-                    {
-                        //shouldn't happen, but it might
-                        workFoe.subFactionIndex = -1;
-                        foeJobUniqueSubChoiceLabel.text = "Unavailable";
-                    }
-                }
-            }
-            else
-            {
-                foeJobUniqueChoiceLabel.text = "Unique " + workFoe.type.ToString();
-
-                //already chose a subfaction
-                if (workFoe.subFactionIndex > 0)
-                {
-                    SubFaction chosenSub = GetFoeSubFaction(workFoe);
-                    if (!chosenSub.isUnique)
-                    {
-                        //the choice was unique. we must display and correct the choice
-                        SubFactionIndexTuple[] appropiate = GetFilteredSubfactionOptions(workFoe, true);
-                        if (appropiate.Length > 0)
-                        {
-                            workFoe.subFactionIndex = appropiate[0].originalSubfactionIndex;
-                            foeJobUniqueSubChoiceLabel.text = appropiate[0].subfaction.templateName;
-                        }
-                        else
-                        {
-                            //shouldn't happen, but it might
-                            workFoe.subFactionIndex = -1;
-                            foeJobUniqueSubChoiceLabel.text = "Unavailable";
-                        }
-                    }
-                    else
-                    {
-                        foeJobUniqueSubChoiceLabel.text = chosenSub.templateName;
-                    }
-                }
-                else
-                {
-                    //has not chosen a subfaction yet. present and assign first possibility
-                    SubFactionIndexTuple[] appropiate = GetFilteredSubfactionOptions(workFoe, true);
-                    if (appropiate.Length > 0)
-                    {
-                        workFoe.subFactionIndex = appropiate[0].originalSubfactionIndex;
-                        foeJobUniqueSubChoiceLabel.text = appropiate[0].subfaction.templateName;
-                    }
-                    else
-                    {
-                        //shouldn't happen, but it might
-                        workFoe.subFactionIndex = -1;
-                        foeJobUniqueSubChoiceLabel.text = "Unavailable";
-                    }
-                }
-            }
-
-            //adapt now the faction to the subtemplates
-            string subTemplateChosen = "None";
-            if (workFoe.subTemplate == 1)
-                subTemplateChosen = "Mob";
-            else if (workFoe.subTemplate == 2)
-                subTemplateChosen = "Elite";
-
-            factionPageSubTemplateButtonLabel.text = subTemplateChosen;
-
-            string subfactionDetails = "";
-
-            //it may be no faction available for this type of foe...
-            if (workFoe.subFactionIndex < 0)
-            {
-                subfactionDetails = "No faction aspect is available for this foe's characteristics.";
-
-                if(workFoe.subTemplate > 0)
-                {
-                    string line = "Template Modifications:\n\n-HP: ";
-                    if (workFoe.subTemplate == 1)
-                        line += "1";
-                    else if (workFoe.subTemplate == 2)
-                    {
-                        string baseHP = foes.classes[workFoe.classIndex].classStats.HP;
-                        if (workFoe.type == FoeType.Elite)
-                            baseHP = foes.eliteClasses[workFoe.classIndex].classStats.HP;
-                        else if (workFoe.type == FoeType.Legend)
-                            baseHP = foes.legendClasses[workFoe.classIndex].classStats.HP;
-
-                        if (int.TryParse(baseHP, out int intHP))
-                        {
-                            line += ((intHP) * 2).ToString();
-                        }
-                        else
-                            line += "(" + baseHP + ") x2";
-                    }
-                    subfactionDetails += line;
-
-                    subfactionDetails += "\n\n<b>Traits:</b>\n";
-
-                    //added subtemplate traits
-                    if (workFoe.subTemplate == 1 && workFoe.type != FoeType.Mob)
-                    {
-                        line = "\n\n<b>Mob Template:</b> ";
-                        line += "<i>톂his character doesn뭪 trigger slay effects\n�1 point in an encounter budget gets 5 mobs of the same type\n텶f they have more than two active abilities available to them, pick two and discard the others. \n텮bilities can deal a maximum of 1 damage if they cost 1 action, or 3 damage if they cost 2, have a recharge, or require some condition to activate.</i>";
-                        subfactionDetails += line;
-                    }
-                    else if (workFoe.subTemplate == 2 && workFoe.type != FoeType.Elite)
-                    {
-                        line = "\n\n<b>Elite Template:</b> ";
-                        line += "<i>\n톂his foe takes 2 turns\n톂he foe takes up 2 points in an encounter budget\n텶ncrease the recharge of any of their abilities at 4+ or lower to 5+";
-                        subfactionDetails += line;
-                    }
-                }
-            }
-            else
-            {
-                List<Trait> factionTraits = workFoe.GetFactionTraits();
-                SubFaction subFaction = GetFoeSubFaction(workFoe);
-
-                StatOverride[] oStats = new StatOverride[subFaction.statOverrides.Length];
-                for (int i = 0; i < oStats.Length; i++)
-                {
-                    oStats[i] = new StatOverride();
-                    oStats[i].statType = subFaction.statOverrides[i].statType;
-                    oStats[i].intChangedValue = subFaction.statOverrides[i].intChangedValue;
-                    oStats[i].stringChangedValue = subFaction.statOverrides[i].stringChangedValue;
-                }
-
-                for (int i = 0; i < oStats.Length; i++)
-                {
-                    Debug.Log(oStats[i].statType + " - " + oStats[i].intChangedValue + "/" + oStats[i].stringChangedValue);
-                }
-
-                if (workFoe.subTemplate > 0)
-                {
-                    bool hpOverrideFound = false;
-                    //subtemplate overriden stat values
-                    for (int i = 0; i < oStats.Length; i++)
-                    {
-                        if (oStats[i].statType == StatOverride.StatType.HP)
-                        {
-                            if (workFoe.subTemplate == 1 && workFoe.type != FoeType.Mob)
-                                oStats[i].intChangedValue = 1;
-                            else if (workFoe.subTemplate == 2 && workFoe.type != FoeType.Elite)
-                            {
-                                if (oStats[i].stringChangedValue != null && oStats[i].stringChangedValue.Length > 0)
-                                {
-                                    oStats[i].stringChangedValue = "(" + oStats[i].stringChangedValue + ") x 2";
-                                }
-                                else
-                                    oStats[i].intChangedValue = oStats[i].intChangedValue * 2;
-                            }
-
-                            hpOverrideFound = true;
-                        }
-                    }
-
-                    if (!hpOverrideFound)
-                    {
-                        StatOverride hpOstat = new StatOverride();
-                        hpOstat.statType = StatOverride.StatType.HP;
-
-                        if (workFoe.subTemplate == 1)
-                        {
-                            hpOstat.intChangedValue = 1;
-                            hpOstat.stringChangedValue = "";
-                        }
-                        else if (workFoe.subTemplate == 2)
-                        {
-                            string baseHP = foes.classes[workFoe.classIndex].classStats.HP;
-                            if (int.TryParse(baseHP, out int intHP))
-                            {
-                                hpOstat.intChangedValue = ((intHP) * 2);
-                                hpOstat.stringChangedValue = "";
-                            }
-                            else
-                            {
-                                hpOstat.intChangedValue = 0;
-                                hpOstat.stringChangedValue += "(" + baseHP + ") x2";
-                            }
-                        }
-
-                        StatOverride[] auxSO = new StatOverride[oStats.Length + 1];
-                        auxSO[0] = hpOstat;
-                        for (int i = 1; i <= oStats.Length; i++)
-                            auxSO[i] = oStats[i - 1];
-
-                        oStats = auxSO;
-                    }
-                }
-
-                if (oStats.Length > 0)
-                {
-                    subfactionDetails += "\n<size=90%>Stat Changes:\n";
-
-                    //stats
-                    for (int i = 0; i < oStats.Length; i++)
-                    {
-                        string line = "\n-" + oStats[i].statType.ToString() + ": ";
-                        if (oStats[i].stringChangedValue != null && oStats[i].stringChangedValue.Length > 0)
-                            line += oStats[i].stringChangedValue;
-                        else if (oStats[i].intChangedValue > 0)
-                            line += oStats[i].intChangedValue;
-                        subfactionDetails += line;
-                    }
-
-                    subfactionDetails += "\n";
-                }
-
-                subfactionDetails += "\n<b>Traits:</b>\n";
-
-                //added subtemplate traits
-                if (workFoe.subTemplate == 1 && workFoe.type != FoeType.Mob)
-                {
-                    string line = "\n\n<b>Mob Template:</b> ";
-                    line += "<i>톂his character doesn뭪 trigger slay effects\n�1 point in an encounter budget gets 5 mobs of the same type\n텶f they have more than two active abilities available to them, pick two and discard the others. \n텮bilities can deal a maximum of 1 damage if they cost 1 action, or 3 damage if they cost 2, have a recharge, or require some condition to activate.</i>";
-                    subfactionDetails += line;
-                }
-                else if (workFoe.subTemplate == 2 && workFoe.type != FoeType.Elite)
-                {
-                    string line = "\n\n<b>Elite Template:</b> ";
-                    line += "<i>\n톂his foe takes 2 turns\n톂he foe takes up 2 points in an encounter budget\n텶ncrease the recharge of any of their abilities at 4+ or lower to 5+";
-                    subfactionDetails += line;
-                }
-
-                for (int i = 0; i < factionTraits.Count; i++)
-                {
-                    string line = "\n\n<b>" + factionTraits[i].traitName + ":</b> ";
-                    line += "<i>" + factionTraits[i].traitDescription + "</i>";
-                    subfactionDetails += line;
-                }
-            }
-
-            CheckDiffPreUpdate(foeJobUniqueContent, foeJobUniqueChoiceText, subfactionDetails, 200, 1.2f);
 
             return;
         }
@@ -3536,300 +2531,14 @@ public class UnitManager : MonoBehaviour
         contentRT.anchoredPosition = Vector2.zero;
     }
 
-    public string[] FactionNames(IconFoe unit)
-    {
-        string[] factionTemplate = new string[2];
-
-
-        factionTemplate[0] = (unit.factionIndex < 0) ? "None" : GetFoeFaction(unit).factionName;
-
-        SubFaction unitSubFaction = GetFoeSubFaction(unit);
-
-        factionTemplate[1] = (unitSubFaction == null) ? "None" : unitSubFaction.templateName;
-
-        return factionTemplate;
-    }
-
     public string[] GetFoeDetails(IconFoe unit)
     {
         string[] deets = new string[3];
 
-        if(unit.factionIndex < 0) //no faction
-        {
-            if (unit.type == FoeType.Mob || unit.type == FoeType.SpecialSummon)
-            {
-                deets[0] = unit.type == FoeType.Mob ? "Mob" : "Summon";
-
-                if(unit.type == FoeType.SpecialSummon)
-                {
-                    string className = summons.specialSummons[unit.classIndex].name;
-
-                    int startBracket = className.IndexOf("[");
-                    int endBracket = className.IndexOf("]");
-
-                    string baseClass = className.Substring(0, startBracket);
-
-                    string summonedBy = className.Substring(startBracket + 1, (endBracket - startBracket) - 1);
-
-                    deets[1] = baseClass;
-                    deets[2] = "Summon of " + summonedBy;
-                }
-                else if(unit.type == FoeType.Mob)
-                    deets[1] = foes.mobs[unit.classIndex].name;
-            }
-            else
-            {
-                deets[0] = foes.classes[unit.classIndex % 4].name;
-
-                if (unit.type == FoeType.Foe)
-                {
-                    deets[1] = foes.classes[unit.classIndex].jobs[unit.jobIndex].name;
-                }
-                else if(unit.type == FoeType.Elite)
-                {
-                    deets[1] = foes.eliteClasses[unit.classIndex].name;
-                }
-                else if(unit.type == FoeType.Legend)
-                {
-                    deets[1] = foes.legendClasses[unit.classIndex].name;
-                }
-
-                if (unit.templateIndex >= 0)
-                {
-                    deets[2] = templates.templates[unit.templateIndex].templateName;
-                }
-                else
-                    deets[2] = "None";
-            }
-        }
-        else
-        {
-
-            if (unit.type != FoeType.SpecialSummon)
-            {
-                int factionSetIndex = unit.factionIndex;
-                int factionSubsetIndex = 0;
-                if (unit.factionIndex > factions.Length - 1) //folk faction has 6 sub sets
-                {
-                    factionSetIndex = factions.Length - 1;
-                    factionSubsetIndex = unit.factionIndex - factionSetIndex;
-                }
-                deets[1] = factions[unit.factionIndex].foeFactions[factionSubsetIndex].factionName;
-
-                if (unit.type == FoeType.Mob)
-                {
-                    deets[0] = "Mob";
-                    deets[1] = factions[unit.factionIndex - 1].foeFactions[factionSubsetIndex].factionName;
-                    deets[2] = foes.mobs[unit.classIndex].name;
-                }
-                else
-                {
-                    deets[0] = foes.classes[unit.classIndex].name;
-
-                    if (unit.classIndex == 0)
-                        deets[2] = factions[factionSetIndex].foeFactions[factionSubsetIndex].heavies[unit.subFactionIndex].templateName;
-                    else if (unit.classIndex == 1)
-                        deets[2] = factions[factionSetIndex].foeFactions[factionSubsetIndex].skirmishers[unit.subFactionIndex].templateName;
-                    else if (unit.classIndex == 2)
-                        deets[2] = factions[factionSetIndex].foeFactions[factionSubsetIndex].leaders[unit.subFactionIndex].templateName;
-                    else if (unit.classIndex == 3)
-                        deets[2] = factions[factionSetIndex].foeFactions[factionSubsetIndex].artilleries[unit.subFactionIndex].templateName;
-                    else
-                        deets[2] = factions[factionSetIndex].foeFactions[factionSubsetIndex].defaults[unit.subFactionIndex].templateName;
-                }
-            }
-            else
-            {
-                deets[1] = "Summon";
-                deets[2] = "Summon";
-            }
-        }
+        //get abilities and descriptions
 
         return deets;
     }
-
-    public FoeFaction GetFoeFaction(IconFoe unit)
-    {
-        if (unit.factionIndex < 0)
-            return null;
-
-        int factionIdx = unit.factionIndex;
-        int subIdx = 0;
-        if (factionIdx >= factions.Length)
-        {
-            factionIdx = factions.Length - 1;
-            subIdx = unit.factionIndex - factionIdx;
-        }
-
-        return factions[factionIdx].foeFactions[subIdx];
-    }
-
-    public SubFaction GetFoeSubFaction(IconFoe unit)
-    {
-        if (unit.factionIndex >= 0)
-        {
-            int factionIdx = unit.factionIndex;
-            int subIdx = 0;
-            if (factionIdx >= factions.Length)
-            {
-                factionIdx = factions.Length - 1;
-                subIdx = unit.factionIndex - factionIdx;
-            }
-
-            SubFaction toDisplay = new SubFaction(); 
-            if (unit.isDefaultFactionEntry)
-                toDisplay = factions[factionIdx].foeFactions[subIdx].defaults[unit.subFactionIndex];
-            else if(unit.classIndex == 0)
-                toDisplay = factions[factionIdx].foeFactions[subIdx].heavies[unit.subFactionIndex];
-            else if (unit.classIndex == 1)
-                toDisplay = factions[factionIdx].foeFactions[subIdx].skirmishers[unit.subFactionIndex];
-            else if (unit.classIndex == 2)
-                toDisplay = factions[factionIdx].foeFactions[subIdx].leaders[unit.subFactionIndex];
-            else if (unit.classIndex == 3)
-                toDisplay = factions[factionIdx].foeFactions[subIdx].artilleries[unit.subFactionIndex];
-
-            return toDisplay;
-        }
-
-        return null;
-    }
-
-    public struct SubFactionIndexTuple
-    {
-        public SubFaction subfaction;
-        public int originalSubfactionIndex;
-    }
-
-    private SubFactionIndexTuple[] GetFilteredSubfactionOptions(IconFoe unit, bool showUniques, bool showDebug = false)
-    {
-        if (showDebug)
-        {
-            Debug.Log("filtering---");
-            Debug.Log("faction index: " + unit.factionIndex);
-        }
-
-
-        if (unit.factionIndex >= 0)
-        {
-            int factionIdx = workFoe.factionIndex;
-            int subIdx = 0;
-            if (factionIdx >= factions.Length)
-            {
-                factionIdx = factions.Length - 1;
-                subIdx = workFoe.factionIndex - factionIdx;
-            }
-
-            SubFaction[] classSubfactions = factions[factionIdx].foeFactions[subIdx].heavies;
-            if (workFoe.isDefaultFactionEntry)
-                classSubfactions = factions[factionIdx].foeFactions[subIdx].defaults;
-            else if (workFoe.classIndex == 1)
-                classSubfactions = factions[factionIdx].foeFactions[subIdx].skirmishers;
-            else if (workFoe.classIndex == 2)
-                classSubfactions = factions[factionIdx].foeFactions[subIdx].leaders;
-            else if (workFoe.classIndex == 3)
-                classSubfactions = factions[factionIdx].foeFactions[subIdx].artilleries;
-
-            if (showDebug)
-            {
-                string subFactionList = "";
-                for (int i = 0; i < classSubfactions.Length; i++)
-                {
-                    subFactionList += "-" + classSubfactions[i].templateName + "\n";
-                }
-                Debug.Log(subFactionList);
-            }
-
-            List<SubFactionIndexTuple> filteredEntries = new List<SubFactionIndexTuple>();
-
-            //first filter: type
-            for(int i = 0; i < classSubfactions.Length; i++)
-            {
-                //only foes can access these
-                if (classSubfactions[i].typeRestriction == FoeData.EnemyType.Foe && workFoe.type != FoeType.Foe)
-                    continue;
-
-                //only elites can access these
-                if (classSubfactions[i].typeRestriction == FoeData.EnemyType.Elite && workFoe.type != FoeType.Elite)
-                    continue;
-
-                //only legends can access these
-                if (classSubfactions[i].typeRestriction == FoeData.EnemyType.Legend && workFoe.type != FoeType.Legend)
-                    continue;
-
-                SubFactionIndexTuple sfit = new SubFactionIndexTuple();
-                sfit.subfaction = classSubfactions[i];
-                sfit.originalSubfactionIndex = i;
-                filteredEntries.Add(sfit);
-            }
-
-            if (showDebug)
-            {
-                string subFactionList = "after first filter: ";
-                for (int i = 0; i < filteredEntries.Count; i++)
-                {
-                    subFactionList += "-" + filteredEntries[i].subfaction.templateName + "\n";
-                }
-                Debug.Log(subFactionList);
-            }
-
-            List<SubFactionIndexTuple> auxList = new List<SubFactionIndexTuple>();
-            //second filter: uniqueness
-            for(int i = 0; i < filteredEntries.Count; i++)
-            {
-                SubFaction entry = filteredEntries[i].subfaction;
-
-                if ((showUniques && !entry.isUnique) || (!showUniques && entry.isUnique))
-                    continue;
-
-                auxList.Add(filteredEntries[i]);
-            }
-
-            filteredEntries = new List<SubFactionIndexTuple>(auxList);
-            auxList.Clear();
-
-            if (showDebug)
-            {
-                string subFactionList = "after second filter: ";
-                for (int i = 0; i < filteredEntries.Count; i++)
-                {
-                    subFactionList += "-" + filteredEntries[i].subfaction.templateName + "\n";
-                }
-                Debug.Log(subFactionList);
-            }
-
-            //third filter: chapter
-            for (int i = 0; i < filteredEntries.Count; i++)
-            {
-                SubFaction entry = filteredEntries[i].subfaction;
-
-                //entry is above the level. not allowed
-                if (entry.chapterLimitNum != 0 && workFoe.level < entry.chapterLimitNum)
-                    continue;
-
-                //entry is below level cap, but greater is not allowed
-                if (entry.chapterLimitNum != 0 && workFoe.level > entry.chapterLimitNum && !entry.allowGreater)
-                    continue;
-
-                auxList.Add(filteredEntries[i]);
-            }
-
-            filteredEntries = auxList;
-
-            if (showDebug)
-            {
-                string subFactionList = "after third filter: ";
-                for (int i = 0; i < filteredEntries.Count; i++)
-                {
-                    subFactionList += "-" + filteredEntries[i].subfaction.templateName + "\n";
-                }
-                Debug.Log(subFactionList);
-            }
-
-            return filteredEntries.ToArray();
-        }
-
-        return new SubFactionIndexTuple[0];
-    } 
 
     public static string TranslateStatWithChapter(string stat, int chapterNum)
     {
@@ -3906,14 +2615,7 @@ public class UnitManager : MonoBehaviour
         if (characterUnits == null)
             return;
 
-        for (int i = 0; i < foeUnits.Count; i++)
-        {
-            if (foeUnits[i].unitID == id)
-            {
-                foeUnits[i].GivePartIDs(nuFoe.headPartID, nuFoe.bodyPartID, nuFoe.lWeaponPartID, nuFoe.rWeaponPartID);
-                return;
-            }
-        }
+        Debug.Log("Update Foe Missing");
     }
 
     public List<IconFoe> GetFoes()
@@ -3925,85 +2627,7 @@ public class UnitManager : MonoBehaviour
     {
         string titleLabel = "";
 
-        if (workFoe.subTemplate > 0)
-        {
-            if (workFoe.subTemplate == 1)
-            {
-                titleLabel += "Heavy ";
-                if (workFoe.classIndex == 1)
-                    titleLabel += "Skirmisher ";
-                else if (workFoe.classIndex == 2)
-                    titleLabel += "Leader ";
-                else if (workFoe.classIndex == 3)
-                    titleLabel += "Artillery ";
-
-                titleLabel += "Mob\n";
-            }
-            else if (workFoe.subTemplate == 2)
-            {
-                titleLabel += "Elite ";
-
-                titleLabel += "Heavy\n";
-                if (workFoe.classIndex == 1)
-                    titleLabel += "Skirmisher\n";
-                else if (workFoe.classIndex == 2)
-                    titleLabel += "Leader\n";
-                else if (workFoe.classIndex == 3)
-                    titleLabel += "Artillery\n";
-            }
-        }
-        else
-        {
-            if (workFoe.type == FoeType.Foe)
-            {
-                titleLabel = "Heavy Foe\n";
-                if (workFoe.classIndex == 1)
-                    titleLabel = "Skirmisher Foe\n";
-                else if (workFoe.classIndex == 2)
-                    titleLabel = "Leader Foe\n";
-                else if (workFoe.classIndex == 3)
-                    titleLabel = "Artillery Foe\n";
-            }
-            else if (workFoe.type == FoeType.Elite)
-            {
-                titleLabel = "Elite Heavy\n";
-                if (workFoe.classIndex == 1)
-                    titleLabel = "Elite Skirmisher\n";
-                else if (workFoe.classIndex == 2)
-                    titleLabel = "Elite Leader\n";
-                else if (workFoe.classIndex == 3)
-                    titleLabel = "Elite Artillery\n";
-            }
-            else if (workFoe.type == FoeType.Legend)
-            {
-                titleLabel = "Legendary Heavy\n";
-                if (workFoe.classIndex == 1)
-                    titleLabel = "Legendary Skirmisher\n";
-                else if (workFoe.classIndex == 2)
-                    titleLabel = "Legendary Leader\n";
-                else if (workFoe.classIndex == 3)
-                    titleLabel = "Legendary Artillery\n";
-            }
-        }
-
-        titleLabel += "<i>";
-
-        //first, title label
-        if (choiceWasClassJob)
-        {
-            if (workFoe.type == FoeType.Foe)
-                titleLabel += foes.classes[workFoe.classIndex].jobs[workFoe.jobIndex].name;
-            else if (workFoe.type == FoeType.Elite)
-                titleLabel += foes.eliteClasses[workFoe.classIndex].name;
-            else if (workFoe.type == FoeType.Legend)
-                titleLabel += foes.legendClasses[workFoe.classIndex].name;
-        }
-        else
-        {
-            titleLabel += GetFoeFaction(workFoe).factionName + " " + GetFoeSubFaction(workFoe).templateName + "</i>";
-        }
-
-        foeOverallDetailsLabel.text = titleLabel;
+        //get details
 
         //now stats
         string overallStats = "Stats\n\n";
@@ -4020,22 +2644,9 @@ public class UnitManager : MonoBehaviour
 
         //now, everything else
 
-        //maybe rect resize call
+        string actionTraitText = "<b>Abilities:</b>\n";
 
-        string actionTraitText = "<b>Traits:</b>\n";
-
-        List<Trait> oTraits = workFoe.GetTraits(false);
-        for (int i = 0; i < oTraits.Count; i++)
-        {
-            if (oTraits[i].phaseIndex == 0)
-                actionTraitText += "\n><b>" + oTraits[i].traitName + ":</b> <i>" + oTraits[i].traitDescription + "</i>";
-            else
-                actionTraitText += "\n><size=65%>(Phase " + oTraits[i].phaseIndex + " only) <size=100%><b>" + oTraits[i].traitName + ":</b> <i>" + oTraits[i].traitDescription + "</i>";
-        }
-
-        actionTraitText += "\n\n<b>Abilities:</b>\n";
-
-        List<Ability> oAttacks = workFoe.GetAbilities(false);
+        List<Ability> oAttacks = workFoe.GetAbilities();
         for (int i = 0; i < oAttacks.Count; i++)
         {
             if (oAttacks[i].phaseIndex == 0)
@@ -4104,124 +2715,14 @@ public class UnitManager : MonoBehaviour
         foeColor.color = Color.white;
         workFoe.colorChoice = Color.white;
 
-        //distinctions for later
-        if ((FoeType)currentFoeType == FoeType.Mob || (FoeType)currentFoeType == FoeType.SpecialSummon)
-        {
-            choiceWasClassJob = true;
-            choiceWasFactionJob = true;
-        }
-        else
-        {
-            choiceWasClassJob = workFoe.factionIndex < 0;
-            if (!choiceWasClassJob)
-            {
-                choiceWasFactionJob = !GetFoeSubFaction(workFoe).isUnique;
-            }
-            else
-                choiceWasFactionJob = true;
-        }
-
         PieceCamera._instance.SetSamplerAtStartRotation();
         PieceCamera._instance.SetSamplerMeepleConfig(0, 1, 0, 0);
-
-        mobHeadPiecePartLabel.text = PieceCamera._instance.GetHeadPart(workFoe.headPartID).partName;
-        mobLWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(workFoe.lWeaponPartID).partName;
-        mobRWeaponPiecePartLabel.text = PieceCamera._instance.GetWeaponPart(workFoe.rWeaponPartID).partName;
 
         currentMode = UnitEditMode.FoeNew;
 
         presetsFoePages.SetActive(false);
         miniFoesSet.SetActive(true); //for both cases, mini set will be used, since we only want a summary and access to the piece modification page.
         generalFoePages.SetActive(false);
-
-        if ((FoeType)currentFoeType == FoeType.Mob || (FoeType)currentFoeType == FoeType.SpecialSummon)
-            mobSummonButtonLabel.text = workFoe.type == FoeType.Mob ? foes.mobs[workFoe.classIndex].name : summons.specialSummons[workFoe.classIndex].name;
-        else
-        {
-            //non mob or summon need titles far more complex
-
-            string titleLabel = "";
-
-            if (workFoe.subTemplate > 0)
-            {
-                if (workFoe.subTemplate == 1)
-                {
-                    titleLabel += "Heavy ";
-                    if (workFoe.classIndex == 1)
-                        titleLabel += "Skirmisher ";
-                    else if (workFoe.classIndex == 2)
-                        titleLabel += "Leader ";
-                    else if (workFoe.classIndex == 3)
-                        titleLabel += "Artillery ";
-
-                    titleLabel += "Mob\n";
-                }
-                else if (workFoe.subTemplate == 2)
-                {
-                    titleLabel += "Elite ";
-
-                    titleLabel += "Heavy\n";
-                    if (workFoe.classIndex == 1)
-                        titleLabel += "Skirmisher\n";
-                    else if (workFoe.classIndex == 2)
-                        titleLabel += "Leader\n";
-                    else if (workFoe.classIndex == 3)
-                        titleLabel += "Artillery\n";
-                }
-            }
-            else
-            {
-                if (workFoe.type == FoeType.Foe)
-                {
-                    titleLabel = "Heavy Foe\n";
-                    if (workFoe.classIndex == 1)
-                        titleLabel = "Skirmisher Foe\n";
-                    else if (workFoe.classIndex == 2)
-                        titleLabel = "Leader Foe\n";
-                    else if (workFoe.classIndex == 3)
-                        titleLabel = "Artillery Foe\n";
-                }
-                else if (workFoe.type == FoeType.Elite)
-                {
-                    titleLabel = "Elite Heavy\n";
-                    if (workFoe.classIndex == 1)
-                        titleLabel = "Elite Skirmisher\n";
-                    else if (workFoe.classIndex == 2)
-                        titleLabel = "Elite Leader\n";
-                    else if (workFoe.classIndex == 3)
-                        titleLabel = "Elite Artillery\n";
-                }
-                else if (workFoe.type == FoeType.Legend)
-                {
-                    titleLabel = "Legendary Heavy\n";
-                    if (workFoe.classIndex == 1)
-                        titleLabel = "Legendary Skirmisher\n";
-                    else if (workFoe.classIndex == 2)
-                        titleLabel = "Legendary Leader\n";
-                    else if (workFoe.classIndex == 3)
-                        titleLabel = "Legendary Artillery\n";
-                }
-            }
-
-            titleLabel += "<i>";
-
-            //first, title label
-            if (choiceWasClassJob)
-            {
-                if (workFoe.type == FoeType.Foe)
-                    titleLabel += foes.classes[workFoe.classIndex].jobs[workFoe.jobIndex].name;
-                else if (workFoe.type == FoeType.Elite)
-                    titleLabel += foes.eliteClasses[workFoe.classIndex].name;
-                else if (workFoe.type == FoeType.Legend)
-                    titleLabel += foes.legendClasses[workFoe.classIndex].name;
-            }
-            else
-            {
-                titleLabel += GetFoeFaction(workFoe).factionName + " " + GetFoeSubFaction(workFoe).templateName + "</i>";
-            }
-
-            mobSummonButtonLabel.text = titleLabel;
-        }
 
         FoeData.FoeClass.FoeStats foeStats = workFoe.BuildStatsSet();
 
@@ -4239,17 +2740,6 @@ public class UnitManager : MonoBehaviour
         mobSummonOverallStatsLabel.text = enemyStats;
 
         string enemyAttackTraits = "";
-
-        List<ClassData.Trait> foeTraits = workFoe.GetTraits();
-        if (foeTraits.Count > 0)
-        {
-            enemyAttackTraits += "<b>Traits:</b>\n";
-
-            for (int i = 0; i < foeTraits.Count; i++)
-            {
-                enemyAttackTraits += "\n><b>" + foeTraits[i].traitName + ":</b> <i>" + foeTraits[i].traitDescription + "</i>";
-            }
-        }
 
         List<ClassData.Ability> foeAttacks = workFoe.GetAbilities();
         if (foeAttacks.Count > 0)
@@ -4294,105 +2784,6 @@ public class UnitManager : MonoBehaviour
     {
         ShowDescriptionPanel(foes.classes[workFoe.classIndex].name, foes.classes[workFoe.classIndex].foeClassDescription);
     }
-
-    public void ShowFoeSubDescription()
-    {
-        if (choiceWasClassJob)
-        {
-            if (workFoe.type == FoeType.Foe)
-            {
-                ShowDescriptionPanel(foes.classes[workFoe.classIndex].jobs[workFoe.jobIndex].name, foes.classes[workFoe.classIndex].jobs[workFoe.jobIndex].jobDescription);
-            }
-            else if (workFoe.type == FoeType.Elite)
-            {
-                ShowDescriptionPanel(foes.eliteClasses[workFoe.classIndex].name, foes.eliteClasses[workFoe.classIndex].foeClassDescription);
-            }
-            else if (workFoe.type == FoeType.Legend)
-            {
-                foeJobFactionSubChoiceLabel.text = foes.legendClasses[workFoe.classIndex].name;
-
-                ShowDescriptionPanel(foes.legendClasses[workFoe.classIndex].name, foes.legendClasses[workFoe.classIndex].foeClassDescription);
-            }
-        }
-        else if (choiceWasFactionJob)
-        {
-            int factionIndexAdapted = workFoe.factionIndex;
-            int subIndex = 0;
-            if (factionIndexAdapted >= factions.Length)
-            {
-                subIndex = workFoe.factionIndex - (factions.Length - 1);
-                factionIndexAdapted = factions.Length - 1;
-            }
-
-            ShowDescriptionPanel(factions[factionIndexAdapted].foeFactions[subIndex].factionName, factions[factionIndexAdapted].foeFactions[subIndex].factionDescription);
-        }
-    }
-
-    public void ShowDetailDescription()
-    {
-        if (choiceWasFactionJob)
-        {
-            //already chose a subfaction
-            if (workFoe.subFactionIndex > 0)
-            {
-                SubFaction chosenSub = GetFoeSubFaction(workFoe);
-                if (chosenSub.isUnique)
-                {
-                    //the choice was faction job, not unique. we must display and correct the choice
-                    SubFactionIndexTuple[] appropiate = GetFilteredSubfactionOptions(workFoe, false);
-                    if (appropiate.Length > 0)
-                    {
-                        ShowDescriptionPanel(appropiate[0].subfaction.templateName, appropiate[0].subfaction.templateDescription);
-                    }
-                }
-                else
-                {
-                    ShowDescriptionPanel(chosenSub.templateName, chosenSub.templateDescription);
-                }
-            }
-            else
-            {
-                //has not chosen a subfaction yet. present and assign first possibility
-                SubFactionIndexTuple[] appropiate = GetFilteredSubfactionOptions(workFoe, false);
-                if (appropiate.Length > 0)
-                {
-                    ShowDescriptionPanel(appropiate[0].subfaction.templateName, appropiate[0].subfaction.templateDescription);
-                }
-            }
-        }
-        else
-        {
-            foeJobUniqueChoiceLabel.text = "Unique " + workFoe.type.ToString();
-
-            //already chose a subfaction
-            if (workFoe.subFactionIndex > 0)
-            {
-                SubFaction chosenSub = GetFoeSubFaction(workFoe);
-                if (!chosenSub.isUnique)
-                {
-                    //the choice was unique. we must display and correct the choice
-                    SubFactionIndexTuple[] appropiate = GetFilteredSubfactionOptions(workFoe, true);
-                    if (appropiate.Length > 0)
-                    {
-                        ShowDescriptionPanel(appropiate[0].subfaction.templateName, appropiate[0].subfaction.templateDescription);
-                    }
-                }
-                else
-                {
-                    ShowDescriptionPanel(chosenSub.templateName, chosenSub.templateDescription);
-                }
-            }
-            else
-            {
-                //has not chosen a subfaction yet. present and assign first possibility
-                SubFactionIndexTuple[] appropiate = GetFilteredSubfactionOptions(workFoe, true);
-                if (appropiate.Length > 0)
-                {
-                    ShowDescriptionPanel(appropiate[0].subfaction.templateName, appropiate[0].subfaction.templateDescription);
-                }
-            }
-        }
-    }
     #endregion
 
     private void ShowDescriptionPanel(string title, string description)
@@ -4413,397 +2804,8 @@ public class UnitManager : MonoBehaviour
         if (workFoe == null)
             return;
 
-        /*
-        int foeType = (int)workFoe.type;
-
-        if (!foeAttackListOpen)
-        {
-            baseAttackButtonColor = foeUIEntries[foeType].foeAttackListButton.color;
-
-            UpdateAttackList();
-
-            Color modColor = baseAttackButtonColor;
-            modColor *= 1.2f;
-            foeUIEntries[foeType].foeAttackListButton.color = modColor;
-        }
-        else
-        {
-            foeUIEntries[foeType].foeAttackListButton.color = baseAttackButtonColor;
-        }
-
-        foeAttackListOpen = !foeAttackListOpen;
-        foeUIEntries[foeType].foeAttackPanel.SetActive(foeAttackListOpen);
-
-        foeUIEntries[foeType].backFoePageButton.gameObject.SetActive(!foeAttackListOpen);
-        foeUIEntries[foeType].forwardFoePageButton.gameObject.SetActive(!foeAttackListOpen);
-        foeUIEntries[foeType].foePageLabel.gameObject.SetActive(!foeAttackListOpen);
-        */
     }
 
-    private void UpdateAttackList()
-    {
-        if (workFoe == null)
-            return;
-
-        /*
-
-        int foeType = (int)workFoe.type;
-
-        for (int i = foeUIEntries[foeType].foeAttackList.childCount - 1; i > 1; i--)
-        {
-            Destroy(foeUIEntries[foeType].foeAttackList.GetChild(i).gameObject);
-        }
-
-        if (workFoe.type != FoeType.Legend)
-        {
-            List<ClassData.ClassAttack> accAttacks = new List<ClassData.ClassAttack>();
-
-            //class - job 
-            if (workFoe.type == FoeType.Mob)
-            {
-                for (int i = 0; i < foes.mobs[workFoe.classIndex].attacks.Length; i++)
-                {
-                    for (int j = 0; j < foes.mobs[workFoe.classIndex].attacks[i].attacks.Length; j++)
-                    {
-                        accAttacks.Add(foes.mobs[workFoe.classIndex].attacks[i].attacks[j]);
-                    }
-                }
-            }
-            else
-            {
-                if (workFoe.type == FoeType.Foe)
-                {
-                    for (int i = 0; i < foes.classes[workFoe.classIndex].classAttacks.Length; i++)
-                    {
-                        for(int j = 0; j < foes.classes[workFoe.classIndex].classAttacks[i].attacks.Length; j++)
-                        {
-                            accAttacks.Add(foes.classes[workFoe.classIndex].classAttacks[i].attacks[j]);
-                        }
-                    }
-
-                    for (int i = 0; i < foes.classes[workFoe.classIndex].jobs[workFoe.jobIndex].jobAttacks.Length; i++)
-                    {
-                        for (int j = 0; j < foes.classes[workFoe.classIndex].jobs[workFoe.jobIndex].jobAttacks[i].attacks.Length; j++)
-                        {
-                            accAttacks.Add(foes.classes[workFoe.classIndex].jobs[workFoe.jobIndex].jobAttacks[i].attacks[j]);
-                        }
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < foes.eliteClasses[workFoe.classIndex].classAttacks.Length; i++)
-                    {
-                        for (int j = 0; j < foes.eliteClasses[workFoe.classIndex].classAttacks[i].attacks.Length; j++)
-                        {
-                            accAttacks.Add(foes.eliteClasses[workFoe.classIndex].classAttacks[i].attacks[j]);
-                        }
-                    }
-                }
-            }
-
-            //faction - template
-            FoeFaction unitFaction = GetFoeFaction(workFoe);
-            if(unitFaction != null)
-            {
-                for(int f = 0; f < unitFaction.attacks.Length; f++)
-                {
-                    for(int af = 0; af < unitFaction.attacks[f].attacks.Length; af++)
-                    {
-                        accAttacks.Add(unitFaction.attacks[f].attacks[af]);
-                    }
-                }
-
-                SubFaction unitTemplate = GetFoeTemplate(workFoe);
-                if(unitTemplate != null)
-                {
-                    for (int t = 0; t < unitTemplate.attacks.Length; t++)
-                    {
-                        for (int af = 0; af < unitTemplate.attacks[t].attacks.Length; af++)
-                        {
-                            accAttacks.Add(unitTemplate.attacks[t].attacks[af]);
-                        }
-                    }
-                }
-            }
-
-            float addY = -30f;
-            //we build the attackList
-            for(int a = 0; a < accAttacks.Count; a++)
-            {
-                GameObject nuEntry = Instantiate<GameObject>(foeUIEntries[foeType].foeAttackTraitEntryPrefab, foeUIEntries[foeType].foeAttackList);
-                RectTransform entryRT = nuEntry.GetComponent<RectTransform>();
-
-                nuEntry.name = "a" + a;
-
-                Vector2 sd = entryRT.sizeDelta;
-                sd.y = 20f;
-                entryRT.sizeDelta = sd;
-
-                string titleText = accAttacks[a].attackName;
-
-                for(int c = 0; c < accAttacks[a].attackConditions.Length; c++)
-                {
-                    if(c == 0)
-                        titleText += " (";
-
-                    titleText += accAttacks[a].attackConditions[c];
-
-                    if (c < accAttacks[a].attackConditions.Length - 1)
-                        titleText += ", ";
-                    else
-                        titleText += ")";
-                }
-
-                entryRT.GetChild(0).GetComponent<TextMeshProUGUI>().text = titleText;
-
-                float toAdd = 50f;
-
-                TextMeshProUGUI descText = entryRT.GetChild(1).GetComponent<TextMeshProUGUI>();
-
-                descText.text = accAttacks[a].attackDescription;
-                descText.ForceMeshUpdate();
-
-                toAdd += 1.4f * descText.renderedHeight;
-
-                sd = entryRT.sizeDelta;
-                sd.y = toAdd;
-                entryRT.sizeDelta = sd;
-
-                entryRT.anchoredPosition = addY * Vector2.up;
-
-                addY += -1f * (toAdd + 20f);
-                nuEntry.SetActive(true);
-            }
-
-            Vector2 csd = foeUIEntries[foeType].foeAttackList.sizeDelta;
-            csd.y = -1f * addY;
-            foeUIEntries[foeType].foeAttackList.sizeDelta = csd;
-        }
-        else
-        {
-            float addY = -30f;
-
-            for (int i = 0; i < foes.legendClasses[workFoe.classIndex].classAttacks.Length; i++)
-            {
-                List<ClassData.ClassAttack> accAttacks = new List<ClassData.ClassAttack>();
-
-                for (int j = 0; j < foes.legendClasses[workFoe.classIndex].classAttacks[i].attacks.Length; j++)
-                {
-                    accAttacks.Add(foes.legendClasses[workFoe.classIndex].classAttacks[i].attacks[j]);
-                }
-
-                GameObject phaseEntry = Instantiate<GameObject>(foeUIEntries[foeType].foeLabelEntryPrefab, foeUIEntries[foeType].foeAttackList);
-                RectTransform pentryRT = phaseEntry.GetComponent<RectTransform>();
-
-                phaseEntry.name = "f" + i;
-                pentryRT.GetChild(0).GetComponent<TextMeshProUGUI>().text = foes.legendClasses[workFoe.classIndex].classAttacks[i].setName;
-                pentryRT.anchoredPosition = addY * Vector2.up;
-                addY += -1f * 70f;
-
-                for (int a = 0; a < accAttacks.Count; a++)
-                {
-                    GameObject nuEntry = Instantiate<GameObject>(foeUIEntries[foeType].foeAttackTraitEntryPrefab, foeUIEntries[foeType].foeAttackList);
-                    RectTransform entryRT = nuEntry.GetComponent<RectTransform>();
-
-                    nuEntry.name = "a" + a;
-                    entryRT.anchoredPosition = addY * Vector2.up;
-
-                    Vector2 sd = entryRT.sizeDelta;
-                    sd.y = 20f;
-                    entryRT.sizeDelta = sd;
-
-                    string titleText = accAttacks[a].attackName;
-
-                    for (int c = 0; c < accAttacks[a].attackConditions.Length; c++)
-                    {
-                        if (c == 0)
-                            titleText += " (";
-
-                        titleText += accAttacks[a].attackConditions[c];
-
-                        if (c < accAttacks[a].attackConditions.Length - 1)
-                            titleText += ", ";
-                        else
-                            titleText += ")";
-                    }
-
-                    entryRT.GetChild(0).GetComponent<TextMeshProUGUI>().text = titleText;
-
-                    float toAdd = 50f;
-
-                    TextMeshProUGUI descText = entryRT.GetChild(1).GetComponent<TextMeshProUGUI>();
-
-                    descText.text = accAttacks[a].attackDescription;
-                    descText.ForceMeshUpdate();
-
-                    toAdd += 1.4f * descText.renderedHeight;
-
-                    sd = entryRT.sizeDelta;
-                    sd.y = toAdd;
-                    entryRT.sizeDelta = sd;
-
-                    entryRT.anchoredPosition = addY * Vector2.up;
-
-                    addY += -1f * (toAdd + 20f);
-                    nuEntry.SetActive(true);
-                }
-            }
-
-            GameObject factionEntry = Instantiate<GameObject>(foeUIEntries[foeType].foeLabelEntryPrefab, foeUIEntries[foeType].foeAttackList);
-            RectTransform feEntry = factionEntry.GetComponent<RectTransform>();
-
-            factionEntry.name = "f";
-            feEntry.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Faction and Template";
-            feEntry.anchoredPosition = addY * Vector2.up;
-            addY += -1f * 70f;
-
-            //faction - template
-            FoeFaction unitFaction = GetFoeFaction(workFoe);
-            if (unitFaction != null)
-            {
-                List<ClassData.ClassAttack> accAttacks = new List<ClassData.ClassAttack>();
-
-                for (int f = 0; f < unitFaction.attacks.Length; f++)
-                {
-                    for (int af = 0; af < unitFaction.attacks[f].attacks.Length; af++)
-                    {
-                        accAttacks.Add(unitFaction.attacks[f].attacks[af]);
-                    }
-                }
-
-                SubFaction unitTemplate = GetFoeTemplate(workFoe);
-                if (unitTemplate != null)
-                {
-                    for (int t = 0; t < unitTemplate.attacks.Length; t++)
-                    {
-                        for (int af = 0; af < unitTemplate.attacks[t].attacks.Length; af++)
-                        {
-                            accAttacks.Add(unitTemplate.attacks[t].attacks[af]);
-                        }
-                    }
-                }
-
-                for (int a = 0; a < accAttacks.Count; a++)
-                {
-                    GameObject nuEntry = Instantiate<GameObject>(foeUIEntries[foeType].foeAttackTraitEntryPrefab, foeUIEntries[foeType].foeAttackList);
-                    RectTransform entryRT = nuEntry.GetComponent<RectTransform>();
-
-                    nuEntry.name = "a" + a;
-                    entryRT.anchoredPosition = addY * Vector2.up;
-
-                    Vector2 sd = entryRT.sizeDelta;
-                    sd.y = 20f;
-                    entryRT.sizeDelta = sd;
-
-                    string titleText = accAttacks[a].attackName;
-
-                    for (int c = 0; c < accAttacks[a].attackConditions.Length; c++)
-                    {
-                        if (c == 0)
-                            titleText += " (";
-
-                        titleText += accAttacks[a].attackConditions[c];
-
-                        if (c < accAttacks[a].attackConditions.Length - 1)
-                            titleText += ", ";
-                        else
-                            titleText += ")";
-                    }
-
-                    entryRT.GetChild(0).GetComponent<TextMeshProUGUI>().text = titleText;
-
-                    float toAdd = 50f;
-
-                    TextMeshProUGUI descText = entryRT.GetChild(1).GetComponent<TextMeshProUGUI>();
-
-                    descText.text = accAttacks[a].attackDescription;
-                    descText.ForceMeshUpdate();
-
-                    toAdd += 1.4f * descText.renderedHeight;
-
-                    sd = entryRT.sizeDelta;
-                    sd.y = toAdd;
-                    entryRT.sizeDelta = sd;
-
-                    entryRT.anchoredPosition = addY * Vector2.up;
-
-                    addY += -1f * (toAdd + 20f);
-                    nuEntry.SetActive(true);
-                }
-            }
-
-            Vector2 csd = foeUIEntries[foeType].foeAttackList.sizeDelta;
-            csd.y = -1f * addY;
-            foeUIEntries[foeType].foeAttackList.sizeDelta = csd;
-        }
-
-        StartCoroutine(DelayedRecalculate());
-
-        */
-    }
-
-
-    private IEnumerator DelayedRecalculate()
-    {
-        yield return new WaitForEndOfFrame();
-
-        /*
-        int foeType = (int)workFoe.type;
-
-        float addY = -30f;
-        for (int i = 2; i < foeUIEntries[foeType].foeAttackList.childCount; i++)
-        {
-            RectTransform entryRT = foeUIEntries[foeType].foeAttackList.GetChild(i).GetComponent<RectTransform>();
-
-            if (entryRT.name.StartsWith("a"))
-            {
-                Vector2 sd = entryRT.sizeDelta;
-                sd.y = 20f;
-                entryRT.sizeDelta = sd;
-
-                float toAdd = 50f;
-
-                TextMeshProUGUI descText = entryRT.GetChild(1).GetComponent<TextMeshProUGUI>();
-
-                toAdd += 1.4f * descText.renderedHeight;
-
-                sd = entryRT.sizeDelta;
-                sd.y = toAdd;
-                entryRT.sizeDelta = sd;
-
-                entryRT.anchoredPosition = addY * Vector2.up;
-
-                addY += -1f * (toAdd + 20f);
-                entryRT.gameObject.SetActive(true);
-            }
-            else if (entryRT.name.StartsWith("f"))
-            {
-                Vector2 sd = entryRT.sizeDelta;
-                sd.y = 20f;
-                entryRT.sizeDelta = sd;
-
-                float toAdd = 50f;
-
-                TextMeshProUGUI descText = entryRT.GetChild(0).GetComponent<TextMeshProUGUI>();
-
-                toAdd += 1.4f * descText.renderedHeight;
-
-                sd = entryRT.sizeDelta;
-                sd.y = toAdd;
-                entryRT.sizeDelta = sd;
-
-                entryRT.anchoredPosition = addY * Vector2.up;
-
-                addY += -1f * (toAdd + 20f);
-                entryRT.gameObject.SetActive(true);
-            }
-        }
-
-        Vector2 csd = foeUIEntries[foeType].foeAttackList.sizeDelta;
-        csd.y = -1f * addY;
-        foeUIEntries[foeType].foeAttackList.sizeDelta = csd;
-        */
-    }
 
     //piece casting / uncasting
     private void FoePieceEntryPress(int id, int childIndex)

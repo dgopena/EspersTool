@@ -11,12 +11,6 @@ public class CharacterPiece : UnitPiece
 {
     public IconCharacter characterData { get; private set; }
 
-    public WheelOfFateControl seerDeckController { get; private set; } //only not null in case of being a seer type
-    
-    public bool isSeer { get; private set; }
-
-    public int woundCount { get; private set; }
-
     public void GiveData(IconCharacter data)
     {
         characterData = data.MakeCopy();
@@ -50,15 +44,6 @@ public class CharacterPiece : UnitPiece
                 }
                 break;
             }
-        }
-
-        if(characterData.classIndex == classIndex && characterData.jobIndex == seerIndex)
-        {
-            isSeer = true;
-
-            GameObject nuWOFInstance = Instantiate<GameObject>(PieceManager._instance.wheelOfFateBase.gameObject, PieceManager._instance.wheelOfFateBase.parent);
-            seerDeckController = nuWOFInstance.GetComponent<WheelOfFateControl>();
-            seerDeckController.gameObject.SetActive(false);
         }
     }
 
@@ -214,55 +199,14 @@ public class CharacterPiece : UnitPiece
 
     public override void ModifyHealth(int value)
     {
-        if (characterData.textInHPFlag)
-            return;
-
         characterData.SetFreshFlag(false);
 
         int hpValue = characterData.currentHP + value;
         if (hpValue < 0)
             hpValue = 0;
-        else if (hpValue > ((characterData.hp + characterData.addedHP) * (0.25f * (4 - woundCount))))
-            hpValue = Mathf.FloorToInt((characterData.hp + characterData.addedHP) * (0.25f * (4 - woundCount)));
 
         characterData.GiveCurrentHP(hpValue);
 
         SetPieceFaded(characterData.currentHP == 0);
-
-        //UpdateMiniPanelHealthBars();
-    }
-
-    public override void ModifyVigor(int value)
-    {
-        characterData.SetFreshFlag(false);
-
-        characterData.AddVigor(value > 0);
-
-        //UpdateMiniPanelHealthBars();
-    }
-
-    
-
-    public void DeleteWheelOfFate()
-    {
-        if (seerDeckController == null)
-            return;
-
-        Destroy(seerDeckController.gameObject);
-    }
-
-    public void SetWoundCount(int count)
-    {
-        woundCount = count;
-    }
-
-    public void UpdateWounds(int count)
-    {
-        woundCount = count;
-
-        int maxHP = Mathf.CeilToInt((characterData.hp + characterData.addedHP) * (0.25f * (4 - woundCount)));
-        characterData.GiveCurrentHP(Mathf.Min(characterData.currentHP, maxHP));
-
-        //UpdateMiniPanel();
     }
 }

@@ -163,8 +163,8 @@ public class PieceCamera : MonoBehaviour
 
     public void SetSamplerConfig(IconUnit unit, bool forceMeeple = false)
     {
-        if(forceMeeple || (unit.graphicImageID == null || unit.graphicImageID.Length == 0))
-            SetSamplerMeepleConfig(unit.headPartID, unit.bodyPartID, unit.lWeaponPartID, unit.rWeaponPartID);
+        if ((unit.graphicImageID == null || unit.graphicImageID.Length == 0))
+            Debug.Log("No graphic selected for this unit");
         else
         {
             GameObject samplePiece = GraphicPieceEditor.Instance.LoadPieceWithID(unit.graphicImageID);
@@ -255,9 +255,6 @@ public class PieceCamera : MonoBehaviour
                 SetSamplerMeepleConfig(currentHeadId, currentBodyId, currentHandLId, chosenPartId);
             }
 
-            UnitManager._instance.UpdatePiecePartLabels(currentHeadId, currentHandLId, currentHandRId);
-            PieceManager._instance.UpdatePiecePartLabels(currentHeadId, currentHandLId, currentHandRId);
-
             UnitManager._instance.listPanel.ShowPanel(false);
             UnitManager._instance.listPanel.OnEntryClick -= PiecePartListClick;
             partListOpen = false;
@@ -298,89 +295,6 @@ public class PieceCamera : MonoBehaviour
             if (scrollIndexLWeapon >= 0 && scrollIndexRWeapon >= 0)
                 break;
         }
-    }
-
-    public void ScrollHead(bool right)
-    {
-        scrollIndexHead += right ? 1 : -1;
-        if (scrollIndexHead < 0)
-            scrollIndexHead = headParts.Count - 1;
-        else if (scrollIndexHead >= headParts.Count)
-            scrollIndexHead = 0;
-
-        GetHeadPart(currentHeadId).partObj.gameObject.SetActive(false);
-        currentHeadId = headParts[scrollIndexHead].pieceID;
-        GetHeadPart(currentHeadId).partObj.gameObject.SetActive(true);
-
-        UnitManager._instance.UpdatePiecePartLabels(currentHeadId, currentHandLId, currentHandRId);
-        PieceManager._instance.UpdatePiecePartLabels(currentHeadId, currentHandLId, currentHandRId);
-    }
-
-    public void ScrollBody(bool right)
-    {
-        scrollIndexBody += right ? 1 : -1;
-        if (scrollIndexBody < 0)
-            scrollIndexBody = bodyParts.Count - 1;
-        else if (scrollIndexBody >= bodyParts.Count)
-            scrollIndexBody = 0;
-
-        GetBodyPart(currentBodyId).partObj.gameObject.SetActive(false);
-        currentBodyId = bodyParts[scrollIndexBody].pieceID;
-        GetBodyPart(currentBodyId).partObj.gameObject.SetActive(true);
-
-        UnitManager._instance.UpdatePiecePartLabels(currentHeadId, currentHandLId, currentHandRId);
-        PieceManager._instance.UpdatePiecePartLabels(currentHeadId, currentHandLId, currentHandRId);
-
-    }
-
-    public void ScrollLWeapon(bool right)
-    {
-        scrollIndexLWeapon += right ? 1 : -1;
-        if (scrollIndexLWeapon < 0)
-            scrollIndexLWeapon = weaponParts.Count - 1;
-        else if (scrollIndexLWeapon >= weaponParts.Count)
-            scrollIndexLWeapon = 0;
-
-        Transform lWeapon = GetWeaponPart(currentHandLId).partObj;
-        if (lWeapon != null)
-        {
-            pieceSampler.GetChild(3).GetChild(lWeapon.GetSiblingIndex()).gameObject.SetActive(false);
-        }
-        currentHandLId = weaponParts[scrollIndexLWeapon].pieceID;
-        lWeapon = GetWeaponPart(currentHandLId).partObj;
-        if (lWeapon != null)
-        {
-            pieceSampler.GetChild(3).GetChild(lWeapon.GetSiblingIndex()).gameObject.SetActive(true);
-        }
-
-        UnitManager._instance.UpdatePiecePartLabels(currentHeadId, currentHandLId, currentHandRId);
-        PieceManager._instance.UpdatePiecePartLabels(currentHeadId, currentHandLId, currentHandRId);
-
-    }
-
-    public void ScrollRWeapon(bool right)
-    {
-        scrollIndexRWeapon += right ? 1 : -1;
-        if (scrollIndexRWeapon < 0)
-            scrollIndexRWeapon = weaponParts.Count - 1;
-        else if (scrollIndexRWeapon >= weaponParts.Count)
-            scrollIndexRWeapon = 0;
-
-        Transform rWeapon = GetWeaponPart(currentHandRId).partObj;
-        if (rWeapon != null)
-        {
-            rWeapon.gameObject.SetActive(false);
-        }
-        currentHandRId = weaponParts[scrollIndexRWeapon].pieceID;
-        rWeapon = GetWeaponPart(currentHandRId).partObj;
-        if (rWeapon != null)
-        {
-            rWeapon.gameObject.SetActive(true);
-        }
-
-        UnitManager._instance.UpdatePiecePartLabels(currentHeadId, currentHandLId, currentHandRId);
-        PieceManager._instance.UpdatePiecePartLabels(currentHeadId, currentHandLId, currentHandRId);
-
     }
 
     public void RotateSampler(bool right)

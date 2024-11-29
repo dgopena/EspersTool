@@ -191,24 +191,16 @@ public class PieceDisplay : MonoBehaviour
         int currentMaxHP = (activeUnit.hp + activeUnit.addedHP);
         if (activeCharaPiece != null)
         {
-            currentMaxHP = Mathf.FloorToInt((0.25f * (4 - activeCharaPiece.woundCount)) * (activeUnit.hp + activeUnit.addedHP));
+            currentMaxHP = Mathf.FloorToInt((activeUnit.hp + activeUnit.addedHP));
         }
 
         hpBar.SetBar(currentMaxHP);
-        vigorBar.SetBar(activeUnit.vigor);
         UpdateHealthBars(true);
-
-        if (activeUnit.currentVigor != 0)
-            barChangeAnim.SetTrigger("SetVigorShown");
-        else
-            barChangeAnim.SetTrigger("SetVigorHidden");
 
         //stat fill
         vitStat.text = Mathf.CeilToInt((float)activeUnit.hp / 4f).ToString(); // activeUnit.vitality.ToString();
-        speedDashStat.text = activeUnit.speed + "/" + activeUnit.dash;
+        speedDashStat.text = activeUnit.speed.ToString();
         defenseStat.text = activeUnit.defense.ToString();
-        frayStat.text = activeUnit.frayDamage.ToString();
-        damageDieStat.text = activeUnit.damage;
 
         //status and effects
         statusList.ClearIcons();
@@ -229,83 +221,13 @@ public class PieceDisplay : MonoBehaviour
         statusList.ignoreUpdateFlag = false;
         effectList.ignoreUpdateFlag = false;
 
-        SetBlessButtonState();
-
         //differing setup
         if (activeCharaPiece != null)
         {
-            basicAttackStat.text = activeUnit.attackType;
-            basicAttackStat.transform.parent.parent.gameObject.SetActive(true);
-
-            woundCounter.gameObject.SetActive(true);
-            woundCounter.SetIconSlotCount(4);
-            woundCounter.SetFillCount(activeCharaPiece.woundCount);
-
-            phaseCounter.SetActive(false);
         }
         else if (activeFoePiece != null)
         {
-            basicAttackStat.transform.parent.parent.gameObject.SetActive(false);
-
-            woundCounter.gameObject.SetActive(false);
-
-            if (activeFoePiece.foeData.factionIndex >= 0)
-            {
-                SubFaction sbf = activeFoePiece.foeData.GetFactionJob();
-
-                if (sbf != null)
-                {
-                    if (sbf.phaseSet.Length > 1)
-                    {
-                        int phaseNum = activeFoePiece.foeData.currentPhase;
-
-                        string phName = sbf.phaseSet[phaseNum].setName;
-                        string phCond = sbf.phaseSet[phaseNum].setCondition;
-                        phName += "\r\n<size=60%><i>" + phCond + "</i>";
-
-                        phaseText.text = phName;
-
-                        phaseCounter.SetActive(true);
-                    }
-                    else
-                        phaseCounter.SetActive(false);
-                }
-                else
-                    phaseCounter.SetActive(false);
-            }
-            else
-            {
-                //check non faction mobs, summons and legends
-                IconFoe foeData = activeFoePiece.foeData;
-
-                if (foeData.type == FoeType.Mob || foeData.type == FoeType.SpecialSummon)
-                    phaseCounter.SetActive(false);
-                else
-                {
-                    List<FoeData.FoeClass> classList = UnitManager._instance.foes.classes;
-                    if (foeData.type == FoeType.Elite)
-                        classList = UnitManager._instance.foes.eliteClasses;
-                    else if (foeData.type == FoeType.Legend)
-                        classList = UnitManager._instance.foes.legendClasses;
-
-                    FoeData.FoeClass classData = classList[foeData.classIndex];
-
-                    if (classData.phaseAspects.Length > 1)
-                    {
-                        int phaseNum = activeFoePiece.foeData.currentPhase;
-
-                        string phName = classData.phaseAspects[phaseNum].setName;
-                        string phCond = classData.phaseAspects[phaseNum].setCondition;
-                        phName += "\r\n<size=60%><i>" + phCond + "</i>";
-
-                        phaseText.text = phName;
-
-                        phaseCounter.SetActive(true);
-                    }
-                    else
-                        phaseCounter.SetActive(false);
-                }
-            }
+            
         }
 
         traitEffectListSpacing = traitEffectBlockContent.GetComponent<VerticalLayoutGroup>().spacing;
@@ -387,86 +309,23 @@ public class PieceDisplay : MonoBehaviour
         currentHoldCooldown = 0;
     }
 
-    public void ModifyVigorHold(int value)
-    {
-        if (currentHoldCooldown > 0)
-            return;
-
-        if (!miniPanelHolding)
-        {
-            currentHoldCooldown = miniPanelHoldInitialCooldown;
-            miniPanelHolding = true;
-        }
-        else
-            currentHoldCooldown = miniPanelHoldConstantCooldown;
-
-        int auxVigor = activeUnit.currentVigor;
-
-        bool atMax = activeUnit.currentVigor == activeUnit.vigor;
-
-        if (activeCharaPiece != null)
-        {
-            activeCharaPiece.ModifyVigor(value);
-        }
-        else if (activeFoePiece != null)
-        {
-            activeFoePiece.ModifyVigor(value);
-        }
-
-        if ((atMax) && value > 0)
-            vigorBar.SetBar(activeUnit.vigor);
-
-        if (activeUnit.currentVigor != 0 && auxVigor == 0) //show animation
-            barChangeAnim.SetTrigger("ShowVigor");
-        else if (activeUnit.currentVigor == 0 && auxVigor != 0) //hide animation
-            barChangeAnim.SetTrigger("HideVigor");
-
-        UpdateHealthBars();
-    }
-
     private void UpdateHealthBars(bool force = false)
     {
-        if (!activeUnit.textInHPFlag)
-        {
-            /*
-            int currentMaxHP = (activeUnit.hp + activeUnit.addedHP);
-            if (activeCharaPiece != null)
-                currentMaxHP = Mathf.FloorToInt((0.25f * (4 - activeCharaPiece.woundCount))) * (activeUnit.hp + activeUnit.addedHP);
-            */
-
-            int currentMaxHP = GetUnitCurrentMaxHP();
-
-            if (force)
-                hpBar.ForceValue(activeUnit.currentHP);
-            else
-                hpBar.ApplyValue(activeUnit.currentHP);
-
-            hpLabel.text = activeUnit.currentHP + "/" + currentMaxHP;
-        }
-        else
-        {
-            hpLabel.text = "! " + activeUnit.textHP + " !";
-        }
+        int currentMaxHP = GetUnitCurrentMaxHP();
 
         if (force)
-            vigorBar.ForceValue(activeUnit.currentVigor);
+            hpBar.ForceValue(activeUnit.currentHP);
         else
-            vigorBar.ApplyValue(activeUnit.currentVigor);
+            hpBar.ApplyValue(activeUnit.currentHP);
 
-        vigorLabel.text = activeUnit.currentVigor + "/" + activeUnit.vigor;
+        hpLabel.text = activeUnit.currentHP + "/" + currentMaxHP;
     }
 
-    public int GetUnitCurrentMaxHP(bool considerWound = true)
+    public int GetUnitCurrentMaxHP()
     {
         if (activeCharaPiece != null)
         {
-
-            if (considerWound)
-            {
-                return Mathf.CeilToInt((activeUnit.hp + activeUnit.addedHP) * (0.25f * (4 - activeCharaPiece.woundCount)));
-            }
-            else
-                return (activeUnit.hp + activeUnit.addedHP);
+            return (activeUnit.hp + activeUnit.addedHP);
         }
         else if(activeFoePiece != null)
         {
@@ -474,110 +333,6 @@ public class PieceDisplay : MonoBehaviour
         }
 
         return activeUnit.hp;
-    }
-
-    public void ModifyBlessing(bool add)
-    {
-        activeUnit.SetFreshFlag(false);
-        activeUnit.SetBlessing(add);
-
-        SetBlessButtonState();
-    }
-
-    public void ChangePhase(bool forward)
-    {
-        if (activeFoePiece == null)
-            return;
-
-        int phaseNum = activeFoePiece.foeData.currentPhase;
-
-        if (activeFoePiece.foeData.factionIndex < 0) 
-        {
-            List<FoeData.FoeClass> classList = UnitManager._instance.foes.classes;
-            if (activeFoePiece.foeData.type == FoeType.Elite)
-                classList = UnitManager._instance.foes.eliteClasses;
-            else if (activeFoePiece.foeData.type == FoeType.Legend)
-                classList = UnitManager._instance.foes.legendClasses;
-
-            FoeData.FoeClass classData = classList[activeFoePiece.foeData.classIndex];
-
-            AspectSet[] phaseSet = classData.phaseAspects;
-
-            if (phaseSet.Length <= 1)
-                return;
-
-            phaseNum += forward ? 1 : -1;
-            if (phaseNum < 0)
-                phaseNum = phaseSet.Length - 1;
-            else if (phaseNum >= phaseSet.Length)
-                phaseNum = 0;
-
-            string phName = phaseSet[phaseNum].setName;
-            string phCond = phaseSet[phaseNum].setCondition;
-            phName += "\r\n<size=80%><i>" + phCond + "</i>";
-
-            phaseText.text = phName;
-        }
-        else
-        {
-            SubFaction sbf = activeFoePiece.foeData.GetFactionJob();
-
-            if (sbf.phaseSet.Length <= 1)
-                return;
-
-            phaseNum += forward ? 1 : -1;
-            if (phaseNum < 0)
-                phaseNum = sbf.phaseSet.Length - 1;
-            else if (phaseNum >= sbf.phaseSet.Length)
-                phaseNum = 0;
-
-            string phName = sbf.phaseSet[phaseNum].setName;
-            string phCond = sbf.phaseSet[phaseNum].setCondition;
-            phName += "\r\n<size=80%><i>" + phCond + "</i>";
-
-            phaseText.text = phName;
-        }
-
-        activeFoePiece.foeData.ChangePhase(phaseNum);
-
-        BuildTraitEffectList();
-
-        BuildAbilityList();
-    }
-
-    private void SetBlessButtonState()
-    {
-        blessingButton.GetChild(0).GetComponent<Image>().color = activeUnit.blessingTokens > 0 ? blessingColor : Color.white;
-        blessingButton.GetChild(2).GetComponent<Image>().color = activeUnit.blessingTokens > 0 ? blessingColor : Color.white;
-        TextMeshProUGUI blessingText = blessingButton.GetChild(1).GetComponent<TextMeshProUGUI>();
-        string blessText = "Bless";
-        if (activeUnit.blessingTokens > 1)
-            blessText = "Blessed (" + activeUnit.blessingTokens + ")";
-        else if (activeUnit.blessingTokens > 0)
-            blessText = "Blessed";
-
-        blessingText.text = blessText;
-        blessingText.color = activeUnit.blessingTokens > 0 ? blessingColor : Color.white;
-    }
-
-    public void UpdateWoundCount()
-    {
-        if (activeCharaPiece == null)
-            return;
-
-        activeUnit.SetFreshFlag(false);
-
-        int startVal = woundCounter.GetIconStateCount(true);
-
-        activeCharaPiece.SetWoundCount(startVal);
-
-        int currentHP = Mathf.Clamp(activeCharaPiece.characterData.currentHP, 0, GetUnitCurrentMaxHP());
-        activeCharaPiece.characterData.GiveCurrentHP(currentHP);
-
-        hpLabel.text = activeCharaPiece.characterData.currentHP + "/" + GetUnitCurrentMaxHP();
-
-        hpBar.SetBar(GetUnitCurrentMaxHP());
-        hpBar.ForceValue(activeCharaPiece.characterData.currentHP);
     }
 
     public void UpdateStatusEffects()
@@ -701,16 +456,6 @@ public class PieceDisplay : MonoBehaviour
 
             GameObject entry = CreateTraitEffectEntry(st.ToString(), desc);
             entry.GetComponent<Image>().color = statusEffectColor;
-        }
-
-        //traits
-        List<ClassData.Trait> trts = activeUnit.GetTraits();
-
-        for (int i = 0; i < trts.Count; i++)
-        {
-            ClassData.Trait tr = trts[i];
-
-            CreateTraitEffectEntry(tr.traitName, tr.traitDescription);
         }
 
         currentTraitSelectedIndex = -1;

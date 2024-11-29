@@ -210,8 +210,6 @@ public class ExpeditionScreen : MonoBehaviour
             int charaID = sortedUnits[i].unitID;
             int charaEntryChildIndex = childCount;
 
-            entryListRT.GetChild(1).GetComponent<TextMeshProUGUI>().text = UnitManager._instance.classes.classes[sortedUnits[i].classIndex].jobs[sortedUnits[i].jobIndex].name;
-
             entryListRT.GetChild(2).GetComponent<HoldButton>().onRelease.AddListener(delegate {
                 EditCharacterCall(charaID);
             });
@@ -285,9 +283,6 @@ public class ExpeditionScreen : MonoBehaviour
                 IconCharacter charaInfo = characterUnits[i];
                 characterSummaryScreen.GetComponent<Image>().color = charaInfo.colorChoice;
                 charSummaryName.text = charaInfo.unitName;
-                charSummaryValues.text = "<b>Lvl " + charaInfo.level + "</b> - <i>" + charaInfo.kin.ToString() + "</i>";
-                charSummaryNarrative.text = "<b>Narrative Aspect</b><size=90%>\n\n· Culture - <i>" + UnitManager._instance.cultures.cultures[charaInfo.narrativeAspect.cultureIndex].name + "</i>\n\n· Bond - <i>" + UnitManager._instance.bonds.bonds[charaInfo.narrativeAspect.bondIndex].name + "</i>";
-                charSummaryTactical.text = "<b>Tactical Combat</b><size=90%>\n\n· Class - <i>" + UnitManager._instance.classes.classes[charaInfo.classIndex].name + "</i>\n\n· Job - <i>" + UnitManager._instance.classes.classes[charaInfo.classIndex].jobs[charaInfo.jobIndex].name + "</i>";
 
                 characterSummaryScreen.gameObject.SetActive(true);
 
@@ -353,16 +348,7 @@ public class ExpeditionScreen : MonoBehaviour
                 detailLabel += details[1];
             else
             {
-                if (sortedUnits[i].factionIndex < 0)
-                {
-                    if (details[2] != "None")
-                    {
-                        detailLabel += details[2] + " ";
-                    }
-                    detailLabel += details[1];
-                }
-                else
-                    detailLabel += details[2] + " " + details[1];
+                detailLabel += details[2] + " " + details[1];
             }
 
             entryListRT.GetChild(1).GetComponent<TextMeshProUGUI>().text = "<i>" + detailLabel + "</i>";
@@ -452,26 +438,7 @@ public class ExpeditionScreen : MonoBehaviour
                 string[] deets = UnitManager._instance.GetFoeDetails(foeUnits[i]);
 
                 string additional = "";
-                if (foeUnits[i].factionIndex < 0)
-                {
-                    if (foeUnits[i].templateIndex >= 0)
-                        additional += "\n\n·" + deets[2] + " template";
-
-                    if (foeInfo.type == FoeType.Foe)
-                        foeSummaryTactical.text = "<b>Tactical Combat</b><size=90%>\n\n· Class - <i>" + deets[0] + "</i>\n\n· Job - <i>" + deets[1] + "</i>" + additional;
-                    else if (foeInfo.type == FoeType.Mob)
-                        foeSummaryTactical.text = "<b>Tactical Combat</b><size=90%>\n\n· Type - <i>" + deets[1] + "</i>" + additional;
-                    else if (foeInfo.type == FoeType.SpecialSummon)
-                    {
-                        foeSummaryTactical.text = "<b>Tactical Combat</b><size=90%>\n\n· <i>" + deets[1] + "</i>\n\n· <i>" + deets[2] + "</i>";
-                    }
-                    else
-                        foeSummaryTactical.text = "<b>Tactical Combat</b><size=90%>\n\n· Class - <i>" + deets[1] + "</i>" + additional;
-                }
-                else
-                {
-                    foeSummaryTactical.text = "<b>Tactical Combat</b><size=90%>\n\n· Class - <i>" + deets[0] + "</i>\n\n· Job - <i>" + deets[2] + " (" + deets[1] + ")" + "</i>";
-                }
+                foeSummaryTactical.text = "<b>Tactical Combat</b><size=90%>\n\n· Class - <i>" + deets[0] + "</i>\n\n· Job - <i>" + deets[2] + " (" + deets[1] + ")" + "</i>";
 
                 foeSummaryScreen.gameObject.SetActive(true);
             }

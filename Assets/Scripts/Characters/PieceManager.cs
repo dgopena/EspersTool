@@ -546,9 +546,6 @@ public class PieceManager : MonoBehaviour
                 {
                     SetPieceButtonOptions(pieceOptionButtonActive);
 
-                    if (activeCharacterPiece != null && pieceOptionButtonActive)
-                        cardOptionButton.SetActive(activeCharacterPiece.isSeer);
-
                     //SetMiniPanelsActive(true);
                     MarkManager._instance.CloseMarkEdit();
                 }
@@ -705,7 +702,6 @@ public class PieceManager : MonoBehaviour
             pieceLogic.SetMapPosition(spawnPosition);
         else
             pieceLogic.SetOuterMapPosition(spawnPosition);
-        pieceLogic.ChangeSize(toSpawn.size);
 
         if (castedPieces == null)
             castedPieces = new List<UnitPiece>();
@@ -849,15 +845,6 @@ public class PieceManager : MonoBehaviour
             pieceLogic.SetMapPosition(spawnPosition);
         else
             pieceLogic.SetOuterMapPosition(spawnPosition);
-
-        int sizeToSpawn = toSpawn.size;
-        if (pieceAutoSize && !fromLoad)
-        {
-            sizeToSpawn = toSpawn.HasTraitSize();
-            toSpawn.GiveSize(sizeToSpawn);
-        }
-
-        pieceLogic.ChangeSize(sizeToSpawn);
 
         if (castedPieces == null)
             castedPieces = new List<UnitPiece>();
@@ -1131,29 +1118,6 @@ public class PieceManager : MonoBehaviour
         return castedPieces;
     }
 
-    public void UpdatePiecePartLabels(int headIndex, int lWeaponIndex, int rWeaponIndex)
-    {
-
-        if(activePieceType == 0)
-        {
-            charaHeadPiecePartPanelInfoLabel.text = PieceCamera._instance.GetHeadPart(headIndex).partName;
-            charaLWeaponPiecePartPanelInfoLabel.text = PieceCamera._instance.GetWeaponPart(lWeaponIndex).partName;
-            charaRWeaponPiecePartPanelInfoLabel.text = PieceCamera._instance.GetWeaponPart(rWeaponIndex).partName;
-
-            characterInfoPanel.UpdatePieceParts();
-            characterInfoPanel.UpdateApplyDiffButton();
-        }
-        else if(activePieceType == 1)
-        {
-            foeHeadPiecePartPanelInfoLabel.text = PieceCamera._instance.GetHeadPart(headIndex).partName;
-            foeLWeaponPiecePartPanelInfoLabel.text = PieceCamera._instance.GetWeaponPart(lWeaponIndex).partName;
-            foeRWeaponPiecePartPanelInfoLabel.text = PieceCamera._instance.GetWeaponPart(rWeaponIndex).partName;
-
-            foeInfoPanel.UpdatePieceParts();
-            foeInfoPanel.UpdateApplyDiffButton();
-        }
-    }
-
     public UnitPiece GetActivePiece()
     {
         if (activePieceType == 0)
@@ -1177,42 +1141,12 @@ public class PieceManager : MonoBehaviour
                 IconCharacter load = charaBase.MakeCopy();
 
                 load.SetFreshFlag(false); //may cause problems
-                load.GiveSize(loadedData.pieces[i].pieceSize);
-
-                if (!loadedData.pieces[i].textHPFlag)
-                {
-                    load.CorrectTextHP(loadedData.pieces[i].pieceHP);
-                    load.GiveCurrentHP(loadedData.pieces[i].pieceCurrentHP);
-                    load.GiveAddedHP(loadedData.pieces[i].pieceAddedHP);
-                }
-                else
-                {
-                    load.SetTextHP(loadedData.pieces[i].textHP);
-                }
-
-                if (!loadedData.pieces[i].textArmorFlag)
-                {
-                    load.CorrectTextArmor(loadedData.pieces[i].pieceArmor);
-                }
-                else
-                {
-                    load.SetTextArmor(loadedData.pieces[i].textArmor);
-                }
-
-                load.SetVigor(loadedData.pieces[i].pieceCurrentVigor, loadedData.pieces[i].pieceVigor);
-
-                load.SetBlessing(loadedData.pieces[i].blessingCount);
-
-                load.elixirs = loadedData.pieces[i].pieceElixirCount;
-                load.elixirState = loadedData.pieces[i].pieceElixirState;
+                load.GiveCurrentHP(loadedData.pieces[i].pieceCurrentHP);
+                load.GiveAddedHP(loadedData.pieces[i].pieceAddedHP);
 
                 load.GiveBlightList(loadedData.PassToBlightList(i));
                 load.GiveStatusList(loadedData.PassToStatusList(i));
                 load.GiveEffectList(loadedData.PassToEffectList(i));
-
-                load.GivePartIDs(loadedData.pieces[i].pieceHeadPartID, loadedData.pieces[i].pieceBodyPartID, loadedData.pieces[i].pieceLWeaponPartID, loadedData.pieces[i].pieceRWeaponPartID);
-
-                //marks pending
 
                 Vector3 pos = Vector3.zero;
                 if (loadedData.pieces[i].onMap)
@@ -1234,8 +1168,6 @@ public class PieceManager : MonoBehaviour
                 bool allowMiniPanel = (miniPanelShow == 2) || (miniPanelShow == 1 && (activePieceType == 0) && activeCharacterPiece == castedChara);
                 castedChara.SetPieceColor(pieceColor);
                 castedChara.SetPieceRotation(loadedData.pieces[i].pieceRotation);
-                //castedChara.SetMiniPanelActive(allowMiniPanel);
-                castedChara.SetWoundCount(loadedData.pieces[i].pieceWoundCount);
                 castedChara.SetPieceFaded(castedChara.characterData.currentHP == 0);
             }
 
@@ -1246,37 +1178,13 @@ public class PieceManager : MonoBehaviour
                 IconFoe load = foeBase.MakeCopy();
 
                 load.SetFreshFlag(false); //may cause problems
-                load.GiveSize(loadedData.pieces[i].pieceSize);
 
-                if (!loadedData.pieces[i].textHPFlag)
-                {
-                    load.CorrectTextHP(loadedData.pieces[i].pieceHP);
-                    load.GiveCurrentHP(loadedData.pieces[i].pieceCurrentHP);
-                    load.GiveAddedHP(loadedData.pieces[i].pieceAddedHP);
-                }
-                else
-                {
-                    load.SetTextHP(loadedData.pieces[i].textHP);
-                }
-
-                if (!loadedData.pieces[i].textArmorFlag)
-                {
-                    load.CorrectTextArmor(loadedData.pieces[i].pieceArmor);
-                }
-                else
-                {
-                    load.SetTextArmor(loadedData.pieces[i].textArmor);
-                }
-
-                load.SetVigor(loadedData.pieces[i].pieceCurrentVigor, loadedData.pieces[i].pieceVigor);
-
-                load.SetBlessing(loadedData.pieces[i].blessingCount);
+                load.GiveCurrentHP(loadedData.pieces[i].pieceCurrentHP);
+                load.GiveAddedHP(loadedData.pieces[i].pieceAddedHP);
 
                 load.GiveBlightList(loadedData.PassToBlightList(i));
                 load.GiveStatusList(loadedData.PassToStatusList(i));
                 load.GiveEffectList(loadedData.PassToEffectList(i));
-
-                load.GivePartIDs(loadedData.pieces[i].pieceHeadPartID, loadedData.pieces[i].pieceBodyPartID, loadedData.pieces[i].pieceLWeaponPartID, loadedData.pieces[i].pieceRWeaponPartID);
 
                 //marks pending
 
@@ -1560,8 +1468,6 @@ public class PieceManager : MonoBehaviour
         if (activePieceType == 0)
         {
             MarkManager._instance.PieceDeletion(activeCharacterPiece);
-            //activeCharacterPiece.DeleteMiniPanel();
-            activeCharacterPiece.DeleteWheelOfFate();
             DespawnCharacterPiece(activeCharacterPiece);
         }
         else if(activePieceType == 1)
@@ -1633,7 +1539,6 @@ public class PieceManager : MonoBehaviour
     {
         if (activePieceType == 0)
         {
-            characterInfoPanel.UpdatePieceParts();
             characterInfoPanel.gameObject.SetActive(false);
             activeCharacterPiece.GiveData(characterInfoPanel.GetCharacterData());
 
@@ -1646,7 +1551,6 @@ public class PieceManager : MonoBehaviour
         }
         else if(activePieceType == 1)
         {
-            foeInfoPanel.UpdatePieceParts();
             foeInfoPanel.gameObject.SetActive(false);
             activeFoePiece.GiveData(foeInfoPanel.GetFoeData());
 
@@ -1817,10 +1721,6 @@ public class PieceManager : MonoBehaviour
             int panelMode = 0;
             if (MapManager._instance.toolMode == MapManager.ToolMode.UnitMaker)
                 panelMode = 2;
-            else if(activeCharacterPiece != null && activeCharacterPiece.isSeer)
-            {
-                panelMode = 1;
-            }
 
             pieceDisplayPanel.SetPanelToolsMode(panelMode);
         }

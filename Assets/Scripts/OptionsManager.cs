@@ -663,27 +663,10 @@ public class OptionsManager : MonoBehaviour
             nuChara.unitName = charaFiles[i].name;
             nuChara.level = charaFiles[i].level;
             nuChara.SetBaseHP(charaFiles[i].hp);
-            nuChara.elixirs = charaFiles[i].elixirCount;
-            nuChara.GiveSize(charaFiles[i].size);
-            nuChara.GiveArmorValue(charaFiles[i].armor);
-            nuChara.colorChoice = new Color(charaFiles[i].colorRed, charaFiles[i].colorGreen, charaFiles[i].colorBlue);
-            nuChara.GivePartIDs(charaFiles[i].headPartID, charaFiles[i].bodyPartID, charaFiles[i].lWeaponPartID, charaFiles[i].rWeaponPartID);
             nuChara.GiveID(charaFiles[i].charaID);
             nuChara.GiveGraphicPieceID(charaFiles[i].graphicPieceID);
 
             nuChara.classIndex = charaFiles[i].classIndex;
-            nuChara.jobIndex = charaFiles[i].firstJobIndex;
-
-            nuChara.GiveNarrativeAspect(UnitManager.GetBaseNarrativeChara());
-            nuChara.kin = (Kin)charaFiles[i].kinIndex;
-            nuChara.narrativeAspect.SetCulture(charaFiles[i].cultureIndex);
-            nuChara.narrativeAspect.SetBond(charaFiles[i].bondIndex);
-            nuChara.narrativeAspect.SetStartActionIndex(charaFiles[i].startActionIndex);
-            
-            for(int ac = 0; ac < charaFiles[i].dotModifiers.Length; ac++)
-            {
-                nuChara.narrativeAspect.ChangeDotModifier(ac, charaFiles[i].dotModifiers[ac]);
-            }
 
             nuChara.lastModified = DateTime.FromBinary(charaFiles[i].lastModified);
 
@@ -778,10 +761,9 @@ public class OptionsManager : MonoBehaviour
     {
         CharaFile nuFile = new CharaFile();
         nuFile.GiveUnitID(source.unitID);
-        nuFile.GiveGeneralAspects(source.unitName, source.level, source.hp, source.elixirs, source.size, source.armor, source.kin, source.colorChoice);
-        nuFile.GivePiecePartIDs(source.headPartID, source.bodyPartID, source.lWeaponPartID, source.rWeaponPartID, source.graphicImageID);
-        nuFile.GiveNarrativeAspects(source.narrativeAspect.cultureIndex, source.narrativeAspect.bondIndex, source.narrativeAspect.startActionChoiceIndex, source.narrativeAspect.actionValues.ToArray());
-        nuFile.GiveTacticalAspects(source.classIndex, source.jobIndex);
+        nuFile.GiveGeneralAspects(source.unitName, source.level, source.hp, source.colorChoice);
+        nuFile.GivePiecePartIDs(source.graphicImageID);
+        nuFile.GiveTacticalAspects(source.classIndex, source.skillsIDs);
         nuFile.SetLastModification(source.lastModified);
 
         return nuFile;
@@ -867,21 +849,11 @@ public class OptionsManager : MonoBehaviour
             nuFoe.type = (FoeType)foeFiles[i].foeTypeIndex;
             nuFoe.level = foeFiles[i].chapter;
             nuFoe.SetBaseHP(foeFiles[i].hp);
-            nuFoe.GiveSize(foeFiles[i].size);
-            nuFoe.GiveArmorValue(foeFiles[i].armor);
             nuFoe.colorChoice = new Color(foeFiles[i].colorRed, foeFiles[i].colorGreen, foeFiles[i].colorBlue);
-            nuFoe.GivePartIDs(foeFiles[i].headPartID, foeFiles[i].bodyPartID, foeFiles[i].lWeaponPartID, foeFiles[i].rWeaponPartID);
             nuFoe.GiveID(foeFiles[i].foeID);
             nuFoe.GiveGraphicPieceID(foeFiles[i].graphicPieceID);
 
             nuFoe.classIndex = foeFiles[i].classIndex;
-            nuFoe.jobIndex = foeFiles[i].jobIndex;
-
-            nuFoe.factionIndex = foeFiles[i].factionIndex;
-            nuFoe.subFactionIndex = foeFiles[i].subFactionIndex;
-            nuFoe.templateIndex = foeFiles[i].templateIndex;
-            nuFoe.subTemplate = foeFiles[i].hasSubTemplate;
-            nuFoe.isDefaultFactionEntry = foeFiles[i].isDefaultFactionEntry;
 
             nuFoe.lastModified = DateTime.FromBinary(foeFiles[i].lastModified);
 
@@ -975,9 +947,9 @@ public class OptionsManager : MonoBehaviour
     {
         FoeFile nuFile = new FoeFile();
         nuFile.GiveUnitID(source.unitID);
-        nuFile.GiveGeneralAspects(source.unitName, source.level, source.hp, source.size, source.armor, (int)source.type, source.colorChoice);
-        nuFile.GivePiecePartIDs(source.headPartID, source.bodyPartID, source.lWeaponPartID, source.rWeaponPartID, source.graphicImageID);
-        nuFile.GiveTacticalAspects(source.classIndex, source.jobIndex, source.factionIndex, source.subFactionIndex, source.templateIndex, source.subTemplate, source.isDefaultFactionEntry);
+        nuFile.GiveGeneralAspects(source.unitName, source.level, source.hp, (int)source.type, source.colorChoice);
+        nuFile.GivePiecePartIDs(source.graphicImageID);
+        nuFile.GiveTacticalAspects(source.classIndex);
         nuFile.SetLastModification(source.lastModified);
 
         return nuFile;
@@ -1661,43 +1633,22 @@ public class PieceFile
                 IconCharacter iconChara = (pieces[i] as CharacterPiece).characterData;
                 pees.freshFlag = iconChara.freshFlag;
                 pees.pieceID = iconChara.unitID;
-                pees.textHPFlag = iconChara.textInHPFlag;
-                pees.textHP = iconChara.textHP;
-                pees.textArmorFlag = iconChara.textInArmorFlag;
-                pees.textArmor = iconChara.textArmor;
-                pees.pieceArmor = iconChara.armor;
                 pees.pieceHP = iconChara.hp;
                 pees.pieceCurrentHP = iconChara.currentHP;
                 pees.pieceAddedHP = iconChara.addedHP;
-                pees.pieceCurrentVigor = iconChara.currentVigor;
-                pees.pieceVigor = iconChara.vigor;
-                pees.blessingCount = iconChara.blessingTokens;
-
-                pees.pieceWoundCount = (pieces[i] as CharacterPiece).woundCount;
 
                 pees.pieceActiveBlight = PassToString(iconChara.activeBlights);
                 pees.pieceActiveStatus = PassToString(iconChara.activeStatus);
                 pees.pieceActivePositiveEffect = PassToString(iconChara.activePositiveEffects);
-
-                pees.pieceElixirCount = iconChara.elixirs;
-                pees.pieceElixirState = iconChara.elixirState;
             }
             else if(pieces[i] is FoePiece)
             {
                 IconFoe iconFoe = (pieces[i] as FoePiece).foeData;
                 pees.freshFlag = iconFoe.freshFlag;
                 pees.pieceID = iconFoe.unitID;
-                pees.textHPFlag = iconFoe.textInHPFlag;
-                pees.textHP = iconFoe.textHP;
-                pees.textArmorFlag = iconFoe.textInArmorFlag;
-                pees.textArmor = iconFoe.textArmor;
-                pees.pieceArmor = iconFoe.armor;
                 pees.pieceHP = iconFoe.hp;
                 pees.pieceCurrentHP = iconFoe.currentHP;
                 pees.pieceAddedHP = iconFoe.addedHP;
-                pees.pieceCurrentVigor = iconFoe.currentVigor;
-                pees.pieceVigor = iconFoe.vigor;
-                pees.blessingCount = iconFoe.blessingTokens;
 
                 pees.pieceActiveBlight = PassToString(iconFoe.activeBlights);
                 pees.pieceActiveStatus = PassToString(iconFoe.activeStatus);
@@ -1949,49 +1900,24 @@ public class CharaFile
         charaID = ID;
     }
 
-    public void GiveGeneralAspects(string name, int level, int hp, int elixirCount, int size, int armor, Kin kin, Color choiceColor)
+    public void GiveGeneralAspects(string name, int level, int hp, Color choiceColor)
     {
         this.name = name;
         this.level = level;
         this.hp = hp;
-        this.elixirCount = elixirCount;
-        this.size = size;
-        this.armor = armor;
-        kinIndex = (int)kin;
         colorRed = choiceColor.r;
         colorBlue = choiceColor.b;
         colorGreen = choiceColor.g;
     }
 
-    public void GivePiecePartIDs(int headPartID, int bodyPartID, int lWeaponPartID, int rWeaponPartID, string graphicPieceID)
+    public void GivePiecePartIDs(string graphicPieceID)
     {
-        this.headPartID = headPartID;
-        this.bodyPartID = bodyPartID;
-        this.lWeaponPartID = lWeaponPartID;
-        this.rWeaponPartID = rWeaponPartID;
-
-        //this.relatedImageID = relatedImageID;
-
         this.graphicPieceID = graphicPieceID;
     }
 
-    public void GiveNarrativeAspects(int cultureIndex, int bondIndex, int startActionIndex, NarrativeChara.ActionModifier[] actionModifiers)
-    {
-        this.cultureIndex = cultureIndex;
-        this.bondIndex = bondIndex;
-        this.startActionIndex = startActionIndex;
-
-        dotModifiers = new int[actionModifiers.Length];
-        for (int i = 0; i < actionModifiers.Length; i++)
-        {
-            dotModifiers[i] = actionModifiers[i].dotModifier;
-        }
-    }
-
-    public void GiveTacticalAspects(int classIndex, int jobIndex)
+    public void GiveTacticalAspects(int classIndex, int[] skillsID)
     {
         this.classIndex = classIndex;
-        this.firstJobIndex = jobIndex;
     }
 
     public void SetLastModification(DateTime lastMod)
@@ -2047,13 +1973,11 @@ public class FoeFile
         foeID = ID;
     }
 
-    public void GiveGeneralAspects(string name, int chapter, int hp, int size, int armor, int foeType, Color choiceColor)
+    public void GiveGeneralAspects(string name, int chapter, int hp, int foeType, Color choiceColor)
     {
         this.name = name;
         this.chapter = chapter;
         this.hp = hp;
-        this.size = size;
-        this.armor = armor;
 
         foeTypeIndex = foeType;
 
@@ -2062,27 +1986,14 @@ public class FoeFile
         colorGreen = choiceColor.g;
     }
 
-    public void GivePiecePartIDs(int headPartID, int bodyPartID, int lWeaponPartID, int rWeaponPartID, string graphicPieceID)
+    public void GivePiecePartIDs(string graphicPieceID)
     {
-        this.headPartID = headPartID;
-        this.bodyPartID = bodyPartID;
-        this.lWeaponPartID = lWeaponPartID;
-        this.rWeaponPartID = rWeaponPartID;
-
-        //this.imageID = relatedImageID;
-
         this.graphicPieceID = graphicPieceID;
     }
 
-    public void GiveTacticalAspects(int classIndex, int jobIndex, int factionIndex, int subFactionIndex, int templateIndex, int subTemplateCondition, bool isDefaultFaction)
+    public void GiveTacticalAspects(int classIndex)
     {
         this.classIndex = classIndex;
-        this.jobIndex = jobIndex;
-        this.factionIndex = factionIndex;
-        this.subFactionIndex = subFactionIndex;
-        this.templateIndex = templateIndex;
-        this.hasSubTemplate = subTemplateCondition;
-        this.isDefaultFactionEntry = isDefaultFaction;
     }
 
     public void SetLastModification(DateTime lastMod)

@@ -169,9 +169,6 @@ public class FoePiece : UnitPiece
 
     public override void ModifyHealth(int value)
     {
-        if (foeData.textInHPFlag)
-            return;
-
         int hpValue = foeData.currentHP + value;
         if (hpValue < 0)
             hpValue = 0;
@@ -181,13 +178,6 @@ public class FoePiece : UnitPiece
         foeData.GiveCurrentHP(hpValue);
 
         SetPieceFaded(foeData.currentHP == 0);
-
-        //UpdateMiniPanelHealthBars();
-    }
-
-    public override void ModifyVigor(int value)
-    {
-        foeData.AddVigor(value > 0);
 
         //UpdateMiniPanelHealthBars();
     }
