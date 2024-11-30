@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 //grabs and displays the cards in an orderly fashion
@@ -20,12 +21,16 @@ public class CardMat : MonoBehaviour
     [Space(10f)]
     [SerializeField] private float minWidthForMat = 100f;
     [SerializeField] private float rowHeightFactorForCards = 0.9f;
-    public float cardScaledHeight;
+    [HideInInspector] public float cardScaledHeight;
     
     [Space(10f)]
     [SerializeField] private float heightForCardAreaMin = 0.1f;
     [SerializeField] private float heightForCardAreaMax = 0.75f;
-    
+
+    public UnityEvent OnCardSelectUpdate;
+
+    [HideInInspector] public int selectedCardNumbers;
+
     private struct CardRow
     {
         public List<FateCard> cards;
@@ -50,6 +55,7 @@ public class CardMat : MonoBehaviour
         for(int i = 0; i < cards.Count; i++)
         {
             cards[i].transform.parent = matRT;
+            cards[i].SetParentMat(this);
             cards[i].transform.SetAsFirstSibling();
         }
         aux.AddRange(cards);
@@ -79,6 +85,7 @@ public class CardMat : MonoBehaviour
                 if (checking.IsSelected)
                 {
                     checking.transform.parent = null;
+                    checking.SetParentMat(null);
                     ToReturn.Add(checking);
                 }
                 else
@@ -94,6 +101,22 @@ public class CardMat : MonoBehaviour
         return ToReturn;
     }
 
+    public void ToggleHideCards()
+    {
+
+    }
+
+    public void SetCardsHidden(bool hidden)
+    {
+
+    }
+
+    public void ShuffleCards()
+    {
+
+    }
+
+    #region Mat Look
     //orders the cards for proper display
     public void ArrangeMat()
     {
@@ -205,4 +228,5 @@ public class CardMat : MonoBehaviour
     {
         matRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
     }
+    #endregion
 }

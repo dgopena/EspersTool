@@ -137,7 +137,15 @@ public class PlayerDeck : MonoBehaviour
 
         if (forceMinScale)
         {
-            float minHeight = Mathf.Min(handMat.cardScaledHeight, fateMat.cardScaledHeight, discardMat.cardScaledHeight, aetherMat.cardScaledHeight);
+            float minHeight = float.MaxValue;
+            if (handMat.cardScaledHeight < minHeight && handMat.cardScaledHeight > 0f)
+                minHeight = handMat.cardScaledHeight;
+            if (fateMat.cardScaledHeight < minHeight && fateMat.cardScaledHeight > 0f)
+                minHeight = fateMat.cardScaledHeight;
+            if (discardMat.cardScaledHeight < minHeight && discardMat.cardScaledHeight > 0f)
+                minHeight = discardMat.cardScaledHeight;
+            if (aetherMat.cardScaledHeight < minHeight && aetherMat.cardScaledHeight > 0f)
+                minHeight = aetherMat.cardScaledHeight;
 
             handMat.ApplyHeightToCards(minHeight);
             fateMat.ApplyHeightToCards(minHeight);
