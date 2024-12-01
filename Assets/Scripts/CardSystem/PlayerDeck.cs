@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -21,9 +22,13 @@ public class PlayerDeck : MonoBehaviour
 
     [Header("Default Sizes")]
     [SerializeField] private int handSize = 5;
+    [SerializeField] private bool handStartHidden = false;
     [SerializeField] private int fateSize = 15;
+    [SerializeField] private bool fateStartHidden = true;
     [SerializeField] private int discardSize = 0;
+    [SerializeField] private bool discardStartHidden = true;
     [SerializeField] private int aetherSize = 32;
+    [SerializeField] private bool aetherStartHidden = true;
 
     [Header("Mats")]
     [SerializeField] private CardMat handMat;
@@ -33,9 +38,18 @@ public class PlayerDeck : MonoBehaviour
     [SerializeField] private CardMat discardMat;
     [SerializeField] private float minWidthForMat = 100f;
     [SerializeField] private bool forceMinScale = true;
+    public bool ForceMinScale => forceMinScale;
 
     [Space(10f)]
     [SerializeField] private CardMat aetherMat;
+
+    [Header("BorderPoints")]
+    [SerializeField] private RectTransform handFateMidBorder;
+    [SerializeField] private RectTransform fateAetherMidBorder;
+    [SerializeField] private RectTransform handDiscardMidBorder;
+    [SerializeField] private RectTransform discardAetherMidBorder;
+    [SerializeField] private RectTransform handAetherMidBorder;
+    [SerializeField] private RectTransform fateDiscardMidBorder;
 
     private void Awake()
     {
@@ -44,6 +58,11 @@ public class PlayerDeck : MonoBehaviour
 
     public void SetDeckUp()
     {
+        handMat.mainDeck = this;
+        fateMat.mainDeck = this;
+        discardMat.mainDeck = this;
+        aetherMat.mainDeck = this;
+
         List<FateCard> allDeck = new List<FateCard>();
 
         for (int s = 0; s < 4; s++)
@@ -98,7 +117,10 @@ public class PlayerDeck : MonoBehaviour
             cardIndex++;
         }
 
+        handMat.SetCardsHidden(handStartHidden);
         handMat.AddCardsToMat(hand);
+
+        aetherMat.SetCardsHidden(aetherStartHidden);
         aetherMat.AddCardsToMat(aether);
 
         //we first adjust the needed size for the mats
@@ -132,25 +154,74 @@ public class PlayerDeck : MonoBehaviour
             discardMat.SetMatWidth(discardWidth);
         }
 
+        fateMat.SetCardsHidden(fateStartHidden);
         fateMat.AddCardsToMat(fate);
+
+        discardMat.SetCardsHidden(discardStartHidden);
         discardMat.AddCardsToMat(discard);
 
         if (forceMinScale)
         {
-            float minHeight = float.MaxValue;
-            if (handMat.cardScaledHeight < minHeight && handMat.cardScaledHeight > 0f)
-                minHeight = handMat.cardScaledHeight;
-            if (fateMat.cardScaledHeight < minHeight && fateMat.cardScaledHeight > 0f)
-                minHeight = fateMat.cardScaledHeight;
-            if (discardMat.cardScaledHeight < minHeight && discardMat.cardScaledHeight > 0f)
-                minHeight = discardMat.cardScaledHeight;
-            if (aetherMat.cardScaledHeight < minHeight && aetherMat.cardScaledHeight > 0f)
-                minHeight = aetherMat.cardScaledHeight;
+            float minHeight = GetMinScale();
 
             handMat.ApplyHeightToCards(minHeight);
             fateMat.ApplyHeightToCards(minHeight);
             discardMat.ApplyHeightToCards(minHeight);
             aetherMat.ApplyHeightToCards(minHeight);
         }
+    }
+
+    public void UpdateFateDiscardSize()
+    {
+        float maxWidth = handMat.GetMatWidth();
+
+        int fateCount = fateMat.GetCardCount();
+        int discardCount = discardMat.GetCardCount();
+
+        float divSize = maxWidth / ((float)fateCount + (float)discardCount);
+        float fateWidth = (float)fateCount * divSize;
+        float discardWidth = (float)discardCount * divSize;
+        if (fateWidth < minWidthForMat)
+        {
+            fateWidth = minWidthForMat;
+            discardWidth = maxWidth - minWidthForMat;
+        }
+        else if (discardWidth < minWidthForMat)
+        {
+            fateWidth = maxWidth - minWidthForMat;
+            discardWidth = minWidthForMat;
+        }
+        fateMat.SetMatWidth(fateWidth);
+        discardMat.SetMatWidth(discardWidth);
+    }
+
+    public void UpdateMidBorders()
+    {
+        //hand fate
+        Vector4 fatePoints = fateMat.GetAnchorPoints();
+        Vector4 discardPoints = discardMat.GetAnchorPoints();
+
+        handFateMidBorder.position = new Vector2(0.5f * (fatePoints.y + fatePoints.x), fatePoints.w);
+        fateAetherMidBorder.position = new Vector2(0.5f * (fatePoints.y + fatePoints.x), fatePoints.z);
+        handDiscardMidBorder.position = new Vector2(0.5f * (discardPoints.y + discardPoints.x), discardPoints.w);
+        handAetherMidBorder.position = new Vector2(0.5f * (discardPoints.y + discardPoints.x), discardPoints.z);
+
+        fateDiscardMidBorder.position = new Vector2(fatePoints.y, (0.4f * (fatePoints.w - fatePoints.z)) + fatePoints.z);
+        handAetherMidBorder.position = new Vector2(fatePoints.y, (0.6f * (fatePoints.w - fatePoints.z)) + fatePoints.z);
+    }
+
+    public float GetMinScale()
+    {
+        float minHeight = float.MaxValue;
+        if (handMat.cardScaledHeight < minHeight && handMat.cardScaledHeight > 0f)
+            minHeight = handMat.cardScaledHeight;
+        if (fateMat.cardScaledHeight < minHeight && fateMat.cardScaledHeight > 0f)
+            minHeight = fateMat.cardScaledHeight;
+        if (discardMat.cardScaledHeight < minHeight && discardMat.cardScaledHeight > 0f)
+            minHeight = discardMat.cardScaledHeight;
+        if (aetherMat.cardScaledHeight < minHeight && aetherMat.cardScaledHeight > 0f)
+            minHeight = aetherMat.cardScaledHeight;
+
+        return minHeight;
     }
 }

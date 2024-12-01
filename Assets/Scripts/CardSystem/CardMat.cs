@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 //grabs and displays the cards in an orderly fashion
 public class CardMat : MonoBehaviour
 {
+    [HideInInspector] public PlayerDeck mainDeck;
+
     [SerializeField] private int cardsPerRow = 10;
     [SerializeField] private int maxNumberOfRows = 1; //this takes precedence. if the cards per row is exceeded but the row number is already at its limit, will try to keep adding cards to the row
     [SerializeField] private bool autoArrange = true;
@@ -30,6 +32,12 @@ public class CardMat : MonoBehaviour
     public UnityEvent OnCardSelectUpdate;
 
     [HideInInspector] public int selectedCardNumbers;
+
+    [Space(10f)]
+    [SerializeField] private Image hideButtonIcon;
+    [SerializeField] private float hiddenIconAlpha = 0.35f;
+
+    public bool IsMatHidden { get; private set; }
 
     private struct CardRow
     {
@@ -57,6 +65,7 @@ public class CardMat : MonoBehaviour
             cards[i].transform.parent = matRT;
             cards[i].SetParentMat(this);
             cards[i].transform.SetAsFirstSibling();
+            cards[i].HideCard(IsMatHidden);
         }
         aux.AddRange(cards);
 
@@ -103,17 +112,91 @@ public class CardMat : MonoBehaviour
 
     public void ToggleHideCards()
     {
-
+        SetCardsHidden(!IsMatHidden);
     }
 
     public void SetCardsHidden(bool hidden)
     {
+        IsMatHidden = hidden;
 
+        if (hideButtonIcon != null)
+        {
+            Color iconColor = hideButtonIcon.color; // tintColor;
+            iconColor.a = IsMatHidden ? hiddenIconAlpha : 1f;
+            hideButtonIcon.color = iconColor;
+        }
+
+        if (currentRows == null)
+            return;
+
+        for(int i = 0; i < currentRows.Count; i++)
+        {
+            for(int c = 0; c < currentRows[i].cards.Count; c++)
+            {
+                currentRows[i].cards[c].HideCard(hidden);
+            }
+        }
     }
 
     public void ShuffleCards()
     {
+        List<FateCard> aux = new List<FateCard>();
+        for (int r = 0; r < currentRows.Count; r++)
+        {
+            aux.AddRange(currentRows[r].cards);
+        }
 
+        FateCard[] shuffDeck = aux.ToArray();
+
+        System.Random rng = new System.Random();
+        rng.Shuffle<FateCard>(shuffDeck);
+        aux = new List<FateCard>(shuffDeck);
+
+        currentRows.Clear();
+        AddCardsToMat(aux);
+
+        if (mainDeck.ForceMinScale)
+        {
+            float minHeight = mainDeck.GetMinScale();
+            ApplyHeightToCards(minHeight);
+        }
+    }
+
+    public int GetCardCount()
+    {
+        int cardTotal = 0;
+        for (int i = 0; i < currentRows.Count; i++)
+        {
+            cardTotal += currentRows[i].cards.Count;
+        }
+
+        return cardTotal;
+    }
+
+    public Vector4 GetAnchorPoints()
+    {
+        Vector4 anchorValues = new Vector4();
+
+        /*
+        anchorValues.x = matRT.rect.xMin;
+        anchorValues.y = matRT.rect.xMax;
+        anchorValues.z = matRT.rect.yMin;
+        anchorValues.w = matRT.rect.yMax;
+        */
+
+        anchorValues.x = matRT.position.x;
+        anchorValues.x -= matRT.pivot.x * matRT.rect.width;
+
+        anchorValues.y = matRT.position.x;
+        anchorValues.y += (1f - matRT.pivot.x) * matRT.rect.width;
+
+        anchorValues.z = matRT.position.y;
+        anchorValues.z -= matRT.pivot.y * matRT.rect.height;
+
+        anchorValues.w = matRT.position.y;
+        anchorValues.w += (1f - matRT.pivot.y) * matRT.rect.height;
+
+        return anchorValues;
     }
 
     #region Mat Look
@@ -122,8 +205,6 @@ public class CardMat : MonoBehaviour
     {
         if (toArrange.Count == 0)
             return;
-
-        Debug.Log("arranging");
 
         Rect matRect = matRT.rect;
         float matWidth = matRect.width;

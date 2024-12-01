@@ -11,6 +11,7 @@ public class FateCard : MonoBehaviour
 
     private bool isFocused = false;
     private bool isSelected = false;
+    private bool isHidden = false;
 
     public bool IsSelected => isSelected;
 
@@ -42,7 +43,7 @@ public class FateCard : MonoBehaviour
     [SerializeField] private TextMeshProUGUI overLabelActionLabel;
     [SerializeField] private TextMeshProUGUI overLabelNumberLabel;
 
-    public void SetUpCard(int number, int suit, string actionName, Sprite suitSprite, Color suitColor)
+    public void SetUpCard(int number, int suit, string actionName, Sprite suitSprite, Color suitColor, bool startHidden = false)
     {
         cardNumber = number;
         cardSuit = suit;
@@ -62,6 +63,9 @@ public class FateCard : MonoBehaviour
             numberText = "K";
 
         numberLabel.text = numberURLabel.text = numberLLLabel.text = overLabelNumberLabel.text = numberText;
+
+        if (startHidden)
+            HideCard(true);
     }
 
     public void ToggleFocus()
@@ -81,7 +85,11 @@ public class FateCard : MonoBehaviour
             cardAnim.SetTrigger("FocusOff");
 
         isFocused = focus;
-        overLabelCG.alpha = isFocused ? 1f : 0f;
+
+        if (isFocused && !isHidden)
+            overLabelCG.alpha = 1f;
+        else
+            overLabelCG.alpha = 0f;
     }
 
     public void ToggleSelection()
@@ -107,6 +115,27 @@ public class FateCard : MonoBehaviour
 
         if (parentMat != null && parentMat.OnCardSelectUpdate != null)
             parentMat.OnCardSelectUpdate.Invoke();
+
+        if (isSelected && !isHidden)
+            overLabelCG.alpha = 1f;
+        else
+            overLabelCG.alpha = 0f;
+    }
+
+    public void ToggleHidden()
+    {
+        HideCard(!isHidden);
+    }
+
+    public void HideCard(bool value)
+    {
+        isHidden = value;
+        backImage.SetActive(isHidden);
+
+        if (!isHidden && isSelected)
+            overLabelCG.alpha = 1f;
+        else if (isHidden)
+            overLabelCG.alpha = 0f;
     }
 
     public void ChangeScaleByFactor(float newHeight)

@@ -158,7 +158,7 @@ RectTransform:
   m_Father: {fileID: 159201048}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.15, y: 0.425}
-  m_AnchorMax: {x: 0.575, y: 0.8}
+  m_AnchorMax: {x: 0.575, y: 0.75}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
@@ -174,6 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d14f477f2dcf74f8dc40a9d9cd4c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainDeck: {fileID: 0}
   cardsPerRow: 10
   maxNumberOfRows: 2
   autoArrange: 1
@@ -189,6 +190,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   selectedCardNumbers: 0
+  hideButtonIcon: {fileID: 1897415530}
+  hiddenIconAlpha: 0.35
 --- !u!114 &5128568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,7 +283,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onDown:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2038727458}
+        m_TargetAssemblyTypeName: CardMat, Assembly-CSharp
+        m_MethodName: ShuffleCards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onHold:
     m_PersistentCalls:
       m_Calls: []
@@ -396,10 +411,10 @@ RectTransform:
   m_Father: {fileID: 855328461}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.02}
-  m_AnchorMax: {x: 0.495, y: 0.98}
+  m_AnchorMax: {x: 0.495, y: 0.85}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &60732056
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,7 +668,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15.7
+  m_fontSize: 19.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -780,15 +795,25 @@ MonoBehaviour:
     suitAction: Skill
   fateCardPrefab: {fileID: 1877886328}
   handSize: 5
+  handStartHidden: 0
   fateSize: 15
+  fateStartHidden: 1
   discardSize: 0
+  discardStartHidden: 1
   aetherSize: 32
+  aetherStartHidden: 1
   handMat: {fileID: 1364220019}
   fateMat: {fileID: 5128567}
   discardMat: {fileID: 2038727458}
   minWidthForMat: 100
   forceMinScale: 1
   aetherMat: {fileID: 221970490}
+  handFateMidBorder: {fileID: 723664099}
+  fateAetherMidBorder: {fileID: 1326319060}
+  handDiscardMidBorder: {fileID: 843842633}
+  discardAetherMidBorder: {fileID: 1211331232}
+  handAetherMidBorder: {fileID: 203981139}
+  fateDiscardMidBorder: {fileID: 715023465}
 --- !u!114 &159201050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,10 +1011,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 203981142}
-  firstFocusFrame: {fileID: 1715172078}
+  firstFocusFrame: {fileID: 1715172081}
   firstCardMat: {fileID: 1364220019}
-  secondFocusFrame: {fileID: 601686482}
+  secondFocusFrame: {fileID: 601686483}
   secondCardMat: {fileID: 221970490}
+  fateDiscardUpdate: 0
 --- !u!114 &203981144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1151,6 +1177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d14f477f2dcf74f8dc40a9d9cd4c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainDeck: {fileID: 0}
   cardsPerRow: 10
   maxNumberOfRows: 2
   autoArrange: 1
@@ -1166,6 +1193,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   selectedCardNumbers: 0
+  hideButtonIcon: {fileID: 1884308673}
+  hiddenIconAlpha: 0.35
 --- !u!114 &221970491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1817,6 +1846,7 @@ GameObject:
   - component: {fileID: 548498531}
   - component: {fileID: 548498533}
   - component: {fileID: 548498532}
+  - component: {fileID: 548498534}
   m_Layer: 5
   m_Name: Graphics
   m_TagString: Untagged
@@ -1850,7 +1880,7 @@ RectTransform:
   m_Father: {fileID: 1877886329}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.875}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1868,7 +1898,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1892,6 +1922,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 548498530}
   m_CullTransparentMesh: 1
+--- !u!225 &548498534
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548498530}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &562772872
 GameObject:
   m_ObjectHideFlags: 0
@@ -2062,7 +2104,7 @@ RectTransform:
   m_AnchorMax: {x: 1, y: -0.025}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &601686484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2296,10 +2338,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 715023468}
-  firstFocusFrame: {fileID: 55592576}
+  firstFocusFrame: {fileID: 55592579}
   firstCardMat: {fileID: 5128567}
-  secondFocusFrame: {fileID: 866022009}
+  secondFocusFrame: {fileID: 866022010}
   secondCardMat: {fileID: 2038727458}
+  fateDiscardUpdate: 0
 --- !u!114 &715023470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2546,10 +2589,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 723664102}
-  firstFocusFrame: {fileID: 1715172078}
+  firstFocusFrame: {fileID: 1715172081}
   firstCardMat: {fileID: 1364220019}
-  secondFocusFrame: {fileID: 55592576}
+  secondFocusFrame: {fileID: 55592579}
   secondCardMat: {fileID: 5128567}
+  fateDiscardUpdate: 0
 --- !u!114 &723664104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2720,10 +2764,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 843842636}
-  firstFocusFrame: {fileID: 1715172078}
+  firstFocusFrame: {fileID: 1715172081}
   firstCardMat: {fileID: 1364220019}
-  secondFocusFrame: {fileID: 866022009}
+  secondFocusFrame: {fileID: 866022010}
   secondCardMat: {fileID: 2038727458}
+  fateDiscardUpdate: 0
 --- !u!114 &843842638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2862,10 +2907,10 @@ RectTransform:
   m_Father: {fileID: 855328461}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.505, y: 0.02}
-  m_AnchorMax: {x: 1, y: 0.98}
+  m_AnchorMax: {x: 1, y: 0.85}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 0}
 --- !u!114 &866022011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3171,7 +3216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3532,7 +3577,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onDown:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2038727458}
+        m_TargetAssemblyTypeName: CardMat, Assembly-CSharp
+        m_MethodName: ToggleHideCards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onHold:
     m_PersistentCalls:
       m_Calls: []
@@ -3859,10 +3916,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 1211331235}
-  firstFocusFrame: {fileID: 866022009}
+  firstFocusFrame: {fileID: 866022010}
   firstCardMat: {fileID: 2038727458}
-  secondFocusFrame: {fileID: 601686482}
+  secondFocusFrame: {fileID: 601686483}
   secondCardMat: {fileID: 221970490}
+  fateDiscardUpdate: 0
 --- !u!114 &1211331237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3996,7 +4054,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4307,10 +4365,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 1326319063}
-  firstFocusFrame: {fileID: 55592576}
+  firstFocusFrame: {fileID: 55592579}
   firstCardMat: {fileID: 5128567}
-  secondFocusFrame: {fileID: 601686482}
+  secondFocusFrame: {fileID: 601686483}
   secondCardMat: {fileID: 221970490}
+  fateDiscardUpdate: 0
 --- !u!114 &1326319065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4411,7 +4470,7 @@ RectTransform:
   - {fileID: 153098262}
   m_Father: {fileID: 159201048}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.15, y: 0.8}
+  m_AnchorMin: {x: 0.15, y: 0.75}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
@@ -4428,6 +4487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d14f477f2dcf74f8dc40a9d9cd4c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainDeck: {fileID: 0}
   cardsPerRow: 10
   maxNumberOfRows: 1
   autoArrange: 1
@@ -4438,11 +4498,13 @@ MonoBehaviour:
   rowHeightFactorForCards: 0.9
   cardScaledHeight: 0
   heightForCardAreaMin: 0.05
-  heightForCardAreaMax: 0.85
+  heightForCardAreaMax: 0.7
   OnCardSelectUpdate:
     m_PersistentCalls:
       m_Calls: []
   selectedCardNumbers: 0
+  hideButtonIcon: {fileID: 0}
+  hiddenIconAlpha: 0.35
 --- !u!114 &1364220020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4565,7 +4627,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.1
+  m_fontSize: 19.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5218,7 +5280,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onDown:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5128567}
+        m_TargetAssemblyTypeName: CardMat, Assembly-CSharp
+        m_MethodName: ShuffleCards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onHold:
     m_PersistentCalls:
       m_Calls: []
@@ -5617,11 +5691,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 855328461}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1.01}
+  m_AnchorMin: {x: 0, y: 0.88}
   m_AnchorMax: {x: 1, y: 1.52}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &1728445803
 GameObject:
   m_ObjectHideFlags: 0
@@ -5675,7 +5749,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onDown:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 221970490}
+        m_TargetAssemblyTypeName: CardMat, Assembly-CSharp
+        m_MethodName: ToggleHideCards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onHold:
     m_PersistentCalls:
       m_Calls: []
@@ -5840,6 +5926,7 @@ GameObject:
   - component: {fileID: 1877886330}
   - component: {fileID: 1877886333}
   - component: {fileID: 1877886334}
+  - component: {fileID: 1877886335}
   m_Layer: 5
   m_Name: FateCard
   m_TagString: Untagged
@@ -5865,7 +5952,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 125, y: 200}
+  m_SizeDelta: {x: 125, y: 175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1877886330
 MonoBehaviour:
@@ -5990,6 +6077,36 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1877886335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877886328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 6c92635e85af21a4a8316256114fdf41, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1884308671
 GameObject:
   m_ObjectHideFlags: 0
@@ -6294,7 +6411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -6371,7 +6488,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onDown:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5128567}
+        m_TargetAssemblyTypeName: CardMat, Assembly-CSharp
+        m_MethodName: ToggleHideCards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onHold:
     m_PersistentCalls:
       m_Calls: []
@@ -6678,7 +6807,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onDown:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 221970490}
+        m_TargetAssemblyTypeName: CardMat, Assembly-CSharp
+        m_MethodName: ShuffleCards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onHold:
     m_PersistentCalls:
       m_Calls: []
@@ -6758,7 +6899,7 @@ RectTransform:
   m_Father: {fileID: 159201048}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.575, y: 0.425}
-  m_AnchorMax: {x: 1, y: 0.8}
+  m_AnchorMax: {x: 1, y: 0.75}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0}
@@ -6774,6 +6915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d14f477f2dcf74f8dc40a9d9cd4c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainDeck: {fileID: 0}
   cardsPerRow: 10
   maxNumberOfRows: 2
   autoArrange: 1
@@ -6789,6 +6931,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   selectedCardNumbers: 0
+  hideButtonIcon: {fileID: 1256995909}
+  hiddenIconAlpha: 0.35
 --- !u!114 &2038727459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6911,7 +7055,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.1
+  m_fontSize: 19.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7162,7 +7306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
