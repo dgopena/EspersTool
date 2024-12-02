@@ -204,7 +204,7 @@ public class PlayerDeck : MonoBehaviour
         handFateMidBorder.position = new Vector2(0.5f * (fatePoints.y + fatePoints.x), fatePoints.w);
         fateAetherMidBorder.position = new Vector2(0.5f * (fatePoints.y + fatePoints.x), fatePoints.z);
         handDiscardMidBorder.position = new Vector2(0.5f * (discardPoints.y + discardPoints.x), discardPoints.w);
-        handAetherMidBorder.position = new Vector2(0.5f * (discardPoints.y + discardPoints.x), discardPoints.z);
+        discardAetherMidBorder.position = new Vector2(0.5f * (discardPoints.y + discardPoints.x), discardPoints.z);
 
         fateDiscardMidBorder.position = new Vector2(fatePoints.y, (0.4f * (fatePoints.w - fatePoints.z)) + fatePoints.z);
         handAetherMidBorder.position = new Vector2(fatePoints.y, (0.6f * (fatePoints.w - fatePoints.z)) + fatePoints.z);

@@ -17,6 +17,7 @@ public class CardMat : MonoBehaviour
 
     [Space(10f)]
     [SerializeField] private RectTransform matRT;
+    [SerializeField] private RectTransform matGraphic;
     [SerializeField] private float minCardSpacing;
     [SerializeField] private float maxCardSpacing;
 
@@ -95,6 +96,8 @@ public class CardMat : MonoBehaviour
                 {
                     checking.transform.parent = null;
                     checking.SetParentMat(null);
+                    checking.SelectCard(false); //de select them
+                    checking.FocusCard(false);
                     ToReturn.Add(checking);
                 }
                 else
@@ -199,6 +202,11 @@ public class CardMat : MonoBehaviour
         return anchorValues;
     }
 
+    public void ResetSelectedCardCounter()
+    {
+        selectedCardNumbers = 0;
+    }
+
     #region Mat Look
     //orders the cards for proper display
     public void ArrangeMat()
@@ -281,6 +289,7 @@ public class CardMat : MonoBehaviour
                     xPos += 0.5f * matRect.xMin;
 
                 currentRows[i].cards[c].cardRT.localPosition = new Vector3(xPos, startHeight + (i * rowHeight), 0f);
+                currentRows[i].cards[c].cardRT.SetAsFirstSibling();
 
                 currentRows[i].cards[c].ChangeScaleByFactor(cardScaledHeight);
             }
@@ -308,6 +317,7 @@ public class CardMat : MonoBehaviour
     public void SetMatWidth(float width)
     {
         matRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+        matGraphic.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
     }
     #endregion
 }

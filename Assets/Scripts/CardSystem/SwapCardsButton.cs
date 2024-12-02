@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,7 +37,7 @@ public class SwapCardsButton : MonoBehaviour
         firstFocusFrame.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, firstCardMat.GetMatWidth());
         secondFocusFrame.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, secondCardMat.GetMatWidth());
 
-        bool active = (firstCardMat.selectedCardNumbers > 0 && secondCardMat.selectedCardNumbers > 0);
+        bool active = (firstCardMat.selectedCardNumbers > 0 || secondCardMat.selectedCardNumbers > 0);
         float cgAlpha = active ? 1f : 0f;
         canvasGroup.alpha = cgAlpha;
         canvasGroup.interactable = active;
@@ -44,8 +45,9 @@ public class SwapCardsButton : MonoBehaviour
 
     public void ShowFrames()
     {
-        firstFocusFrame.gameObject.SetActive(firstCardMat.selectedCardNumbers > 0 && secondCardMat.selectedCardNumbers > 0);
-        secondFocusFrame.gameObject.SetActive(firstCardMat.selectedCardNumbers > 0 && secondCardMat.selectedCardNumbers > 0);
+        bool active = (firstCardMat.selectedCardNumbers > 0 || secondCardMat.selectedCardNumbers > 0);
+        firstFocusFrame.gameObject.SetActive(active);
+        secondFocusFrame.gameObject.SetActive(active);
     }
 
     public void HideFrame()
@@ -56,16 +58,29 @@ public class SwapCardsButton : MonoBehaviour
 
     public void MakeSwap()
     {
-        //
+        List<FateCard> firstMatRemoved = firstCardMat.RemoveCardsFromMat();
+        List<FateCard> secondMatRemoved = secondCardMat.RemoveCardsFromMat();
+
+        firstCardMat.AddCardsToMat(secondMatRemoved);
+        secondCardMat.AddCardsToMat(firstMatRemoved);
 
         if (fateDiscardUpdate)
             firstCardMat.mainDeck.UpdateFateDiscardSize();
 
+        //call the arranging of the decks
+        firstCardMat.ArrangeMat();
+        secondCardMat.ArrangeMat();
+
         firstCardMat.mainDeck.UpdateMidBorders();
 
-        //call the arranging of the decks
-        
-        //fateMat.AddCardsToMat(fate);
-        //discardMat.AddCardsToMat(discard);
+        float minScale = firstCardMat.mainDeck.GetMinScale();
+        firstCardMat.ApplyHeightToCards(minScale);
+        secondCardMat.ApplyHeightToCards(minScale);
+
+        firstCardMat.ResetSelectedCardCounter();
+        secondCardMat.ResetSelectedCardCounter();
+
+        firstCardMat.OnCardSelectUpdate.Invoke();
+        secondCardMat.OnCardSelectUpdate.Invoke();
     }
 }

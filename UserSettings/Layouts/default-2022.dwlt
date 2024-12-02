@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 997
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Game
   m_RootView: {fileID: 7}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -94,8 +94,8 @@ MonoBehaviour:
     y: 0
     width: 693
     height: 947
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -297,8 +297,8 @@ MonoBehaviour:
     y: 0
     width: 609
     height: 602
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -412,7 +412,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 20698
+  m_LastSelectedObjectID: 20438
 --- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1183,7 +1183,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 260}
     m_SelectedIDs: 48520000
     m_LastClickedID: 21064
-    m_ExpandedIDs: 000000001e5200003e52000000ca9a3b
+    m_ExpandedIDs: 0000000026520000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1211,7 +1211,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000001e520000
+    m_ExpandedIDs: 0000000026520000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1350,10 +1350,10 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 120}
-      m_SelectedIDs: 8e4f0000
-      m_LastClickedID: 20366
-      m_ExpandedIDs: 3a8cfeff2cfbffff204f00002c4f00008e4f0000e24f000046500000f2500000f65000000a510000
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: d64f0000
+      m_LastClickedID: 20438
+      m_ExpandedIDs: 7460ffff7860ffff7c60ffff7e60ffff2cfbffff204f00002c4f0000f45000000e510000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1772,9 +1772,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: -0.05093373, y: 0.04134283, z: -0.002109826, w: -0.99784374}
   m_Size:
-    m_Target: 283.1394
+    m_Target: 337.64902
     speed: 2
-    m_Value: 283.1394
+    m_Value: 337.64902
   m_Ortho:
     m_Target: 0
     speed: 2
