@@ -1,8 +1,10 @@
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class PlayerDeck : MonoBehaviour
 {
@@ -20,6 +22,10 @@ public class PlayerDeck : MonoBehaviour
     [Space(10f)]
     public GameObject fateCardPrefab;
 
+    [Header("Confirm Panels")]
+    [SerializeField] private GameObject shuffleConfirmPanel;
+    [SerializeField] private GameObject coldExitConfirmPanel;
+
     [Header("Default Sizes")]
     [SerializeField] private int handSize = 5;
     [SerializeField] private bool handStartHidden = false;
@@ -29,6 +35,9 @@ public class PlayerDeck : MonoBehaviour
     [SerializeField] private bool discardStartHidden = true;
     [SerializeField] private int aetherSize = 32;
     [SerializeField] private bool aetherStartHidden = true;
+
+    private bool firstSetUp = true;
+    public bool FirstSetUp => firstSetUp;
 
     [Header("Mats")]
     [SerializeField] private CardMat handMat;
@@ -51,9 +60,24 @@ public class PlayerDeck : MonoBehaviour
     [SerializeField] private RectTransform handAetherMidBorder;
     [SerializeField] private RectTransform fateDiscardMidBorder;
 
+    public struct IntDeck
+    {
+        public int[] handNumbers;
+        public int[] handSuits;
+
+        public int[] fateNumbers;
+        public int[] fateSuits;
+
+        public int[] discardNumbers;
+        public int[] discardSuits;
+
+        public int[] aetherNumbers;
+        public int[] aetherSuits;
+    }
+
     private void Awake()
     {
-        SetDeckUp();
+        //SetDeckUp();
     }
 
     public void SetDeckUp()
@@ -95,7 +119,7 @@ public class PlayerDeck : MonoBehaviour
 
         //set fate
         List<FateCard> fate = new List<FateCard>();
-        for(int i = 0; i < fateSize; i++)
+        for (int i = 0; i < fateSize; i++)
         {
             fate.Add(shuffDeck[cardIndex]);
             cardIndex++;
@@ -130,7 +154,7 @@ public class PlayerDeck : MonoBehaviour
             fateMat.SetMatWidth(minWidthForMat);
             discardMat.SetMatWidth(maxWidth - minWidthForMat);
         }
-        else if(discard.Count == 0)
+        else if (discard.Count == 0)
         {
             fateMat.SetMatWidth(maxWidth - minWidthForMat);
             discardMat.SetMatWidth(minWidthForMat);
@@ -140,12 +164,12 @@ public class PlayerDeck : MonoBehaviour
             float divSize = maxWidth / (float)(fate.Count + discard.Count);
             float fateWidth = (float)fate.Count * divSize;
             float discardWidth = (float)discard.Count * divSize;
-            if(fateWidth < minWidthForMat)
+            if (fateWidth < minWidthForMat)
             {
                 fateWidth = minWidthForMat;
                 discardWidth = maxWidth - minWidthForMat;
             }
-            else if(discardWidth < minWidthForMat)
+            else if (discardWidth < minWidthForMat)
             {
                 fateWidth = maxWidth - minWidthForMat;
                 discardWidth = minWidthForMat;
@@ -169,6 +193,192 @@ public class PlayerDeck : MonoBehaviour
             discardMat.ApplyHeightToCards(minHeight);
             aetherMat.ApplyHeightToCards(minHeight);
         }
+
+        firstSetUp = false;
+    }
+
+    public void BuildFromIntDeck(IntDeck givenDeck)
+    {
+        if (!firstSetUp)
+        {
+            handMat.ClearMat();
+            fateMat.ClearMat();
+            discardMat.ClearMat();
+            aetherMat.ClearMat();
+        }
+        else
+        {
+            handMat.mainDeck = this;
+            fateMat.mainDeck = this;
+            discardMat.mainDeck = this;
+            aetherMat.mainDeck = this;
+        }
+
+        List<FateCard> hand = BuildListFromIntSet(givenDeck.handNumbers, givenDeck.handSuits);
+        List<FateCard> aether = BuildListFromIntSet(givenDeck.aetherNumbers, givenDeck.aetherSuits);
+        List<FateCard> fate = BuildListFromIntSet(givenDeck.fateNumbers, givenDeck.fateSuits);
+        List<FateCard> discard = BuildListFromIntSet(givenDeck.discardNumbers, givenDeck.discardSuits);
+
+        handMat.SetCardsHidden(handStartHidden);
+        handMat.AddCardsToMat(hand);
+
+        aetherMat.SetCardsHidden(aetherStartHidden);
+        aetherMat.AddCardsToMat(aether);
+
+        //we first adjust the needed size for the mats
+        float maxWidth = handMat.GetMatWidth();
+        if (fate.Count == 0)
+        {
+            fateMat.SetMatWidth(minWidthForMat);
+            discardMat.SetMatWidth(maxWidth - minWidthForMat);
+        }
+        else if (discard.Count == 0)
+        {
+            fateMat.SetMatWidth(maxWidth - minWidthForMat);
+            discardMat.SetMatWidth(minWidthForMat);
+        }
+        else
+        {
+            float divSize = maxWidth / (float)(fate.Count + discard.Count);
+            float fateWidth = (float)fate.Count * divSize;
+            float discardWidth = (float)discard.Count * divSize;
+            if (fateWidth < minWidthForMat)
+            {
+                fateWidth = minWidthForMat;
+                discardWidth = maxWidth - minWidthForMat;
+            }
+            else if (discardWidth < minWidthForMat)
+            {
+                fateWidth = maxWidth - minWidthForMat;
+                discardWidth = minWidthForMat;
+            }
+            fateMat.SetMatWidth(fateWidth);
+            discardMat.SetMatWidth(discardWidth);
+        }
+
+        fateMat.SetCardsHidden(fateStartHidden);
+        fateMat.AddCardsToMat(fate);
+
+        discardMat.SetCardsHidden(discardStartHidden);
+        discardMat.AddCardsToMat(discard);
+
+        if (forceMinScale)
+        {
+            float minHeight = GetMinScale();
+
+            handMat.ApplyHeightToCards(minHeight);
+            fateMat.ApplyHeightToCards(minHeight);
+            discardMat.ApplyHeightToCards(minHeight);
+            aetherMat.ApplyHeightToCards(minHeight);
+        }
+    }
+
+    private List<FateCard> BuildListFromIntSet(int[] numbers, int[] suits)
+    {
+        List<FateCard> cardList = new List<FateCard>();
+
+        for(int i = 0; i < numbers.Length; i++)
+        {
+            int s = suits[i];
+
+            GameObject nuCard = Instantiate<GameObject>(fateCardPrefab, transform);
+            FateCard auxFate = nuCard.GetComponent<FateCard>();
+            auxFate.SetUpCard(numbers[i], s + 1, suitDefs[s].suitAction, suitDefs[s].suitIcon, suitDefs[s].suitColor);
+            nuCard.SetActive(true);
+
+            cardList.Add(auxFate);
+        }
+
+        return cardList;
+    }
+
+    private IntDeck BuildInteDeckFromMats()
+    {
+        IntDeck cardList = new IntDeck();
+
+        List<FateCard> handCards = handMat.GetAllCards();
+        int[] numbers = new int[handCards.Count];
+        int[] suits = new int[handCards.Count];
+        for(int i = 0; i < handCards.Count; i++)
+        {
+            numbers[i] = handCards[i].cardNumber;
+            suits[i] = handCards[i].cardSuit;
+        }
+        cardList.handNumbers = numbers;
+        cardList.handSuits = suits;
+
+        List<FateCard> fateCards = fateMat.GetAllCards();
+        numbers = new int[fateCards.Count];
+        suits = new int[fateCards.Count];
+        for (int i = 0; i < fateCards.Count; i++)
+        {
+            numbers[i] = fateCards[i].cardNumber;
+            suits[i] = fateCards[i].cardSuit;
+        }
+        cardList.fateNumbers = numbers;
+        cardList.fateSuits = suits;
+
+        List<FateCard> discardCards = discardMat.GetAllCards();
+        numbers = new int[discardCards.Count];
+        suits = new int[discardCards.Count];
+        for (int i = 0; i < discardCards.Count; i++)
+        {
+            numbers[i] = discardCards[i].cardNumber;
+            suits[i] = discardCards[i].cardSuit;
+        }
+        cardList.discardNumbers = numbers;
+        cardList.discardSuits = suits;
+
+        List<FateCard> aetherCards = aetherMat.GetAllCards();
+        numbers = new int[aetherCards.Count];
+        suits = new int[aetherCards.Count];
+        for (int i = 0; i < aetherCards.Count; i++)
+        {
+            numbers[i] = aetherCards[i].cardNumber;
+            suits[i] = aetherCards[i].cardSuit;
+        }
+        cardList.aetherNumbers = numbers;
+        cardList.aetherSuits = suits;
+
+        return cardList;
+    }
+
+    public void ReShuffleCall()
+    {
+        shuffleConfirmPanel.SetActive(true);
+    }
+
+    public void ConfirmReshuffle()
+    {
+        handMat.ClearMat();
+        aetherMat.ClearMat();
+        discardMat.ClearMat();
+        aetherMat.ClearMat();
+
+        SetDeckUp();
+
+        shuffleConfirmPanel.SetActive(false);
+    }
+
+    public void ColdExitCall()
+    {
+        coldExitConfirmPanel.SetActive(true);
+    }
+
+    public void ConfirmColdExit()
+    {
+        coldExitConfirmPanel.SetActive(false);
+        gameObject.SetActive(false);
+    }
+
+    public void SaveAndExit()
+    {
+        //return decks
+        IntDeck currentCards = BuildInteDeckFromMats();
+        Debug.Log("Pass It to the Player or smthin");
+
+        coldExitConfirmPanel.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void UpdateFateDiscardSize()

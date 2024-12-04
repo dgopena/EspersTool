@@ -207,6 +207,34 @@ public class CardMat : MonoBehaviour
         selectedCardNumbers = 0;
     }
 
+    public void ClearMat()
+    {
+        for (int r = 0; r < currentRows.Count; r++)
+        {
+            for (int c = 0; c < currentRows[r].cards.Count; c++)
+            {
+                Destroy(currentRows[r].cards[c].gameObject);
+            }
+        }
+
+        currentRows = new List<CardRow>();
+    }
+
+    public List<FateCard> GetAllCards()
+    {
+        List<FateCard> allCards = new List<FateCard>();
+
+        for (int r = 0; r < currentRows.Count; r++)
+        {
+            for (int c = 0; c < currentRows[r].cards.Count; c++)
+            {
+                allCards.Add(currentRows[r].cards[c]);
+            }
+        }
+
+        return allCards;
+    }
+
     #region Mat Look
     //orders the cards for proper display
     public void ArrangeMat()
@@ -296,6 +324,8 @@ public class CardMat : MonoBehaviour
         }
 
         awaitingArrangeFlag = false;
+
+        Debug.Log(transform.name + ": " + GetCardCount());
     }
 
     public void ApplyHeightToCards(float forcedHeight)
