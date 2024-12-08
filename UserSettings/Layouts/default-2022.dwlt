@@ -43,8 +43,8 @@ MonoBehaviour:
     y: 0
     width: 703
     height: 602
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 21}
   m_Panes:
   - {fileID: 21}
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 76
+  controlID: 51
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -94,8 +94,8 @@ MonoBehaviour:
     y: 0
     width: 693
     height: 947
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 77
+  controlID: 52
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -412,7 +412,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -29472
+  m_LastSelectedObjectID: 20540
 --- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1166,7 +1166,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/DieWidget
+    - Assets/Prefabs/UI/Dice
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1174,16 +1174,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/DieWidget
+  - Assets/Prefabs/UI/Dice
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\diego\Documents\Unity Projects\EspersTool
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 164}
-    m_SelectedIDs: 6e530000
-    m_LastClickedID: 21358
-    m_ExpandedIDs: 0000000082500000a250000000ca9a3b
+    m_SelectedIDs: e8d10000
+    m_LastClickedID: 53736
+    m_ExpandedIDs: 000000007a51000094510000965100009a51000066d1000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1211,7 +1211,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000082500000
+    m_ExpandedIDs: 000000007a510000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1351,23 +1351,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: ba4f0000
-      m_LastClickedID: 20410
-      m_ExpandedIDs: e61bffff563cffffe08cffffa0baffffb0c9ffff4cf2ffff2cfbffff0c4f0000504f0000
+      m_SelectedIDs: 1a4f0000
+      m_LastClickedID: 20250
+      m_ExpandedIDs: daacffff2cfbffff044f0000104f0000ac4f0000265000007450000096500000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: ThrowButtons
+        m_OriginalName: ThrowButtons
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: -21286
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 5}
       m_SearchString: 
@@ -1701,7 +1701,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 48, y: 10}
+      snapOffset: {x: 48, y: 25}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: UnityEditor.SceneViewCameraOverlay
