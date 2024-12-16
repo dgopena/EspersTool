@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa5fddfbbf1ba742b7cd0711e446c44, type: 3}
+  m_Name: AbilityData
+  m_EditorClassIdentifier: 
+  abilities:
+  - name: All
+    description: Damages all Party members
+  - name: Flying
+    description: Can only be damaged by Ranged attacks
+  - name: Direct
+    description: Deals damage directly, ignores defense
+  - name: Terrify
+    description: Deals damage that ignores Dodge
+  - name: Thrash
+    description: Can make two actions per turn
+  - name: Reflect Magic
+    description: Reflects Magic attacks
+  - name: Reflect Physical
+    description: Reflects Physical attacks
+  - name: Crush
+    description: Breaks a Character's weapon when this Monster is dealt damage by
+      Close attacks

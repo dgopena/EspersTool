@@ -1,0 +1,487 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017f1aa6b10655841bff93538f87374f, type: 3}
+  m_Name: ItemsData
+  m_EditorClassIdentifier: 
+  weapons:
+  - name: Daggers
+    range: 0
+    atkEffectModifier: 2
+  - name: Sword
+    range: 0
+    atkEffectModifier: 2
+  - name: Long Sword
+    range: 1
+    atkEffectModifier: 1
+  - name: Axe
+    range: 1
+    atkEffectModifier: 1
+  - name: Cane
+    range: 1
+    atkEffectModifier: 1
+  - name: Spear
+    range: 1
+    atkEffectModifier: 1
+  - name: Bow
+    range: 2
+    atkEffectModifier: -1
+  - name: Boomerang
+    range: 2
+    atkEffectModifier: -1
+  items:
+  - name: Health Potion
+    type: 0
+    modNumber: 10
+    effect: Restores 10 HP
+    price: 100
+    rarity: 0
+    size: 1
+  - name: Great Health Potion
+    type: 0
+    modNumber: 20
+    effect: Restores 20 HP
+    price: 300
+    rarity: 0
+    size: 1
+  - name: Greater Health Potion
+    type: 0
+    modNumber: 30
+    effect: Restores 30 HP
+    price: 600
+    rarity: 0
+    size: 2
+  - name: Full Health Potion
+    type: 0
+    modNumber: 40
+    effect: Restores 40 HP
+    price: 800
+    rarity: 1
+    size: 2
+  - name: Stamina Potion
+    type: 1
+    modNumber: 2
+    effect: Increases DEX by one die size for one Check or Combat Encounter
+    price: 600
+    rarity: 0
+    size: 1
+  - name: Wisdom Potion
+    type: 1
+    modNumber: 1
+    effect: Increases INT by one die size for one Check or Combat Encounter
+    price: 600
+    rarity: 0
+    size: 1
+  - name: Might Potion
+    type: 1
+    modNumber: 1
+    effect: Increases STR by one die size for one Check or Combat Encounter
+    price: 600
+    rarity: 0
+    size: 1
+  - name: Charm Potion
+    type: 1
+    modNumber: 1
+    effect: Increases CHA by one die size for one Check or Combat Encounter
+    price: 600
+    rarity: 0
+    size: 1
+  - name: Mending Potion
+    type: 2
+    modNumber: 0
+    effect: Instantly cure one target of a Condition or Ailment
+    price: 500
+    rarity: 0
+    size: 1
+  - name: Fire Elixir
+    type: 2
+    modNumber: 0
+    effect: Gains immunity from fire damage for one Combat encounter
+    price: 400
+    rarity: 1
+    size: 1
+  - name: Ice Elixir
+    type: 2
+    modNumber: 0
+    effect: Gains immunity from ice damage for one Combat encounter
+    price: 400
+    rarity: 1
+    size: 1
+  - name: Lightning Elixir
+    type: 2
+    modNumber: 0
+    effect: Gains immunity from lightning damage for one Combat encounter
+    price: 400
+    rarity: 1
+    size: 1
+  - name: Earth Elixir
+    type: 2
+    modNumber: 0
+    effect: Gains immunity from earth damage for one Combat encounter
+    price: 400
+    rarity: 1
+    size: 1
+  - name: Magic Elixir
+    type: 2
+    modNumber: -2
+    effect: Reduce incoming Magical damage by 2 this Combat encounter
+    price: 600
+    rarity: 1
+    size: 1
+  - name: Steel Elixir
+    type: 2
+    modNumber: -2
+    effect: Reduce incoming Physical damage by 2 this Combat encounter
+    price: 600
+    rarity: 1
+    size: 1
+  equipment:
+  - name: Ancient Bangle
+    type: 0
+    effectType: 7
+    modRange: {x: 0, y: 0}
+    modNumber: 0
+    modEven: 0
+    modOdd: 0
+    effect: Turns a card suit type into another card suit type of your choice
+    price: 2000
+    rarity: 2
+    size: 1
+  - name: Silver Bangle
+    type: 0
+    effectType: 0
+    modRange: {x: 0, y: 0}
+    modNumber: 1
+    modEven: 1
+    modOdd: 0
+    effect: Increases even numbered cards values by +1
+    price: 800
+    rarity: 1
+    size: 1
+  - name: Gold Bangle
+    type: 0
+    effectType: 0
+    modRange: {x: 0, y: 0}
+    modNumber: 1
+    modEven: 1
+    modOdd: 0
+    effect: Increases odd numbered cards values by +1
+    price: 800
+    rarity: 1
+    size: 1
+  - name: Platinum Bangle
+    type: 0
+    effectType: 0
+    modRange: {x: 0, y: 0}
+    modNumber: 1
+    modEven: 1
+    modOdd: 1
+    effect: Increases even and odd numbered cards values by +1
+    price: 1800
+    rarity: 2
+    size: 1
+  - name: Scarlet Bangle
+    type: 0
+    effectType: 0
+    modRange: {x: 11, y: 13}
+    modNumber: 1
+    modEven: 0
+    modOdd: 0
+    effect: Increases face cards values by +1
+    price: 800
+    rarity: 1
+    size: 1
+  - name: Meteorite Bangle
+    type: 0
+    effectType: 0
+    modRange: {x: 1, y: 1}
+    modNumber: 1
+    modEven: 0
+    modOdd: 0
+    effect: Increases face cards values by +1
+    price: 1000
+    rarity: 2
+    size: 1
+  - name: Weathered Ring
+    type: 1
+    effectType: 0
+    modRange: {x: 2, y: 3}
+    modNumber: 2
+    modEven: 0
+    modOdd: 0
+    effect: Increases face cards values by +1
+    price: 600
+    rarity: 0
+    size: 1
+  - name: Ruby Ring
+    type: 1
+    effectType: 0
+    modRange: {x: 4, y: 5}
+    modNumber: 2
+    modEven: 0
+    modOdd: 0
+    effect: 'Increases the value of 4 and 5 by +2 '
+    price: 600
+    rarity: 0
+    size: 1
+  - name: Sapphire Ring
+    type: 1
+    effectType: 0
+    modRange: {x: 6, y: 7}
+    modNumber: 2
+    modEven: 0
+    modOdd: 0
+    effect: 'Increases the value of 6 and 7 by +2 '
+    price: 600
+    rarity: 0
+    size: 1
+  - name: Diamond Ring
+    type: 1
+    effectType: 0
+    modRange: {x: 8, y: 9}
+    modNumber: 2
+    modEven: 0
+    modOdd: 0
+    effect: 'Increases the value of 8 and 9 by +2 '
+    price: 600
+    rarity: 0
+    size: 1
+  - name: Royal Ring
+    type: 1
+    effectType: 0
+    modRange: {x: 12, y: 13}
+    modNumber: 2
+    modEven: 0
+    modOdd: 0
+    effect: 'Increases the value of Kings and Queens by +2 '
+    price: 600
+    rarity: 0
+    size: 1
+  - name: Bandit Ring
+    type: 1
+    effectType: 0
+    modRange: {x: 11, y: 1}
+    modNumber: 2
+    modEven: 0
+    modOdd: 0
+    effect: 'Increases the value of Jacks and Aces by +2 '
+    price: 600
+    rarity: 0
+    size: 1
+  - name: Rusty Chain
+    type: 2
+    effectType: 1
+    modRange: {x: 0, y: 0}
+    modNumber: 1
+    modEven: 0
+    modOdd: 0
+    effect: 'Increases Fate draw amount by +1 '
+    price: 700
+    rarity: 0
+    size: 1
+  - name: Silver Chain
+    type: 2
+    effectType: 1
+    modRange: {x: 0, y: 0}
+    modNumber: 2
+    modEven: 0
+    modOdd: 0
+    effect: Increases Fate draw amount by +2
+    price: 1400
+    rarity: 1
+    size: 1
+  - name: Gold Chain
+    type: 2
+    effectType: 1
+    modRange: {x: 0, y: 0}
+    modNumber: 3
+    modEven: 0
+    modOdd: 0
+    effect: Increases Fate draw amount by +3
+    price: 2300
+    rarity: 2
+    size: 1
+  - name: Green Pendant
+    type: 3
+    effectType: 0
+    modRange: {x: 2, y: 2}
+    modNumber: 4
+    modEven: 0
+    modOdd: 0
+    effect: Increases the value of 2 by +4
+    price: 900
+    rarity: 1
+    size: 1
+  - name: Red Pendant
+    type: 3
+    effectType: 0
+    modRange: {x: 3, y: 3}
+    modNumber: 3
+    modEven: 0
+    modOdd: 0
+    effect: Increases the value of 3 by +3
+    price: 900
+    rarity: 1
+    size: 1
+  - name: Yellow Pendant
+    type: 3
+    effectType: 0
+    modRange: {x: 4, y: 4}
+    modNumber: 2
+    modEven: 0
+    modOdd: 0
+    effect: Increases the value of 4 by +2
+    price: 900
+    rarity: 1
+    size: 1
+  - name: Orange Pendant
+    type: 3
+    effectType: 0
+    modRange: {x: 5, y: 5}
+    modNumber: 1
+    modEven: 0
+    modOdd: 0
+    effect: Increases the value of 5 by +1
+    price: 900
+    rarity: 1
+    size: 1
+  - name: Strength Charm
+    type: 4
+    effectType: 2
+    modRange: {x: 0, y: 0}
+    modNumber: 0
+    modEven: 0
+    modOdd: 0
+    effect: Increases the value of Attack actions by +1
+    price: 1000
+    rarity: 1
+    size: 1
+  - name: Dexterity Charm
+    type: 4
+    effectType: 2
+    modRange: {x: 0, y: 0}
+    modNumber: 2
+    modEven: 0
+    modOdd: 0
+    effect: Increases the value of Dodge actions by +1
+    price: 1000
+    rarity: 1
+    size: 1
+  - name: Intelligence Charm
+    type: 4
+    effectType: 2
+    modRange: {x: 0, y: 0}
+    modNumber: 1
+    modEven: 0
+    modOdd: 0
+    effect: Increases the value of Magic actions by +1
+    price: 1000
+    rarity: 1
+    size: 1
+  - name: Charisma Charm
+    type: 4
+    effectType: 2
+    modRange: {x: 0, y: 0}
+    modNumber: 3
+    modEven: 0
+    modOdd: 0
+    effect: Increases the value of Skill actions by +1
+    price: 1000
+    rarity: 1
+    size: 1
+  - name: Health Charm
+    type: 4
+    effectType: 3
+    modRange: {x: 0, y: 0}
+    modNumber: 10
+    modEven: 0
+    modOdd: 0
+    effect: Increases max HP by +10
+    price: 800
+    rarity: 0
+    size: 1
+  - name: Weight Charm
+    type: 4
+    effectType: 4
+    modRange: {x: 0, y: 0}
+    modNumber: 4
+    modEven: 0
+    modOdd: 0
+    effect: Increases carrying capacity by +4
+    price: 800
+    rarity: 0
+    size: 1
+  - name: Opal Earring
+    type: 5
+    effectType: 5
+    modRange: {x: 0, y: 0}
+    modNumber: 0
+    modEven: 0
+    modOdd: 0
+    effect: Gains Advantage on Attack actions
+    price: 700
+    rarity: 1
+    size: 1
+  - name: Ruby Earring
+    type: 5
+    effectType: 5
+    modRange: {x: 0, y: 0}
+    modNumber: 1
+    modEven: 0
+    modOdd: 0
+    effect: Gains Advantage on Magic actions
+    price: 700
+    rarity: 1
+    size: 1
+  - name: 'Sapphire Earring '
+    type: 5
+    effectType: 5
+    modRange: {x: 0, y: 0}
+    modNumber: 2
+    modEven: 0
+    modOdd: 0
+    effect: 'Gains Advantage on Dodge actions '
+    price: 700
+    rarity: 1
+    size: 1
+  - name: Diamond Earring
+    type: 5
+    effectType: 5
+    modRange: {x: 0, y: 0}
+    modNumber: 3
+    modEven: 0
+    modOdd: 0
+    effect: Gains Advantage on Skill actions
+    price: 700
+    rarity: 1
+    size: 1
+  - name: Emerald Earring
+    type: 5
+    effectType: 6
+    modRange: {x: 0, y: 0}
+    modNumber: 0
+    modEven: 0
+    modOdd: 0
+    effect: 'Gains Advantage on first Combat Action of each encounter '
+    price: 900
+    rarity: 1
+    size: 1
+  - name: Meteorite Earring
+    type: 5
+    effectType: 6
+    modRange: {x: 0, y: 0}
+    modNumber: 0
+    modEven: 0
+    modOdd: 0
+    effect: Gains Advantage and +2 on first Combat Action of each encounter
+    price: 1500
+    rarity: 2
+    size: 1

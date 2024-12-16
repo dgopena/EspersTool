@@ -9,9 +9,9 @@ using System;
 
 public class CharacterPiece : UnitPiece
 {
-    public IconCharacter characterData { get; private set; }
+    public EsperCharacter characterData { get; private set; }
 
-    public void GiveData(IconCharacter data)
+    public void GiveData(EsperCharacter data)
     {
         characterData = data.MakeCopy();
 

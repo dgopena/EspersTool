@@ -49,8 +49,8 @@ public class IconFoe : IconUnit
             copy.hp = hp;
         }
 
-        copy.defense = stats.defense.ToString();
-        copy.speed = stats.speed;
+        copy.defense = defense;
+        copy.speed = speed;
 
         copy.abilities = GetAbilities();
 

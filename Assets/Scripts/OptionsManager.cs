@@ -430,7 +430,6 @@ public class OptionsManager : MonoBehaviour
 
         MapManager._instance.mapTarget.LoadFloorMesh(data.mapSizeX, data.mapSizeZ, data.mapCellScale, data.mapTerrainDetail, data.yMap);
         ShapesManager._instance.CleanShapeContainer();
-        MarkManager._instance.CleanAllMarks();
 
         if (data.shapeList != null)
             ShapesManager._instance.LoadShapes(data.shapeList);
@@ -598,7 +597,7 @@ public class OptionsManager : MonoBehaviour
         SaveCharacter(toSave);
     }
 
-    public void SaveCharacter(IconCharacter chara)
+    public void SaveCharacter(EsperCharacter chara)
     {
         CharaFile toSave = GetCharaData(chara);
 
@@ -656,17 +655,17 @@ public class OptionsManager : MonoBehaviour
             }
         }
 
-        List<IconCharacter> loadedCharacters = new List<IconCharacter>();
+        List<EsperCharacter> loadedCharacters = new List<EsperCharacter>();
         for(int i = 0; i < charaFiles.Count; i++)
         {
-            IconCharacter nuChara = new IconCharacter();
+            EsperCharacter nuChara = new EsperCharacter();
             nuChara.unitName = charaFiles[i].name;
             nuChara.level = charaFiles[i].level;
             nuChara.SetBaseHP(charaFiles[i].hp);
             nuChara.GiveID(charaFiles[i].charaID);
             nuChara.GiveGraphicPieceID(charaFiles[i].graphicPieceID);
 
-            nuChara.classIndex = charaFiles[i].classIndex;
+            //nuChara.magicArts = charaFiles[i].classIndex;
 
             nuChara.lastModified = DateTime.FromBinary(charaFiles[i].lastModified);
 
@@ -750,20 +749,20 @@ public class OptionsManager : MonoBehaviour
     #region Character Data Managing
     private CharaFile GetCharaData(int ID)
     {
-        IconCharacter source = UnitManager._instance.GetCharacter(ID);
+        EsperCharacter source = UnitManager._instance.GetCharacter(ID);
         if (source == null)
             return null;
 
         return GetCharaData(source);
     }
 
-    private CharaFile GetCharaData(IconCharacter source)
+    private CharaFile GetCharaData(EsperCharacter source)
     {
         CharaFile nuFile = new CharaFile();
         nuFile.GiveUnitID(source.unitID);
         nuFile.GiveGeneralAspects(source.unitName, source.level, source.hp, source.colorChoice);
         nuFile.GivePiecePartIDs(source.graphicImageID);
-        nuFile.GiveTacticalAspects(source.classIndex, source.skillsIDs);
+        //nuFile.GiveTacticalAspects(source.magicArts, source.skillsIDs);
         nuFile.SetLastModification(source.lastModified);
 
         return nuFile;
@@ -971,7 +970,6 @@ public class OptionsManager : MonoBehaviour
 
         PieceFile pf = new PieceFile();
         pf = GetPieceData(pf);
-        pf = GetMarkData(pf);
 
         BinaryFormatter bf = new BinaryFormatter();
         bf.Serialize(file, pf);
@@ -998,7 +996,6 @@ public class OptionsManager : MonoBehaviour
 
         //use data to castpiece
         PieceManager._instance.GiveLoadedPieces(data);
-        MarkManager._instance.GiveLoadedMarks(data);
     }
     #endregion
 
@@ -1007,13 +1004,6 @@ public class OptionsManager : MonoBehaviour
     {
         List<UnitPiece> castedPieces = PieceManager._instance.GetPieceList();
         pf.GivePieces(castedPieces);
-        return pf;
-    }
-
-    private PieceFile GetMarkData(PieceFile pf)
-    {
-        List<PlayMark> castedMarks = MarkManager._instance.GetMarkList();
-        pf.GiveMarks(castedMarks);
         return pf;
     }
     #endregion
@@ -1337,7 +1327,6 @@ public class OptionsManager : MonoBehaviour
         pieceAutoSize.isOn = PlayerPrefs.GetInt("PieceAutoSize", 1) == 1;
 
         PieceManager._instance.SetPanelDisplayMode(1);
-        MarkManager._instance.SetMarkDisplayMode(PlayerPrefs.GetInt("ShowMarks", 2));
 
         bool markerToTerrain = PlayerPrefs.GetInt("MarkerTileAppearance", 0) == 0;
 
@@ -1630,7 +1619,7 @@ public class PieceFile
 
             if(pieces[i] is CharacterPiece)
             {
-                IconCharacter iconChara = (pieces[i] as CharacterPiece).characterData;
+                EsperCharacter iconChara = (pieces[i] as CharacterPiece).characterData;
                 pees.freshFlag = iconChara.freshFlag;
                 pees.pieceID = iconChara.unitID;
                 pees.pieceHP = iconChara.hp;

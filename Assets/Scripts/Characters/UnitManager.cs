@@ -73,13 +73,17 @@ public class UnitManager : MonoBehaviour
 
     private UnitEditMode currentMode;
 
-    private List<IconCharacter> characterUnits;
+    private List<EsperCharacter> characterUnits;
 
     private List<IconFoe> foeUnits;
 
     #region Character UI
     [Space(20f)]
     [Header("------------Character UI------------")]
+    public SkillsData skillData;
+    public ItemsData itemData;
+
+    [Space(10f)]
     public RectTransform charaListParent;
     public GameObject charaListEntryPrefab;
     public GameObject charaDeleteConfirmationPanel;
@@ -87,6 +91,9 @@ public class UnitManager : MonoBehaviour
 
     [Space(10f)]
     public GameObject characterEntries;
+    public CharacterMakerPanel characterMaker;
+
+
     public TextMeshProUGUI characterPageLabel;
     private int currentCharacterPage = 0;
     public CanvasGroup forwardCharPageButton;
@@ -131,7 +138,7 @@ public class UnitManager : MonoBehaviour
     public TextMeshProUGUI charaLWeaponPiecePartLabel;
     public TextMeshProUGUI charaRWeaponPiecePartLabel;
 
-    private IconCharacter workCharacter;
+    private EsperCharacter workCharacter;
     private int currentChosenLevel;
     private bool kinListOpen = false;
     private bool cultureListOpen = false;
@@ -293,12 +300,6 @@ public class UnitManager : MonoBehaviour
             _instance = this;
 
         currentMode = UnitEditMode.None;
-
-        for (int i = 0; i < actionDots.Length; i++)
-        {
-            actionDots[i].SetBarID(i);
-            actionDots[i].BarUpdate += DotBarUpdate;
-        }
 
         //LoadCharactersCall();
         //LoadFoesCall();
@@ -685,10 +686,10 @@ public class UnitManager : MonoBehaviour
         optionsManager.LoadAllCharacters();
     }
 
-    public void ReceiveLoadedCharacters(List<IconCharacter> charas)
+    public void ReceiveLoadedCharacters(List<EsperCharacter> charas)
     {
         if (charas == null || charas.Count == 0)
-            characterUnits = new List<IconCharacter>();
+            characterUnits = new List<EsperCharacter>();
         else
             characterUnits = charas;
 
@@ -714,7 +715,7 @@ public class UnitManager : MonoBehaviour
 
         bool alphaSorting = PlayerPrefs.GetInt("charaListSort", 0) == 0;
 
-        List<IconCharacter> sortedUnits = new List<IconCharacter>();
+        List<EsperCharacter> sortedUnits = new List<EsperCharacter>();
         sortedUnits = characterUnits;
         if (alphaSorting)
         {
@@ -749,14 +750,8 @@ public class UnitManager : MonoBehaviour
             entryListRT.GetChild(3).GetComponent<HoldButton>().onRelease.AddListener(delegate {
                 DeleteCharaCall(charaID);
             });
-            Color identifierColor = unitHeavyColoring;
-            if (sortedUnits[i].classIndex == 1)
-                identifierColor = unitVagabondColoring;
-            else if (sortedUnits[i].classIndex == 2)
-                identifierColor = unitLeaderColoring;
-            else if (sortedUnits[i].classIndex == 3)
-                identifierColor = unitArtilleryColoring;
 
+            Color identifierColor = sortedUnits[i].colorChoice;
             entryListRT.GetChild(4).GetComponent<Image>().color = identifierColor;
 
             ShapeIcon entryPointer = entryListRT.GetComponent<ShapeIcon>();
@@ -811,7 +806,7 @@ public class UnitManager : MonoBehaviour
         {
             if(characterUnits[i].unitID == charaID)
             {
-                IconCharacter charaInfo = characterUnits[i];
+                EsperCharacter charaInfo = characterUnits[i];
                 charaDetailPanel.GetComponent<Image>().color = charaInfo.colorChoice;
                 charaDetailNameLabel.text = charaInfo.unitName;
                 charaDetailGeneralLabel.text = "DEPREC.";
@@ -834,29 +829,9 @@ public class UnitManager : MonoBehaviour
 
         workCharacter = MakeNewCharacter();
         workCharacter.GiveID(RequestNextUnitID()); // (PlayerPrefs.GetInt("NextIDToGive"));
-        charaNameInput.text = "";
-        charaNameInput.ForceLabelUpdate();
-        charaLevelLabel.text = "Lvl 1";
-        currentChosenLevel = 1;
 
-        charaEditAcceptButton.gameObject.SetActive(false);
-
-        charaColorLabel.text = "White";
-        charaColorImage.color = Color.white;
-        workCharacter.colorChoice = Color.white;
-
-        SetCharacterPage(currentCharacterPage);
-
-        currentMode = UnitEditMode.CharacterNew;
-
-        PieceCamera._instance.SetSamplerAtStartRotation();
-        PieceCamera._instance.SetSamplerMeepleConfig(0, 0, 0, 0);
-
-        charaHeadPiecePartLabel.text = "DEPREC.";
-        charaLWeaponPiecePartLabel.text = "DEPREC.";
-        charaRWeaponPiecePartLabel.text = "DEPREC.";
-
-        SetScrollTipRectsActive(false);
+        characterMaker.StartPanel(workCharacter, false);
+        characterMaker.gameObject.SetActive(true);
     }
 
     public void StartCharacterEditing(int charaID)
@@ -1085,10 +1060,12 @@ public class UnitManager : MonoBehaviour
         Vector3 listOrigin = jobButtonRT.position + (0.5f * jobButtonRT.rect.size.x*jobButtonRT.lossyScale.x * Vector3.right);
         List<string> jobTypes = new List<string>();
         
-        for (int i = 0; i < classes.classes[workCharacter.classIndex].jobs.Count; i++)
+        /*
+        for (int i = 0; i < classes.classes[workCharacter.magicArts].jobs.Count; i++)
         {
-            jobTypes.Add(classes.classes[workCharacter.classIndex].jobs[i].name);
+            jobTypes.Add(classes.classes[workCharacter.magicArts].jobs[i].name);
         }
+        */
 
         listPanel.ShowPanel(listOrigin, jobTypes, true);
         kinListOpen = false;
@@ -1134,7 +1111,7 @@ public class UnitManager : MonoBehaviour
         }
         else if (classListOpen)
         {
-            workCharacter.classIndex = index;
+            //workCharacter.magicArts = index;
             listPanel.ShowPanel(false);
             listPanel.OnEntryClick -= CharaListClick;
             classListOpen = false;
@@ -1193,16 +1170,16 @@ public class UnitManager : MonoBehaviour
         if (workCharacter == null)
             return;
 
-
+        /*
         if (index == 0)
         {
-            charaClassLabel.text = classes.classes[workCharacter.classIndex].name;
+            charaClassLabel.text = classes.classes[workCharacter.magicArts].name;
             string classTraits = "<b>Class Traits</b>";
-            for (int i = 0; i < classes.classes[workCharacter.classIndex].classTraits.Length; i++)
+            for (int i = 0; i < classes.classes[workCharacter.magicArts].classTraits.Length; i++)
             {
-                classTraits += "\n\n<b>·" + classes.classes[workCharacter.classIndex].classTraits[i].traitName;
+                classTraits += "\n\n<b>·" + classes.classes[workCharacter.magicArts].classTraits[i].traitName;
 
-                string auxText = classes.classes[workCharacter.classIndex].classTraits[i].traitDescription;
+                string auxText = classes.classes[workCharacter.magicArts].classTraits[i].traitDescription;
                 string traitDescription = "";
 
                 for (int c = 0; c < auxText.Length; c++)
@@ -1225,25 +1202,25 @@ public class UnitManager : MonoBehaviour
             if (chapterNum < 1)
                 chapterNum = 1;
             string classStats = "<b>Stats</b> <size=80%><i>For chapter " + chapterNum + "</i><size=100%>";
-            classStats += "\n\nVitality: " + classes.classes[workCharacter.classIndex].chapterStats[chapterNum - 1].vitality;
-            classStats += "\nHP: " + (classes.classes[workCharacter.classIndex].chapterStats[chapterNum - 1].vitality * 4);
-            classStats += "\nElixirs: " + classes.classes[workCharacter.classIndex].chapterStats[chapterNum - 1].elixirs;
-            classStats += "\nArmor: " + classes.classes[workCharacter.classIndex].chapterStats[chapterNum - 1].armor;
-            classStats += "\nDefense: " + classes.classes[workCharacter.classIndex].chapterStats[chapterNum - 1].defense;
-            int speedStat = classes.classes[workCharacter.classIndex].chapterStats[chapterNum - 1].speed;
+            classStats += "\n\nVitality: " + classes.classes[workCharacter.magicArts].chapterStats[chapterNum - 1].vitality;
+            classStats += "\nHP: " + (classes.classes[workCharacter.magicArts].chapterStats[chapterNum - 1].vitality * 4);
+            classStats += "\nElixirs: " + classes.classes[workCharacter.magicArts].chapterStats[chapterNum - 1].elixirs;
+            classStats += "\nArmor: " + classes.classes[workCharacter.magicArts].chapterStats[chapterNum - 1].armor;
+            classStats += "\nDefense: " + classes.classes[workCharacter.magicArts].chapterStats[chapterNum - 1].defense;
+            int speedStat = classes.classes[workCharacter.magicArts].chapterStats[chapterNum - 1].speed;
             classStats += "\nSpeed: " + speedStat + " <i>(Run " + Mathf.Ceil(0.5f * speedStat) + ", Dash " + speedStat + ")</i>";
 
             //classStats += "\n\nAttack Bonus: +" + classes.classes[workCharacter.classIndex].chapterStats[chapterNum - 1].attackBonus;
-            classStats += "\nFray Damage: " + classes.classes[workCharacter.classIndex].chapterStats[chapterNum - 1].frayDamage;
+            classStats += "\nFray Damage: " + classes.classes[workCharacter.magicArts].chapterStats[chapterNum - 1].frayDamage;
 
 
-            string damageStat = chapterNum + "d" + classes.classes[workCharacter.classIndex].chapterStats[chapterNum - 1].damageDie;
-            int damageAdd = classes.classes[workCharacter.classIndex].chapterStats[chapterNum - 1].damageAdditionMultiplier;
+            string damageStat = chapterNum + "d" + classes.classes[workCharacter.magicArts].chapterStats[chapterNum - 1].damageDie;
+            int damageAdd = classes.classes[workCharacter.magicArts].chapterStats[chapterNum - 1].damageAdditionMultiplier;
             if (damageAdd > 0)
                 damageStat += "+" + damageAdd;
 
             classStats += "\nDamage: " + damageStat;
-            classStats += "\nBasic Attack: " + classes.classes[workCharacter.classIndex].chapterStats[chapterNum - 1].basicAttack;
+            classStats += "\nBasic Attack: " + classes.classes[workCharacter.magicArts].chapterStats[chapterNum - 1].basicAttack;
             
             charaClassStatLabel.text = classStats;
 
@@ -1252,6 +1229,7 @@ public class UnitManager : MonoBehaviour
         {
             finishCharaButtonLabel.text = (currentMode == UnitEditMode.CharacterNew) ? "Make character" : "Save changes";
         }
+        */
     }
 
     public void DotBarUpdate(int barIndex)
@@ -1262,11 +1240,14 @@ public class UnitManager : MonoBehaviour
         int dotMod = actionDots[barIndex].value - actionDots[barIndex].baseValue;
     }
 
-    public IconCharacter MakeNewCharacter()
+    public EsperCharacter MakeNewCharacter()
     {
-        IconCharacter nuChara = new IconCharacter();
+        EsperCharacter nuChara = new EsperCharacter();
+        nuChara.unitName = "";
         currentChosenLevel = 0;
         nuChara.level = currentChosenLevel;
+
+        nuChara.SetupNewChara();
 
         return nuChara;
     }
@@ -1281,7 +1262,7 @@ public class UnitManager : MonoBehaviour
         return nuNarra;
     }
 
-    public IconCharacter GetCharacter(int id)
+    public EsperCharacter GetCharacter(int id)
     {
         if (characterUnits == null)
             return null;
@@ -1295,7 +1276,7 @@ public class UnitManager : MonoBehaviour
         return null;
     }
 
-    public void UpdateCharacter(int id, IconCharacter nuChara)
+    public void UpdateCharacter(int id, EsperCharacter nuChara)
     {
         if (characterUnits == null)
             return;
@@ -1310,14 +1291,14 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    public void UpdateCharacterPiece(int id, IconCharacter nuChara)
+    public void UpdateCharacterPiece(int id, EsperCharacter nuChara)
     {
         Debug.Log("Update Chara Missing");
     }
 
-    public List<IconCharacter> GetCharacters()
+    public List<EsperCharacter> GetCharacters()
     {
-        return new List<IconCharacter>(characterUnits);
+        return new List<EsperCharacter>(characterUnits);
     }
 
     //piece casting / uncasting
@@ -2876,7 +2857,7 @@ public class UnitManager : MonoBehaviour
         //we check possible overwrites
         while (true)
         {
-            IconCharacter possChara = GetCharacter(candidate);
+            EsperCharacter possChara = GetCharacter(candidate);
             IconFoe possFoe = GetFoe(candidate);
 
             if (possChara == null || possFoe == null)

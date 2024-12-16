@@ -608,7 +608,7 @@ public class ColorManager : MonoBehaviour
 
     public void ShowGeneralColorPanel(Vector3 listPosition)
     {
-        generalColorList.BuildPanel(listPosition, colors);
+        generalColorList.BuildPanel(listPosition, colors, false);
         generalColorList.ShowPanel(true);
     }
 

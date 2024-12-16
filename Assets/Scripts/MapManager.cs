@@ -211,7 +211,6 @@ public class MapManager : MonoBehaviour
 
         mapModeController.SetTerrainMode(true, false);
 
-        MarkManager._instance.CleanAllMarks();
         ShapesManager._instance.CleanShapeContainer();
         PieceManager._instance.CleanPieces();
 
@@ -294,7 +293,7 @@ public class MapManager : MonoBehaviour
         //controls camera
         if (activeCamera != null) {
 
-            if (activeCamera.autoNavigating || activeCamera.cameraLocked || MarkManager._instance.markEditing)
+            if (activeCamera.autoNavigating || activeCamera.cameraLocked)
                 return;
 
             Vector3 moveDir = Vector3.zero;
@@ -663,7 +662,6 @@ public class MapManager : MonoBehaviour
 
         PieceManager._instance.SetPieceButtonOptions(false);
         PieceManager._instance.SetDisplayPanelActive(nuMode == ToolMode.GameMode || nuMode == ToolMode.UnitMaker); // != ToolMode.TerrainTool);
-        MarkManager._instance.ShowMarks(nuMode == ToolMode.GameMode);
         ColorManager._instance.colorPanelAnim.gameObject.SetActive(shapeScreen.activeSelf || coloringScreen.activeSelf);
     }
 

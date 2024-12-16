@@ -22,7 +22,7 @@ public class IconUnit
     public string graphicImageID = "";
     public int hp { get; protected set; }
 
-    public string defense { get; protected set; }
+    public int defense { get; protected set; }
     public int speed { get; protected set; }
 
     public bool freshFlag = false;
@@ -93,9 +93,9 @@ public class IconUnit
         Unerring
     }
 
-    public virtual IconCharacter MakeCopyChara()
+    public virtual EsperCharacter MakeCopyChara()
     {
-        IconCharacter copy = new IconCharacter();
+        EsperCharacter copy = new EsperCharacter();
         copy.unitID = unitID;
         copy.unitName = unitName;
         copy.level = level;

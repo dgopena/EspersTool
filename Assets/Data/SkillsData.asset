@@ -1,0 +1,306 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e055fa4ccb2f7e044bac8a43daa8a7f4, type: 3}
+  m_Name: SkillsData
+  m_EditorClassIdentifier: 
+  magicArts:
+  - artName: Transmutation
+    noviceSkills:
+    - skillName: Shatter Field
+      skillID: 0
+      description: Channeling the essence of earth, the Esper fractures nearby stones
+        and debris into jagged shards that explode outward, piercing enemies and
+        terrain alike
+      damage: ' Causes moderate physical damage to all enemies. +1 to damage total'
+      damageElement: 0
+      effect: Causes 1 damage to each enemy attacked with this Skill for 3 turns
+    - skillName: Ironclad
+      skillID: 1
+      description: ' With a focused gesture, the Esper transmutes surrounding metals
+        and debris into a weak protective barrier, enveloping allies behind the Esper
+        and deflecting incoming attacks.'
+      damage: 
+      damageElement: 0
+      effect: Grants all allies behind this barrier with a temporary boost in Defense.
+        Prevents 2 points of incoming damage for 2 turns
+    - skillName: Arcane Alchemy
+      skillID: 2
+      description: Harnessing ancient alchemical principles, the Esper converts ambient
+        elements into a volatile substance, hurling an orb of explosive alchemy at
+        foes
+      damage: +2 to damage total
+      damageElement: 0
+      effect: Deals heavy damage to a single target. inflicts fire damage, dealing
+        2 points of damage for 3 turns
+    adeptSkills:
+    - skillName: Diamond Cascade
+      skillID: 3
+      description: The Esper transmutes the air into crystalline structures. These
+        shimmering diamonds cascade from above, piercing through armor and flesh
+        alike with their sharp edges
+      damage: +3 to damage total
+      damageElement: 0
+      effect: Strong damage to a single enemy. Ignores 3 points of the enemy's Defense
+        for this attack
+    - skillName: Eternal Sandstorm
+      skillID: 4
+      description: Summoning the fury of desert winds, the Esper transmutes the very
+        ground into swirling sands. The sandstorm envelops enemies, slicing their
+        bodies with razor-sharp grains that cut and wear away at their defenses
+      damage: +2 to damage total
+      damageElement: 0
+      effect: Causes moderate damage to all enemies. Inflicts 1 point of continuous
+        damage over 5 turns
+    - skillName: Wicked Alchemy
+      skillID: 5
+      description: Harnessing dark alchemical principles, the Esper unleashes a torrent
+        of volatile energy
+      damage: +5 to damage total
+      damageElement: 0
+      effect: Deals heavy damage to a single target
+    masterSkills:
+    - skillName: Alchemists Embrace
+      skillID: 6
+      description: Calls upon the essence of nature, transmuting the environment
+        into resilient vines that entwine and constrict enemies
+      damage: 
+      damageElement: 0
+      effect: Restrains enemies, preventing movement for 2 turns and dealing severe
+        earth damage. 4 points of damage for 2 turns
+    - skillName: Arcane Tempest
+      skillID: 7
+      description: Harnessing the fury of fire, the caster transmutes air into searing
+        flames, summoning a swirling inferno that engulfs foes. incinerating enemies
+        caught in the fiery tempest
+      damage: +4 points to damage total
+      damageElement: 0
+      effect: Sears the flesh and melts metal, dealing severe damage to all enemies.
+        reduces enemy Defense by 3 for 3 turns
+    - skillName: Fortress
+      skillID: 8
+      description: With a demanding gesture, the caster transmutes the surrounding
+        environment into a powerfully protective barrier, enveloping allies behind
+        the Esper and deflecting incoming attacks
+      damage: 
+      damageElement: 0
+      effect: Grants all allies behind this barrier with a temporary boost in Defense.
+        Absorbs 6 points of incoming damage for 2 turns
+    grandMaster:
+    - skillName: Titanic Quake
+      skillID: 9
+      description: ' Manipulating the very foundation of the earth, the caster triggers
+        a cataclysmic earthquake. Tremors rupture the ground, engulfing enemies in
+        a chasm of destruction'
+      damage: +8 points to damage total
+      damageElement: 6
+      effect: Deals incredible earth damage to all enemies.Prevents enemy movement
+        for 4 turns
+    - skillName: Blood Conversion
+      skillID: 10
+      description: The caster utilizes their mastery over the art to transform an
+        enemies blood into water, causing excruciating pain
+      damage: ' +8 points to damage total'
+      damageElement: 0
+      effect: Transmute a portion of the enemy's blood to water, causing severe weakness.
+        Reduces all enemy stats by one die size for 3 turns
+    - skillName: Grand Enfeebling
+      skillID: 11
+      description: The caster uses absolute mastery to warp the structure of the
+        enemies genetic makeup and decimate the enemies armor
+      damage: 
+      damageElement: 0
+      effect: ': Inflicts Break for 3 turns'
+  - artName: Illusion
+    noviceSkills:
+    - skillName: Phantom Mirage
+      skillID: 12
+      description: Creates a duplicate of the caster to confuse enemies, making it
+        difficult to target the real one
+      damage: 
+      damageElement: 0
+      effect: ': Creates an illusionary duplicate that reduces the chance of the
+        caster being hit for 3 turns. Enemies roll with Disadvantage during this
+        time when targeting this Esper.'
+    - skillName: Veil of Shadows
+      skillID: 13
+      description: Shrouds the target in darkness, making them harder to detect and
+        target
+      damage: 
+      damageElement: 0
+      effect: Grants the target invisibility for 2 turns, making them untargetable
+        by single-target attacks
+    - skillName: Debilitating Gleam
+      skillID: 14
+      description: Creates a burst of blinding light to distract and disorient enemies
+      damage: +2 to damage total
+      damageElement: 7
+      effect: ' Deals minor light damage to all enemies and inflicts Stun for 2 turns'
+    adeptSkills:
+    - skillName: Mirror Image
+      skillID: 15
+      description: Summons multiple duplicates of the caster to further bewilder
+        enemies, increasing evasiveness
+      damage: 
+      damageElement: 0
+      effect: Creates three illusionary duplicates, increasing the chance of the
+        caster dodging attacks for 3 turns
+    - skillName: Hall of Mirrors
+      skillID: 16
+      description: Envelops the battlefield in a maze of reflective surfaces, confusing
+        enemies
+      damage: 
+      damageElement: 0
+      effect: ' Inflicts Confusion on all enemies, causing them to randomly target
+        allies or themselves for 2 turns.'
+    - skillName: Charming Visage
+      skillID: 17
+      description: Creates an irresistible illusion that beguiles the target, causing
+        them to lower their guard
+      damage: 
+      damageElement: 0
+      effect: Inflicts Charm on a single target, causing them to act favorably toward
+        the caster and their allies for 2 turns
+    masterSkills:
+    - skillName: Reality Bend
+      skillID: 18
+      description: Warps the perception of reality around the enemies, causing their
+        attacks to miss
+      damage: 
+      damageElement: 0
+      effect: Causes all enemy attacks to miss all targets for 1 turn
+    - skillName: Illusory Onslaught
+      skillID: 19
+      description: Unleashes a barrage of illusionary attacks that bewilder and weaken
+        enemies
+      damage: +4 points to damage total
+      damageElement: 0
+      effect: Deals moderate damage to all enemies and inflicts 3 points of Bleeding
+        damage for 4 turns
+    - skillName: Deceptive Allure
+      skillID: 20
+      description: Creates a captivating illusion that lures enemies into a vulnerable
+        state
+      damage: 
+      damageElement: 0
+      effect: ' Inflicts Sleep on a single target, causing them to be incapacitated
+        until they take damage or are awakened by an ally'
+    grandMaster:
+    - skillName: Phantasmagoria
+      skillID: 21
+      description: Creates an overwhelming, multi-sensory illusion that terrifies
+        and incapacitates enemies
+      damage: +7 points to damage total
+      damageElement: 0
+      effect: Deals heavy damage to all enemies and inflicts Break for 3 turns
+    - skillName: Duplicate
+      skillID: 22
+      description: "Projects the caster\u2019s spirit to create powerful, lifelike
+        illusions that can attack enemies"
+      damage: 
+      damageElement: 0
+      effect: ' Creates an illusionary avatar that mimics the caster and deals duplicate
+        damage for 1 turn'
+    - skillName: Mind Labyrinth
+      skillID: 23
+      description: ' Traps enemies in a complex mental maze, rendering them unable
+        to act'
+      damage: 
+      damageElement: 0
+      effect: ' Inflicts Stun and Break on all enemies for 2 turns'
+  - artName: Reversal
+    noviceSkills:
+    - skillName: Revenge
+      skillID: 24
+      description: Rewinds time for a single ally, undoing recent damage
+      damage: 
+      damageElement: 0
+      effect: ': Heals a single ally for a small amount of HP equal to the last damage
+        taken, effectively reversing the last hit they took'
+    - skillName: Reflective Shield
+      skillID: 25
+      description: Creates a time barrier that reverses the next singletarget attack
+        back to the enemy
+      damage: 
+      damageElement: 0
+      effect: Reflects 100% of the damage from the next attack back to the attacker
+    - skillName: Undo
+      skillID: 26
+      description: Reverses a recent action taken by an enemy, nullifying it
+      damage: 
+      damageElement: 0
+      effect: Cancels the last action taken by a single enemy, rendering it ineffective.
+    adeptSkills:
+    - skillName: Rewind Plus
+      skillID: 27
+      description: Rewinds time for the entire party, negating recent damage.
+      damage: 
+      damageElement: 0
+      effect: ' Heals all allies for a moderate amount of HP, effectively reversing
+        the last round of damage they took'
+    - skillName: Reversal Aura
+      skillID: 28
+      description: Emits an aura that reverses the effects of debuffs on allies
+      damage: 
+      damageElement: 0
+      effect: Removes all debuffs from all allies and reflects them back to the original
+        casters
+    - skillName: Inversion
+      skillID: 29
+      description: Converts incoming damage into healing energy
+      damage: 
+      damageElement: 0
+      effect: For the next turn, all damage taken by the target is converted into
+        healing instead
+    masterSkills:
+    - skillName: Chrono Break
+      skillID: 30
+      description: Breaks the flow of time to reverse significant damage and effects
+        on the party
+      damage: 
+      damageElement: 0
+      effect: Reverses the last round of damage and negative effects on all allies,
+        restoring all HP and removing all debuffs
+    - skillName: Karmic Retribution
+      skillID: 31
+      description: Reflects a powerful attack back at the enemy, magnifying its effects
+      damage: 
+      damageElement: 0
+      effect: "Reflects double of the next attack\u2019s damage back to the attacker"
+    - skillName: Rewind Strike
+      skillID: 32
+      description: Strikes an enemy with the reversed force of their own attack.
+      damage: +5 points to damage total
+      damageElement: 0
+      effect: Deals moderate damage to an enemy and reduces their total damage by
+        50% for 3 turns
+    grandMaster:
+    - skillName: Temporal Reset
+      skillID: 33
+      description: Resets the flow of time to a previous state, restoring the Parties
+        Skills
+      damage: 
+      damageElement: 0
+      effect: Restores the use of all Skills
+    - skillName: Absolute Reversal
+      skillID: 34
+      description: Reverses the state of the battlefield, swapping buffs and debuffs
+        between allies and enemies
+      damage: 
+      damageElement: 0
+      effect: Swaps all buffs on enemies with all debuffs on allies, and vice versa
+    - skillName: Rebirth
+      skillID: 35
+      description: Reverses the flow of life and death, bringing a fallen ally back
+        to life
+      damage: 
+      damageElement: 0
+      effect: Revives a single ally with full HP and removes all status ailments

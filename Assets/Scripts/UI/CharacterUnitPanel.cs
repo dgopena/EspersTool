@@ -14,10 +14,10 @@ public class CharacterUnitPanel : UnitPanel
     [Space(10f)]
     [SerializeField] private GameObject modifierPrefab;
 
-    private IconCharacter sourceCharacter;
+    private EsperCharacter sourceCharacter;
     private CharacterPiece sourcePiece;
 
-    public void GiveCharacterSource(IconCharacter src, CharacterPiece pees, bool editMode = true)
+    public void GiveCharacterSource(EsperCharacter src, CharacterPiece pees, bool editMode = true)
     {
         sourceCharacter = src;
         sourcePiece = pees;
@@ -60,7 +60,7 @@ public class CharacterUnitPanel : UnitPanel
         defenseLabel.text = "·Defense - <b>" + sourceCharacter.defense + "</b>";
         speedLabel.text = "·Speed - <b>" + sourceCharacter.speed;
 
-        classLabel.text = "Class - <b>" + UnitManager._instance.classes.classes[sourceCharacter.classIndex].name + "</b>";
+        //classLabel.text = "Class - <b>" + UnitManager._instance.classes.classes[sourceCharacter.magicArts].name + "</b>";
     }
 
     //HP
@@ -123,7 +123,7 @@ public class CharacterUnitPanel : UnitPanel
             return (sourceCharacter.hp + sourceCharacter.addedHP);
     }
 
-    public IconCharacter GetCharacterData()
+    public EsperCharacter GetCharacterData()
     {
         return sourceCharacter;
     }

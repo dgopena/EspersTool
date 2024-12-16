@@ -132,9 +132,6 @@ public class PieceManager : MonoBehaviour
 
     public bool pieceBeingEdited { get; private set; }
 
-    [Space(10f)]
-    public RectTransform wheelOfFateBase;
-
     [Header("Token Variables")]
     public RectTransform tokenPieceMainPanel;
     public Vector2 tokenMainPanelDeltaPos = new Vector2(0.2f, 0.1f);
@@ -235,9 +232,6 @@ public class PieceManager : MonoBehaviour
 
                 activePiece.SetMovingFrame(false);
 
-                MarkManager._instance.UpdateMarks(activePiece);
-                MarkManager._instance.ShowMarks(true);
-
                 //dont show if no message
 
                 if (activeTokenPiece != null)
@@ -292,7 +286,7 @@ public class PieceManager : MonoBehaviour
             RaycastHit hitInfo;
 
             hoverOnPiece = false;
-            if (Physics.Raycast(ray, out hitInfo, 100f) && !MarkManager._instance.markPlacing)
+            if (Physics.Raycast(ray, out hitInfo, 100f))
             {
                 if (hitInfo.transform.tag == "Character")
                 {
@@ -494,7 +488,6 @@ public class PieceManager : MonoBehaviour
                             activeTokenPiece.tokenTextPanel.gameObject.SetActive(false);
 
                         grabFillCircle.gameObject.SetActive(false);
-                        MarkManager._instance.ShowMarks(false);
 
                         if (!pieceOptionButtonActive)
                             SetPieceButtonOptions(false);
@@ -545,16 +538,10 @@ public class PieceManager : MonoBehaviour
                 if (preClickButtonValues != pieceOptionButtonActive || changedPiece)
                 {
                     SetPieceButtonOptions(pieceOptionButtonActive);
-
-                    //SetMiniPanelsActive(true);
-                    MarkManager._instance.CloseMarkEdit();
                 }
 
                 if ((MapManager._instance.toolMode == MapManager.ToolMode.UnitMaker) || (MapManager._instance.toolMode == MapManager.ToolMode.GameMode)) // && GameModeManager._instance.currentToolMode == GameModeManager.ToolMode.None))
                     SetDisplayPanelActive(true);
-
-                if (MapManager._instance.toolMode == MapManager.ToolMode.GameMode)
-                    MarkManager._instance.ShowMarks(true);
             }
 
             if (hoverOnPiece)
@@ -631,7 +618,7 @@ public class PieceManager : MonoBehaviour
         changedPiece = true;
     }
 
-    public void SpawnGrabbedCharacterPiece(IconCharacter toSpawn)
+    public void SpawnGrabbedCharacterPiece(EsperCharacter toSpawn)
     {
         Debug.Log("spawn chara call: " + toSpawn.unitName);
 
@@ -687,7 +674,7 @@ public class PieceManager : MonoBehaviour
     }
 
     //toSpawn must given from the unitmanager value (fresh one) or loaded from the map piece file (not fresh) so the data mantains
-    public Transform SpawnCharacterPiece(IconCharacter toSpawn, Vector3 spawnPosition, bool onMap = true)
+    public Transform SpawnCharacterPiece(EsperCharacter toSpawn, Vector3 spawnPosition, bool onMap = true)
     {
         GameObject nuPiece = Instantiate<GameObject>(characterPiecePrefab, transform);
         Transform nuPieceObj = nuPiece.transform;
@@ -716,7 +703,7 @@ public class PieceManager : MonoBehaviour
         return nuPieceObj;
     }
 
-    public void DespawnCharacterPiece(IconCharacter toDespawn)
+    public void DespawnCharacterPiece(EsperCharacter toDespawn)
     {
         Debug.Log("despawn chara call: " + toDespawn.unitName);
 
@@ -1134,11 +1121,11 @@ public class PieceManager : MonoBehaviour
 
         for(int i = 0; i < loadedData.pieces.Length; i++)
         {
-            IconCharacter charaBase = UnitManager._instance.GetCharacter(loadedData.pieces[i].pieceID);
+            EsperCharacter charaBase = UnitManager._instance.GetCharacter(loadedData.pieces[i].pieceID);
             if(charaBase != null)
             {
                 //it's character
-                IconCharacter load = charaBase.MakeCopy();
+                EsperCharacter load = charaBase.MakeCopy();
 
                 load.SetFreshFlag(false); //may cause problems
                 load.GiveCurrentHP(loadedData.pieces[i].pieceCurrentHP);
@@ -1311,11 +1298,13 @@ public class PieceManager : MonoBehaviour
 
         castedPieces = new List<UnitPiece>();
 
+        /*
         //clean token panels
         for(int i = tokenPieceIndividualPanelParent.childCount - 1; i >= 1; i--)
         {
             Destroy(tokenPieceIndividualPanelParent.GetChild(i).gameObject);
         }
+        */
 
         GameModeManager._instance.OnPiecesLoadedCall();
     }
@@ -1355,14 +1344,6 @@ public class PieceManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void MarkCall()
-    {
-        if (activePieceType == 0 && activeCharacterPiece != null)
-            MarkManager._instance.StartMarkMaking(activeCharacterPiece, activeCharacterPiece.characterData.colorChoice);
-        else if (activePieceType == 1 && activeFoePiece != null)
-            MarkManager._instance.StartMarkMaking(activeFoePiece, activeFoePiece.foeData.colorChoice);
     }
 
     public void MoveCall()
@@ -1467,13 +1448,10 @@ public class PieceManager : MonoBehaviour
 
         if (activePieceType == 0)
         {
-            MarkManager._instance.PieceDeletion(activeCharacterPiece);
             DespawnCharacterPiece(activeCharacterPiece);
         }
         else if(activePieceType == 1)
         {
-            MarkManager._instance.PieceDeletion(activeFoePiece);
-            //activeFoePiece.DeleteMiniPanel();
             DespawnFoePiece(activeFoePiece);
         }
         else if(activePieceType == 2)

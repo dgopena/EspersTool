@@ -182,11 +182,11 @@ public class ExpeditionScreen : MonoBehaviour
             Destroy(characterScrollList.GetChild(i).gameObject);
         }
 
-        List<IconCharacter> characterUnits = UnitManager._instance.GetCharacters();
+        List<EsperCharacter> characterUnits = UnitManager._instance.GetCharacters();
 
         bool alphaSorting = PlayerPrefs.GetInt("charaListSort", 0) == 0;
 
-        List<IconCharacter> sortedUnits = new List<IconCharacter>();
+        List<EsperCharacter> sortedUnits = new List<EsperCharacter>();
         sortedUnits = characterUnits;
         if (alphaSorting)
         {
@@ -216,14 +216,7 @@ public class ExpeditionScreen : MonoBehaviour
             entryListRT.GetChild(3).GetComponent<HoldButton>().onRelease.AddListener(delegate {
                 DeleteCharacterCall(charaID);
             });
-            Color identifierColor = UnitManager._instance.unitHeavyColoring;
-            if (sortedUnits[i].classIndex == 1)
-                identifierColor = UnitManager._instance.unitVagabondColoring;
-            else if (sortedUnits[i].classIndex == 2)
-                identifierColor = UnitManager._instance.unitLeaderColoring;
-            else if (sortedUnits[i].classIndex == 3)
-                identifierColor = UnitManager._instance.unitArtilleryColoring;
-
+            Color identifierColor = sortedUnits[i].colorChoice;
             entryListRT.GetChild(4).GetComponent<Image>().color = identifierColor;
 
             ShapeIcon entryPointer = entryListRT.GetComponent<ShapeIcon>();
@@ -274,13 +267,13 @@ public class ExpeditionScreen : MonoBehaviour
 
     public void ShowCharaDetails(int charaID)
     {
-        List<IconCharacter> characterUnits = UnitManager._instance.GetCharacters();
+        List<EsperCharacter> characterUnits = UnitManager._instance.GetCharacters();
 
         for (int i = 0; i < characterUnits.Count; i++)
         {
             if (characterUnits[i].unitID == charaID)
             {
-                IconCharacter charaInfo = characterUnits[i];
+                EsperCharacter charaInfo = characterUnits[i];
                 characterSummaryScreen.GetComponent<Image>().color = charaInfo.colorChoice;
                 charSummaryName.text = charaInfo.unitName;
 
