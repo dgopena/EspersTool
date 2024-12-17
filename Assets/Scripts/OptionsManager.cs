@@ -760,7 +760,7 @@ public class OptionsManager : MonoBehaviour
     {
         CharaFile nuFile = new CharaFile();
         nuFile.GiveUnitID(source.unitID);
-        nuFile.GiveGeneralAspects(source.unitName, source.level, source.hp, source.colorChoice);
+        nuFile.GiveGeneralAspects(source.unitName, source.level, source.baseHP, source.colorChoice);
         nuFile.GivePiecePartIDs(source.graphicImageID);
         //nuFile.GiveTacticalAspects(source.magicArts, source.skillsIDs);
         nuFile.SetLastModification(source.lastModified);
@@ -946,7 +946,7 @@ public class OptionsManager : MonoBehaviour
     {
         FoeFile nuFile = new FoeFile();
         nuFile.GiveUnitID(source.unitID);
-        nuFile.GiveGeneralAspects(source.unitName, source.level, source.hp, (int)source.type, source.colorChoice);
+        nuFile.GiveGeneralAspects(source.unitName, source.level, source.baseHP, (int)source.type, source.colorChoice);
         nuFile.GivePiecePartIDs(source.graphicImageID);
         nuFile.GiveTacticalAspects(source.classIndex);
         nuFile.SetLastModification(source.lastModified);
@@ -1622,7 +1622,7 @@ public class PieceFile
                 EsperCharacter iconChara = (pieces[i] as CharacterPiece).characterData;
                 pees.freshFlag = iconChara.freshFlag;
                 pees.pieceID = iconChara.unitID;
-                pees.pieceHP = iconChara.hp;
+                pees.pieceHP = iconChara.baseHP;
                 pees.pieceCurrentHP = iconChara.currentHP;
                 pees.pieceAddedHP = iconChara.addedHP;
 
@@ -1635,7 +1635,7 @@ public class PieceFile
                 IconFoe iconFoe = (pieces[i] as FoePiece).foeData;
                 pees.freshFlag = iconFoe.freshFlag;
                 pees.pieceID = iconFoe.unitID;
-                pees.pieceHP = iconFoe.hp;
+                pees.pieceHP = iconFoe.baseHP;
                 pees.pieceCurrentHP = iconFoe.currentHP;
                 pees.pieceAddedHP = iconFoe.addedHP;
 

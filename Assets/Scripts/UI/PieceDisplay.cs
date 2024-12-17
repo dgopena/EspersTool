@@ -188,17 +188,17 @@ public class PieceDisplay : MonoBehaviour
 
         nameLabel.text = activeUnit.unitName;
 
-        int currentMaxHP = (activeUnit.hp + activeUnit.addedHP);
+        int currentMaxHP = (activeUnit.baseHP + activeUnit.addedHP);
         if (activeCharaPiece != null)
         {
-            currentMaxHP = Mathf.FloorToInt((activeUnit.hp + activeUnit.addedHP));
+            currentMaxHP = Mathf.FloorToInt((activeUnit.baseHP + activeUnit.addedHP));
         }
 
         hpBar.SetBar(currentMaxHP);
         UpdateHealthBars(true);
 
         //stat fill
-        vitStat.text = Mathf.CeilToInt((float)activeUnit.hp / 4f).ToString(); // activeUnit.vitality.ToString();
+        vitStat.text = Mathf.CeilToInt((float)activeUnit.baseHP / 4f).ToString(); // activeUnit.vitality.ToString();
         speedDashStat.text = activeUnit.speed.ToString();
         defenseStat.text = activeUnit.defense.ToString();
 
@@ -325,14 +325,14 @@ public class PieceDisplay : MonoBehaviour
     {
         if (activeCharaPiece != null)
         {
-            return (activeUnit.hp + activeUnit.addedHP);
+            return (activeUnit.baseHP + activeUnit.addedHP);
         }
         else if(activeFoePiece != null)
         {
-            return (activeUnit.hp + activeUnit.addedHP);
+            return (activeUnit.baseHP + activeUnit.addedHP);
         }
 
-        return activeUnit.hp;
+        return activeUnit.baseHP;
     }
 
     public void UpdateStatusEffects()

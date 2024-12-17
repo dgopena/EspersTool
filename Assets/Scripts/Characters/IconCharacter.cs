@@ -32,7 +32,7 @@ public class EsperCharacter : IconUnit
         itemInventory = new int[0];
         equipmentInventory = new int[0];
 
-        hp = 40;
+        baseHP = 40;
         defense = 0;
         speed = 40;
 
@@ -63,13 +63,13 @@ public class EsperCharacter : IconUnit
         if (!freshFlag)
         {
             copy.currentHP = currentHP;
-            copy.hp = hp;
+            copy.baseHP = baseHP;
         }
         else
         {
-            copy.hp = 40;
+            copy.baseHP = 40;
             copy.addedHP = 0;
-            copy.currentHP = copy.hp;
+            copy.currentHP = copy.baseHP;
         }
 
         return copy;
@@ -92,7 +92,7 @@ public class EsperCharacter : IconUnit
 
         copy.SetFreshFlag(true); //new piece
 
-        copy.hp = hp;
+        copy.baseHP = baseHP;
 
         copy.addedHP = 0;
         copy.currentHP = copy.currentHP;

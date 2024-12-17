@@ -172,8 +172,8 @@ public class FoePiece : UnitPiece
         int hpValue = foeData.currentHP + value;
         if (hpValue < 0)
             hpValue = 0;
-        else if (hpValue > (foeData.hp + foeData.addedHP))
-            hpValue = (foeData.hp + foeData.addedHP);
+        else if (hpValue > (foeData.baseHP + foeData.addedHP))
+            hpValue = (foeData.baseHP + foeData.addedHP);
 
         foeData.GiveCurrentHP(hpValue);
 

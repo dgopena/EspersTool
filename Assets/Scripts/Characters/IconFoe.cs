@@ -39,14 +39,14 @@ public class IconFoe : IconUnit
             int auxParse = 0;
             if (int.TryParse(stats.HP, out auxParse))
             {
-                copy.hp = auxParse;
+                copy.baseHP = auxParse;
             }
 
-            copy.currentHP = copy.hp;
+            copy.currentHP = copy.baseHP;
         }
         else
         {
-            copy.hp = hp;
+            copy.baseHP = baseHP;
         }
 
         copy.defense = defense;

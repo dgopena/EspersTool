@@ -20,7 +20,7 @@ public class IconUnit
     public int statCHA;
 
     public string graphicImageID = "";
-    public int hp { get; protected set; }
+    public int baseHP { get; protected set; }
 
     public int defense { get; protected set; }
     public int speed { get; protected set; }
@@ -110,7 +110,7 @@ public class IconUnit
 
         if (!freshFlag) //this means is being loaded from a previous unit saved on map
         {
-            copy.hp = hp;
+            copy.baseHP = baseHP;
             copy.currentHP = currentHP;
             copy.addedHP = addedHP;
 
@@ -129,7 +129,7 @@ public class IconUnit
         }
         else
         {
-            copy.currentHP = copy.hp;
+            copy.currentHP = copy.baseHP;
 
             copy.activeBlights = new List<Blight>();
             copy.activeStatus = new List<Status>();
@@ -150,7 +150,7 @@ public class IconUnit
 
         if (!freshFlag) //this means is being loaded from a previous unit saved on map
         {
-            copy.hp = hp;
+            copy.baseHP = baseHP;
             copy.currentHP = currentHP;
             copy.addedHP = addedHP;
 
@@ -169,7 +169,7 @@ public class IconUnit
         }
         else
         {
-            copy.currentHP = copy.hp;
+            copy.currentHP = copy.baseHP;
 
             copy.activeBlights = new List<Blight>();
             copy.activeStatus = new List<Status>();
@@ -196,7 +196,17 @@ public class IconUnit
 
     public void SetBaseHP(int value)
     {
-        hp = value;
+        baseHP = value;
+    }
+
+    public int GetTotalHP()
+    {
+        return baseHP + addedHP;
+    }
+
+    public void GiveDefense(int value)
+    {
+        defense = value;
     }
 
     public void GiveBlightList(List<Blight> blights)

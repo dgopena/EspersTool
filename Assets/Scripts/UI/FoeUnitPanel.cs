@@ -34,14 +34,14 @@ public class FoeUnitPanel : UnitPanel
             hpInputJustText.gameObject.SetActive(false);
 
             hpInput.transform.GetChild(2).gameObject.SetActive(false);
-            hpInput.SetTextWithoutNotify((sourceFoe.hp + sourceFoe.addedHP).ToString());
+            hpInput.SetTextWithoutNotify((sourceFoe.baseHP + sourceFoe.addedHP).ToString());
         }
         else
         {
             hpInput.gameObject.SetActive(false);
             hpInputJustText.gameObject.SetActive(true);
 
-            hpInputJustText.text = (sourceFoe.hp + sourceFoe.addedHP).ToString();
+            hpInputJustText.text = (sourceFoe.baseHP + sourceFoe.addedHP).ToString();
         }
 
         if (sourceFoe.currentHP == 0)
@@ -171,16 +171,16 @@ public class FoeUnitPanel : UnitPanel
         {
             if (hpInputValue <= 0)
             {
-                hpInput.SetTextWithoutNotify(sourceFoe.hp.ToString());
+                hpInput.SetTextWithoutNotify(sourceFoe.baseHP.ToString());
 
                 return;
             }
 
-            int diff = hpInputValue - sourceFoe.hp;
+            int diff = hpInputValue - sourceFoe.baseHP;
             sourceFoe.GiveAddedHP(diff);
-            sourceFoe.GiveCurrentHP(Mathf.Clamp(sourceFoe.currentHP, 0, (sourceFoe.hp + sourceFoe.addedHP)));
+            sourceFoe.GiveCurrentHP(Mathf.Clamp(sourceFoe.currentHP, 0, (sourceFoe.baseHP + sourceFoe.addedHP)));
 
-            hpInput.SetTextWithoutNotify((sourceFoe.hp + diff).ToString());
+            hpInput.SetTextWithoutNotify((sourceFoe.baseHP + diff).ToString());
         }
 
         if (sourceFoe.currentHP == 0)
@@ -204,7 +204,7 @@ public class FoeUnitPanel : UnitPanel
         int startVal = sourceFoe.currentHP;
         startVal += add ? 1 : -1;
 
-        startVal = Mathf.Clamp(startVal, 0, sourceFoe.hp + sourceFoe.addedHP);
+        startVal = Mathf.Clamp(startVal, 0, sourceFoe.baseHP + sourceFoe.addedHP);
 
         sourceFoe.GiveCurrentHP(startVal);
 

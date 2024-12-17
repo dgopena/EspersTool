@@ -78,16 +78,16 @@ public class CharacterUnitPanel : UnitPanel
         {
             if (hpInputValue <= 0)
             {
-                hpInput.SetTextWithoutNotify(sourceCharacter.hp.ToString());
+                hpInput.SetTextWithoutNotify(sourceCharacter.baseHP.ToString());
 
                 return;
             }
 
-            int diff = hpInputValue - sourceCharacter.hp;
+            int diff = hpInputValue - sourceCharacter.baseHP;
             sourceCharacter.GiveAddedHP(diff);
             sourceCharacter.GiveCurrentHP(Mathf.Clamp(sourceCharacter.currentHP, 0, GetCharaCurrentMaxHP()));
 
-            hpInput.SetTextWithoutNotify((sourceCharacter.hp + diff).ToString());
+            hpInput.SetTextWithoutNotify((sourceCharacter.baseHP + diff).ToString());
         }
 
         if (sourceCharacter.currentHP == 0)
@@ -117,10 +117,10 @@ public class CharacterUnitPanel : UnitPanel
     {
         if (considerWound)
         {
-            return Mathf.CeilToInt((sourceCharacter.hp + sourceCharacter.addedHP));
+            return Mathf.CeilToInt((sourceCharacter.baseHP + sourceCharacter.addedHP));
         }
         else
-            return (sourceCharacter.hp + sourceCharacter.addedHP);
+            return (sourceCharacter.baseHP + sourceCharacter.addedHP);
     }
 
     public EsperCharacter GetCharacterData()

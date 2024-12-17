@@ -60,19 +60,26 @@ public class CharacterMakerPanel : MonoBehaviour
     [SerializeField] private TMP_InputField hpInput;
     [SerializeField] private TMP_InputField defInput;
     [SerializeField] private TMP_InputField carryingInput;
+    private bool statListOpen = false;
+    private int currentStatIndex = 0;
 
     [Header("Equipment")]
     [SerializeField] private RectTransform equipmentPage;
     [SerializeField] private GameObject weaponEntryPrefab; //only allow one!
+    [SerializeField] private RectTransform addWeaponButton;
+    private bool weaponListOpen = false;
+
     [SerializeField] private GameObject itemEntryPrefab;
+    [SerializeField] private RectTransform addItemButton;
     [SerializeField] private GameObject equipmentPrefab;
+    [SerializeField] private RectTransform addEquipmentButton;
 
     [Header("Piece")]
     [SerializeField] private RectTransform pieceLookPage;
 
     private void LateUpdate()
     {
-        bool aListOpen = colorListOpen || magicArtsListOpen || magicSkillsListOpen;
+        bool aListOpen = colorListOpen || magicArtsListOpen || magicSkillsListOpen || statListOpen || weaponListOpen;
 
         if (aListOpen)
         {
@@ -101,6 +108,24 @@ public class CharacterMakerPanel : MonoBehaviour
                     magicSkillsListOpen = false;
                     listPanel.ShowPanel(false);
                     listPanel.OnEntryClick -= AddSkillToCharacter;
+                }
+            }
+            else if(statListOpen && Input.GetMouseButtonDown(0))
+            {
+                if (!TooltipManager.CheckMouseInArea(listRT))
+                {
+                    statListOpen = false;
+                    listPanel.ShowPanel(false);
+                    listPanel.OnEntryClick -= SetDieStat;
+                }
+            }
+            else if(weaponListOpen && Input.GetMouseButton(0))
+            {
+                if (!TooltipManager.CheckMouseInArea(listRT))
+                {
+                    weaponListOpen = false;
+                    listPanel.ShowPanel(false);
+                    listPanel.OnEntryClick -= ChangeCharacterWeapon;
                 }
             }
         }
@@ -170,21 +195,14 @@ public class CharacterMakerPanel : MonoBehaviour
         dexterityStatDieLabel.text = activeCharacter.statDEX.ToString();
         charismaStatDieLabel.text = activeCharacter.statCHA.ToString();
 
-        hpInput.SetTextWithoutNotify(activeCharacter.hp.ToString());
+        hpInput.SetTextWithoutNotify(activeCharacter.GetTotalHP().ToString());
         defInput.SetTextWithoutNotify(activeCharacter.defense.ToString());
         carryingInput.SetTextWithoutNotify((activeCharacter.statSTR + 2).ToString());
 
         //items page
 
         //weapon
-        contentParent = weaponEntryPrefab.transform.parent;
-        for (int i = contentParent.childCount - 1; i >= 1; i--)
-        {
-            Destroy(contentParent.GetChild(i).gameObject);
-        }
-
-        GameObject weaponEntry = Instantiate<GameObject>(weaponEntryPrefab, contentParent);
-        Transform weaponTF = weaponEntry.transform;
+        Transform weaponTF = weaponEntryPrefab.transform;
 
         ItemsData.Weapon charaWeapon = UnitManager._instance.itemData.weapons[activeCharacter.weaponID];
         weaponTF.GetChild(0).GetComponent<TextMeshProUGUI>().text = charaWeapon.name;
@@ -195,7 +213,7 @@ public class CharacterMakerPanel : MonoBehaviour
         if (atkMod > 0)
             modLabel = "+" + modLabel;
         weaponTF.GetChild(2).GetComponent<TextMeshProUGUI>().text = modLabel;
-        weaponEntry.SetActive(true);
+        weaponTF.gameObject.SetActive(true);
 
         //items
         int[] itemIDs = activeCharacter.itemInventory;
@@ -259,6 +277,8 @@ public class CharacterMakerPanel : MonoBehaviour
         statPage.gameObject.SetActive(currentPage == 1);
         equipmentPage.gameObject.SetActive(currentPage == 2);
         pieceLookPage.gameObject.SetActive(currentPage == 3);
+
+        pageLabel.text = (currentPage + 1) + "/4";
     }
 
     public void PageForward(int moveDir)
@@ -287,6 +307,8 @@ public class CharacterMakerPanel : MonoBehaviour
         ColorManager._instance.ShowGeneralColorPanel(listOrigin);
         magicArtsListOpen = false;
         magicSkillsListOpen = false;
+        statListOpen = false;
+        weaponListOpen = false;
         colorListOpen = true;
         colorListPanel.OnEntryClick += ColorListClick;
 
@@ -324,7 +346,9 @@ public class CharacterMakerPanel : MonoBehaviour
 
         listPanel.ShowPanel(listOrigin, artTypes, true);
         magicArtsListOpen = true;
+        statListOpen = false;
         magicSkillsListOpen = false;
+        weaponListOpen = false;
         colorListOpen = false;
         listPanel.OnEntryClick += AddArtToCharacter;
 
@@ -498,7 +522,9 @@ public class CharacterMakerPanel : MonoBehaviour
 
         listPanel.ShowPanel(listOrigin, skillEntries, true);
         magicArtsListOpen = false;
+        statListOpen = false;
         magicSkillsListOpen = true;
+        weaponListOpen = false;
         colorListOpen = false;
         listPanel.OnEntryClick += AddSkillToCharacter;
 
@@ -621,13 +647,142 @@ public class CharacterMakerPanel : MonoBehaviour
 
     #region Stat Methods
 
+    public void OpenStatList(int statIndex)
+    {
+        listPanel.screenProportionSize = slimListPanelProportions;
+        listPanel.listColor = 0.9f * makerPanel.transform.GetChild(0).GetComponent<Image>().color;
 
+        RectTransform statButtonRT = strenghtStatDieLabel.transform.parent.GetComponent<RectTransform>();
+        Vector3 listOrigin = statButtonRT.position + (0.5f * statButtonRT.rect.size.x * statButtonRT.lossyScale.x * Vector3.right);
+        List<string> statEntries = new List<string>();
+
+        statEntries.Add("4");
+        statEntries.Add("6");
+        statEntries.Add("8");
+        statEntries.Add("10");
+        statEntries.Add("12");
+        statEntries.Add("20");
+
+        currentStatIndex = statIndex;
+
+        listPanel.ShowPanel(listOrigin, statEntries, true);
+        magicArtsListOpen = false;
+        statListOpen = true;
+        magicSkillsListOpen = true;
+        colorListOpen = false;
+        listPanel.OnEntryClick += SetDieStat;
+
+        listRT = listPanel.GetComponent<RectTransform>();
+    }
+
+    public void SetDieStat(int index)
+    {
+        int chosenStat = 4;
+        if (index == 1)
+            chosenStat = 6;
+        else if (index == 2)
+            chosenStat = 8;
+        else if (index == 3)
+            chosenStat = 10;
+        else if (index == 4)
+            chosenStat = 12;
+        else if (index == 5)
+            chosenStat = 20;
+
+        if (currentStatIndex == 0)
+        {
+            activeCharacter.statSTR = chosenStat;
+            carryingInput.SetTextWithoutNotify((chosenStat + 2).ToString());
+            strenghtStatDieLabel.text = chosenStat.ToString();
+        }
+        else if (currentStatIndex == 1)
+        {
+            activeCharacter.statINT = chosenStat;
+            intelligenceStatDieLabel.text = chosenStat.ToString();
+        }
+        else if (currentStatIndex == 2)
+        {
+            activeCharacter.statDEX = chosenStat;
+            dexterityStatDieLabel.text = chosenStat.ToString();
+        }
+        else if (currentStatIndex == 3)
+        {
+            activeCharacter.statCHA = chosenStat;
+            charismaStatDieLabel.text = chosenStat.ToString();
+        }
+
+        statListOpen = false;
+        listPanel.ShowPanel(false);
+        listPanel.OnEntryClick -= SetDieStat;
+    }
+
+    public void SetHPFromInput()
+    {
+        int newHP = int.Parse(hpInput.text);
+
+        activeCharacter.GiveAddedHP(newHP - activeCharacter.baseHP);
+    }
+
+    public void SetDefense()
+    {
+        int newDef = int.Parse(defInput.text);
+
+        activeCharacter.GiveDefense(newDef);
+    }
 
     #endregion
 
     #region Weapon Methods
 
+    public void OpemWeaponList()
+    {
+        listPanel.screenProportionSize = slimListPanelProportions;
+        listPanel.listColor = 0.9f * makerPanel.transform.GetChild(0).GetComponent<Image>().color;
 
+        RectTransform weaponButtonRT = addWeaponButton;
+        Vector3 listOrigin = weaponButtonRT.position + (0.5f * weaponButtonRT.rect.size.x * weaponButtonRT.lossyScale.x * Vector3.right);
+        List<string> weaponTypes = new List<string>();
+        List<ItemsData.Weapon> weapons = UnitManager._instance.itemData.weapons;
+        for (int i = 0; i < weapons.Count; i++)
+        {
+            weaponTypes.Add(weapons[i].name);
+        }
+
+        listPanel.ShowPanel(listOrigin, weaponTypes, true);
+        magicArtsListOpen = false;
+        statListOpen = false;
+        magicSkillsListOpen = false;
+        weaponListOpen = true;
+        colorListOpen = false;
+        listPanel.OnEntryClick += ChangeCharacterWeapon;
+
+        listRT = listPanel.GetComponent<RectTransform>();
+    }
+
+    public void ChangeCharacterWeapon(int weaponID) //must only keep 1 weapon. delete the other one
+    {
+        Debug.Log("changing weapon ID " + weaponID);
+
+        //change UI
+        Transform weaponTF = weaponEntryPrefab.transform;
+
+        ItemsData.Weapon charaWeapon = UnitManager._instance.itemData.weapons[weaponID];
+        weaponTF.GetChild(0).GetComponent<TextMeshProUGUI>().text = charaWeapon.name;
+        weaponTF.GetChild(1).GetComponent<TextMeshProUGUI>().text = charaWeapon.range.ToString();
+
+        int atkMod = charaWeapon.atkEffectModifier;
+        string modLabel = atkMod + " points to attack total";
+        if (atkMod > 0)
+            modLabel = "+" + modLabel;
+        weaponTF.GetChild(2).GetComponent<TextMeshProUGUI>().text = modLabel;
+        weaponTF.gameObject.SetActive(true);
+
+        activeCharacter.weaponID = weaponID;
+
+        weaponListOpen = false;
+        listPanel.ShowPanel(false);
+        listPanel.OnEntryClick -= ChangeCharacterWeapon;
+    }
 
     #endregion
 
