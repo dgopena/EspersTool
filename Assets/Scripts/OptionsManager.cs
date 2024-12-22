@@ -612,8 +612,6 @@ public class OptionsManager : MonoBehaviour
 
     public void SaveCharacter(CharaFile toSave)
     {
-        Debug.Log("-----------> " + toSave.graphicPieceID);
-
         string hexID = toSave.charaID.ToString("X6");
 
         string unitPath = Application.persistentDataPath + "/" + GetCharaFolder() + "/chara_" + hexID + ".iconunits";
@@ -661,11 +659,26 @@ public class OptionsManager : MonoBehaviour
             EsperCharacter nuChara = new EsperCharacter();
             nuChara.unitName = charaFiles[i].name;
             nuChara.level = charaFiles[i].level;
+
+            nuChara.colorChoice = new Color(charaFiles[i].colorRed, charaFiles[i].colorGreen, charaFiles[i].colorBlue);
+
             nuChara.SetBaseHP(charaFiles[i].hp);
+            nuChara.statSTR = charaFiles[i].STRstat;
+            nuChara.statINT = charaFiles[i].INTstat;
+            nuChara.statDEX = charaFiles[i].DEXstat;
+            nuChara.statCHA = charaFiles[i].CHAstat;
+            nuChara.GiveSpeed(charaFiles[i].speed);
+            nuChara.GiveDefense(charaFiles[i].defense);
             nuChara.GiveID(charaFiles[i].charaID);
             nuChara.GiveGraphicPieceID(charaFiles[i].graphicPieceID);
 
-            //nuChara.magicArts = charaFiles[i].classIndex;
+            nuChara.magicArts = charaFiles[i].magicArts;
+            nuChara.magicArtLevels = charaFiles[i].magicArtLevels;
+            nuChara.skillsIDs = charaFiles[i].skillsID;
+
+            nuChara.weaponID = charaFiles[i].weaponID;
+            nuChara.itemInventory = charaFiles[i].itemInventory;
+            nuChara.equipmentInventory = charaFiles[i].equipmentInventory;
 
             nuChara.lastModified = DateTime.FromBinary(charaFiles[i].lastModified);
 
@@ -760,9 +773,11 @@ public class OptionsManager : MonoBehaviour
     {
         CharaFile nuFile = new CharaFile();
         nuFile.GiveUnitID(source.unitID);
-        nuFile.GiveGeneralAspects(source.unitName, source.level, source.baseHP, source.colorChoice);
+        nuFile.GiveGeneralAspects(source.unitName, source.level, source.colorChoice);
+        nuFile.GiveStats(source.baseHP, source.statSTR, source.statINT, source.statDEX, source.statCHA, source.defense, source.defense);
         nuFile.GivePiecePartIDs(source.graphicImageID);
-        //nuFile.GiveTacticalAspects(source.magicArts, source.skillsIDs);
+        nuFile.GiveMagicAspects(source.magicArts, source.magicArtLevels, source.skillsIDs);
+        nuFile.GiveInventoryAspects(source.weaponID, source.itemInventory, source.equipmentInventory);
         nuFile.SetLastModification(source.lastModified);
 
         return nuFile;
@@ -821,7 +836,6 @@ public class OptionsManager : MonoBehaviour
     #region Load Foes Mechanic
     public void LoadAllFoes()
     {
-        
         if (!Directory.Exists(Application.persistentDataPath + "/" + GetFoeFolder()))
             Directory.CreateDirectory(Application.persistentDataPath + "/" + GetFoeFolder());
 
@@ -1846,9 +1860,21 @@ public class CharaFile
     public int level { get; private set; }
 
     public int hp { get; private set; }
-    public int elixirCount { get; private set; }
-    public int size { get; private set; }
-    public int armor { get; private set; }
+    public int defense { get; private set; }
+    public int speed { get; private set; }
+
+    public int STRstat { get; private set; }
+    public int INTstat { get; private set; }
+    public int DEXstat { get; private set; }
+    public int CHAstat { get; private set; }
+
+    public int[] magicArts { get; private set; }
+    public int[] magicArtLevels { get; private set; }
+
+    public int weaponID { get; private set; }
+    public int[] itemInventory { get; private set; }
+    public int[] equipmentInventory { get; private set; }
+    public int[] skillsID { get; private set; }
 
     public float colorRed { get; private set; }
     public float colorGreen { get; private set; }
@@ -1856,47 +1882,34 @@ public class CharaFile
 
     public string graphicPieceID { get; private set; }
 
-    public int headPartID { get; private set; }
-    public int bodyPartID { get; private set; }
-    public int lWeaponPartID { get; private set; }
-    public int rWeaponPartID { get; private set; }
-
     public int relatedImageID { get; private set; }
 
-    public int kinIndex { get; private set; }
-    public int classIndex { get; private set; }
-    public int firstJobIndex { get; private set; }
-    public int secondJobIndex { get; private set; }
-    public int thirdJobIndex { get; private set; }
-
-    public int cultureIndex { get; private set; }
-    public int bondIndex { get; private set; }
-    public int startActionIndex { get; private set; }
-
-    public int[] dotModifiers { get; private set; }
-
     public long lastModified { get; private set; }
-
-    public CharaFile()
-    {
-        firstJobIndex = -1;
-        secondJobIndex = -1;
-        thirdJobIndex = -1;
-    }
 
     public void GiveUnitID(int ID)
     {
         charaID = ID;
     }
 
-    public void GiveGeneralAspects(string name, int level, int hp, Color choiceColor)
+    public void GiveGeneralAspects(string name, int level, Color choiceColor)
     {
         this.name = name;
         this.level = level;
-        this.hp = hp;
         colorRed = choiceColor.r;
         colorBlue = choiceColor.b;
         colorGreen = choiceColor.g;
+    }
+
+    public void GiveStats(int hp, int STRstat, int INTstat, int DEXstat, int CHAstat, int def, int speed)
+    {
+        this.hp = hp;
+        this.STRstat = STRstat;
+        this.INTstat = INTstat;
+        this.DEXstat = DEXstat;
+        this.CHAstat = CHAstat;
+
+        this.defense = def;
+        this.speed = speed;
     }
 
     public void GivePiecePartIDs(string graphicPieceID)
@@ -1904,9 +1917,18 @@ public class CharaFile
         this.graphicPieceID = graphicPieceID;
     }
 
-    public void GiveTacticalAspects(int classIndex, int[] skillsID)
+    public void GiveMagicAspects(int[] magicArts, int[] magicArtLevels, int[] skillsID)
     {
-        this.classIndex = classIndex;
+        this.magicArts = magicArts;
+        this.magicArtLevels = magicArtLevels;
+        this.skillsID = skillsID;
+    }
+
+    public void GiveInventoryAspects(int weaponID, int[] itemInventory, int[] equipmentInventory)
+    {
+        this.weaponID = weaponID;
+        this.itemInventory = itemInventory;
+        this.equipmentInventory = equipmentInventory;
     }
 
     public void SetLastModification(DateTime lastMod)

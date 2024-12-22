@@ -660,6 +660,18 @@ public class UnitManager : MonoBehaviour
         currentMode = UnitEditMode.None;
     }
 
+    public void SaveCharacter(EsperCharacter givenChara, bool newCharacter)
+    {
+        workCharacter = givenChara;
+
+        if (newCharacter)
+            currentMode = UnitEditMode.CharacterNew;
+        else
+            currentMode = UnitEditMode.CharacterEdit;
+
+        SaveCharacter();
+    }
+
     //plug method for the graphic piece editor
     public void SaveCharacter(string graphicPieceID)
     {
@@ -705,6 +717,8 @@ public class UnitManager : MonoBehaviour
     //tab list and panel
     private void UpdateCharaList()
     {
+        Debug.Log("chara list call");
+
         float entrySep = -20f;
         float entryHeight = -100f;
 
@@ -843,6 +857,11 @@ public class UnitManager : MonoBehaviour
         currentCharacterPage = 1;
 
         workCharacter = GetCharacter(charaID); // characterUnits[charaID];
+
+        characterMaker.StartPanel(workCharacter, true);
+        characterMaker.gameObject.SetActive(true);
+
+        /*
         charaNameInput.text = workCharacter.unitName;
         charaNameInput.ForceLabelUpdate();
         charaLevelLabel.text = "Lvl " + workCharacter.level;
@@ -873,6 +892,7 @@ public class UnitManager : MonoBehaviour
         charaRWeaponPiecePartLabel.text = "DEPREC.";
 
         SetScrollTipRectsActive(false);
+        */
     }
 
     public void DeleteCharaCall(int charaID)

@@ -71,15 +71,20 @@ public class CharacterMakerPanel : MonoBehaviour
 
     [SerializeField] private GameObject itemEntryPrefab;
     [SerializeField] private RectTransform addItemButton;
+    private bool itemListOpen = false;
+    private Dictionary<Transform, int> listEntryItemIDDict;
+
     [SerializeField] private GameObject equipmentPrefab;
     [SerializeField] private RectTransform addEquipmentButton;
+    private bool equipmentListOpen = false;
+    private Dictionary<Transform, int> listEntryEquipmentIDDict;
 
     [Header("Piece")]
     [SerializeField] private RectTransform pieceLookPage;
 
     private void LateUpdate()
     {
-        bool aListOpen = colorListOpen || magicArtsListOpen || magicSkillsListOpen || statListOpen || weaponListOpen;
+        bool aListOpen = colorListOpen || magicArtsListOpen || magicSkillsListOpen || statListOpen || weaponListOpen || itemListOpen || equipmentListOpen;
 
         if (aListOpen)
         {
@@ -128,6 +133,24 @@ public class CharacterMakerPanel : MonoBehaviour
                     listPanel.OnEntryClick -= ChangeCharacterWeapon;
                 }
             }
+            else if(itemListOpen && Input.GetMouseButton(0))
+            {
+                if (!TooltipManager.CheckMouseInArea(listRT))
+                {
+                    itemListOpen = false;
+                    listPanel.ShowPanel(false);
+                    listPanel.OnEntryClick -= AddItemToCharacter;
+                }
+            }
+            else if (equipmentListOpen && Input.GetMouseButton(0))
+            {
+                if (!TooltipManager.CheckMouseInArea(listRT))
+                {
+                    equipmentListOpen = false;
+                    listPanel.ShowPanel(false);
+                    listPanel.OnEntryClick -= AddEquipmentToCharacter;
+                }
+            }
         }
     }
 
@@ -135,12 +158,20 @@ public class CharacterMakerPanel : MonoBehaviour
     {
         activeCharacter = targetCharacter;
 
-        nameInputField.text = "";
-        nameInputField.ForceLabelUpdate();
-
-        colorLabel.text = "White";
-        colorImage.color = Color.white;
-        activeCharacter.colorChoice = Color.white;
+        if (!editMode)
+        {
+            nameInputField.text = "";
+            nameInputField.ForceLabelUpdate();
+            colorLabel.text = "White";
+            colorImage.color = Color.white;
+            activeCharacter.colorChoice = Color.white;
+        }
+        else
+        {
+            nameInputField.SetTextWithoutNotify(activeCharacter.unitName);
+            colorLabel.text = ColorManager._instance.GetColorName(activeCharacter.colorChoice);
+            colorImage.color = activeCharacter.colorChoice;
+        }
 
         this.editMode = editMode;
 
@@ -224,6 +255,11 @@ public class CharacterMakerPanel : MonoBehaviour
             Destroy(contentParent.GetChild(i).gameObject);
         }
 
+        if (listEntryItemIDDict == null)
+            listEntryItemIDDict = new Dictionary<Transform, int>();
+        else
+            listEntryItemIDDict.Clear();
+
         for (int i = 0; i < itemIDs.Length; i++)
         {
             GameObject itemEntry = Instantiate<GameObject>(itemEntryPrefab, contentParent);
@@ -233,8 +269,10 @@ public class CharacterMakerPanel : MonoBehaviour
             itemTF.GetChild(0).GetComponent<TextMeshProUGUI>().text = curItem.name;
             itemTF.GetChild(1).GetComponent<TextMeshProUGUI>().text = curItem.effect;
 
+            listEntryItemIDDict.Add(itemTF, itemIDs[i]);
+
             int itemIdx = i;
-            itemTF.GetChild(2).GetComponent<HoldButton>().onRelease.AddListener(delegate { DeleteItem(itemIdx); });
+            itemTF.GetChild(2).GetComponent<HoldButton>().onRelease.AddListener(delegate { DeleteItem(itemTF); });
 
             itemEntry.SetActive(true);
         }
@@ -248,6 +286,11 @@ public class CharacterMakerPanel : MonoBehaviour
             Destroy(contentParent.GetChild(i).gameObject);
         }
 
+        if (listEntryEquipmentIDDict == null)
+            listEntryEquipmentIDDict = new Dictionary<Transform, int>();
+        else
+            listEntryEquipmentIDDict.Clear();
+
         for (int i = 0; i < equipIDs.Length; i++)
         {
             GameObject equipmentEntry = Instantiate<GameObject>(equipmentPrefab, contentParent);
@@ -258,10 +301,14 @@ public class CharacterMakerPanel : MonoBehaviour
             equipmentTF.GetChild(1).GetComponent<TextMeshProUGUI>().text = curEquip.effect;
 
             int equipmentIdx = i;
-            equipmentTF.GetChild(2).GetComponent<HoldButton>().onRelease.AddListener(delegate { DeleteEquipment(equipmentIdx); });
+            equipmentTF.GetChild(2).GetComponent<HoldButton>().onRelease.AddListener(delegate { DeleteEquipment(equipmentTF); });
 
             equipmentEntry.SetActive(true);
         }
+
+        //piece screen
+
+        UpdatePiecePage();
     }
 
     #region General Section
@@ -300,8 +347,6 @@ public class CharacterMakerPanel : MonoBehaviour
 
         RectTransform colorButtonRT = colorLabel.transform.parent.GetComponent<RectTransform>();
 
-        Debug.Log((0.5f * colorButtonRT.rect.size.x * Vector3.right).ToString());
-
         Vector3 listOrigin = colorButtonRT.position + (-0.5f * colorButtonRT.rect.size.x * colorButtonRT.lossyScale.x * Vector3.right);
 
         ColorManager._instance.ShowGeneralColorPanel(listOrigin);
@@ -309,6 +354,8 @@ public class CharacterMakerPanel : MonoBehaviour
         magicSkillsListOpen = false;
         statListOpen = false;
         weaponListOpen = false;
+        itemListOpen = false;
+        equipmentListOpen = false;
         colorListOpen = true;
         colorListPanel.OnEntryClick += ColorListClick;
 
@@ -349,6 +396,8 @@ public class CharacterMakerPanel : MonoBehaviour
         statListOpen = false;
         magicSkillsListOpen = false;
         weaponListOpen = false;
+        itemListOpen = false;
+        equipmentListOpen = false;
         colorListOpen = false;
         listPanel.OnEntryClick += AddArtToCharacter;
 
@@ -525,6 +574,8 @@ public class CharacterMakerPanel : MonoBehaviour
         statListOpen = false;
         magicSkillsListOpen = true;
         weaponListOpen = false;
+        itemListOpen = false;
+        equipmentListOpen = false;
         colorListOpen = false;
         listPanel.OnEntryClick += AddSkillToCharacter;
 
@@ -753,6 +804,8 @@ public class CharacterMakerPanel : MonoBehaviour
         statListOpen = false;
         magicSkillsListOpen = false;
         weaponListOpen = true;
+        itemListOpen = false;
+        equipmentListOpen = false;
         colorListOpen = false;
         listPanel.OnEntryClick += ChangeCharacterWeapon;
 
@@ -788,18 +841,212 @@ public class CharacterMakerPanel : MonoBehaviour
 
     #region Item Methods
 
-    public void DeleteItem(int index)
+    public void OpenItemList()
     {
+        listPanel.screenProportionSize = slimListPanelProportions;
+        listPanel.listColor = 0.9f * makerPanel.transform.GetChild(0).GetComponent<Image>().color;
 
+        RectTransform itemButtonRT = addItemButton;
+        Vector3 listOrigin = itemButtonRT.position + (0.5f * itemButtonRT.rect.size.x * itemButtonRT.lossyScale.x * Vector3.right);
+        List<string> itemNames = new List<string>();
+        List<ItemsData.Item> items = UnitManager._instance.itemData.items;
+        for (int i = 0; i < items.Count; i++)
+        {
+            itemNames.Add(items[i].name);
+        }
+
+        listPanel.ShowPanel(listOrigin, itemNames, true);
+        magicArtsListOpen = false;
+        statListOpen = false;
+        magicSkillsListOpen = false;
+        weaponListOpen = false;
+        itemListOpen = true;
+        equipmentListOpen = false;
+        colorListOpen = false;
+        listPanel.OnEntryClick += AddItemToCharacter;
+
+        listRT = listPanel.GetComponent<RectTransform>();
+    }
+
+    public void AddItemToCharacter(int itemID)
+    {
+        int[] currentItems = activeCharacter.itemInventory;
+
+        List<int> newItems = new List<int>(currentItems);
+        newItems.Add(itemID);
+        activeCharacter.itemInventory = newItems.ToArray();
+
+        AddNewItemUIEntry(itemID);
+
+        itemListOpen = false;
+        listPanel.ShowPanel(false);
+        listPanel.OnEntryClick -= AddItemToCharacter;
+    }
+
+    private void AddNewItemUIEntry(int itemID)
+    {
+        Transform contentParent = itemEntryPrefab.transform.parent;
+
+        GameObject nuEntry = Instantiate<GameObject>(itemEntryPrefab, contentParent);
+        Transform entryTF = nuEntry.transform;
+
+        ItemsData.Item item = UnitManager._instance.itemData.items[itemID];
+        entryTF.GetChild(0).GetComponent<TextMeshProUGUI>().text = item.name;
+        entryTF.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.effect;
+
+        int childIndex = entryTF.GetSiblingIndex();
+        listEntryItemIDDict.Add(entryTF, itemID);
+
+        Transform listEntry = entryTF;
+        entryTF.GetChild(2).GetComponent<HoldButton>().onRelease.AddListener(delegate { DeleteItem(listEntry); });
+
+        nuEntry.SetActive(true);
+    }
+
+    public void DeleteItem(Transform entryTF)
+    {
+        if (!listEntryItemIDDict.ContainsKey(entryTF))
+            return;
+
+        int[] currentItems = activeCharacter.itemInventory;
+
+        List<int> itemList = new List<int>();
+
+        int itemID = listEntryItemIDDict[entryTF];
+
+        bool found = false;
+        //delete item and related level
+        for (int i = 0; i < currentItems.Length; i++)
+        {
+            if (currentItems[i] != itemID || found)
+                itemList.Add(currentItems[i]);
+            else if (currentItems[i] == itemID && !found)
+                found = true;
+        }
+
+        Destroy(entryTF.gameObject);
+        listEntryItemIDDict.Remove(entryTF);
+
+        Debug.Log("Removed item " + UnitManager._instance.itemData.items[itemID].name);
+
+        activeCharacter.itemInventory = itemList.ToArray();
     }
 
     #endregion
 
     #region Equipment Methods
 
-    public void DeleteEquipment(int index)
+    public void OpenEquipmentList()
     {
+        listPanel.screenProportionSize = slimListPanelProportions;
+        listPanel.listColor = 0.9f * makerPanel.transform.GetChild(0).GetComponent<Image>().color;
 
+        RectTransform equipButtonRT = addEquipmentButton;
+        Vector3 listOrigin = equipButtonRT.position + (0.5f * equipButtonRT.rect.size.x * equipButtonRT.lossyScale.x * Vector3.right);
+        List<string> equipmentNames = new List<string>();
+        List<ItemsData.Equipment> equipment = UnitManager._instance.itemData.equipment;
+        for (int i = 0; i < equipment.Count; i++)
+        {
+            equipmentNames.Add(equipment[i].name);
+        }
+
+        listPanel.ShowPanel(listOrigin, equipmentNames, true);
+        magicArtsListOpen = false;
+        statListOpen = false;
+        magicSkillsListOpen = false;
+        weaponListOpen = false;
+        itemListOpen = false;
+        equipmentListOpen = true;
+        colorListOpen = false;
+        listPanel.OnEntryClick += AddEquipmentToCharacter;
+
+        listRT = listPanel.GetComponent<RectTransform>();
+    }
+
+    public void AddEquipmentToCharacter(int equipmentID)
+    {
+        int[] currentEquip = activeCharacter.equipmentInventory;
+
+        List<int> newEquipment = new List<int>(currentEquip);
+        newEquipment.Add(equipmentID);
+        activeCharacter.equipmentInventory = newEquipment.ToArray();
+
+        AddNewEquipmentUIEntry(equipmentID);
+
+        itemListOpen = false;
+        listPanel.ShowPanel(false);
+        listPanel.OnEntryClick -= AddEquipmentToCharacter;
+    }
+
+    private void AddNewEquipmentUIEntry(int equipmentID)
+    {
+        Transform contentParent = equipmentPrefab.transform.parent;
+
+        GameObject nuEntry = Instantiate<GameObject>(equipmentPrefab, contentParent);
+        Transform entryTF = nuEntry.transform;
+
+        ItemsData.Equipment equipment = UnitManager._instance.itemData.equipment[equipmentID];
+        entryTF.GetChild(0).GetComponent<TextMeshProUGUI>().text = equipment.name;
+        entryTF.GetChild(1).GetComponent<TextMeshProUGUI>().text = equipment.effect;
+
+        int childIndex = entryTF.GetSiblingIndex();
+        listEntryEquipmentIDDict.Add(entryTF, equipmentID);
+
+        Transform listEntry = entryTF;
+        entryTF.GetChild(2).GetComponent<HoldButton>().onRelease.AddListener(delegate { DeleteEquipment(listEntry); });
+
+        nuEntry.SetActive(true);
+    }
+
+    public void DeleteEquipment(Transform entryTF)
+    {
+        if (!listEntryEquipmentIDDict.ContainsKey(entryTF))
+            return;
+
+        int[] currentEquipment = activeCharacter.equipmentInventory;
+
+        List<int> equipmentList = new List<int>();
+
+        int equipmentID = listEntryEquipmentIDDict[entryTF];
+
+        bool found = false;
+        //delete item and related level
+        for (int i = 0; i < currentEquipment.Length; i++)
+        {
+            if (currentEquipment[i] != equipmentID || found)
+                equipmentList.Add(currentEquipment[i]);
+            else if (currentEquipment[i] == equipmentID && !found)
+                found = true;
+        }
+
+        Destroy(entryTF.gameObject);
+        listEntryEquipmentIDDict.Remove(entryTF);
+
+        Debug.Log("Removed item " + UnitManager._instance.itemData.equipment[equipmentID].name);
+
+        activeCharacter.equipmentInventory = equipmentList.ToArray();
+    }
+
+    #endregion
+
+    #region Piece Page
+
+    public void GiveGraphicIDToPiece(string graphicID)
+    {
+        activeCharacter.graphicImageID = graphicID;
+    }
+
+    public void UpdatePiecePage()
+    {
+        PieceCamera._instance.SetSamplerAtStartRotation();
+        PieceCamera._instance.SetSamplerConfig(activeCharacter, true);
+
+        //GraphicPieceEditor.Instance.SetDisplayModel(activeCharacter);
+    }
+
+    public void ExitAndSaveCharacter()
+    {
+        UnitManager._instance.SaveCharacter(activeCharacter, !editMode);
     }
 
     #endregion

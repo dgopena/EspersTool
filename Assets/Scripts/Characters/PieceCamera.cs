@@ -167,7 +167,7 @@ public class PieceCamera : MonoBehaviour
             Debug.Log("No graphic selected for this unit");
         else
         {
-            GameObject samplePiece = GraphicPieceEditor.Instance.LoadPieceWithID(unit.graphicImageID);
+            GameObject samplePiece = GraphicPieceEditor.Instance.LoadPieceWithID(unit.graphicImageID, true);
             SetSamplerGraphicConfig(samplePiece.transform, false);
         }
     }

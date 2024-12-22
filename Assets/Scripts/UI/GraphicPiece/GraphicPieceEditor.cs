@@ -11,8 +11,6 @@ using UnityEngine.Networking;
 using UnityEngine.EventSystems;
 using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System;
 
 public class GraphicPieceEditor : MonoBehaviour
 {
@@ -36,6 +34,14 @@ public class GraphicPieceEditor : MonoBehaviour
     [Space(10f)]
     [SerializeField] private float pieceThickness = 0.1f;
 
+    [Header("Default Piece Data")]
+    public Vector3[] defaultPointBorder;
+    public Texture2D defaultTexture;
+    public Vector2 defaultBoundX;
+    public Vector2 defaultBoundY;
+    public float defaultModScale;
+    public float defaultModHeight;
+
     [Header("Editor In Scene")]
     [SerializeField] private Transform cameraObject;
     [SerializeField] private Transform sceneGraphicEditor;
@@ -57,6 +63,8 @@ public class GraphicPieceEditor : MonoBehaviour
     [Header("UI")]
     [SerializeField] private RectTransform rootTransform;
     [SerializeField] private GameObject startPage;
+
+    private UI_PieceLanding activePieceLanding;
 
     [Space(5f)]
     [SerializeField] private GameObject menuBackButton;
@@ -894,15 +902,9 @@ public class GraphicPieceEditor : MonoBehaviour
         Vector2 boundX = new Vector2(gpf.minX, gpf.maxX);
         Vector2 boundY = new Vector2(gpf.minY, gpf.maxY);
 
-        GameObject pieceCreated = CreatePieceModel(pieceBorder, boundX, boundY, pieceImage, 0f, 0f); //we load it with no mods, to be applied later for easier managing
 
-        pieceCreated.transform.position = displayQuad.transform.position + (2f * Vector3.forward);
-
-        activeSelection = pieceCreated;
         activeGraphicPiece = gpf;
-        ApplyModsToPiece(gpf); //here we applied the mod values
-
-        basePlaceholder.SetActive(true);
+        SetDisplayModel(pieceBorder, boundX, boundY, pieceImage, 0f, 0f);
         ShowEditTools(false);
 
         activerSelectionIndex = index;
@@ -921,6 +923,28 @@ public class GraphicPieceEditor : MonoBehaviour
         confirmSelectionButton.interactable = true;
     }
 
+    public void SetDisplayModel(IconUnit target)
+    {
+        LoadPieceWithID(target.graphicImageID, true);
+    }
+
+    private void SetDisplayModel(Vector3[] pieceBorder, Vector2 boundX, Vector2 boundY, Texture2D pieceImage, float modHeight, float modScale)
+    {
+        GameObject pieceCreated = CreatePieceModel(pieceBorder, boundX, boundY, pieceImage, 0f, 0f); //we load it with no mods, to be applied later for easier managing
+
+        pieceCreated.transform.position = displayQuad.transform.position + (2f * Vector3.forward);
+
+        if(activeSelection != null)
+        {
+            Destroy(activeSelection);
+        }
+
+        activeSelection = pieceCreated;
+        ApplyModsToPiece(modHeight, modScale); //here we applied the mod values
+
+        basePlaceholder.SetActive(true);
+    }
+
     public void CallPieceSelectionConfirm()
     {
         selectionEnabled = false;
@@ -928,6 +952,7 @@ public class GraphicPieceEditor : MonoBehaviour
 
     public void ConfirmPieceSelection()
     {
+        /*
         //give id to piece in UnitManager
         if(processType == 0)
             UnitManager._instance.SaveCharacter(loadedPieces[activerSelectionIndex].hexId);
@@ -937,6 +962,9 @@ public class GraphicPieceEditor : MonoBehaviour
         {
             PieceManager._instance.GiveIDToActiveToken(loadedPieces[activerSelectionIndex].hexId);
         }
+        */
+
+        activePieceLanding.ConfirmPieceID(loadedPieces[activerSelectionIndex].hexId);
 
         //close panel
         rootTransform.gameObject.SetActive(false);
@@ -953,12 +981,16 @@ public class GraphicPieceEditor : MonoBehaviour
     
     private void ApplyModsToPiece(GraphicPieceFile loadedPiece)
     {
-        //get values from file
-        float hght = loadedPiece.modHeightValue * pieceHeightMultiplier;
-        float sca = 1f + (loadedPiece.modScaleValue * pieceScaleMultiplier);
+        ApplyModsToPiece(loadedPiece.modHeightValue, loadedPiece.modScaleValue);
+    }
 
-        pieceHeightSlider.SetValueWithoutNotify(loadedPiece.modHeightValue);
-        pieceScaleSlider.SetValueWithoutNotify(loadedPiece.modScaleValue);
+    private void ApplyModsToPiece(float modHeightValue, float modScaleValue)
+    {
+        float hght = modHeightValue * pieceHeightMultiplier;
+        float sca = 1f + (modScaleValue * pieceScaleMultiplier);
+
+        pieceHeightSlider.SetValueWithoutNotify(modHeightValue);
+        pieceScaleSlider.SetValueWithoutNotify(modScaleValue);
 
         //apply them to the preview
         activeSelection.transform.position = displayQuad.transform.position + (2f * Vector3.forward) + (hght * Vector3.up);
@@ -1054,6 +1086,7 @@ public class GraphicPieceEditor : MonoBehaviour
 
         string pieceID = SaveFile(gpf);
 
+        /*
         //give id to piece
         if (processType == 0)
             UnitManager._instance.SaveCharacter(pieceID);
@@ -1063,16 +1096,19 @@ public class GraphicPieceEditor : MonoBehaviour
         {
             PieceManager._instance.GiveIDToActiveToken(pieceID);
         }
+        */
+
+        activePieceLanding.ConfirmPieceID(pieceID);
 
         //close panel
-        //rootTransform.gameObject.SetActive(false);
+        rootTransform.gameObject.SetActive(false);
 
         editLock = false;
 
-        editPage.SetActive(false);
+        //editPage.SetActive(false);
 
-        ClearPieceList();
-        OpenPieceList();
+        //ClearPieceList();
+        //OpenPieceList();
     }
 
     public Mesh[] CreatePieceMeshes(Vector3[] borderSet, Vector2 boundX, Vector2 boundY)
@@ -1285,26 +1321,57 @@ public class GraphicPieceEditor : MonoBehaviour
         return graphicPiece;
     }
 
-    public GameObject LoadPieceWithID(string hexID)
+    public GameObject LoadPieceWithID(string hexID, bool setDisplayModel = false)
     {
-        GraphicPieceFile gpf = LoadFile(hexID);
-
-        if (gpf == null)
-            return null;
-
-        Vector3[] pieceBorder = gpf.GetPointBorder();
-        Texture2D pieceImage = gpf.GetImageTexture();
-
-        if (editPointParent == null)
+        if (hexID == "def")
         {
-            editPointParent = editPointPrefab.transform.parent.GetComponent<RectTransform>();
-            editLineParent = editLinePrefab.transform.parent.GetComponent<RectTransform>();
+            //load the default settings
+            Vector3[] pieceBorder = defaultPointBorder;
+
+            if (editPointParent == null)
+            {
+                editPointParent = editPointPrefab.transform.parent.GetComponent<RectTransform>();
+                editLineParent = editLinePrefab.transform.parent.GetComponent<RectTransform>();
+            }
+
+            Vector2 boundX = defaultBoundX;
+            Vector2 boundY = defaultBoundY;
+
+            if (setDisplayModel) { 
+                SetDisplayModel(pieceBorder, boundX, boundY, defaultTexture, defaultModHeight, defaultModScale);
+                SetCameraPosition(true);
+            }
+
+            return CreatePieceModel(pieceBorder, boundX, boundY, defaultTexture, defaultModHeight, defaultModScale); 
         }
+        else
+        {
+            GraphicPieceFile gpf = LoadFile(hexID);
 
-        Vector2 boundX = new Vector2(gpf.minX, gpf.maxX);
-        Vector2 boundY = new Vector2(gpf.minY, gpf.maxY);
+            if (gpf == null)
+                return null;
 
-        return CreatePieceModel(pieceBorder, boundX, boundY, pieceImage, gpf.modHeightValue, gpf.modScaleValue);
+            Vector3[] pieceBorder = gpf.GetPointBorder();
+
+            Texture2D pieceImage = gpf.GetImageTexture();
+
+            if (editPointParent == null)
+            {
+                editPointParent = editPointPrefab.transform.parent.GetComponent<RectTransform>();
+                editLineParent = editLinePrefab.transform.parent.GetComponent<RectTransform>();
+            }
+
+            Vector2 boundX = new Vector2(gpf.minX, gpf.maxX);
+            Vector2 boundY = new Vector2(gpf.minY, gpf.maxY);
+
+            if (setDisplayModel)
+            {
+                SetDisplayModel(pieceBorder, boundX, boundY, pieceImage, defaultModHeight, defaultModScale);
+                SetCameraPosition(true);
+            }
+
+            return CreatePieceModel(pieceBorder, boundX, boundY, pieceImage, gpf.modHeightValue, gpf.modScaleValue);
+        }
     }
 
     #endregion
@@ -1355,6 +1422,13 @@ public class GraphicPieceEditor : MonoBehaviour
 
     public GraphicPieceFile LoadFile(string hexID)
     {
+        /*
+        if(hexID == "def")
+        {
+            //loads default graphic dummy
+        }
+        */
+
         string unitPath = Application.persistentDataPath + "/" + GetPieceFolder() + "/gpiece_" + hexID + ".icongpiece";
         FileStream file;
 
@@ -1426,9 +1500,11 @@ public class GraphicPieceEditor : MonoBehaviour
 
     #region External Calls
 
-    public void OpenPieceProcess(UI_PieceLanding callPanel, Color panelColor, bool isCharacterProcess)
+    public void OpenPieceProcess(UI_PieceLanding callPanel, Color panelColor, bool isCharacterProcess, UI_PieceLanding activeLandingPanel)
     {
         processType = isCharacterProcess ? 0 : 1;
+
+        activePieceLanding = activeLandingPanel;
 
         gameBackButton.SetActive(true);
         menuBackButton.SetActive(false);
@@ -1520,6 +1596,8 @@ public class GraphicPieceEditor : MonoBehaviour
         editPage.SetActive(false);
         pieceLoadPage.SetActive(false);
         startPage.SetActive(true);
+
+        
 
         rootTransform.gameObject.SetActive(false);
     }

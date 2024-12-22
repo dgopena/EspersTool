@@ -19,7 +19,7 @@ public class IconUnit
     public int statDEX;
     public int statCHA;
 
-    public string graphicImageID = "";
+    public string graphicImageID = "def";
     public int baseHP { get; protected set; }
 
     public int defense { get; protected set; }
@@ -207,6 +207,11 @@ public class IconUnit
     public void GiveDefense(int value)
     {
         defense = value;
+    }
+
+    public void GiveSpeed(int value)
+    {
+        speed = value;
     }
 
     public void GiveBlightList(List<Blight> blights)
