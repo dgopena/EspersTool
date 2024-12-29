@@ -763,7 +763,7 @@ public class PieceManager : MonoBehaviour
             OnPieceRemoved.Invoke();
     }
 
-    public void SpawnGrabbedFoePiece(IconFoe toSpawn)
+    public void SpawnGrabbedFoePiece(EsperFoe toSpawn)
     {
         Debug.Log("spawn foe call: " + toSpawn.unitName);
 
@@ -818,7 +818,7 @@ public class PieceManager : MonoBehaviour
     }
 
     //toSpawn must given from the unitmanager value (fresh one) or loaded from the map piece file (not fresh) so the data mantains
-    public Transform SpawnFoePiece(IconFoe toSpawn, Vector3 spawnPosition, bool onMap = true, bool fromLoad = false)
+    public Transform SpawnFoePiece(EsperFoe toSpawn, Vector3 spawnPosition, bool onMap = true, bool fromLoad = false)
     {
         GameObject nuPiece = Instantiate<GameObject>(foePiecePrefab, transform);
         Transform nuPieceObj = nuPiece.transform;
@@ -846,7 +846,7 @@ public class PieceManager : MonoBehaviour
         return nuPieceObj;
     }
 
-    public void DespawnFoePiece(IconFoe toDespawn)
+    public void DespawnFoePiece(EsperFoe toDespawn)
     {
         Debug.Log("despawn foe call: " + toDespawn.unitName);
 
@@ -1158,11 +1158,11 @@ public class PieceManager : MonoBehaviour
                 castedChara.SetPieceFaded(castedChara.characterData.currentHP == 0);
             }
 
-            IconFoe foeBase = UnitManager._instance.GetFoe(loadedData.pieces[i].pieceID);
+            EsperFoe foeBase = UnitManager._instance.GetFoe(loadedData.pieces[i].pieceID);
             if(foeBase != null)
             {
                 //it's foe
-                IconFoe load = foeBase.MakeCopy();
+                EsperFoe load = foeBase.MakeCopy();
 
                 load.SetFreshFlag(false); //may cause problems
 

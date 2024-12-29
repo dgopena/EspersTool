@@ -297,9 +297,9 @@ public class ExpeditionScreen : MonoBehaviour
 
         bool alphaSorting = PlayerPrefs.GetInt("foeListSort", 0) == 0;
 
-        List<IconFoe> foeUnits = UnitManager._instance.GetFoes();
+        List<EsperFoe> foeUnits = UnitManager._instance.GetFoes();
 
-        List<IconFoe> sortedUnits = new List<IconFoe>();
+        List<EsperFoe> sortedUnits = new List<EsperFoe>();
         sortedUnits = foeUnits;
         if (alphaSorting)
         {
@@ -388,13 +388,15 @@ public class ExpeditionScreen : MonoBehaviour
     public void NewFoeCall()
     {
         SetUnitMenuState(true);
-        UnitManager._instance.ShowEntryScreen(1);
+        
+        UnitManager._instance.NewFoeCall();
+        //UnitManager._instance.ShowEntryScreen(1);
     }
 
     public void EditFoeCall(int foeID)
     {
         SetUnitMenuState(true);
-        UnitManager._instance.StartFoeEditing(foeID);
+        UnitManager._instance.FoeEditCall(foeID);
     }
 
     public void DeleteFoeCall(int foeID)
@@ -417,13 +419,13 @@ public class ExpeditionScreen : MonoBehaviour
 
     public void ShowFoeDetails(int foeID)
     {
-        List<IconFoe> foeUnits = UnitManager._instance.GetFoes();
+        List<EsperFoe> foeUnits = UnitManager._instance.GetFoes();
 
         for (int i = 0; i < foeUnits.Count; i++)
         {
             if (foeUnits[i].unitID == foeID)
             {
-                IconFoe foeInfo = foeUnits[i];
+                EsperFoe foeInfo = foeUnits[i];
                 foeSummaryScreen.GetComponent<Image>().color = foeInfo.colorChoice;
                 foeSummaryName.text = foeInfo.unitName;
                 foeSummaryValues.text = "<b>Chapt " + foeInfo.level + "</b> - <i>" + MiscTools.GetSpacedForm(foeInfo.type.ToString()) + "</i>";
@@ -431,7 +433,7 @@ public class ExpeditionScreen : MonoBehaviour
                 string[] deets = UnitManager._instance.GetFoeDetails(foeUnits[i]);
 
                 string additional = "";
-                foeSummaryTactical.text = "<b>Tactical Combat</b><size=90%>\n\n· Class - <i>" + deets[0] + "</i>\n\n· Job - <i>" + deets[2] + " (" + deets[1] + ")" + "</i>";
+                foeSummaryTactical.text = "<b>Tactical Combat</b><size=90%>\n\nï¿½ Class - <i>" + deets[0] + "</i>\n\nï¿½ Job - <i>" + deets[2] + " (" + deets[1] + ")" + "</i>";
 
                 foeSummaryScreen.gameObject.SetActive(true);
             }

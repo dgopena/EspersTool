@@ -139,13 +139,19 @@ public class IconUnit
         return copy;
     }
 
-    public virtual IconFoe MakeCopyFoe()
+    public virtual EsperFoe MakeCopyFoe()
     {
-        IconFoe copy = new IconFoe();
+        EsperFoe copy = new EsperFoe();
         copy.unitID = unitID;
         copy.unitName = unitName;
         copy.level = level;
         copy.colorChoice = colorChoice;
+        
+        copy.statSTR = statSTR;
+        copy.statINT = statINT;
+        copy.statDEX = statDEX;
+        copy.statCHA = statCHA;
+        
         copy.graphicImageID = graphicImageID;
 
         if (!freshFlag) //this means is being loaded from a previous unit saved on map

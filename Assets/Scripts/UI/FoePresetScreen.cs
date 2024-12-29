@@ -34,7 +34,7 @@ public class FoePresetScreen : MonoBehaviour
     [Space(10f)]
     [SerializeField] private FactionData[] factionList;
 
-    private IconFoe buildingFoe;
+    private EsperFoe buildingFoe;
 
     private void OnEnable()
     {

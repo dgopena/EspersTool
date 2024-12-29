@@ -75,7 +75,7 @@ public class UnitManager : MonoBehaviour
 
     private List<EsperCharacter> characterUnits;
 
-    private List<IconFoe> foeUnits;
+    private List<EsperFoe> foeUnits;
 
     #region Character UI
     [Space(20f)]
@@ -145,7 +145,6 @@ public class UnitManager : MonoBehaviour
     private bool bondListOpen = false;
     private bool startActionListOpen = false;
     private bool colorListOpen = false;
-    private bool dotChangeFlag = false;
 
     private bool classListOpen = false;
     private bool jobListOpen = false;
@@ -155,10 +154,17 @@ public class UnitManager : MonoBehaviour
     #region Foes UI
     [Space(20f)]
     [Header("------------Foes UI------------")]
+    public AbilityData abilityData;
+
+
     public RectTransform foeListParent;
     public GameObject foeListEntryPrefab;
     public GameObject foeDeleteConfirmationPanel;
     private int foeIdToDelete;
+
+    [Space(10f)]
+    public GameObject foeEntries;
+    public FoeMakerPanel foeMaker;
 
     [Space(10f)]
     [Header("General Panel")]
@@ -252,7 +258,7 @@ public class UnitManager : MonoBehaviour
 
     private bool presetPageActive = false;
 
-    private IconFoe workFoe;
+    private EsperFoe workFoe;
     private int currentChosenChapter;
     public GameObject warningFoeNamePanel;
 
@@ -1102,34 +1108,7 @@ public class UnitManager : MonoBehaviour
 
     public void CharaListClick(int index)
     {
-        if (kinListOpen)
-        {
-            listPanel.ShowPanel(false);
-            listPanel.OnEntryClick -= CharaListClick;
-            kinListOpen = false;
-        }
-        else if (cultureListOpen)
-        {
-            dotChangeFlag = true;
-            listPanel.ShowPanel(false);
-            listPanel.OnEntryClick -= CharaListClick;
-            cultureListOpen = false;
-        }
-        else if (bondListOpen)
-        {
-            dotChangeFlag = true;
-            listPanel.ShowPanel(false);
-            listPanel.OnEntryClick -= CharaListClick;
-            bondListOpen = false;
-        }
-        else if (startActionListOpen)
-        {
-            dotChangeFlag = true;
-            listPanel.ShowPanel(false);
-            listPanel.OnEntryClick -= CharaListClick;
-            startActionListOpen = false;
-        }
-        else if (classListOpen)
+        if (classListOpen)
         {
             //workCharacter.magicArts = index;
             listPanel.ShowPanel(false);
@@ -1197,7 +1176,7 @@ public class UnitManager : MonoBehaviour
             string classTraits = "<b>Class Traits</b>";
             for (int i = 0; i < classes.classes[workCharacter.magicArts].classTraits.Length; i++)
             {
-                classTraits += "\n\n<b>·" + classes.classes[workCharacter.magicArts].classTraits[i].traitName;
+                classTraits += "\n\n<b>ï¿½" + classes.classes[workCharacter.magicArts].classTraits[i].traitName;
 
                 string auxText = classes.classes[workCharacter.magicArts].classTraits[i].traitDescription;
                 string traitDescription = "";
@@ -1387,9 +1366,7 @@ public class UnitManager : MonoBehaviour
         workFoe.GiveID(id);
 
         workFoe = workFoe.MakeCopy();
-
-        int[] pieceIds = PieceCamera._instance.GetCurrentSamplePartIDs();
-
+        
         workFoe.lastModified = DateTime.Now;
 
         if (currentMode == UnitEditMode.FoeNew)
@@ -1409,6 +1386,18 @@ public class UnitManager : MonoBehaviour
         currentMode = UnitEditMode.None;
     }
 
+    public void SaveFoe(EsperFoe givenFoe, bool newFoe)
+    {
+        workFoe = givenFoe;
+
+        if (newFoe)
+            currentMode = UnitEditMode.FoeNew;
+        else
+            currentMode = UnitEditMode.FoeEdit;
+
+        SaveFoe();
+    }
+    
     //plug method for the graphic piece editor
     public void SaveFoe(string graphicPieceID)
     {
@@ -1435,10 +1424,10 @@ public class UnitManager : MonoBehaviour
         optionsManager.LoadAllFoes();
     }
 
-    public void ReceiveLoadedFoes(List<IconFoe> fooes)
+    public void ReceiveLoadedFoes(List<EsperFoe> fooes)
     {
         if (fooes == null || fooes.Count == 0)
-            foeUnits = new List<IconFoe>();
+            foeUnits = new List<EsperFoe>();
         else
             foeUnits = fooes;
 
@@ -1464,7 +1453,7 @@ public class UnitManager : MonoBehaviour
 
         bool alphaSorting = PlayerPrefs.GetInt("foeListSort", 0) == 0;
 
-        List<IconFoe> sortedUnits = new List<IconFoe>();
+        List<EsperFoe> sortedUnits = new List<EsperFoe>();
         sortedUnits = foeUnits;
         if (alphaSorting)
         {
@@ -1522,7 +1511,7 @@ public class UnitManager : MonoBehaviour
             entryListRT.GetChild(2).GetComponent<HoldButton>().onRelease.AddListener(delegate {
                 generalInputs.SetActive(false);
                 optionButton.SetActive(false);
-                StartFoeEditing(foeID);
+                FoeEditCall(foeID);
             });
             entryListRT.GetChild(3).GetComponent<HoldButton>().onRelease.AddListener(delegate {
                 DeleteFoeCall(foeID);
@@ -1590,7 +1579,7 @@ public class UnitManager : MonoBehaviour
         {
             if (foeUnits[i].unitID == foeID)
             {
-                IconFoe foeInfo = foeUnits[i];
+                EsperFoe foeInfo = foeUnits[i];
                 foeDetailPanel.GetComponent<Image>().color = foeInfo.colorChoice;
                 foeDetailNameLabel.text = foeInfo.unitName;
                 foeDetailGeneralLabel.text = "<b>Chapt " + foeInfo.level + "</b> - <i>" + MiscTools.GetSpacedForm(foeInfo.type.ToString()) + "</i>";
@@ -1598,7 +1587,7 @@ public class UnitManager : MonoBehaviour
                 string[] deets = GetFoeDetails(foeUnits[i]);
 
                 string additional = "";
-                foeDetailTacticalLabel.text = "<b>Tactical Combat</b><size=90%>\n\n· Class - <i>" + deets[0] + "</i>\n\n· Job - <i>" + deets[2] + " (" + deets[1] + ")" + "</i>";
+                foeDetailTacticalLabel.text = "<b>Tactical Combat</b><size=90%>\n\nï¿½ Class - <i>" + deets[0] + "</i>\n\nï¿½ Job - <i>" + deets[2] + " (" + deets[1] + ")" + "</i>";
 
                 foeDetailPanel.SetActive(true);
             }
@@ -1611,50 +1600,96 @@ public class UnitManager : MonoBehaviour
 
     public void NewFoeCall()
     {
-        ShowEntryScreen(1); //we make the landing page
+        MapManager._instance.ToggleHUD(false);
+
+        currentFoePage = 1;
+
+        workFoe = GetFoeBase(FoeType.Foe);
+        
+        foeMaker.StartPanel(workFoe, false);
+        foeMaker.gameObject.SetActive(true);
     }
 
-    public void PresetFoeCall()
+    public void FoeEditCall(int foeID)
     {
-        landingFoePages.SetActive(false);
-        presetsFoePages.SetActive(true);
-    }
+        MapManager._instance.ToggleHUD(false);
 
-    public void BuildFoeCall()
-    {
-        //shoot animation
-        fromScratchAnim.SetTrigger("Toggle");
+        currentFoePage = 1;
+
+        workFoe = GetFoe(foeID);
+        
+        foeMaker.StartPanel(workFoe,true);
+        foeMaker.gameObject.SetActive(true);
 
         /*
-        listPanel.screenProportionSize = kinCulturePanelProportions;
-        listPanel.listColor = 0.9f * foeEntryScreen.transform.GetChild(0).GetComponent<Image>().color;
+        currentFoeType = (int)workFoe.type;
 
-        Vector3 listOrigin = foeTypeButton.position + (0.5f * foeTypeButton.rect.size.x * foeTypeButton.lossyScale.x * Vector3.right);
+        if ((FoeType)currentFoeType == FoeType.Mob || (FoeType)currentFoeType == FoeType.SpecialSummon)
+        {
+            mobMakingPageStepper.StepperSetup();
+            pageChangedFlags = new bool[mobMakingPageStepper.pages.Length];
+            mobMakingPageStepper.ResetCurrentPage();
+        }
+        else
+        {
+            foeMakingPageStepper.StepperSetup();
+            pageChangedFlags = new bool[foeMakingPageStepper.pages.Length];
+            foeMakingPageStepper.ResetCurrentPage();
+        }
 
-        List<string> foeClassTypeNames = new List<string>();
+        for (int i = 1; i < pageChangedFlags.Length; i++)
+            pageChangedFlags[i] = true;
 
-        foeClassTypeNames.Add("Foe");
-        foeClassTypeNames.Add("Mob");
-        foeClassTypeNames.Add("Elite");
-        foeClassTypeNames.Add("Legend");
-        foeClassTypeNames.Add("Special Summon");
+        foeNameInput.text = workFoe.unitName;
+        foeNameInput.ForceLabelUpdate();
 
-        listPanel.ShowPanel(listOrigin, foeClassTypeNames, true);
-        foeTypeListOpen = true;
-        listPanel.OnEntryClick += FoeListClick;
+        foeEditAcceptButton.SetActive(true);
 
-        listRT = listPanel.GetComponent<RectTransform>();
+        string typeName = MiscTools.GetSpacedForm(((FoeType)currentFoeType).ToString());
+        foeTypeLabel.text = typeName;
+        foeTypeLabel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = typeName;
+        foeChapter.text = "Chapter " + workFoe.level;
+        currentChosenChapter = workFoe.level;
+
+        string colorName = ColorManager._instance.GetColorName(workFoe.colorChoice);
+        if (colorName.Length == 0)
+            colorName = "White";
+        foeColorLabel.text = colorName;
+        foeColor.color = workFoe.colorChoice;
+        if (colorName.Length == 0)
+        {
+            foeColor.color = Color.white;
+            workFoe.colorChoice = Color.white;
+        }
+
+        if ((FoeType)currentFoeType == FoeType.Mob) 
+        {
+            choiceWasClassJob = foes.mobs[workFoe.classIndex].factionIndex < 0;
+            if (!choiceWasClassJob)
+                choiceWasFactionJob = true;
+        }
+        else if ((FoeType) currentFoeType == FoeType.SpecialSummon)
+        {
+            choiceWasClassJob = foes.specialSummons[workFoe.classIndex].factionIndex < 0;
+            if (!choiceWasClassJob)
+                choiceWasFactionJob = true;
+        }
+
+        choiceWasFactionJob = true;
+
+        PieceCamera._instance.SetSamplerAtStartRotation();
+        PieceCamera._instance.SetSamplerConfig(workFoe, true);
+
+        currentMode = UnitEditMode.FoeEdit;
+
+        miniFoesSet.SetActive(workFoe.type == FoeType.Mob || workFoe.type == FoeType.SpecialSummon);
+        generalFoePages.SetActive(workFoe.type != FoeType.Mob && workFoe.type != FoeType.SpecialSummon);
+
+        SetScrollTipRectsActive(false);
+        UpdateFoePage(currentFoeType, 0);
         */
     }
-
-    public void BuildFoeByIndex(int index)
-    {
-        landingFoePages.SetActive(false);
-        presetsFoePages.SetActive(false);
-
-        ShowEntryScreen(index + 3);
-    }
-
+    
     public void StartFoeMaking(int foeType)
     {
         if(foeType < 3)
@@ -1743,82 +1778,6 @@ public class UnitManager : MonoBehaviour
         UpdateFoePage(foeType, 0);
     }
 
-    public void StartFoeEditing(int foeID)
-    {
-        foeEntryScreen.SetActive(true);
-
-        currentFoePage = 1;
-
-        workFoe = GetFoe(foeID);
-
-        currentFoeType = (int)workFoe.type;
-
-        if ((FoeType)currentFoeType == FoeType.Mob || (FoeType)currentFoeType == FoeType.SpecialSummon)
-        {
-            mobMakingPageStepper.StepperSetup();
-            pageChangedFlags = new bool[mobMakingPageStepper.pages.Length];
-            mobMakingPageStepper.ResetCurrentPage();
-        }
-        else
-        {
-            foeMakingPageStepper.StepperSetup();
-            pageChangedFlags = new bool[foeMakingPageStepper.pages.Length];
-            foeMakingPageStepper.ResetCurrentPage();
-        }
-
-        for (int i = 1; i < pageChangedFlags.Length; i++)
-            pageChangedFlags[i] = true;
-
-        foeNameInput.text = workFoe.unitName;
-        foeNameInput.ForceLabelUpdate();
-
-        foeEditAcceptButton.SetActive(true);
-
-        string typeName = MiscTools.GetSpacedForm(((FoeType)currentFoeType).ToString());
-        foeTypeLabel.text = typeName;
-        foeTypeLabel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = typeName;
-        foeChapter.text = "Chapter " + workFoe.level;
-        currentChosenChapter = workFoe.level;
-
-        string colorName = ColorManager._instance.GetColorName(workFoe.colorChoice);
-        if (colorName.Length == 0)
-            colorName = "White";
-        foeColorLabel.text = colorName;
-        foeColor.color = workFoe.colorChoice;
-        if (colorName.Length == 0)
-        {
-            foeColor.color = Color.white;
-            workFoe.colorChoice = Color.white;
-        }
-
-        /*
-        if ((FoeType)currentFoeType == FoeType.Mob) 
-        {
-            choiceWasClassJob = foes.mobs[workFoe.classIndex].factionIndex < 0;
-            if (!choiceWasClassJob)
-                choiceWasFactionJob = true;
-        }
-        else if ((FoeType) currentFoeType == FoeType.SpecialSummon)
-        {
-            choiceWasClassJob = foes.specialSummons[workFoe.classIndex].factionIndex < 0;
-            if (!choiceWasClassJob)
-                choiceWasFactionJob = true;
-        }
-        */
-
-        choiceWasFactionJob = true;
-
-        PieceCamera._instance.SetSamplerAtStartRotation();
-        PieceCamera._instance.SetSamplerConfig(workFoe, true);
-
-        currentMode = UnitEditMode.FoeEdit;
-
-        miniFoesSet.SetActive(workFoe.type == FoeType.Mob || workFoe.type == FoeType.SpecialSummon);
-        generalFoePages.SetActive(workFoe.type != FoeType.Mob && workFoe.type != FoeType.SpecialSummon);
-
-        SetScrollTipRectsActive(false);
-        UpdateFoePage(currentFoeType, 0);
-    }
 
     public void DeleteFoeCall(int foeID)
     {
@@ -1846,9 +1805,9 @@ public class UnitManager : MonoBehaviour
         foeDeleteConfirmationPanel.SetActive(false);
     }
 
-    private IconFoe MakeNewFoe()
+    private EsperFoe MakeNewFoe()
     {
-        IconFoe nuFoe = new IconFoe();
+        EsperFoe nuFoe = new EsperFoe();
         currentChosenChapter = 1;
         nuFoe.level = currentChosenChapter;
         nuFoe.classIndex = 0;
@@ -1856,428 +1815,18 @@ public class UnitManager : MonoBehaviour
         return nuFoe;
     }
 
-    public IconFoe GetFoeBase(FoeType type)
+    public EsperFoe GetFoeBase(FoeType type)
     {
-        IconFoe baseFoe = MakeNewFoe();
+        EsperFoe baseFoe = MakeNewFoe();
         baseFoe.type = (FoeType)type;
         baseFoe.GiveID(RequestNextUnitID());
 
         return baseFoe;
     }
 
-    public void UpdateFoeName()
+    public void UpdateWorkFoe(EsperFoe givenFoe)
     {
-        if (workFoe == null)
-            return;
-
-        int foeType = (int)workFoe.type;
-
-        if (foeNameInput.text.Length < 1)
-            return;
-
-        workFoe.unitName = foeNameInput.text;
-    }
-
-    public void ChangeFoeLevel(bool forward)
-    {
-        if (workFoe == null)
-            return;
-
-        int foeType = (int)workFoe.type;
-
-        int auxChapter = currentChosenChapter + (forward ? 1 : -1);
-        auxChapter = Mathf.Clamp(currentChosenChapter, 1, 3);
-
-        //check chapter limits
-
-        //if so, refresh the abilities and traits shown in the subpanel
-
-        //if not, show notif explaining situation
-
-        currentChosenChapter += forward ? 1 : -1;
-
-        currentChosenChapter = Mathf.Clamp(currentChosenChapter, 1, 3);
-
-        foeChapter.text = "Cpt. " + currentChosenChapter;
-
-        workFoe.level = currentChosenChapter;
-
-        for (int i = 2; i < pageChangedFlags.Length; i++)
-            pageChangedFlags[i] = true;
-    }
-
-    public void OpenFoeClassList()
-    {
-        if (workFoe == null)
-            return;
-
-        int foeType = (int)workFoe.type;
-
-        listPanel.screenProportionSize = bondClassJobPanelProportions;
-        listPanel.listColor = 0.9f * foeEntryScreen.transform.GetChild(0).GetComponent<Image>().color;
-
-        RectTransform classButtonRT = foeBaseClassLabel.transform.parent.GetComponent<RectTransform>();
-        Vector3 listOrigin = classButtonRT.position + (0.5f * classButtonRT.rect.size.x*classButtonRT.lossyScale.x * Vector3.right);
-
-        List<string> classTypes = new List<string>();
-
-        List<FoeData.FoeClass> classList = foes.classes;
-
-        for (int i = 0; i < classList.Count; i++)
-        {
-            classTypes.Add(classList[i].name);
-        }
-
-        listPanel.ShowPanel(listOrigin, classTypes, true);
-        kinListOpen = false;
-        bondListOpen = false;
-        startActionListOpen = false;
-        cultureListOpen = false;
-        classListOpen = true;
-        colorListOpen = false;
-
-        mobSummonListOpen = false;
-
-        foeJobFactionChoiceOpen = false;
-        foeJobFactionListOpen = false;
-
-        foeJobUniqueChoiceOpen = false;
-        foeJobUniqueListOpen = false;
-        
-        templateListOpen = false;
-        foeSubTemplateListOpen = false;
-        listPanel.OnEntryClick += FoeListClick;
-
-        listRT = listPanel.GetComponent<RectTransform>();
-    }
-
-    public void OpenMobSummonList()
-    {
-        if (workFoe == null)
-            return;
-
-        int foeType = (int)workFoe.type;
-
-        listPanel.screenProportionSize = bondClassJobPanelProportions;
-        listPanel.listColor = 0.9f * foeEntryScreen.transform.GetChild(0).GetComponent<Image>().color;
-
-        RectTransform classButtonRT = mobSummonButtonLabel.transform.parent.GetComponent<RectTransform>();
-        Vector3 listOrigin = classButtonRT.position + (0.5f * classButtonRT.rect.size.x*classButtonRT.lossyScale.x * Vector3.right);
-
-        List<string> classTypes = new List<string>();
-
-        if (workFoe.type == FoeType.Mob)
-        {
-            for(int i = 0; i < foes.mobs.Length; i++)
-            {
-                classTypes.Add(foes.mobs[i].name);
-            }
-        }
-        else if (workFoe.type == FoeType.SpecialSummon)
-        {
-            for (int i = 0; i < summons.specialSummons.Length; i++)
-            {
-                classTypes.Add(summons.specialSummons[i].name);
-            }
-        }
-
-        listPanel.ShowPanel(listOrigin, classTypes, true);
-        kinListOpen = false;
-        bondListOpen = false;
-        startActionListOpen = false;
-        cultureListOpen = false;
-        classListOpen = false;
-        colorListOpen = false;
-
-        mobSummonListOpen = true;
-
-        foeJobFactionChoiceOpen = false;
-        foeJobFactionListOpen = false;
-
-        foeJobUniqueChoiceOpen = false;
-        foeJobUniqueListOpen = false;
-
-        templateListOpen = false;
-        foeSubTemplateListOpen = false;
-        listPanel.OnEntryClick += FoeListClick;
-
-        listRT = listPanel.GetComponent<RectTransform>();
-    }
-
-    public void OpenFoeJobFactionChoiceList()
-    {
-        if (workFoe == null)
-            return;
-
-        int foeType = (int)workFoe.type;
-
-        listPanel.screenProportionSize = bondClassJobPanelProportions;
-        listPanel.listColor = 0.9f * foeEntryScreen.transform.GetChild(0).GetComponent<Image>().color;
-
-        RectTransform choiceButtonRT = foeJobFactionChoiceLabel.transform.parent.GetComponent<RectTransform>();
-        Vector3 listOrigin = choiceButtonRT.position + (0.5f * choiceButtonRT.rect.size.x*choiceButtonRT.lossyScale.x * Vector3.right);
-        List<string> choices = new List<string>();
-        choices.Add("Class Job");
-        choices.Add("Faction Options");
-
-        listPanel.ShowPanel(listOrigin, choices, true);
-        kinListOpen = false;
-        bondListOpen = false;
-        startActionListOpen = false;
-        cultureListOpen = false;
-        classListOpen = false;
-        colorListOpen = false;
-
-        mobSummonListOpen = false;
-
-        foeJobFactionChoiceOpen = true;
-        foeJobFactionListOpen = false;
-
-        foeJobUniqueChoiceOpen = false;
-        foeJobUniqueListOpen = false;
-
-        templateListOpen = false;
-        foeSubTemplateListOpen = false;
-        listPanel.OnEntryClick += FoeListClick;
-
-        listRT = listPanel.GetComponent<RectTransform>();
-    }
-
-    public void OpenFoeJobFactionList()
-    {
-        if (workFoe == null)
-            return;
-
-        int foeType = (int)workFoe.type;
-
-        listPanel.screenProportionSize = bondClassJobPanelProportions;
-        listPanel.listColor = 0.9f * foeEntryScreen.transform.GetChild(0).GetComponent<Image>().color;
-
-        RectTransform subChoiceButtonRT = foeJobFactionSubChoiceLabel.transform.parent.GetComponent<RectTransform>();
-        Vector3 listOrigin = subChoiceButtonRT.position + (0.5f * subChoiceButtonRT.rect.size.x*subChoiceButtonRT.lossyScale.x * Vector3.right);
-        List<string> subChoices = new List<string>();
-
-        if (choiceWasClassJob)
-        {
-            if (workFoe.type == FoeType.Foe)
-            {
-                for (int i = 0; i < foes.classes[workFoe.classIndex].jobs.Count; i++)
-                {
-                    subChoices.Add(foes.classes[workFoe.classIndex].jobs[i].name);
-                }
-            }
-            else if(workFoe.type == FoeType.Elite)
-            {
-                subChoices.Add(foes.eliteClasses[workFoe.classIndex].name);
-            }
-            else if(workFoe.type == FoeType.Legend)
-            {
-                subChoices.Add(foes.legendClasses[workFoe.classIndex].name);
-            }
-        }
-        else
-        {
-            for(int f = 0; f < factions.Length; f++)
-            {
-                for(int i = 0; i < factions[f].foeFactions.Length; i++)
-                {
-                    subChoices.Add(factions[f].foeFactions[i].factionName);
-                }
-            }
-        }
-
-        listPanel.ShowPanel(listOrigin, subChoices, true);
-        kinListOpen = false;
-        bondListOpen = false;
-        startActionListOpen = false;
-        cultureListOpen = false;
-        classListOpen = false;
-        colorListOpen = false;
-
-        mobSummonListOpen = false;
-
-        foeJobFactionChoiceOpen = false;
-        foeJobFactionListOpen = true;
-
-        foeJobUniqueChoiceOpen = false;
-        foeJobUniqueListOpen = false;
-
-        templateListOpen = false;
-        foeSubTemplateListOpen = false;
-        listPanel.OnEntryClick += FoeListClick;
-
-        listRT = listPanel.GetComponent<RectTransform>();
-    }
-
-    public void OpenFoeTemplateList()
-    {
-        if (workFoe == null)
-            return;
-
-        int foeType = (int)workFoe.type;
-
-        listPanel.screenProportionSize = bondClassJobPanelProportions;
-        listPanel.listColor = 0.9f * foeEntryScreen.transform.GetChild(0).GetComponent<Image>().color;
-
-        
-        RectTransform templateButtonRT = foeTemplateButtonLabel.transform.parent.GetComponent<RectTransform>();
-        Vector3 listOrigin = templateButtonRT.position + (0.5f * templateButtonRT.rect.size.x*templateButtonRT.lossyScale.x * Vector3.right);
-        List<string> templateTypes = new List<string>();
-
-        templateTypes.Add("None");
-
-        for(int i = 0; i < templates.templates.Length; i++)
-        {
-            templateTypes.Add(templates.templates[i].templateName);
-        }
-
-        listPanel.ShowPanel(listOrigin, templateTypes, true);
-        kinListOpen = false;
-        bondListOpen = false;
-        startActionListOpen = false;
-        cultureListOpen = false;
-        classListOpen = false;
-        colorListOpen = false;
-
-        mobSummonListOpen = false;
-
-        foeJobFactionChoiceOpen = false;
-        foeJobFactionListOpen = false;
-
-        foeJobUniqueChoiceOpen = false;
-        foeJobUniqueListOpen = false;
-
-        templateListOpen = true;
-        foeSubTemplateListOpen = false;
-
-        listPanel.OnEntryClick += FoeListClick;
-
-        listRT = listPanel.GetComponent<RectTransform>();
-    }
-
-    public void OpenFoeSubTemplateList()
-    {
-        if (workFoe == null)
-            return;
-
-        int foeType = (int)workFoe.type;
-
-        listPanel.screenProportionSize = bondClassJobPanelProportions;
-        listPanel.listColor = 0.9f * foeEntryScreen.transform.GetChild(0).GetComponent<Image>().color;
-
-
-        RectTransform subTemplateButtonRT = templatePageSubTemplateButtonLabel.transform.parent.GetComponent<RectTransform>();
-        if (!foeTemplateSubPageChosen)
-            subTemplateButtonRT = factionPageSubTemplateButtonLabel.transform.parent.GetComponent<RectTransform>();
-
-        Vector3 listOrigin = subTemplateButtonRT.position + (0.5f * subTemplateButtonRT.rect.size.x*subTemplateButtonRT.lossyScale.x * Vector3.right);
-        List<string> subTemplateTypes = new List<string>();
-
-        subTemplateTypes.Add("None");
-
-        if (workFoe.type != FoeType.Mob)
-            subTemplateTypes.Add("Mob");
-        if (workFoe.type != FoeType.Elite && workFoe.type != FoeType.Legend)
-            subTemplateTypes.Add("Elite");
-
-        listPanel.ShowPanel(listOrigin, subTemplateTypes, true);
-        kinListOpen = false;
-        bondListOpen = false;
-        startActionListOpen = false;
-        cultureListOpen = false;
-        classListOpen = false;
-        colorListOpen = false;
-
-        mobSummonListOpen = false;
-
-        foeJobFactionChoiceOpen = false;
-        foeJobFactionListOpen = false;
-
-        foeJobUniqueChoiceOpen = false;
-        foeJobUniqueListOpen = false;
-
-        templateListOpen = false;
-        foeSubTemplateListOpen = true;
-
-        listPanel.OnEntryClick += FoeListClick;
-
-        listRT = listPanel.GetComponent<RectTransform>();
-    }
-
-    public void OpenJobUniqueChoiceList()
-    {
-        if (workFoe == null)
-            return;
-
-        int foeType = (int)workFoe.type;
-
-        listPanel.screenProportionSize = bondClassJobPanelProportions;
-        listPanel.listColor = 0.9f * foeEntryScreen.transform.GetChild(0).GetComponent<Image>().color;
-
-        RectTransform choiceButtonRT = foeJobFactionChoiceLabel.transform.parent.GetComponent<RectTransform>();
-        Vector3 listOrigin = choiceButtonRT.position + (0.5f * choiceButtonRT.rect.size.x*choiceButtonRT.lossyScale.x * Vector3.right);
-        List<string> choices = new List<string>();
-        choices.Add("Faction Job");
-        choices.Add("Unique " + workFoe.type.ToString());
-
-        listPanel.ShowPanel(listOrigin, choices, true);
-        kinListOpen = false;
-        bondListOpen = false;
-        startActionListOpen = false;
-        cultureListOpen = false;
-        classListOpen = false;
-        colorListOpen = false;
-
-        mobSummonListOpen = false;
-
-        foeJobFactionChoiceOpen = false;
-        foeJobFactionListOpen = false;
-
-        foeJobUniqueChoiceOpen = true;
-        foeJobUniqueListOpen = false;
-
-        templateListOpen = false;
-        foeSubTemplateListOpen = false;
-        listPanel.OnEntryClick += FoeListClick;
-
-        listRT = listPanel.GetComponent<RectTransform>();
-    }
-
-    public void OpenJobUniqueList()
-    {
-        if (workFoe == null)
-            return;
-
-        int foeType = (int)workFoe.type;
-
-        listPanel.screenProportionSize = bondClassJobPanelProportions;
-        listPanel.listColor = 0.9f * foeEntryScreen.transform.GetChild(0).GetComponent<Image>().color;
-
-        RectTransform subChoiceButtonRT = foeJobUniqueSubChoiceLabel.transform.parent.GetComponent<RectTransform>();
-        Vector3 listOrigin = subChoiceButtonRT.position + (0.5f * subChoiceButtonRT.rect.size.x*subChoiceButtonRT.lossyScale.x * Vector3.right);
-        List<string> subChoices = new List<string>();
-
-        listPanel.ShowPanel(listOrigin, subChoices, true);
-        kinListOpen = false;
-        bondListOpen = false;
-        startActionListOpen = false;
-        cultureListOpen = false;
-        classListOpen = false;
-        colorListOpen = false;
-
-        mobSummonListOpen = false;
-
-        foeJobFactionChoiceOpen = false;
-        foeJobFactionListOpen = false;
-
-        foeJobUniqueChoiceOpen = false;
-        foeJobUniqueListOpen = true;
-
-        templateListOpen = false;
-        foeSubTemplateListOpen = false;
-        listPanel.OnEntryClick += FoeListClick;
-
-        listRT = listPanel.GetComponent<RectTransform>();
+        workFoe = givenFoe;
     }
 
     public void FoeListClick(int index)
@@ -2399,21 +1948,6 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    public void ChangePageCall()
-    {
-        int foeType = (int)workFoe.type;
-        if(workFoe.type == FoeType.Mob || workFoe.type == FoeType.SpecialSummon || presetPageActive)
-            currentFoePage = mobMakingPageStepper.eventFlipFlag > 0 ? mobMakingPageStepper.currentPage + 1 : mobMakingPageStepper.currentPage - 1;
-        else
-            currentFoePage = foeMakingPageStepper.eventFlipFlag > 0 ? foeMakingPageStepper.currentPage + 1 : foeMakingPageStepper.currentPage - 1;
-
-        if (pageChangedFlags[currentFoePage])
-        {
-            UpdateFoePage(foeType, currentFoePage);
-            pageChangedFlags[currentFoePage] = false;
-        }
-    }
-
     private void UpdateFoePage(int foeType, int pageNumber)
     {
         if (workFoe == null)
@@ -2428,15 +1962,15 @@ public class UnitManager : MonoBehaviour
                 FoeData.FoeClass.FoeStats foeStats = workFoe.BuildStatsSet();
 
                 string enemyStats = "<b>Stats:</b>";
-                enemyStats += "\n\n·HP: " + (foeStats.HP);
-                enemyStats += "\n·Defense: " + foeStats.defense;
-                enemyStats += "\n·Speed: " + foeStats.speed + " <i>(Dash " + foeStats.dash + ")</i>";
+                enemyStats += "\n\nï¿½HP: " + (foeStats.HP);
+                enemyStats += "\nï¿½Defense: " + foeStats.defense;
+                enemyStats += "\nï¿½Speed: " + foeStats.speed + " <i>(Dash " + foeStats.dash + ")</i>";
 
                 if(foeStats.frayDamage > 0)
-                    enemyStats += "\n·Fray Damage: " + foeStats.frayDamage;
+                    enemyStats += "\nï¿½Fray Damage: " + foeStats.frayDamage;
 
                 if(foeStats.dieAmount != 0 && foeStats.damageDie != 0)
-                    enemyStats += "\n·Damage: " + foeStats.dieAmount + "d" + foeStats.damageDie;
+                    enemyStats += "\nï¿½Damage: " + foeStats.dieAmount + "d" + foeStats.damageDie;
 
                 mobSummonOverallStatsLabel.text = enemyStats;
 
@@ -2465,14 +1999,14 @@ public class UnitManager : MonoBehaviour
                 }
 
                 string classStats = "<b>Base Class Stats:</b>";
-                classStats += "\n\n·HP: " + (classList[workFoe.classIndex].classStats.HP);
-                classStats += "\n·Defense: " + classList[workFoe.classIndex].classStats.defense;
-                classStats += "\n·Speed: " + classList[workFoe.classIndex].classStats.speed + " <i>(Dash " + classList[workFoe.classIndex].classStats.dash + ")</i>";
+                classStats += "\n\nï¿½HP: " + (classList[workFoe.classIndex].classStats.HP);
+                classStats += "\nï¿½Defense: " + classList[workFoe.classIndex].classStats.defense;
+                classStats += "\nï¿½Speed: " + classList[workFoe.classIndex].classStats.speed + " <i>(Dash " + classList[workFoe.classIndex].classStats.dash + ")</i>";
 
                 //classStats += "\n\nAttack: +" + TranslateStatWithChapter(classList[workFoe.classIndex].classStats[chapterNum - 1].attack, chapterNum);
-                classStats += "\n·Fray Damage: " + classList[workFoe.classIndex].classStats.frayDamage;
+                classStats += "\nï¿½Fray Damage: " + classList[workFoe.classIndex].classStats.frayDamage;
 
-                classStats += "\n·Damage: " + classList[workFoe.classIndex].classStats.dieAmount + "d" + classList[workFoe.classIndex].classStats.damageDie;
+                classStats += "\nï¿½Damage: " + classList[workFoe.classIndex].classStats.dieAmount + "d" + classList[workFoe.classIndex].classStats.damageDie;
 
                 CheckDiffPreUpdate(foeClassStatsContent, foeClassStatsText, classStats, 200, 1.2f);
 
@@ -2532,7 +2066,7 @@ public class UnitManager : MonoBehaviour
         contentRT.anchoredPosition = Vector2.zero;
     }
 
-    public string[] GetFoeDetails(IconFoe unit)
+    public string[] GetFoeDetails(EsperFoe unit)
     {
         string[] deets = new string[3];
 
@@ -2582,7 +2116,7 @@ public class UnitManager : MonoBehaviour
         return result;
     }
 
-    public IconFoe GetFoe(int id)
+    public EsperFoe GetFoe(int id)
     {
         if (foeUnits == null)
             return null;
@@ -2596,7 +2130,7 @@ public class UnitManager : MonoBehaviour
         return null;
     }
 
-    public void UpdateFoe(int id, IconFoe nuFoe)
+    public void UpdateFoe(int id, EsperFoe nuFoe)
     {
         if (characterUnits == null)
             return;
@@ -2611,7 +2145,7 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    public void UpdateFoePiece(int id, IconFoe nuFoe)
+    public void UpdateFoePiece(int id, EsperFoe nuFoe)
     {
         if (characterUnits == null)
             return;
@@ -2619,9 +2153,9 @@ public class UnitManager : MonoBehaviour
         Debug.Log("Update Foe Missing");
     }
 
-    public List<IconFoe> GetFoes()
+    public List<EsperFoe> GetFoes()
     {
-        return new List<IconFoe>(foeUnits);
+        return new List<EsperFoe>(foeUnits);
     }
 
     private void BuildSummaryPage()
@@ -2635,11 +2169,11 @@ public class UnitManager : MonoBehaviour
 
         FoeData.FoeClass.FoeStats stats = workFoe.BuildStatsSet();
 
-        overallStats += "<b>·HP: </b>" + stats.HP + "\n";
-        overallStats += "<b>·Speed: </b>" + stats.speed + "(Dash " + stats.dash + ")\n";
-        overallStats += "<b>·Defense: </b>" + stats.defense + "\n";
-        overallStats += "<b>·Fray Damage: </b>" + stats.HP + "\n";
-        overallStats += "<b>·Damage: </b>" + stats.dieAmount + "d" + stats.damageDie + "\n";
+        overallStats += "<b>ï¿½HP: </b>" + stats.HP + "\n";
+        overallStats += "<b>ï¿½Speed: </b>" + stats.speed + "(Dash " + stats.dash + ")\n";
+        overallStats += "<b>ï¿½Defense: </b>" + stats.defense + "\n";
+        overallStats += "<b>ï¿½Fray Damage: </b>" + stats.HP + "\n";
+        overallStats += "<b>ï¿½Damage: </b>" + stats.dieAmount + "d" + stats.damageDie + "\n";
 
         foeOverallStatsLabel.text = overallStats;
 
@@ -2682,7 +2216,7 @@ public class UnitManager : MonoBehaviour
 
     //receive foe from presets and display them on screen
 
-    public void ReceiveFoePreset(IconFoe builtFoe)
+    public void ReceiveFoePreset(EsperFoe builtFoe)
     {
         workFoe = builtFoe;
 
@@ -2728,15 +2262,15 @@ public class UnitManager : MonoBehaviour
         FoeData.FoeClass.FoeStats foeStats = workFoe.BuildStatsSet();
 
         string enemyStats = "<b>Stats:</b>";
-        enemyStats += "\n\n·HP: " + (foeStats.HP);
-        enemyStats += "\n·Defense: " + foeStats.defense;
-        enemyStats += "\n·Speed: " + foeStats.speed + " <i>(Dash " + foeStats.dash + ")</i>";
+        enemyStats += "\n\nï¿½HP: " + (foeStats.HP);
+        enemyStats += "\nï¿½Defense: " + foeStats.defense;
+        enemyStats += "\nï¿½Speed: " + foeStats.speed + " <i>(Dash " + foeStats.dash + ")</i>";
 
         if (foeStats.frayDamage > 0)
-            enemyStats += "\n·Fray Damage: " + foeStats.frayDamage;
+            enemyStats += "\nï¿½Fray Damage: " + foeStats.frayDamage;
 
         if (foeStats.dieAmount != 0 && foeStats.damageDie != 0)
-            enemyStats += "\n·Damage: " + foeStats.dieAmount + "d" + foeStats.damageDie;
+            enemyStats += "\nï¿½Damage: " + foeStats.dieAmount + "d" + foeStats.damageDie;
 
         mobSummonOverallStatsLabel.text = enemyStats;
 
@@ -2878,7 +2412,7 @@ public class UnitManager : MonoBehaviour
         while (true)
         {
             EsperCharacter possChara = GetCharacter(candidate);
-            IconFoe possFoe = GetFoe(candidate);
+            EsperFoe possFoe = GetFoe(candidate);
 
             if (possChara == null || possFoe == null)
                 break;

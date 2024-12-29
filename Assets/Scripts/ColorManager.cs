@@ -624,7 +624,7 @@ public class ColorManager : MonoBehaviour
             if (colors[i].color.Equals(entry))
                 return colors[i].name;
         }
-
+        
         return "";
     }
 

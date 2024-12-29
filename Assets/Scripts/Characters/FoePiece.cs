@@ -8,9 +8,9 @@ using TMPro;
 
 public class FoePiece : UnitPiece
 {
-    public IconFoe foeData { get; private set; }
+    public EsperFoe foeData { get; private set; }
 
-    public void GiveData(IconFoe data)
+    public void GiveData(EsperFoe data)
     {
         foeData = data.MakeCopy();
         unitName = foeData.unitName;

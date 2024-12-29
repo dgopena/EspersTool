@@ -15,10 +15,10 @@ public class FoeUnitPanel : UnitPanel
     [SerializeField] private RectTransform attackContent;
     [SerializeField] private TextMeshProUGUI attackText;
 
-    private IconFoe sourceFoe;
+    private EsperFoe sourceFoe;
     private FoePiece sourcePiece;
 
-    public void GiveFoeSource(IconFoe src, FoePiece pees, bool editMode = true)
+    public void GiveFoeSource(EsperFoe src, FoePiece pees, bool editMode = true)
     {
         sourceFoe = src;
         sourcePiece = pees;
@@ -214,7 +214,7 @@ public class FoeUnitPanel : UnitPanel
             sourcePiece.SetPieceFaded(false);
     }
 
-    public IconFoe GetFoeData()
+    public EsperFoe GetFoeData()
     {
         return sourceFoe;
     }

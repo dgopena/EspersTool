@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf3ea0318cf8ef4492ccd84fcf43ebb, type: 3}
+  m_Name: FoePresets
+  m_EditorClassIdentifier: 
+  presets:
+  - presetName: Goliath
+    foeDescription: Goliaths deal physical damage and typically mind their own business
+      unless hungry. They hunt for food alone and in packs, their overwhelming speed
+      and strength ensuring them a full meal.
+    abilityIds: 
+    ATKMod: STR+DEX-1
+    STRStat: 4
+    INTStat: 0
+    DEXStat: 4
+    CHAStat: 0
+    HPStat: 20
+    DEFStat: 2
+  - presetName: Behemoth
+    foeDescription: An armored titan dealing physical damage that roams the land,
+      seeking joy in causing destruction and frequently targeting unprotected villages
+      and towns.
+    abilityIds: 0300000007000000
+    ATKMod: INT+DEX-1
+    STRStat: 4
+    INTStat: 4
+    DEXStat: 4
+    CHAStat: 0
+    HPStat: 20
+    DEFStat: 4
+  - presetName: Crux
+    foeDescription: The Crux is a relatively intelligent species, often found in
+      caves and outdoors at night when hunting. The Crux is covered in long blades,
+      dealing tremendous physical damage and moves silently making it a formidable
+      foe.
+    abilityIds: 04000000
+    ATKMod: STR+INT+1
+    STRStat: 4
+    INTStat: 6
+    DEXStat: 4
+    CHAStat: 4
+    HPStat: 30
+    DEFStat: 2
+  - presetName: Golem
+    foeDescription: 'A mass of living rock, these beings are capable of leveling
+      small settlements and foes. '
+    abilityIds: 
+    ATKMod: INT+DEX
+    STRStat: 6
+    INTStat: 6
+    DEXStat: 4
+    CHAStat: 4
+    HPStat: 40
+    DEFStat: 3
+  - presetName: Jormun
+    foeDescription: ' A powerful serpent that can be found slithering across the
+      world of Myrill. While rarely encountered, the populace of Myriil are always
+      alert for these beasts.'
+    abilityIds: 0500000004000000
+    ATKMod: INT+DEX
+    STRStat: 8
+    INTStat: 6
+    DEXStat: 4
+    CHAStat: 4
+    HPStat: 80
+    DEFStat: 4
+  - presetName: Naga
+    foeDescription: The Naga are an intelligent race of beasts that typically travel
+      in small packs hunting for prey.
+    abilityIds: 02000000
+    ATKMod: STR+DEX
+    STRStat: 8
+    INTStat: 8
+    DEXStat: 4
+    CHAStat: 4
+    HPStat: 60
+    DEFStat: 1
+  abilites:
+  - abilityName: All
+    abilityDescription: Damages all Party members.
+  - abilityName: Flying
+    abilityDescription: ' Can only be damaged by Ranged attacks. '
+  - abilityName: Direct
+    abilityDescription: 'Deals damage directly, ignores defense. '
+  - abilityName: Terrify
+    abilityDescription: 'Deals damage that ignores Dodge. '
+  - abilityName: Thrash
+    abilityDescription: 'Can make two actions per turn. '
+  - abilityName: Reflect Magic
+    abilityDescription: Reflects Magic attacks.
+  - abilityName: Reflect Physical
+    abilityDescription: Reflects Physical attacks.
+  - abilityName: Crush
+    abilityDescription: 'Breaks a Character''s weapon when this Monster is dealt
+      damage by Close attacks. '

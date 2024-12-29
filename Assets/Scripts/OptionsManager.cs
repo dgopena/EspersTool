@@ -799,7 +799,7 @@ public class OptionsManager : MonoBehaviour
         SaveFoe(toSave);
     }
 
-    public void SaveFoe(IconFoe foe)
+    public void SaveFoe(EsperFoe foe)
     {
         FoeFile toSave = GetFoeData(foe);
 
@@ -854,19 +854,27 @@ public class OptionsManager : MonoBehaviour
             }
         }
 
-        List<IconFoe> loadedFoes = new List<IconFoe>();
+        List<EsperFoe> loadedFoes = new List<EsperFoe>();
         for (int i = 0; i < foeFiles.Count; i++)
         {
-            IconFoe nuFoe = new IconFoe();
+            EsperFoe nuFoe = new EsperFoe();
             nuFoe.unitName = foeFiles[i].name;
-            nuFoe.type = (FoeType)foeFiles[i].foeTypeIndex;
-            nuFoe.level = foeFiles[i].chapter;
             nuFoe.SetBaseHP(foeFiles[i].hp);
+            nuFoe.GiveDefense(foeFiles[i].def);
+            nuFoe.GiveSpeed(foeFiles[i].speed);
+
+            nuFoe.statSTR = foeFiles[i].strStat;
+            nuFoe.statINT = foeFiles[i].intStat;
+            nuFoe.statDEX = foeFiles[i].dexStat;
+            nuFoe.statCHA = foeFiles[i].chaStat;
+            
+            nuFoe.abilityIDs = foeFiles[i].abilityIDs;
+            nuFoe.description = foeFiles[i].description;
+            nuFoe.GiveATKModString(foeFiles[i].atkMod);
+            
             nuFoe.colorChoice = new Color(foeFiles[i].colorRed, foeFiles[i].colorGreen, foeFiles[i].colorBlue);
             nuFoe.GiveID(foeFiles[i].foeID);
             nuFoe.GiveGraphicPieceID(foeFiles[i].graphicPieceID);
-
-            nuFoe.classIndex = foeFiles[i].classIndex;
 
             nuFoe.lastModified = DateTime.FromBinary(foeFiles[i].lastModified);
 
@@ -949,20 +957,20 @@ public class OptionsManager : MonoBehaviour
     #region Foe Data Managing
     private FoeFile GetFoeData(int ID)
     {
-        IconFoe source = UnitManager._instance.GetFoe(ID);
+        EsperFoe source = UnitManager._instance.GetFoe(ID);
         if (source == null)
             return null;
 
         return GetFoeData(source);
     }
 
-    private FoeFile GetFoeData(IconFoe source)
+    private FoeFile GetFoeData(EsperFoe source)
     {
         FoeFile nuFile = new FoeFile();
         nuFile.GiveUnitID(source.unitID);
-        nuFile.GiveGeneralAspects(source.unitName, source.level, source.baseHP, (int)source.type, source.colorChoice);
+        nuFile.GiveGeneralAspects(source.unitName, source.colorChoice, source.description);
         nuFile.GivePiecePartIDs(source.graphicImageID);
-        nuFile.GiveTacticalAspects(source.classIndex);
+        nuFile.GiveTacticalAspects(source.statSTR, source.statINT, source.statDEX, source.statCHA, source.baseHP, source.defense, source.speed, source.abilityIDs, source.GetATKModString());
         nuFile.SetLastModification(source.lastModified);
 
         return nuFile;
@@ -1646,7 +1654,7 @@ public class PieceFile
             }
             else if(pieces[i] is FoePiece)
             {
-                IconFoe iconFoe = (pieces[i] as FoePiece).foeData;
+                EsperFoe iconFoe = (pieces[i] as FoePiece).foeData;
                 pees.freshFlag = iconFoe.freshFlag;
                 pees.pieceID = iconFoe.unitID;
                 pees.pieceHP = iconFoe.baseHP;
@@ -1943,39 +1951,26 @@ public class FoeFile
     public int foeID { get; private set; }
 
     public string name { get; private set; }
-    public int chapter { get; private set; }
+    public string description { get; private set; }
 
+    public int strStat { get; private set; }
+    public int intStat { get; private set; }
+    public int dexStat { get; private set; }
+    public int chaStat { get; private set; }
+    
     public int hp { get; private set; }
-    public int size { get; private set; }
-    public int armor { get; private set; }
-
+    public int def { get; private set; }
+    
+    public int speed { get; private set; }
+    
+    public int[] abilityIDs { get; private set; }
+    public string atkMod { get; private set; }
+    
     public float colorRed { get; private set; }
     public float colorGreen { get; private set; }
     public float colorBlue { get; private set; }
 
     public string graphicPieceID { get; private set; }
-
-    public int headPartID { get; private set; }
-    public int bodyPartID { get; private set; }
-    public int lWeaponPartID { get; private set; }
-    public int rWeaponPartID { get; private set; }
-
-    public int foeTypeIndex { get; private set; }
-
-    public int classIndex { get; private set; }
-    public int jobIndex { get; private set; }
-
-    public int factionIndex { get; private set; }
-
-    public int subFactionIndex { get; private set; }
-
-    public int templateIndex { get; private set; }
-
-    public int hasSubTemplate { get; private set; }
-
-    public bool isDefaultFactionEntry { get; private set; }
-
-    public int imageID { get; private set; }
 
     public long lastModified { get; private set; }
 
@@ -1984,13 +1979,10 @@ public class FoeFile
         foeID = ID;
     }
 
-    public void GiveGeneralAspects(string name, int chapter, int hp, int foeType, Color choiceColor)
+    public void GiveGeneralAspects(string name, Color choiceColor, string description)
     {
         this.name = name;
-        this.chapter = chapter;
-        this.hp = hp;
-
-        foeTypeIndex = foeType;
+        this.description = description;
 
         colorRed = choiceColor.r;
         colorBlue = choiceColor.b;
@@ -2002,9 +1994,19 @@ public class FoeFile
         this.graphicPieceID = graphicPieceID;
     }
 
-    public void GiveTacticalAspects(int classIndex)
+    public void GiveTacticalAspects(int statSTR, int statINT, int statDEX, int statCHA, int hp, int def, int speed, int[] abilityIDs, string atkMod)
     {
-        this.classIndex = classIndex;
+        strStat = statSTR;
+        intStat = statINT;
+        dexStat = statDEX;
+        chaStat = statCHA;
+
+        this.hp = hp;
+        this.def = def;
+        this.speed = speed;
+        
+        this.abilityIDs = abilityIDs;
+        this.atkMod = atkMod;
     }
 
     public void SetLastModification(DateTime lastMod)
