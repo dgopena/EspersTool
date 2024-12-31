@@ -208,7 +208,6 @@ public class ExpeditionScreen : MonoBehaviour
 
             entryListRT.GetChild(0).GetComponent<TextMeshProUGUI>().text = sortedUnits[i].unitName;
             int charaID = sortedUnits[i].unitID;
-            int charaEntryChildIndex = childCount;
 
             entryListRT.GetChild(2).GetComponent<HoldButton>().onRelease.AddListener(delegate {
                 EditCharacterCall(charaID);
@@ -218,19 +217,6 @@ public class ExpeditionScreen : MonoBehaviour
             });
             Color identifierColor = sortedUnits[i].colorChoice;
             entryListRT.GetChild(4).GetComponent<Image>().color = identifierColor;
-
-            ShapeIcon entryPointer = entryListRT.GetComponent<ShapeIcon>();
-            entryPointer.OnPointerEnterEvent.AddListener(delegate
-            {
-                ShowCharaDetails(charaID);
-            });
-            entryPointer.OnPointerExitEvent.AddListener(delegate
-            {
-                if (!TooltipManager.CheckMouseInArea(entryListRT))
-                {
-                    characterSummaryScreen.gameObject.SetActive(false);
-                }
-            });
 
             charaListEntry.SetActive(true);
         }
@@ -265,6 +251,12 @@ public class ExpeditionScreen : MonoBehaviour
         BuildCharaList();
     }
 
+    public void UpdateCharaList()
+    {
+        if(MapManager._instance.toolMode != MapManager.ToolMode.UnitMaker)
+            BuildCharaList();
+    }
+    
     public void ShowCharaDetails(int charaID)
     {
         List<EsperCharacter> characterUnits = UnitManager._instance.GetCharacters();
@@ -290,6 +282,8 @@ public class ExpeditionScreen : MonoBehaviour
 
     private void BuildFoeList()
     {
+        Debug.Log("rebuild list call");
+        
         for (int i = foeScrollList.childCount - 1; i >= 1; i--)
         {
             Destroy(foeScrollList.GetChild(i).gameObject);
@@ -319,37 +313,13 @@ public class ExpeditionScreen : MonoBehaviour
             RectTransform entryListRT = foeListEntry.GetComponent<RectTransform>();
             childCount++;
 
-            string detailLabel = "";
-            string nameAdd = "";
+            string detailLabel = sortedUnits[i].description;
 
-            if (sortedUnits[i].type == FoeType.Mob)
-                nameAdd = " <i><size=80%>(Mob)</i>";
-            else if (sortedUnits[i].type == FoeType.SpecialSummon)
-                nameAdd = " <i><size=80%>(Summon)</i>";
-            else if (sortedUnits[i].type == FoeType.Elite)
-                nameAdd = " <i><size=80%>(Elite)</i>";
-            else if (sortedUnits[i].type == FoeType.Legend)
-                nameAdd = " <i><size=80%>(Legend)</i>";
-
-            entryListRT.GetChild(0).GetComponent<TextMeshProUGUI>().text = sortedUnits[i].unitName + nameAdd;
-
-            string[] details = UnitManager._instance.GetFoeDetails(sortedUnits[i]);
-
-            if (sortedUnits[i].type == FoeType.SpecialSummon)
-                detailLabel += details[2];
-            else if (sortedUnits[i].type == FoeType.Mob)
-                detailLabel += details[1];
-            else
-            {
-                detailLabel += details[2] + " " + details[1];
-            }
+            entryListRT.GetChild(0).GetComponent<TextMeshProUGUI>().text = sortedUnits[i].unitName;
 
             entryListRT.GetChild(1).GetComponent<TextMeshProUGUI>().text = "<i>" + detailLabel + "</i>";
 
             int foeID = sortedUnits[i].unitID;
-
-            int foeType = (int)sortedUnits[i].type;
-            int foeEntryChildIndex = childCount;
 
             entryListRT.GetChild(2).GetComponent<HoldButton>().onRelease.AddListener(delegate {
                 EditFoeCall(foeID);
@@ -357,29 +327,9 @@ public class ExpeditionScreen : MonoBehaviour
             entryListRT.GetChild(3).GetComponent<HoldButton>().onRelease.AddListener(delegate {
                 DeleteFoeCall(foeID);
             });
-            Color identifierColor = UnitManager._instance.unitHeavyColoring;
-            if (sortedUnits[i].type == FoeType.SpecialSummon)
-                identifierColor = UnitManager._instance.unitSummonColor;
-            else if (sortedUnits[i].type == FoeType.Mob)
-                identifierColor = UnitManager._instance.unitMobColor;
-            else if (sortedUnits[i].classIndex == 1)
-                identifierColor = UnitManager._instance.unitVagabondColoring;
-            else if (sortedUnits[i].classIndex == 2)
-                identifierColor = UnitManager._instance.unitLeaderColoring;
-            else if (sortedUnits[i].classIndex == 3)
-                identifierColor = UnitManager._instance.unitArtilleryColoring;
+            Color identifierColor = sortedUnits[i].colorChoice;
 
             entryListRT.GetChild(4).GetComponent<Image>().color = identifierColor;
-
-            ShapeIcon entryPointer = entryListRT.GetComponent<ShapeIcon>();
-            entryPointer.OnPointerEnterEvent.AddListener(delegate
-            {
-                ShowFoeDetails(foeID);
-            });
-            entryPointer.OnPointerExitEvent.AddListener(delegate
-            {
-                foeSummaryScreen.gameObject.SetActive(false);
-            });
 
             foeListEntry.SetActive(true);
         }
@@ -417,6 +367,12 @@ public class ExpeditionScreen : MonoBehaviour
         BuildFoeList();
     }
 
+    public void UpdateFoeList()
+    {
+        if(MapManager._instance.toolMode != MapManager.ToolMode.UnitMaker)
+            BuildFoeList();
+    }
+    
     public void ShowFoeDetails(int foeID)
     {
         List<EsperFoe> foeUnits = UnitManager._instance.GetFoes();

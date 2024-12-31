@@ -930,182 +930,6 @@ public class UnitManager : MonoBehaviour
         MapManager._instance.menuManager.CheckMenuUIRearrange(); //rearranges the UI in the case we're using unitmanager functions and screens from the menu screen
     }
 
-    public void UpdateCharacterName()
-    {
-        if (charaNameInput.text.Length < 1)
-            return;
-
-        workCharacter.unitName = charaNameInput.text;
-    }
-
-    public void ChangeCharacterLevel(bool forward)
-    {
-        currentChosenLevel += forward ? 1 : -1;
-
-        currentChosenLevel = Mathf.Clamp(currentChosenLevel, 0, 12);
-
-        charaLevelLabel.text = "Lvl " + currentChosenLevel;
-
-        workCharacter.level = currentChosenLevel;
-
-        UpdateTacticalPage(0);
-    }
-
-    public void OpenKinList()
-    {
-        listPanel.screenProportionSize = kinCulturePanelProportions;
-        listPanel.listColor = 0.9f * characterEntries.transform.GetChild(0).GetComponent<Image>().color;
-
-        RectTransform kinButtonRT = charaKinLabel.transform.parent.GetComponent<RectTransform>();
-        Vector3 listOrigin = kinButtonRT.position + (0.5f * kinButtonRT.rect.size.x * kinButtonRT.lossyScale.x * Vector3.right);
-        List<string> kinTypes = new List<string>();
-        for(int i = 0; i < System.Enum.GetValues(typeof(Kin)).Length; i++)
-        {
-            kinTypes.Add(((Kin)i).ToString());
-        }
-
-        listPanel.ShowPanel(listOrigin, kinTypes, true);
-        kinListOpen = true;
-        bondListOpen = false;
-        startActionListOpen = false;
-        cultureListOpen = false;
-        classListOpen = false;
-        colorListOpen = false;
-        jobListOpen = false;
-        listPanel.OnEntryClick += CharaListClick;
-
-        listRT = listPanel.GetComponent<RectTransform>();
-    }
-
-    public void OpenCultureList()
-    {
-        listPanel.screenProportionSize = kinCulturePanelProportions;
-        listPanel.listColor = 0.9f * characterEntries.transform.GetChild(0).GetComponent<Image>().color;
-
-        RectTransform cultureButtonRT = charaCultureLabel.transform.parent.GetComponent<RectTransform>();
-        Vector3 listOrigin = cultureButtonRT.position + (0.5f * cultureButtonRT.rect.size.x * cultureButtonRT.lossyScale.x * Vector3.right);
-        List<string> cultureTypes = new List<string>();
-        for (int i = 0; i < cultures.cultures.Count; i++)
-        {
-            cultureTypes.Add(cultures.cultures[i].name);
-        }
-
-        listPanel.ShowPanel(listOrigin, cultureTypes, true);
-        kinListOpen = false;
-        cultureListOpen = true;
-        bondListOpen = false;
-        startActionListOpen = false;
-        classListOpen = false;
-        colorListOpen = false;
-        jobListOpen = false;
-        listPanel.OnEntryClick += CharaListClick;
-
-        listRT = listPanel.GetComponent<RectTransform>();
-    }
-
-    public void OpenBondList()
-    {
-        listPanel.screenProportionSize = bondClassJobPanelProportions;
-        listPanel.listColor = 0.9f * characterEntries.transform.GetChild(0).GetComponent<Image>().color;
-
-        RectTransform bondButtonRT = charaBondLabel.transform.parent.GetComponent<RectTransform>();
-        Vector3 listOrigin = bondButtonRT.position + (0.5f * bondButtonRT.rect.size.x * bondButtonRT.lossyScale.x * Vector3.right);
-        List<string> bondTypes = new List<string>();
-        for (int i = 0; i < bonds.bonds.Count; i++)
-        {
-            bondTypes.Add(bonds.bonds[i].name);
-        }
-
-        listPanel.ShowPanel(listOrigin, bondTypes, true);
-        kinListOpen = false;
-        bondListOpen = true;
-        startActionListOpen = false;
-        cultureListOpen = false;
-        classListOpen = false;
-        colorListOpen = false;
-        jobListOpen = false;
-        listPanel.OnEntryClick += CharaListClick;
-
-        listRT = listPanel.GetComponent<RectTransform>();
-    }
-
-    public void OpenStartActionList()
-    {
-        listPanel.screenProportionSize = bondClassJobPanelProportions;
-        listPanel.listColor = 0.9f * characterEntries.transform.GetChild(0).GetComponent<Image>().color;
-
-        RectTransform bondButtonRT = charaBondStartButtonLabel.transform.parent.GetComponent<RectTransform>();
-        Vector3 listOrigin = bondButtonRT.position + (0.5f * bondButtonRT.rect.size.x * bondButtonRT.lossyScale.x * Vector3.right);
-        List<string> startBondTypes = new List<string>();
-
-        listPanel.ShowPanel(listOrigin, startBondTypes, true);
-        kinListOpen = false;
-        bondListOpen = false;
-        startActionListOpen = true;
-        cultureListOpen = false;
-        classListOpen = false;
-        colorListOpen = false;
-        jobListOpen = false;
-        listPanel.OnEntryClick += CharaListClick;
-
-        listRT = listPanel.GetComponent<RectTransform>();
-    }
-
-    public void OpenClassList()
-    {
-        listPanel.screenProportionSize = bondClassJobPanelProportions;
-        listPanel.listColor = 0.9f * characterEntries.transform.GetChild(0).GetComponent<Image>().color;
-
-        RectTransform classButtonRT = charaClassLabel.transform.parent.GetComponent<RectTransform>();
-        Vector3 listOrigin = classButtonRT.position + (0.5f * classButtonRT.rect.size.x*classButtonRT.lossyScale.x * Vector3.right);
-        List<string> classTypes = new List<string>();
-        for (int i = 0; i < classes.classes.Count; i++)
-        {
-            classTypes.Add(classes.classes[i].name);
-        }
-
-        listPanel.ShowPanel(listOrigin, classTypes, true);
-        kinListOpen = false;
-        bondListOpen = false;
-        startActionListOpen = false;
-        cultureListOpen = false;
-        classListOpen = true;
-        colorListOpen = false;
-        jobListOpen = false;
-        listPanel.OnEntryClick += CharaListClick;
-
-        listRT = listPanel.GetComponent<RectTransform>();
-    }
-
-    public void OpenJobList()
-    {
-        listPanel.screenProportionSize = bondClassJobPanelProportions;
-        listPanel.listColor = 0.9f * characterEntries.transform.GetChild(0).GetComponent<Image>().color;
-
-        RectTransform jobButtonRT = charaJobLabel.transform.parent.GetComponent<RectTransform>();
-        Vector3 listOrigin = jobButtonRT.position + (0.5f * jobButtonRT.rect.size.x*jobButtonRT.lossyScale.x * Vector3.right);
-        List<string> jobTypes = new List<string>();
-        
-        /*
-        for (int i = 0; i < classes.classes[workCharacter.magicArts].jobs.Count; i++)
-        {
-            jobTypes.Add(classes.classes[workCharacter.magicArts].jobs[i].name);
-        }
-        */
-
-        listPanel.ShowPanel(listOrigin, jobTypes, true);
-        kinListOpen = false;
-        bondListOpen = false;
-        startActionListOpen = false;
-        cultureListOpen = false;
-        classListOpen = false;
-        colorListOpen = false;
-        jobListOpen = true;
-        listPanel.OnEntryClick += CharaListClick;
-
-        listRT = listPanel.GetComponent<RectTransform>();
-    }
-
     public void CharaListClick(int index)
     {
         if (classListOpen)
@@ -1360,11 +1184,10 @@ public class UnitManager : MonoBehaviour
         //we make name if it lacks one
         if (!CheckIfFoeNamed())
             return;
-
-        //after pass
+        
+        workFoe.GiveID(RequestNextUnitID());
         int id = workFoe.unitID;
-        workFoe.GiveID(id);
-
+        
         workFoe = workFoe.MakeCopy();
         
         workFoe.lastModified = DateTime.Now;
@@ -1796,7 +1619,6 @@ public class UnitManager : MonoBehaviour
 
     public void DeleteFoe()
     {
-
         optionsManager.DeleteFoe(unitIDToDelete);
         LoadFoesCall();
 
@@ -1819,7 +1641,6 @@ public class UnitManager : MonoBehaviour
     {
         EsperFoe baseFoe = MakeNewFoe();
         baseFoe.type = (FoeType)type;
-        baseFoe.GiveID(RequestNextUnitID());
 
         return baseFoe;
     }

@@ -291,6 +291,7 @@ public class OptionsManager : MonoBehaviour
 
         IndexFile data = new IndexFile();
         data.SetUnitIndex(unitFileIndex);
+        
         data.SetImageIndex(graphicFileIndex);
 
         BinaryFormatter bf = new BinaryFormatter();

@@ -143,11 +143,15 @@ public class FoeMakerPanel : MonoBehaviour
 
     public void SetPanelPage(int pageIndex)
     {
+        
+        
         if (pageIndex < 0)
         {
             backCharPageButton.alpha = 0f;
             forwardCharPageButton.alpha = 0f;
 
+            presetsPage.gameObject.SetActive(true);
+            
             descriptionAndAbilitiesPage.gameObject.SetActive(false);
             statPage.gameObject.SetActive(false);
             pieceLookPage.gameObject.SetActive(false);
