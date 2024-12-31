@@ -1184,8 +1184,7 @@ public class UnitManager : MonoBehaviour
         //we make name if it lacks one
         if (!CheckIfFoeNamed())
             return;
-        
-        workFoe.GiveID(RequestNextUnitID());
+
         int id = workFoe.unitID;
         
         workFoe = workFoe.MakeCopy();
@@ -1194,8 +1193,11 @@ public class UnitManager : MonoBehaviour
 
         if (currentMode == UnitEditMode.FoeNew)
         {
+            workFoe.GiveID(RequestNextUnitID());
+            id = workFoe.unitID;
             foeUnits.Add(workFoe);
-            UpIDCount(id);
+            
+            //UpIDCount(id);
         }
         else if (currentMode == UnitEditMode.FoeEdit)
         {

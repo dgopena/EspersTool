@@ -43,6 +43,10 @@ public class UI_PieceLanding : MonoBehaviour
         {
             transform.parent.GetComponent<CharacterMakerPanel>().UpdatePiecePage();
         }
+        else
+        {
+            transform.parent.GetComponent<FoeMakerPanel>().UpdatePiecePage();
+        }
     }
 
     public void ConfirmPieceID(string graphicID)
@@ -51,6 +55,11 @@ public class UI_PieceLanding : MonoBehaviour
         {
             transform.parent.GetComponent<CharacterMakerPanel>().GiveGraphicIDToPiece(graphicID);
             transform.parent.GetComponent<CharacterMakerPanel>().UpdatePiecePage();
+        }
+        else
+        {
+            transform.parent.GetComponent<FoeMakerPanel>().GiveGraphicIDToPiece(graphicID);
+            transform.parent.GetComponent<FoeMakerPanel>().UpdatePiecePage();
         }
     }
 }

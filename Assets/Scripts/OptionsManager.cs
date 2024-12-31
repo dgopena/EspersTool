@@ -848,10 +848,10 @@ public class OptionsManager : MonoBehaviour
             string simpleName = fileNames[i].Substring(fileNames[i].LastIndexOf('\\') + 1);
             simpleName = simpleName.Substring(0, simpleName.LastIndexOf('.'));
 
-            FoeFile loadedChara = LoadFoeFile(simpleName);
-            if (loadedChara != null)
+            FoeFile loadedFoe = LoadFoeFile(simpleName);
+            if (loadedFoe != null)
             {
-                foeFiles.Add(loadedChara);
+                foeFiles.Add(loadedFoe);
             }
         }
 

@@ -282,8 +282,6 @@ public class ExpeditionScreen : MonoBehaviour
 
     private void BuildFoeList()
     {
-        Debug.Log("rebuild list call");
-        
         for (int i = foeScrollList.childCount - 1; i >= 1; i--)
         {
             Destroy(foeScrollList.GetChild(i).gameObject);

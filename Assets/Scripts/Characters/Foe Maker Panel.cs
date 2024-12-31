@@ -143,8 +143,6 @@ public class FoeMakerPanel : MonoBehaviour
 
     public void SetPanelPage(int pageIndex)
     {
-        
-        
         if (pageIndex < 0)
         {
             backCharPageButton.alpha = 0f;
@@ -176,7 +174,7 @@ public class FoeMakerPanel : MonoBehaviour
 
     public void PageForward(int moveDir)
     {
-        currentPage = Mathf.Clamp(currentPage + moveDir, 0, 3);
+        currentPage = Mathf.Clamp(currentPage + moveDir, 0, 2);
         SetPanelPage(currentPage);
     }
 
@@ -315,9 +313,11 @@ public class FoeMakerPanel : MonoBehaviour
         
         for (int i = 0; i < activeFoe.abilityIDs.Length; i++)
         {
-            AddNewAbilityUIEntry(i);
+            AddNewAbilityUIEntry(activeFoe.abilityIDs[i]);
         }
 
+        currentSelectedAbility = -1;
+        
         abilityDescription.text = "<i>Press a skill to see its description</i>";
         
         foeDescriptionInput.SetTextWithoutNotify(activeFoe.description);
@@ -378,6 +378,7 @@ public class FoeMakerPanel : MonoBehaviour
         List<string> abilityEntries = new List<string>();
 
         List<int> abilityIDs = new List<int>(activeFoe.abilityIDs);
+        
         for (int a = 0; a < foePresets.abilites.Count; a++)
         {
             if (abilityIDs.Contains(a))
@@ -401,8 +402,6 @@ public class FoeMakerPanel : MonoBehaviour
 
     public void AddAbilityToFoe(int abilityIndexInList)
     {
-        Debug.Log("adding skill ID " + abilityIndexInList);
-
         int[] currentAbilities = activeFoe.abilityIDs;
 
         List<int> newAbilities = new List<int>(currentAbilities);
@@ -636,7 +635,7 @@ public class FoeMakerPanel : MonoBehaviour
         PieceCamera._instance.SetSamplerAtStartRotation();
         PieceCamera._instance.SetSamplerConfig(activeFoe, true);
 
-        //GraphicPieceEditor.Instance.SetDisplayModel(activeCharacter);
+        //GraphicPieceEditor.Instance.SetDisplayModel(activeFoe);
     }
 
     public void ExitAndSaveFoe()

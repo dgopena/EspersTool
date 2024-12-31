@@ -163,7 +163,7 @@ public class PieceCamera : MonoBehaviour
 
     public void SetSamplerConfig(IconUnit unit, bool forceMeeple = false)
     {
-        if ((unit.graphicImageID == null || unit.graphicImageID.Length == 0))
+        if (string.IsNullOrEmpty(unit.graphicImageID))
             Debug.Log("No graphic selected for this unit");
         else
         {

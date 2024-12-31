@@ -963,7 +963,7 @@ public class GraphicPieceEditor : MonoBehaviour
             PieceManager._instance.GiveIDToActiveToken(loadedPieces[activerSelectionIndex].hexId);
         }
         */
-
+        
         activePieceLanding.ConfirmPieceID(loadedPieces[activerSelectionIndex].hexId);
 
         //close panel
