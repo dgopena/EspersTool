@@ -11,6 +11,7 @@ using TMPro;
 using System.Linq;
 using System;
 using AnotherFileBrowser.Windows;
+using Random = System.Random;
 
 public class MenuManager : MonoBehaviour
 {
@@ -28,6 +29,10 @@ public class MenuManager : MonoBehaviour
 
     public OptionsManager optionsManager;
 
+    [Header("Menu BG")] 
+    [SerializeField] private Image menuBGImage;
+    [SerializeField] private Sprite[] bgImages;
+    
     [Header("Expedition Elements")]
     [SerializeField] private ExpeditionScreen expdScreen;
     [SerializeField] private RectTransform expdList;
@@ -109,6 +114,8 @@ public class MenuManager : MonoBehaviour
 
         currentState = MenuState.Start;
 
+        SetMenuImage();
+        
         ExpListSetup();
 
         if (circumventEntry)
@@ -126,6 +133,13 @@ public class MenuManager : MonoBehaviour
                 MakeNewMap(14, 14);
         }
 
+    }
+
+    private void SetMenuImage()
+    {
+        int idx = UnityEngine.Random.Range(0, bgImages.Length);
+
+        menuBGImage.sprite = bgImages[idx];
     }
 
     #region Expedition Menu
@@ -386,6 +400,8 @@ public class MenuManager : MonoBehaviour
     {
         expdScreen.gameObject.SetActive(false);
 
+        SetMenuImage();
+        
         BuildExpeditionList();
         currentState = MenuState.Start;
     }

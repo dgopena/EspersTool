@@ -904,7 +904,7 @@ public class GraphicPieceEditor : MonoBehaviour
 
 
         activeGraphicPiece = gpf;
-        SetDisplayModel(pieceBorder, boundX, boundY, pieceImage, 0f, 0f);
+        SetDisplayModel(pieceBorder, boundX, boundY, pieceImage, gpf.modHeightValue, gpf.modScaleValue);
         ShowEditTools(false);
 
         activerSelectionIndex = index;
@@ -1048,7 +1048,7 @@ public class GraphicPieceEditor : MonoBehaviour
 
         string pieceID = loadedPieces[activerSelectionIndex].hexId;
         loadedPieces[activerSelectionIndex].loadPiece = activeGraphicPiece;
-
+        
         SaveFile(activeGraphicPiece, pieceID);
 
         ShowEditTools(false);
@@ -1098,7 +1098,8 @@ public class GraphicPieceEditor : MonoBehaviour
         }
         */
 
-        activePieceLanding.ConfirmPieceID(pieceID);
+        if(activePieceLanding != null)
+            activePieceLanding.ConfirmPieceID(pieceID);
 
         //close panel
         rootTransform.gameObject.SetActive(false);
