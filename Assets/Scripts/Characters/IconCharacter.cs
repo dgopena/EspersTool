@@ -82,11 +82,6 @@ public class EsperCharacter : IconUnit
         copy.magicArts = magicArts;
         copy.skillsIDs = skillsIDs;
 
-        //get data from type, class, job, etc
-        ClassData.IconClass classData = UnitManager._instance.classes.classes[magicArts[0]];
-        int chapterNum = 1; // Mathf.CeilToInt((float)level / 4f);
-        if (chapterNum < 1)
-            chapterNum = 1;
         copy.defense = defense;
         copy.speed = speed;
 

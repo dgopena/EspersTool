@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,11 +51,30 @@ public class CardMat : MonoBehaviour
     private List<FateCard> toArrange;
     public bool awaitingArrangeFlag { get; private set; }
 
-    public void AddCardsToMat(List<FateCard> cards)
+    public void AddCardToMat(FateCard card, bool asNewCard = false)
+    {
+        AddCardsToMat(new List<FateCard>() {card}, asNewCard);
+    }
+    
+    public void AddCardsToMat(List<FateCard> cards, bool asNewCards = false)
     {
         if (currentRows == null)
             currentRows = new List<CardRow>();
 
+        if (asNewCards)
+        {
+            Debug.Log("as new");
+            
+            List<FateCard> newCards = new List<FateCard>();
+            for (int i = 0; i < cards.Count; i++)
+            {
+                FateCard nuCard = mainDeck.BuildNewCard(cards[i].cardSuit, cards[i].cardNumber);
+                newCards.Add(nuCard);
+            }
+            
+            cards = newCards;
+        }
+        
         List<FateCard> aux = new List<FateCard>();
         for(int r = 0; r < currentRows.Count; r++)
         {
@@ -202,6 +222,44 @@ public class CardMat : MonoBehaviour
         return anchorValues;
     }
 
+    public List<FateCard> GetSelectedCards()
+    {
+        List<FateCard> selectedCards = new List<FateCard>();
+        
+        for(int r = 0; r < currentRows.Count; r++)
+        {
+            for(int c = 0; c < currentRows[r].cards.Count; c++)
+            {
+                FateCard checking = currentRows[r].cards[c];
+                if (checking.IsSelected)
+                {
+                    selectedCards.Add(checking);
+                }
+            }
+        }
+
+        return selectedCards;
+    }
+
+    public void SetCardsSelected(List<FateCard> selectedCards)
+    {
+        for (int r = 0; r < currentRows.Count; r++)
+        {
+            for (int c = 0; c < currentRows[r].cards.Count; c++)
+            {
+                FateCard checking = currentRows[r].cards[c];
+                checking.SelectCard(false, false);
+                
+                for (int i = 0; i < selectedCards.Count; i++)
+                {
+                    bool setSelected = checking.Equals(selectedCards[i]);
+                    if(setSelected)
+                        checking.SelectCard(true);
+                }
+            }
+        }
+    }
+    
     public void ResetSelectedCardCounter()
     {
         selectedCardNumbers = 0;
@@ -209,6 +267,9 @@ public class CardMat : MonoBehaviour
 
     public void ClearMat()
     {
+        if (currentRows == null)
+            return;
+        
         for (int r = 0; r < currentRows.Count; r++)
         {
             for (int c = 0; c < currentRows[r].cards.Count; c++)
@@ -235,6 +296,48 @@ public class CardMat : MonoBehaviour
         return allCards;
     }
 
+    public void ReplaceAllCards(List<FateCard> newCards)
+    {
+        ClearMat();
+        
+        AddCardsToMat(newCards, true);
+        if(!autoArrange)
+            ArrangeMat();
+    }
+    
+    public Tuple<int,int> SelectRandomCard()
+    {
+        int cardNum = GetCardCount();
+        int cardSelection = UnityEngine.Random.Range(0, cardNum);
+        
+        int count = 0;
+        for(int r = 0; r < currentRows.Count; r++)
+        {
+            for(int c = 0; c < currentRows[r].cards.Count; c++)
+            {
+                if (count == cardSelection)
+                {
+                    currentRows[r].cards[c].SelectCard(true);
+                    return new Tuple<int, int>(r,c);
+                }
+
+                count++;
+            }
+        }
+
+        return new Tuple<int, int>(0, 0);
+    }
+
+    public void SelectCard(int rowIndex, int cardIndex)
+    {
+        currentRows[rowIndex].cards[cardIndex].SelectCard(true);
+    }
+    
+    public void DeselectCard(int rowIndex, int cardIndex)
+    {
+        currentRows[rowIndex].cards[cardIndex].SelectCard(false);
+    }
+    
     #region Mat Look
     //orders the cards for proper display
     public void ArrangeMat()

@@ -26,25 +26,6 @@ public class CharacterPiece : UnitPiece
     public override void BuildPiece(IconUnit source)
     {
         base.BuildPiece(source);
-
-        int classIndex = -1;
-        int seerIndex = -1;
-        for (int i = 0; i < UnitManager._instance.classes.classes.Count; i++) 
-        {
-            if(UnitManager._instance.classes.classes[i].name == "Mendicant")
-            {
-                classIndex = i;
-                for(int j = 0; j < UnitManager._instance.classes.classes[i].jobs.Count; j++)
-                {
-                    if (UnitManager._instance.classes.classes[i].jobs[j].name == "Seer")
-                    {
-                        seerIndex = j;
-                        break;
-                    }
-                }
-                break;
-            }
-        }
     }
 
     #region Old Mini Panel Code

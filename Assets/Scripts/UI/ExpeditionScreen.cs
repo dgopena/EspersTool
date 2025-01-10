@@ -207,6 +207,19 @@ public class ExpeditionScreen : MonoBehaviour
             childCount++;
 
             entryListRT.GetChild(0).GetComponent<TextMeshProUGUI>().text = sortedUnits[i].unitName;
+            
+            string charaSubLine = "No Magic Art Chosen";
+            for (int m = 0; m < sortedUnits[i].magicArts.Length; m++)
+            {
+                if (m == 0)
+                    charaSubLine = "";
+                else
+                    charaSubLine += " | ";
+
+                charaSubLine += UnitManager._instance.skillData.magicArts[sortedUnits[i].magicArts[m]].artName;
+            }
+            entryListRT.GetChild(1).GetComponent<TextMeshProUGUI>().text = charaSubLine;
+            
             int charaID = sortedUnits[i].unitID;
 
             entryListRT.GetChild(2).GetComponent<HoldButton>().onRelease.AddListener(delegate {

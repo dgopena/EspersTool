@@ -97,13 +97,12 @@ public class FateCard : MonoBehaviour
         SelectCard(!isSelected);
     }
 
-    public void SelectCard(bool select)
+    public void SelectCard(bool select, bool UIUpdate = true)
     {
-        //do UI action
-        //maybe check focus
+        isSelected = select;
+        
         selectFrame.SetActive(select);
 
-        isSelected = select;
 
         if (parentMat != null) 
         {
@@ -138,6 +137,15 @@ public class FateCard : MonoBehaviour
             overLabelCG.alpha = 0f;
     }
 
+    public bool Equals(FateCard comparison)
+    {
+        Debug.Log(">> " + cardNumber + "|" + comparison.cardNumber);
+        Debug.Log(">>>> " + cardSuit + "|" + comparison.cardSuit);
+        
+        return cardNumber == comparison.cardNumber && 
+               cardSuit == comparison.cardSuit;
+    }
+    
     public void ChangeScaleByFactor(float newHeight)
     {
         float factor = newHeight / baseHeight;

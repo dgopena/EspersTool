@@ -22,6 +22,8 @@ public class PlayerDeck : MonoBehaviour
     [Space(10f)]
     public GameObject fateCardPrefab;
 
+    public bool deckDisplayed { get; private set; }
+
     [Header("Confirm Panels")]
     [SerializeField] private GameObject shuffleConfirmPanel;
     [SerializeField] private GameObject coldExitConfirmPanel;
@@ -197,6 +199,17 @@ public class PlayerDeck : MonoBehaviour
         firstSetUp = false;
     }
 
+    public FateCard BuildNewCard(int suit, int number)
+    {
+        GameObject nuCard = Instantiate<GameObject>(fateCardPrefab, transform);
+        FateCard auxFate = nuCard.GetComponent<FateCard>();
+        auxFate.SetUpCard(number, suit, suitDefs[suit - 1].suitAction, suitDefs[suit - 1].suitIcon,
+            suitDefs[suit - 1].suitColor);
+        nuCard.SetActive(true);
+
+        return auxFate;
+    }
+    
     public void BuildFromIntDeck(IntDeck givenDeck)
     {
         if (!firstSetUp)
@@ -433,5 +446,37 @@ public class PlayerDeck : MonoBehaviour
             minHeight = aetherMat.cardScaledHeight;
 
         return minHeight;
+    }
+
+    public void ShowDeck(bool show)
+    {
+        deckDisplayed = show;
+    }
+    
+    public FateCard DrawCardToHand()
+    {
+        Tuple<int,int> coodSet = fateMat.SelectRandomCard();
+        List<FateCard> cardsFromFate = fateMat.RemoveCardsFromMat();
+        handMat.AddCardsToMat(cardsFromFate);
+
+        if (deckDisplayed)
+        {
+            handMat.ArrangeMat();
+            fateMat.ArrangeMat();
+        }
+
+        return cardsFromFate[0];
+    }
+
+    public void DiscardSelectedCards()
+    {
+        List<FateCard> cardsFromHand = handMat.RemoveCardsFromMat();
+        discardMat.AddCardsToMat(cardsFromHand);
+        
+        if (deckDisplayed)
+        {
+            handMat.ArrangeMat();
+            discardMat.ArrangeMat();
+        }
     }
 }

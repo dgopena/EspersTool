@@ -760,7 +760,17 @@ public class UnitManager : MonoBehaviour
             int charaID = sortedUnits[i].unitID;
             int charaEntryChildIndex = childCount;
 
-            entryListRT.GetChild(1).GetComponent<TextMeshProUGUI>().text = "DEPREC.";
+            string charaSubLine = "No Magic Art Chosen";
+            for (int m = 0; m < sortedUnits[i].magicArts.Length; m++)
+            {
+                if (m == 0)
+                    charaSubLine = "";
+                else
+                    charaSubLine += " | ";
+
+                charaSubLine += skillData.magicArts[sortedUnits[i].magicArts[m]].artName;
+            }
+            entryListRT.GetChild(1).GetComponent<TextMeshProUGUI>().text = charaSubLine;
 
             entryListRT.GetChild(2).GetComponent<HoldButton>().onRelease.AddListener(delegate {
                 generalInputs.SetActive(false);
@@ -959,21 +969,6 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    public void ChangeCharacterPage(bool forward)
-    {
-        currentCharacterPage += forward ? 1 : -1;
-        currentCharacterPage = Mathf.Clamp(currentCharacterPage, 1, characterEntries.transform.childCount - 1);
-
-        SetCharacterPage(currentCharacterPage);
-
-        if (currentCharacterPage < 4) 
-        {
-
-        }
-        else
-            UpdateTacticalPage(currentCharacterPage - 4);
-    }
-
     private void SetCharacterPage(int pageNumber)
     {
         characterPageLabel.text = currentCharacterPage + " / " + (characterEntries.transform.childCount - 1);
@@ -1055,14 +1050,6 @@ public class UnitManager : MonoBehaviour
         */
     }
 
-    public void DotBarUpdate(int barIndex)
-    {
-        if (workCharacter == null)
-            return;
-
-        int dotMod = actionDots[barIndex].value - actionDots[barIndex].baseValue;
-    }
-
     public EsperCharacter MakeNewCharacter()
     {
         EsperCharacter nuChara = new EsperCharacter();
@@ -1073,16 +1060,6 @@ public class UnitManager : MonoBehaviour
         nuChara.SetupNewChara();
 
         return nuChara;
-    }
-
-    public static NarrativeChara GetBaseNarrativeChara()
-    {
-        NarrativeChara nuNarra = new NarrativeChara();
-        nuNarra.SetCulture(0);
-        nuNarra.SetBond(0);
-        nuNarra.CleanDotModifiers();
-
-        return nuNarra;
     }
 
     public EsperCharacter GetCharacter(int id)
@@ -1299,38 +1276,12 @@ public class UnitManager : MonoBehaviour
             RectTransform entryListRT = foeListEntry.GetComponent<RectTransform>();
             childCount++;
 
-            string detailLabel = "";
-            string nameAdd = "";
+            entryListRT.GetChild(0).GetComponent<TextMeshProUGUI>().text = sortedUnits[i].unitName;
 
-            if (sortedUnits[i].type == FoeType.Mob)
-                nameAdd = " <i><size=80%>(Mob)</i>";
-            else if (sortedUnits[i].type == FoeType.SpecialSummon)
-                nameAdd = " <i><size=80%>(Summon)</i>";
-            else if (sortedUnits[i].type == FoeType.Elite)
-                nameAdd = " <i><size=80%>(Elite)</i>";
-            else if(sortedUnits[i].type == FoeType.Legend)
-                nameAdd = " <i><size=80%>(Legend)</i>";
-
-            entryListRT.GetChild(0).GetComponent<TextMeshProUGUI>().text = sortedUnits[i].unitName + nameAdd;
-            
-            string[] details = GetFoeDetails(sortedUnits[i]);
-
-            if (sortedUnits[i].type == FoeType.SpecialSummon)
-                detailLabel += details[2];
-            else if (sortedUnits[i].type == FoeType.Mob)
-                detailLabel += details[1];
-            else
-            {
-                detailLabel += details[2] + " " + details[1];
-            }
-
-            entryListRT.GetChild(1).GetComponent<TextMeshProUGUI>().text = "<i>" + detailLabel + "</i>";
-
+            entryListRT.GetChild(1).GetComponent<TextMeshProUGUI>().text = sortedUnits[i].description;
 
 
             int foeID = sortedUnits[i].unitID;
-
-            int foeType = (int)sortedUnits[i].type;
             int foeEntryChildIndex = childCount;
 
             entryListRT.GetChild(2).GetComponent<HoldButton>().onRelease.AddListener(delegate {
@@ -1341,18 +1292,8 @@ public class UnitManager : MonoBehaviour
             entryListRT.GetChild(3).GetComponent<HoldButton>().onRelease.AddListener(delegate {
                 DeleteFoeCall(foeID);
             });
-            Color identifierColor = unitHeavyColoring;
-            if (sortedUnits[i].type == FoeType.SpecialSummon)
-                identifierColor = unitSummonColor;
-            else if (sortedUnits[i].type == FoeType.Mob)
-                identifierColor = unitMobColor;
-            else if (sortedUnits[i].classIndex == 1)
-                identifierColor = unitVagabondColoring;
-            else if (sortedUnits[i].classIndex == 2)
-                identifierColor = unitLeaderColoring;
-            else if (sortedUnits[i].classIndex == 3)
-                identifierColor = unitArtilleryColoring;
-
+            
+            Color identifierColor = sortedUnits[i].colorChoice;
             entryListRT.GetChild(4).GetComponent<Image>().color = identifierColor;
 
             ShapeIcon entryPointer = entryListRT.GetComponent<ShapeIcon>();
@@ -1602,7 +1543,6 @@ public class UnitManager : MonoBehaviour
         SetScrollTipRectsActive(false);
         UpdateFoePage(foeType, 0);
     }
-
 
     public void DeleteFoeCall(int foeID)
     {
