@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class PieceDisplay : MonoBehaviour
 {
-    [Header("UI Elements")]
-    [SerializeField] private Image buttonBackPanel;
+    [Header("UI Elements")] [SerializeField]
+    private Image buttonBackPanel;
+
     [SerializeField] private Image statBackPanel;
     [SerializeField] private Image hpBackPanel;
 
@@ -18,70 +20,61 @@ public class PieceDisplay : MonoBehaviour
     [SerializeField] private GameObject gameModeTools;
     public GameObject unitPanelButton;
 
-    [Space(5f)]
-    [SerializeField] private PieceReticle reticle;
+    [Space(5f)] [SerializeField] private PieceReticle reticle;
 
-    [Space(10f)]
-    [SerializeField] private TextMeshProUGUI nameLabel;
+    [Space(10f)] [SerializeField] private TextMeshProUGUI nameLabel;
 
-    [Space(10f)]
-    [SerializeField] private Animator barChangeAnim;
+    [Space(10f)] 
     [SerializeField] private NotchBar hpBar;
     [SerializeField] private TextMeshProUGUI hpLabel;
-    [SerializeField] private NotchBar vigorBar;
-    [SerializeField] private TextMeshProUGUI vigorLabel;
     [SerializeField] private GameObject minusHPButton;
     [SerializeField] private GameObject plusHPButton;
-    [SerializeField] private GameObject minusVigorButton;
-    [SerializeField] private GameObject plusVigorButton;
-    [Space(5f)]
+    
+    [Space(5f)] 
     [SerializeField] private float miniPanelHoldInitialCooldown = 1f;
     [SerializeField] private float miniPanelHoldConstantCooldown = 0.2f;
     private bool miniPanelHolding = false;
     private float currentHoldCooldown = 0f;
 
-    [Space(10f)]
-    [SerializeField] private ElixirList woundCounter;
+    [Header("Stat Panel")] 
+    [SerializeField] private TextMeshProUGUI strStatLabel;
+    [SerializeField] private TextMeshProUGUI intStatLabel;
+    [SerializeField] private TextMeshProUGUI dexStatLabel;
+    [SerializeField] private TextMeshProUGUI chaStatLabel;
+    [SerializeField] private TextMeshProUGUI defStatLabel;
 
-    [Space(10f)]
-    [SerializeField] private GameObject phaseCounter;
-    [SerializeField] private TextMeshProUGUI phaseText;
-
-    [Space(10f)]
-    [SerializeField] private TextMeshProUGUI vitStat;
-    [SerializeField] private TextMeshProUGUI speedDashStat;
-    [SerializeField] private TextMeshProUGUI defenseStat;
-    [SerializeField] private TextMeshProUGUI frayStat;
-    [SerializeField] private TextMeshProUGUI damageDieStat;
-    [SerializeField] private TextMeshProUGUI basicAttackStat; //turn this off if foe
-
-    [Space(10f)]
+    [Header("Piece Tools")]
     [SerializeField] private RectTransform panelTools;
+    [SerializeField] private GameObject cardModeButton;
+    [SerializeField] private GameObject inputModeButton;
+    [SerializeField] private GameObject itemsButton;
+    [SerializeField] private GameObject detailsButton;
+    [SerializeField] private GameObject editButton;
+    [SerializeField] private GameObject deleteButton;
 
-    [Space(10f)]
+    [Header("Action Panel")] 
+    [SerializeField] private GameObject charaActionsPanel;
+    [SerializeField] private GameObject foeActionsPanel;
+
+    [Header("Result List")] 
+    [SerializeField] private Animator resultsListAnim;
+    [SerializeField] private GameObject resultEntryPrefab;
+    [SerializeField] private int maxResultEntries = 8;
+    [SerializeField] private RectTransform resultArrow;
+    [SerializeField] private TextMeshProUGUI lastResultText;
+
+    /*
+
+[Space(10f)]
     [SerializeField] private TextMeshProUGUI secondButtonLabel;
     [SerializeField] private Color possitiveEffectColor;
     [SerializeField] private Color statusEffectColor;
     [SerializeField] private StatusList statusList;
     [SerializeField] private StatusList effectList;
+*/
 
-    [Space(10f)]
-    [SerializeField] private RectTransform blessingButton;
-    [SerializeField] private Color blessingColor;
-
-    [Space(10f)]
-    [SerializeField] private Animator traitEffectBlockAnim;
-    [SerializeField] private RectTransform traitEffectBlockContent;
-    [SerializeField] private RectTransform traitEffectEntryPrefab;
-    [SerializeField] private RectTransform traitEffectDescPanel;
-    [SerializeField] private TextMeshProUGUI traitEffectText;
-    private float traitEffectListSpacing;
-
-    private List<EntryDescPair> traitEntries;
-    private int currentTraitSelectedIndex = -1;
-    private bool traitEffectListIsShown = false;
-
-    [Space(5f)]
+    //only for foes
+    [Header("Ability Panel")]
     [SerializeField] private Animator abilityBlockAnim;
     [SerializeField] private RectTransform abilityBlockContent;
     [SerializeField] private RectTransform abilityEntryPrefab;
@@ -97,9 +90,9 @@ public class PieceDisplay : MonoBehaviour
     [SerializeField] private GameObject abilityButton;
 
     [Header("Data")]
-    [SerializeField] private StatusData statusInfo;
-    [SerializeField] private TraitEntry[] traitsBase;
-    [SerializeField] private AbilityEntry[] abilityBase;
+    [SerializeField] private AbilityData abilityInfo;
+    [SerializeField] private SkillsData skillsInfo;
+    [SerializeField] private ItemsData itemsInfo;
 
     private struct EntryDescPair
     {
@@ -115,7 +108,6 @@ public class PieceDisplay : MonoBehaviour
     private CharacterPiece activeCharaPiece;
     private FoePiece activeFoePiece;
 
-    private bool refreshTraitFlag = true;
     private bool refreshAbilityFlag = true;
 
     private void LateUpdate()
@@ -173,7 +165,7 @@ public class PieceDisplay : MonoBehaviour
 
     public void CloseDisplayPanel()
     {
-        CloseStatusEffectLists();
+        //CloseStatusEffectLists();
         unitPanelButton.gameObject.SetActive(true);
     }
 
@@ -197,62 +189,38 @@ public class PieceDisplay : MonoBehaviour
         hpBar.SetBar(currentMaxHP);
         UpdateHealthBars(true);
 
-        //stat fill
-        vitStat.text = Mathf.CeilToInt((float)activeUnit.baseHP / 4f).ToString(); // activeUnit.vitality.ToString();
-        speedDashStat.text = activeUnit.speed.ToString();
-        defenseStat.text = activeUnit.defense.ToString();
-
         //status and effects
-        statusList.ClearIcons();
-        effectList.ClearIcons();
-
-        statusList.ignoreUpdateFlag = true;
-        effectList.ignoreUpdateFlag = true;
-
-        for (int i = 0; i < activeUnit.activeStatus.Count; i++)
-        {
-            statusList.AddStatus(activeUnit.activeStatus[i]);
-        }
-        for (int i = 0; i < activeUnit.activePositiveEffects.Count; i++)
-        {
-            effectList.AddPositiveEffect(activeUnit.activePositiveEffects[i]);
-        }
-
-        statusList.ignoreUpdateFlag = false;
-        effectList.ignoreUpdateFlag = false;
+        // statusList.ClearIcons();
+        // effectList.ClearIcons();
+        //
+        // statusList.ignoreUpdateFlag = true;
+        // effectList.ignoreUpdateFlag = true;
+        //
+        // for (int i = 0; i < activeUnit.activeStatus.Count; i++)
+        // {
+        //     statusList.AddStatus(activeUnit.activeStatus[i]);
+        // }
+        // for (int i = 0; i < activeUnit.activePositiveEffects.Count; i++)
+        // {
+        //     effectList.AddPositiveEffect(activeUnit.activePositiveEffects[i]);
+        // }
+        //
+        // statusList.ignoreUpdateFlag = false;
+        // effectList.ignoreUpdateFlag = false;
 
         //differing setup
         if (activeCharaPiece != null)
         {
+            //build skills list
         }
         else if (activeFoePiece != null)
         {
-            
+            //build ability list
         }
-
-        traitEffectListSpacing = traitEffectBlockContent.GetComponent<VerticalLayoutGroup>().spacing;
-        BuildTraitEffectList();
-        ShowTraitEffectList(false, false);
-
-        abilityListSpacing = abilityBlockContent.GetComponent<VerticalLayoutGroup>().spacing;
-        BuildAbilityList();
     }
 
     public void ModifyHealth(int value)
     {
-        /*
-        if (activeCharaPiece != null)
-        {
-            activeCharaPiece.ModifyHealth(value);
-        }
-        else if (activeFoePiece != null)
-        {
-            activeFoePiece.ModifyHealth(value);
-        }
-
-        UpdateHealthBars();
-        */
-
         miniPanelHolding = false;
         currentHoldCooldown = 0;
     }
@@ -276,37 +244,6 @@ public class PieceDisplay : MonoBehaviour
             activeFoePiece.ModifyHealth(value);
 
         UpdateHealthBars();
-    }
-
-    public void ModifyVigor(int value)
-    {
-        /*
-        int auxVigor = activeUnit.currentVigor;
-
-        bool atMax = activeUnit.currentVigor == activeUnit.vigor;
-
-        if (activeCharaPiece != null)
-        {
-            activeCharaPiece.ModifyVigor(value);
-        }
-        else if (activeFoePiece != null)
-        {
-            activeFoePiece.ModifyVigor(value);
-        }
-
-        if ((atMax) && value > 0)
-            vigorBar.SetBar(activeUnit.vigor);
-
-        if (activeUnit.currentVigor != 0 && auxVigor == 0) //show animation
-            barChangeAnim.SetTrigger("ShowVigor");
-        else if (activeUnit.currentVigor == 0 && auxVigor != 0) //hide animation
-            barChangeAnim.SetTrigger("HideVigor");
-
-        UpdateHealthBars();
-        */
-
-        miniPanelHolding = false;
-        currentHoldCooldown = 0;
     }
 
     private void UpdateHealthBars(bool force = false)
@@ -335,13 +272,12 @@ public class PieceDisplay : MonoBehaviour
         return activeUnit.baseHP;
     }
 
+    /*
     public void UpdateStatusEffects()
     {
         activeUnit.SetFreshFlag(false);
         activeUnit.GiveStatusList(statusList.GetStatusList());
         activeUnit.GiveEffectList(effectList.GetEffectList());
-
-        refreshTraitFlag = true;
     }
 
     public void CloseStatusEffectLists()
@@ -349,10 +285,11 @@ public class PieceDisplay : MonoBehaviour
         statusList.CallListClose();
         effectList.CallListClose();
     }
-
+*/
+    
     private void DisplayPanelCovers(bool show)
     {
-        if (!show && (traitEffectListIsShown || abilityListIsShown))
+        if (!show) // && (traitEffectListIsShown || abilityListIsShown))
             return;
 
         backCover.gameObject.SetActive(show);
@@ -361,8 +298,6 @@ public class PieceDisplay : MonoBehaviour
 
         minusHPButton.gameObject.SetActive(!show);
         plusHPButton.gameObject.SetActive(!show);
-        minusVigorButton.gameObject.SetActive(!show);
-        plusVigorButton.gameObject.SetActive(!show);
 
         gameModeTools.gameObject.SetActive(!show);
 
@@ -374,140 +309,6 @@ public class PieceDisplay : MonoBehaviour
             UnitManager._instance.SetUnitMenu(false);
         }
         */
-    }
-
-    public void TraitEffectButtonClick()
-    {
-        ShowTraitEffectList(!traitEffectListIsShown);
-    }
-
-    private void ShowTraitEffectList(bool show, bool animted = true)
-    {
-        if (!animted)
-        {
-            if (show)
-            {
-                if (refreshTraitFlag)
-                    BuildTraitEffectList();
-
-                traitEffectBlockAnim.SetTrigger("JumpOpen");
-            }
-            else
-                traitEffectBlockAnim.SetTrigger("JumpClose");
-        }
-        else
-        {
-            if (show)
-            {
-                if (refreshTraitFlag)
-                    BuildTraitEffectList();
-
-                traitEffectBlockAnim.SetTrigger("Open");
-            }
-            else
-                traitEffectBlockAnim.SetTrigger("Close");
-        }
-
-        if (!show && currentTraitSelectedIndex >= 0)
-        {
-            traitEffectDescPanel.gameObject.SetActive(false);
-            currentTraitSelectedIndex = -1;
-        }
-
-        traitEffectListIsShown = show;
-
-        DisplayPanelCovers(show);
-    }
-
-    private void BuildTraitEffectList()
-    {
-        //clean the list
-        for(int i = traitEffectBlockContent.childCount - 1; i >= 1; i--)
-        {
-            Destroy(traitEffectBlockContent.GetChild(i).gameObject);
-        }
-
-        if(traitEntries != null)
-            traitEntries.Clear();
-        else
-            traitEntries = new List<EntryDescPair>();
-
-        traitEffectEntryPrefab.gameObject.SetActive(false);
-
-        //effects
-        List<IconUnit.PositiveEffects> effs = activeUnit.activePositiveEffects;
-
-        for (int i = 0; i < effs.Count; i++)
-        {
-            IconUnit.PositiveEffects ef = effs[i];
-            string desc = effectList.GetEffectDescription(ef);
-
-            GameObject entry = CreateTraitEffectEntry(ef.ToString(), desc);
-            entry.GetComponent<Image>().color = possitiveEffectColor;
-        }
-
-        //status
-        List<IconUnit.Status> status = activeUnit.activeStatus;
-
-        for(int i = 0; i < status.Count; i++)
-        {
-            IconUnit.Status st = status[i];
-            string desc = statusList.GetStatusDescription(st);
-
-            GameObject entry = CreateTraitEffectEntry(st.ToString(), desc);
-            entry.GetComponent<Image>().color = statusEffectColor;
-        }
-
-        currentTraitSelectedIndex = -1;
-        refreshTraitFlag = false;
-    }
-
-    private GameObject CreateTraitEffectEntry(string title, string description)
-    {
-        description = description.Replace("\\n", "<br>");
-
-        GameObject nuEntry = Instantiate<GameObject>(traitEffectEntryPrefab.gameObject, traitEffectBlockContent);
-        nuEntry.transform.GetChild(0).gameObject.SetActive(false); //frame
-        nuEntry.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = title;
-
-        int descPairIndex = traitEntries.Count;
-        nuEntry.GetComponent<HoldButton>().onRelease.AddListener(delegate
-        {
-            EntryDescPair pair = traitEntries[descPairIndex];
-            if (currentTraitSelectedIndex >= 0)
-            {
-                if (currentTraitSelectedIndex == descPairIndex)
-                {
-                    //same choice. deactivate
-                    pair.uiEntry.transform.GetChild(0).gameObject.SetActive(false);
-                    traitEffectDescPanel.gameObject.SetActive(false);
-                    currentTraitSelectedIndex = -1;
-                }
-                else
-                {
-                    //change target
-                    traitEntries[currentTraitSelectedIndex].uiEntry.transform.GetChild(0).gameObject.SetActive(false);
-                    pair.uiEntry.transform.GetChild(0).gameObject.SetActive(true);
-                    traitEffectText.text = pair.description;
-                    currentTraitSelectedIndex = descPairIndex;
-                }
-            }
-            else
-            {
-                //open the panel and show description
-                pair.uiEntry.transform.GetChild(0).gameObject.SetActive(true);
-                traitEffectDescPanel.gameObject.SetActive(true);
-                traitEffectText.text = pair.description;
-                currentTraitSelectedIndex = descPairIndex;
-            }
-        });
-
-        EntryDescPair nuPair = new EntryDescPair() { uiEntry = nuEntry, description = description };
-        traitEntries.Add(nuPair);
-
-        nuEntry.SetActive(true);
-
-        return nuEntry;
     }
 
     public void AbilityButtonClick()
@@ -668,48 +469,27 @@ public class PieceDisplay : MonoBehaviour
         return nuEntry;
     }
 
-    public ClassData.Trait FindTrait(int docID, int ID)
-    {
-        TraitEntry.Trait[] coll = traitsBase[docID].Traits;
-
-        for (int i = 0; i < coll.Length; i++)
-        {
-            if (coll[i].traitIDInList == ID) 
-            { 
-                ClassData.Trait trait = new ClassData.Trait();
-                trait.traitID = coll[i].traitIDInList;
-                trait.docID = docID;
-                trait.traitName = coll[i].traitName;
-                trait.traitDescription = coll[i].traitEffect;
-
-                return trait;
-            }
-        }
-
-        return new ClassData.Trait();
-    }
-
     public ClassData.Ability FindAbility(int docID, int ID)
     {
-        AbilityEntry.FoeAbility[] coll = abilityBase[docID].abilities;
-
-        for (int i = 0; i < coll.Length; i++)
-        {
-            if (coll[i].abilityIDInList == ID)
-            {
-                ClassData.Ability ability = new ClassData.Ability();
-                ability.abilityID = coll[i].abilityIDInList;
-                ability.docID = docID;
-                ability.abilityName = coll[i].abilityName;
-                ability.abilityEffect = coll[i].effect;
-                ability.abilityAspects = coll[i].additionals;
-                ability.actionCost = coll[i].actionCost;
-                ability.abilityComboDepth = 0;
-                ability.subCombos = coll[i].subCombos;
-
-                return ability;
-            }
-        }
+        // AbilityEntry.FoeAbility[] coll = itemsInfo[docID].abilities;
+        //
+        // for (int i = 0; i < coll.Length; i++)
+        // {
+        //     if (coll[i].abilityIDInList == ID)
+        //     {
+        //         ClassData.Ability ability = new ClassData.Ability();
+        //         ability.abilityID = coll[i].abilityIDInList;
+        //         ability.docID = docID;
+        //         ability.abilityName = coll[i].abilityName;
+        //         ability.abilityEffect = coll[i].effect;
+        //         ability.abilityAspects = coll[i].additionals;
+        //         ability.actionCost = coll[i].actionCost;
+        //         ability.abilityComboDepth = 0;
+        //         ability.subCombos = coll[i].subCombos;
+        //
+        //         return ability;
+        //     }
+        // }
 
         return new ClassData.Ability();
     }

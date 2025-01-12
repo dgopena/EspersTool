@@ -11,11 +11,28 @@ public class FateHandWidget : MonoBehaviour
 
     public CardMat handSource;
 
+    private bool setup = false;
+
     private void OnEnable()
     {
+        if (!setup)
+            SetUpDisplay();
+        else
+        {
+            FullUpdate();
+        }
+    }
+
+    private void SetUpDisplay()
+    {
+        if (setup)
+            return;
+        
         playerDeck.SetDeckUp();
         handDisplay.mainDeck = playerDeck;
         FullUpdate();
+        
+        setup = true;
     }
 
     public void FullUpdate()

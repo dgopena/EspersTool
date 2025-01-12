@@ -86,7 +86,17 @@ public class FateCard : MonoBehaviour
 
         isFocused = focus;
 
+        /*
         if (isFocused && !isHidden)
+            overLabelCG.alpha = 1f;
+        else
+            overLabelCG.alpha = 0f;
+            */
+    }
+
+    public void ShowOverLabel(bool show)
+    {
+        if (show && !isHidden)
             overLabelCG.alpha = 1f;
         else
             overLabelCG.alpha = 0f;
