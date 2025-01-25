@@ -112,17 +112,11 @@ public class PieceManager : MonoBehaviour
     public UnityAction OnPieceAdded;
     public UnityAction OnPieceRemoved;
 
-    [Header("UI")]
+    [Header("UI")] 
+    public Canvas mainCanvas;
+    
+    [Space(10f)]
     public GameObject cardOptionButton;
-
-    [Space(10f)]
-    public TextMeshProUGUI charaHeadPiecePartPanelInfoLabel;
-    public TextMeshProUGUI charaLWeaponPiecePartPanelInfoLabel;
-    public TextMeshProUGUI charaRWeaponPiecePartPanelInfoLabel;
-    [Space(10f)]
-    public TextMeshProUGUI foeHeadPiecePartPanelInfoLabel;
-    public TextMeshProUGUI foeLWeaponPiecePartPanelInfoLabel;
-    public TextMeshProUGUI foeRWeaponPiecePartPanelInfoLabel;
 
     [Space(10f)]
     public GameObject unitModeRoot;
@@ -130,8 +124,16 @@ public class PieceManager : MonoBehaviour
     public GameObject modeButton;
     public GameObject optionsButton;
 
+    [Space(10f)] 
+    [SerializeField] public RectTransform pieceDeckParent;
+    public GameObject cardDeckPrefab;
+    public GameObject cardHandWidgetPrefab;
+    
     public bool pieceBeingEdited { get; private set; }
 
+    [Header("General Panel")]
+    [SerializeField] private GameObject gridOptionsPanel;
+    
     [Header("Token Variables")]
     public RectTransform tokenPieceMainPanel;
     public Vector2 tokenMainPanelDeltaPos = new Vector2(0.2f, 0.1f);
@@ -139,7 +141,7 @@ public class PieceManager : MonoBehaviour
     public RectTransform tokenPieceIndividualPanelParent;
     private bool showingTokenMainPanel = false;
     public TMP_InputField tokenPanelInputText;
-
+    
     //right click menu
     private RectTransform listRT;
     private bool rightMenuOpen;
@@ -322,8 +324,10 @@ public class PieceManager : MonoBehaviour
             //left click
             if (Input.GetMouseButtonDown(0))
             {
+                /*
                 if (MapManager._instance.toolMode == MapManager.ToolMode.GameMode) // && GameModeManager._instance.currentToolMode != GameModeManager.ToolMode.None)
                     return;
+                */
 
                 preClickButtonValues = pieceOptionButtonActive;
                 changedPiece = false;
@@ -363,7 +367,9 @@ public class PieceManager : MonoBehaviour
                             changedPiece = true;
                         }
 
-                        tokenPieceMainPanel.gameObject.SetActive(false);
+                        if(tokenPieceMainPanel)
+                            tokenPieceMainPanel.gameObject.SetActive(false);
+                        
                         if (pieceOptionButtonActive && MapManager._instance.toolMode != MapManager.ToolMode.GameMode)
                         {
                             pieceRotationButtons.GetChild(2).gameObject.SetActive(true);
@@ -539,7 +545,7 @@ public class PieceManager : MonoBehaviour
                 {
                     SetPieceButtonOptions(pieceOptionButtonActive);
                 }
-
+                
                 if ((MapManager._instance.toolMode == MapManager.ToolMode.UnitMaker) || (MapManager._instance.toolMode == MapManager.ToolMode.GameMode)) // && GameModeManager._instance.currentToolMode == GameModeManager.ToolMode.None))
                     SetDisplayPanelActive(true);
             }
@@ -630,7 +636,7 @@ public class PieceManager : MonoBehaviour
             Vector3 mapPos = MapManager._instance.mapTarget.TranslateToGridPosition(hitInfo.point);
             toSpawn = toSpawn.MakeCopyForNewPiece();
             toSpawn.SetFreshFlag(true);
-            Transform pieceObj = SpawnCharacterPiece(toSpawn, mapPos);
+            Transform pieceObj = SpawnCharacterPiece(toSpawn, mapPos, false);
 
             activeCharacterPiece = pieceObj.GetComponent<CharacterPiece>();
             activePieceType = 0;
@@ -655,7 +661,7 @@ public class PieceManager : MonoBehaviour
                 Vector3 mapPos = ray.origin + (mag * ray.direction);
 
                 toSpawn.SetFreshFlag(true);
-                Transform pieceObj = SpawnCharacterPiece(toSpawn, mapPos);
+                Transform pieceObj = SpawnCharacterPiece(toSpawn, mapPos, false);
 
                 activeCharacterPiece = pieceObj.GetComponent<CharacterPiece>();
                 activePieceType = 0;
@@ -674,7 +680,7 @@ public class PieceManager : MonoBehaviour
     }
 
     //toSpawn must given from the unitmanager value (fresh one) or loaded from the map piece file (not fresh) so the data mantains
-    public Transform SpawnCharacterPiece(EsperCharacter toSpawn, Vector3 spawnPosition, bool onMap = true)
+    public Transform SpawnCharacterPiece(EsperCharacter toSpawn, Vector3 spawnPosition, bool loadedPiece, bool onMap = true)
     {
         GameObject nuPiece = Instantiate<GameObject>(characterPiecePrefab, transform);
         Transform nuPieceObj = nuPiece.transform;
@@ -689,7 +695,12 @@ public class PieceManager : MonoBehaviour
             pieceLogic.SetMapPosition(spawnPosition);
         else
             pieceLogic.SetOuterMapPosition(spawnPosition);
-
+        if (!loadedPiece)
+        {
+            pieceLogic.SetUsingDeck(true);
+            pieceLogic.SetFateDeck(mainCanvas);
+        }
+        
         if (castedPieces == null)
             castedPieces = new List<UnitPiece>();
         castedPieces.Add(pieceLogic);
@@ -1122,43 +1133,49 @@ public class PieceManager : MonoBehaviour
         for(int i = 0; i < loadedData.pieces.Length; i++)
         {
             EsperCharacter charaBase = UnitManager._instance.GetCharacter(loadedData.pieces[i].pieceID);
+            
+            PieceFile.SaveMapPiece smp = loadedData.pieces[i];
             if(charaBase != null)
             {
                 //it's character
                 EsperCharacter load = charaBase.MakeCopy();
 
+                
                 load.SetFreshFlag(false); //may cause problems
-                load.GiveCurrentHP(loadedData.pieces[i].pieceCurrentHP);
-                load.GiveAddedHP(loadedData.pieces[i].pieceAddedHP);
+                load.GiveCurrentHP(smp.pieceCurrentHP);
+                load.GiveAddedHP(smp.pieceAddedHP);
 
                 load.GiveBlightList(loadedData.PassToBlightList(i));
                 load.GiveStatusList(loadedData.PassToStatusList(i));
                 load.GiveEffectList(loadedData.PassToEffectList(i));
 
                 Vector3 pos = Vector3.zero;
-                if (loadedData.pieces[i].onMap)
+                if (smp.onMap)
                 {
-                    pos = new Vector3(loadedData.pieces[i].posX, 0f, loadedData.pieces[i].posZ);
+                    pos = new Vector3(smp.posX, 0f, smp.posZ);
                     float posY = MapManager._instance.mapTarget.GetTileHeightAt(pos);
                     pos.y = posY;
                 }
                 else
                 {
-                    pos = new Vector3(loadedData.pieces[i].posX, loadedData.pieces[i].posY, loadedData.pieces[i].posZ);
+                    pos = new Vector3(smp.posX, smp.posY, smp.posZ);
                 }
 
-                Transform pieceObj = SpawnCharacterPiece(load, pos, loadedData.pieces[i].onMap);
+                Transform pieceObj = SpawnCharacterPiece(load, pos, true, smp.onMap);
 
-                Color pieceColor = new Color(loadedData.pieces[i].colorR, loadedData.pieces[i].colorG, loadedData.pieces[i].colorB);
+                Color pieceColor = new Color(smp.colorR, smp.colorG, smp.colorB);
 
                 CharacterPiece castedChara = pieceObj.GetComponent<CharacterPiece>();
                 bool allowMiniPanel = (miniPanelShow == 2) || (miniPanelShow == 1 && (activePieceType == 0) && activeCharacterPiece == castedChara);
                 castedChara.SetPieceColor(pieceColor);
-                castedChara.SetPieceRotation(loadedData.pieces[i].pieceRotation);
+                castedChara.SetPieceRotation(smp.pieceRotation);
                 castedChara.SetPieceFaded(castedChara.characterData.currentHP == 0);
+                
+                //get card data
+                castedChara.SetFateDeck(mainCanvas, smp.handNumbers, smp.handSuits, smp.fateNumbers, smp.fateSuits, smp.discardNumbers, smp.discardSuits, smp.aetherNumbers, smp.aetherSuits);
             }
 
-            EsperFoe foeBase = UnitManager._instance.GetFoe(loadedData.pieces[i].pieceID);
+            EsperFoe foeBase = UnitManager._instance.GetFoe(smp.pieceID);
             if(foeBase != null)
             {
                 //it's foe
@@ -1166,8 +1183,8 @@ public class PieceManager : MonoBehaviour
 
                 load.SetFreshFlag(false); //may cause problems
 
-                load.GiveCurrentHP(loadedData.pieces[i].pieceCurrentHP);
-                load.GiveAddedHP(loadedData.pieces[i].pieceAddedHP);
+                load.GiveCurrentHP(smp.pieceCurrentHP);
+                load.GiveAddedHP(smp.pieceAddedHP);
 
                 load.GiveBlightList(loadedData.PassToBlightList(i));
                 load.GiveStatusList(loadedData.PassToStatusList(i));
@@ -1176,49 +1193,49 @@ public class PieceManager : MonoBehaviour
                 //marks pending
 
                 Vector3 pos = Vector3.zero;
-                if (loadedData.pieces[i].onMap)
+                if (smp.onMap)
                 {
-                    pos = new Vector3(loadedData.pieces[i].posX, 0f, loadedData.pieces[i].posZ);
+                    pos = new Vector3(smp.posX, 0f, smp.posZ);
                     float posY = MapManager._instance.mapTarget.GetTileHeightAt(pos);
                     pos.y = posY;
                 }
                 else
                 {
-                    pos = new Vector3(loadedData.pieces[i].posX, loadedData.pieces[i].posY, loadedData.pieces[i].posZ);
+                    pos = new Vector3(smp.posX, smp.posY, smp.posZ);
                 }
 
-                Transform pieceObj = SpawnFoePiece(load, pos, loadedData.pieces[i].onMap, true);
+                Transform pieceObj = SpawnFoePiece(load, pos, smp.onMap, true);
 
-                Color pieceColor = new Color(loadedData.pieces[i].colorR, loadedData.pieces[i].colorG, loadedData.pieces[i].colorB);
+                Color pieceColor = new Color(smp.colorR, smp.colorG, smp.colorB);
 
                 FoePiece castedFoe = pieceObj.GetComponent<FoePiece>();
                 bool allowMiniPanel = (miniPanelShow == 2) || (miniPanelShow == 1 && (activePieceType == 1) && activeFoePiece == castedFoe);
                 castedFoe.SetPieceColor(pieceColor);
-                castedFoe.SetPieceRotation(loadedData.pieces[i].pieceRotation);
+                castedFoe.SetPieceRotation(smp.pieceRotation);
                 //castedFoe.SetMiniPanelActive(allowMiniPanel);
                 castedFoe.SetPieceFaded(castedFoe.foeData.currentHP == 0);
             }
 
             if(charaBase == null && foeBase == null)
             {
-                if (loadedData.pieces[i].pieceID < 0)
+                if (smp.pieceID < 0)
                 {
                     Vector3 pos = Vector3.zero;
-                    if (loadedData.pieces[i].onMap)
+                    if (smp.onMap)
                     {
-                        pos = new Vector3(loadedData.pieces[i].posX, 0f, loadedData.pieces[i].posZ);
+                        pos = new Vector3(smp.posX, 0f, smp.posZ);
                         float posY = MapManager._instance.mapTarget.GetTileHeightAt(pos);
                         pos.y = posY;
                     }
                     else
                     {
-                        pos = new Vector3(loadedData.pieces[i].posX, loadedData.pieces[i].posY, loadedData.pieces[i].posZ);
+                        pos = new Vector3(smp.posX, smp.posY, smp.posZ);
                     }
 
-                    Color pieceColor = new Color(loadedData.pieces[i].colorR, loadedData.pieces[i].colorG, loadedData.pieces[i].colorB);
+                    Color pieceColor = new Color(smp.colorR, smp.colorG, smp.colorB);
 
                     //token piece
-                    Transform pieceObj = SpawnTokenPiece(pos, pieceColor, loadedData.pieces[i].tokenMessage, loadedData.pieces[i].pieceGraphicID);
+                    Transform pieceObj = SpawnTokenPiece(pos, pieceColor, smp.tokenMessage, smp.pieceGraphicID);
                 }
                 else
                 {
@@ -1384,9 +1401,6 @@ public class PieceManager : MonoBehaviour
 
             if (!castPiece.pieceIsGraphic)
             {
-                charaHeadPiecePartPanelInfoLabel.text = PieceCamera._instance.GetHeadPart(castPiece.headPartId).partName;
-                charaLWeaponPiecePartPanelInfoLabel.text = PieceCamera._instance.GetWeaponPart(castPiece.weaponLPartId).partName;
-                charaRWeaponPiecePartPanelInfoLabel.text = PieceCamera._instance.GetWeaponPart(castPiece.weaponRPartId).partName;
                 PieceCamera._instance.SetSamplerMeepleConfig(castPiece.headPartId, castPiece.bodyPartId, castPiece.weaponLPartId, castPiece.weaponRPartId);
             }
             else
@@ -1415,9 +1429,6 @@ public class PieceManager : MonoBehaviour
 
             if (!castPiece.pieceIsGraphic)
             {
-                foeHeadPiecePartPanelInfoLabel.text = PieceCamera._instance.GetHeadPart(castPiece.headPartId).partName;
-                foeLWeaponPiecePartPanelInfoLabel.text = PieceCamera._instance.GetWeaponPart(castPiece.weaponLPartId).partName;
-                foeRWeaponPiecePartPanelInfoLabel.text = PieceCamera._instance.GetWeaponPart(castPiece.weaponRPartId).partName;
                 PieceCamera._instance.SetSamplerMeepleConfig(castPiece.headPartId, castPiece.bodyPartId, castPiece.weaponLPartId, castPiece.weaponRPartId);
             }
             else
@@ -1681,10 +1692,10 @@ public class PieceManager : MonoBehaviour
     {
         if (castedPieces == null)
             return;
-
+        
         if (active && (activeCharacterPiece == null) && (activeFoePiece == null))
             return;
-
+        
         pieceDisplayPanel.gameObject.SetActive(active);
 
         if (active)
@@ -1701,10 +1712,14 @@ public class PieceManager : MonoBehaviour
                 panelMode = 2;
 
             pieceDisplayPanel.SetPanelToolsMode(panelMode);
+            
+            gridOptionsPanel.SetActive(false);
         }
         else
         {
             pieceDisplayPanel.CloseDisplayPanel();
+            
+            gridOptionsPanel.SetActive(true);
         }
         /*
         int pieceID = -1;

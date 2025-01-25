@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 //grabs and displays the cards in an orderly fashion
@@ -40,7 +41,7 @@ public class CardMat : MonoBehaviour
     [SerializeField] private float hiddenIconAlpha = 0.35f;
 
     public bool IsMatHidden { get; private set; }
-
+    
     private struct CardRow
     {
         public List<FateCard> cards;
@@ -63,8 +64,6 @@ public class CardMat : MonoBehaviour
 
         if (asNewCards)
         {
-            Debug.Log("as new");
-            
             List<FateCard> newCards = new List<FateCard>();
             for (int i = 0; i < cards.Count; i++)
             {
@@ -196,6 +195,24 @@ public class CardMat : MonoBehaviour
         return cardTotal;
     }
 
+    public int GetFocusedCardCount()
+    {
+        int count = 0;
+        for(int r = 0; r < currentRows.Count; r++)
+        {
+            for(int c = 0; c < currentRows[r].cards.Count; c++)
+            {
+                FateCard checking = currentRows[r].cards[c];
+                if (checking.IsSelected)
+                {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+    
     public Vector4 GetAnchorPoints()
     {
         Vector4 anchorValues = new Vector4();
@@ -207,18 +224,22 @@ public class CardMat : MonoBehaviour
         anchorValues.w = matRT.rect.yMax;
         */
 
+        float canvasScale = 1f;
+        if (mainDeck.baseCanvas)
+            canvasScale = mainDeck.baseCanvas.scaleFactor;
+        
         anchorValues.x = matRT.position.x;
-        anchorValues.x -= matRT.pivot.x * matRT.rect.width;
+        anchorValues.x -= canvasScale * matRT.pivot.x * matRT.rect.width;
 
         anchorValues.y = matRT.position.x;
-        anchorValues.y += (1f - matRT.pivot.x) * matRT.rect.width;
+        anchorValues.y += canvasScale * (1f - matRT.pivot.x) * matRT.rect.width;
 
         anchorValues.z = matRT.position.y;
-        anchorValues.z -= matRT.pivot.y * matRT.rect.height;
+        anchorValues.z -= canvasScale * matRT.pivot.y * matRT.rect.height;
 
         anchorValues.w = matRT.position.y;
-        anchorValues.w += (1f - matRT.pivot.y) * matRT.rect.height;
-
+        anchorValues.w += canvasScale * (1f - matRT.pivot.y) * matRT.rect.height;
+        
         return anchorValues;
     }
 
@@ -428,7 +449,7 @@ public class CardMat : MonoBehaviour
 
         awaitingArrangeFlag = false;
 
-        Debug.Log(transform.name + ": " + GetCardCount());
+        //Debug.Log(transform.name + ": " + GetCardCount());
     }
 
     public void ApplyHeightToCards(float forcedHeight)

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.XR;
 
 public class PlayerDeck : MonoBehaviour
@@ -24,6 +25,9 @@ public class PlayerDeck : MonoBehaviour
 
     public bool deckDisplayed { get; private set; }
 
+    [Header("UI")] 
+    public Canvas baseCanvas;
+    
     [Header("Confirm Panels")]
     [SerializeField] private GameObject shuffleConfirmPanel;
     [SerializeField] private GameObject coldExitConfirmPanel;
@@ -61,6 +65,8 @@ public class PlayerDeck : MonoBehaviour
     [SerializeField] private RectTransform discardAetherMidBorder;
     [SerializeField] private RectTransform handAetherMidBorder;
     [SerializeField] private RectTransform fateDiscardMidBorder;
+
+    public UnityEvent<bool> OnPanelClose;
 
     public struct IntDeck
     {
@@ -209,6 +215,22 @@ public class PlayerDeck : MonoBehaviour
 
         return auxFate;
     }
+
+    public void BuildFromIntArrays(int[] handNumbers, int[] handSuits, int[] fateNumbers, int[] fateSuits,
+        int[] discardNumbers, int[] discardSuits, int[] aetherNumbers, int[] aetherSuits)
+    {
+        IntDeck builtIntDeck = new IntDeck();
+        builtIntDeck.handNumbers = handNumbers;
+        builtIntDeck.handSuits = handSuits;
+        builtIntDeck.fateNumbers = fateNumbers;
+        builtIntDeck.fateSuits = fateSuits;
+        builtIntDeck.discardNumbers = discardNumbers;
+        builtIntDeck.discardSuits = discardSuits;
+        builtIntDeck.aetherNumbers = aetherNumbers;
+        builtIntDeck.aetherSuits = aetherSuits;
+        
+        BuildFromIntDeck(builtIntDeck);
+    }
     
     public void BuildFromIntDeck(IntDeck givenDeck)
     {
@@ -293,10 +315,10 @@ public class PlayerDeck : MonoBehaviour
         for(int i = 0; i < numbers.Length; i++)
         {
             int s = suits[i];
-
+            
             GameObject nuCard = Instantiate<GameObject>(fateCardPrefab, transform);
             FateCard auxFate = nuCard.GetComponent<FateCard>();
-            auxFate.SetUpCard(numbers[i], s + 1, suitDefs[s].suitAction, suitDefs[s].suitIcon, suitDefs[s].suitColor);
+            auxFate.SetUpCard(numbers[i], s, suitDefs[s - 1].suitAction, suitDefs[s - 1].suitIcon, suitDefs[s - 1].suitColor);
             nuCard.SetActive(true);
 
             cardList.Add(auxFate);
@@ -305,7 +327,7 @@ public class PlayerDeck : MonoBehaviour
         return cardList;
     }
 
-    private IntDeck BuildInteDeckFromMats()
+    public IntDeck BuildIntDeckFromMats()
     {
         IntDeck cardList = new IntDeck();
 
@@ -380,18 +402,23 @@ public class PlayerDeck : MonoBehaviour
 
     public void ConfirmColdExit()
     {
+        if(OnPanelClose != null)
+            OnPanelClose.Invoke(false);
+        
         coldExitConfirmPanel.SetActive(false);
-        gameObject.SetActive(false);
+        gameObject.transform.parent.gameObject.SetActive(false);
     }
 
     public void SaveAndExit()
     {
         //return decks
-        IntDeck currentCards = BuildInteDeckFromMats();
-        Debug.Log("Pass It to the Player or smthin");
+        IntDeck currentCards = BuildIntDeckFromMats();
 
+        if(OnPanelClose != null)
+            OnPanelClose.Invoke(true);
+        
         coldExitConfirmPanel.SetActive(false);
-        gameObject.SetActive(false);
+        gameObject.transform.parent.gameObject.SetActive(false);
     }
 
     public void UpdateFateDiscardSize()
@@ -448,6 +475,24 @@ public class PlayerDeck : MonoBehaviour
         return minHeight;
     }
 
+    public void GeneralSizeUpdate()
+    {
+        UpdateFateDiscardSize();
+
+        handMat.ArrangeMat();
+        fateMat.ArrangeMat();
+        discardMat.ArrangeMat();
+        aetherMat.ArrangeMat();
+        
+        UpdateMidBorders();
+
+        float minScale = GetMinScale();
+        handMat.ApplyHeightToCards(minScale);
+        fateMat.ApplyHeightToCards(minScale);
+        discardMat.ApplyHeightToCards(minScale);
+        aetherMat.ApplyHeightToCards(minScale);
+    }
+    
     public void ShowDeck(bool show)
     {
         deckDisplayed = show;
@@ -466,6 +511,11 @@ public class PlayerDeck : MonoBehaviour
         }
 
         return cardsFromFate[0];
+    }
+
+    public CardMat GetHandMat()
+    {
+        return handMat;
     }
 
     public void DiscardSelectedCards()

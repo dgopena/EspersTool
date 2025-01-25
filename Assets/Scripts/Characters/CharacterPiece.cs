@@ -11,6 +11,11 @@ public class CharacterPiece : UnitPiece
 {
     public EsperCharacter characterData { get; private set; }
 
+    public bool usingCardMode = true;
+
+    private PlayerDeck pieceDeck;
+    private FateHandWidget cardHandsPanel;
+    
     public void GiveData(EsperCharacter data)
     {
         characterData = data.MakeCopy();
@@ -189,5 +194,66 @@ public class CharacterPiece : UnitPiece
         characterData.GiveCurrentHP(hpValue);
 
         SetPieceFaded(characterData.currentHP == 0);
+    }
+
+    public void SetUsingDeck(bool value)
+    {
+        usingCardMode = value;
+    }
+
+    public void SetFateDeck(Canvas baseCanvas, bool newDeck = true)
+    {
+        //we create its playerdeck UI instance
+        GameObject newDeckDisplay = GameObject.Instantiate(PieceManager._instance.cardDeckPrefab, PieceManager._instance.pieceDeckParent);
+        pieceDeck = newDeckDisplay.transform.GetChild(0).GetComponent<PlayerDeck>();
+        pieceDeck.baseCanvas = baseCanvas;
+        newDeckDisplay.SetActive(false);
+        
+        GameObject newHandDisplay = GameObject.Instantiate(PieceManager._instance.cardHandWidgetPrefab, PieceManager._instance.pieceDeckParent);
+        cardHandsPanel = newHandDisplay.GetComponent<FateHandWidget>();
+        cardHandsPanel.playerDeck = pieceDeck;
+        cardHandsPanel.handSource = pieceDeck.GetHandMat();
+        newHandDisplay.SetActive(false);
+        
+        if(newDeck)
+            pieceDeck.SetDeckUp();
+    }
+    
+    public void SetFateDeck(Canvas baseCanvas, int[] handNumbers, int[] handSuits, int[] fateNumbers, int[] fateSuits,
+        int[] discardNumbers, int[] discardSuits, int[] aetherNumbers, int[] aetherSuits)
+    {
+        int totalCards = handNumbers.Length + fateNumbers.Length + discardNumbers.Length + aetherNumbers.Length;
+        
+        Debug.Log("Received total cards: " + totalCards);
+        
+        if (totalCards == 0)
+        {
+            //the unit has no deck assigned
+            SetFateDeck(baseCanvas);
+            cardHandsPanel.SetUpDisplay();
+            return;
+        }
+        
+        SetFateDeck(baseCanvas,false);
+        
+        pieceDeck.BuildFromIntArrays(handNumbers, handSuits, fateNumbers, fateSuits, discardNumbers, discardSuits, aetherNumbers, aetherSuits);
+        cardHandsPanel.SetUpDisplay();
+    }
+
+    public PlayerDeck.IntDeck GetCurrentDeck()
+    {
+        return pieceDeck.BuildIntDeckFromMats();
+    }
+
+    public void EnableCards(bool enable)
+    {
+        cardHandsPanel.gameObject.SetActive(enable);
+        
+        
+    }
+
+    public FateHandWidget GetCardHandPanel()
+    {
+        return cardHandsPanel;
     }
 }

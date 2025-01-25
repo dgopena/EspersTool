@@ -54,8 +54,16 @@ public class PieceDisplay : MonoBehaviour
 
     [Header("Action Panel")] 
     [SerializeField] private GameObject charaActionsPanel;
+    [SerializeField] private GameObject charaCardHandButton;
     [SerializeField] private GameObject foeActionsPanel;
+    [SerializeField] private Image[] buttonGraphics;
+    [SerializeField] private float grayingValue = 0.8f;
 
+    [Header("Roll Operations Panel")]
+    [SerializeField] private RollOperation rollOperationsPanel;
+
+    private FateHandWidget activeHandWidget;
+    
     [Header("Result List")] 
     [SerializeField] private Animator resultsListAnim;
     [SerializeField] private GameObject resultEntryPrefab;
@@ -86,8 +94,6 @@ public class PieceDisplay : MonoBehaviour
     private List<EntryDescPair> abilityEntries;
     private int currentAbilitySelectedIndex = -1;
     private bool abilityListIsShown = false;
-
-    [SerializeField] private GameObject abilityButton;
 
     [Header("Data")]
     [SerializeField] private AbilityData abilityInfo;
@@ -129,8 +135,6 @@ public class PieceDisplay : MonoBehaviour
         reticle.ChangeColor(activeUnit.colorChoice);
         reticle.targetObject = character.transform;
 
-        abilityButton.SetActive(false);
-
         BuildDisplay();
     }
 
@@ -147,20 +151,12 @@ public class PieceDisplay : MonoBehaviour
         reticle.ChangeColor(activeUnit.colorChoice);
         reticle.targetObject = foe.transform;
 
-        abilityButton.SetActive(true);
-
         BuildDisplay();
     }
 
     public void SetPanelToolsMode(int md) //0 - game normal, 1 - game seer, 2 - edit
     {
-        if(md == 2)
-            unitPanelButton.gameObject.SetActive(false);
-
-        panelTools.GetChild(0).gameObject.SetActive(md == 2);
-        panelTools.GetChild(1).gameObject.SetActive(md < 2);
-
-        panelTools.GetChild(1).GetChild(3).gameObject.SetActive(md == 1);
+        Debug.Log("TO_DO: Implement selection of buttons at right panel");
     }
 
     public void CloseDisplayPanel()
@@ -178,6 +174,14 @@ public class PieceDisplay : MonoBehaviour
         statBackPanel.color = activeUnit.colorChoice;
         hpBackPanel.color = activeUnit.colorChoice;
 
+        Color buttonColor = grayingValue * activeUnit.colorChoice;
+        buttonColor.a = 1.0f;
+        
+        for (int i = 0; i < buttonGraphics.Length; i++)
+        {
+            buttonGraphics[i].color = buttonColor;
+        }
+        
         nameLabel.text = activeUnit.unitName;
 
         int currentMaxHP = (activeUnit.baseHP + activeUnit.addedHP);
@@ -189,6 +193,12 @@ public class PieceDisplay : MonoBehaviour
         hpBar.SetBar(currentMaxHP);
         UpdateHealthBars(true);
 
+        strStatLabel.text = activeUnit.statSTR.ToString();
+        intStatLabel.text = activeUnit.statINT.ToString();
+        dexStatLabel.text = activeUnit.statDEX.ToString();
+        chaStatLabel.text = activeUnit.statCHA.ToString();
+        defStatLabel.text = activeUnit.defense.ToString();
+        
         //status and effects
         // statusList.ClearIcons();
         // effectList.ClearIcons();
@@ -209,16 +219,28 @@ public class PieceDisplay : MonoBehaviour
         // effectList.ignoreUpdateFlag = false;
 
         //differing setup
-        if (activeCharaPiece != null)
+        if (activeCharaPiece)
         {
-            //build skills list
+            charaActionsPanel.SetActive(!activeCharaPiece.usingCardMode);
+            charaCardHandButton.SetActive(activeCharaPiece.usingCardMode);
+            foeActionsPanel.SetActive(false);
+
+            FateHandWidget handWidget = activeCharaPiece.GetCardHandPanel();
+            handWidget.OnCardPlayed.RemoveAllListeners();
+            handWidget.OnCardPlayed.AddListener(OnCardPlay);
         }
-        else if (activeFoePiece != null)
+        else if (activeFoePiece)
         {
+            charaActionsPanel.SetActive(false);
+            charaCardHandButton.SetActive(false);
+            foeActionsPanel.SetActive(true);
+            
             //build ability list
         }
     }
 
+    #region Health Bars
+    
     public void ModifyHealth(int value)
     {
         miniPanelHolding = false;
@@ -272,6 +294,8 @@ public class PieceDisplay : MonoBehaviour
         return activeUnit.baseHP;
     }
 
+    #endregion
+    
     /*
     public void UpdateStatusEffects()
     {
@@ -311,6 +335,8 @@ public class PieceDisplay : MonoBehaviour
         */
     }
 
+    #region Abilities
+    
     public void AbilityButtonClick()
     {
         ShowAbilityList(!abilityListIsShown);
@@ -493,4 +519,26 @@ public class PieceDisplay : MonoBehaviour
 
         return new ClassData.Ability();
     }
+    
+    #endregion
+    
+    #region Card Stuff
+
+    public void EnableCardHand(bool enabled)
+    {
+        if(activeCharaPiece != null)
+            activeCharaPiece.EnableCards(enabled);
+    }
+
+    public void OnCardPlay(FateCard playedCard)
+    {
+        if (!activeCharaPiece)
+            return;
+        
+        Debug.Log("TO_DO: send card to roll operation");
+        
+        activeCharaPiece.EnableCards(false);
+    }
+    
+    #endregion
 }

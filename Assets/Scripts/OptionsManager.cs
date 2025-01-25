@@ -1541,8 +1541,6 @@ public class PieceFile
         public float posX;
         public float posY;
         public float posZ;
-        public int pieceSize;
-        public bool freshFlag;
         public bool onMap;
 
         public float colorR;
@@ -1550,42 +1548,31 @@ public class PieceFile
         public float colorB;
 
         public int pieceID;
-        public bool textHPFlag;
-        public string textHP;
-        public bool textArmorFlag;
-        public string textArmor;
-
-        public int pieceArmor;
-
-        public int pieceHeadPartID;
-        public int pieceBodyPartID;
-        public int pieceLWeaponPartID;
-        public int pieceRWeaponPartID;
+        
         public float pieceRotation;
 
         public string pieceGraphicID;
-
-        public int pieceHP;
+        
         public int pieceCurrentHP;
         public int pieceAddedHP;
-
-        public int pieceWoundCount;
-
-        public int pieceCurrentVigor;
-        public int pieceVigor;
-
-        public int blessingCount;
 
         //lists will be stored in string format
         public string pieceActiveBlight;
         public string pieceActiveStatus;
         public string pieceActivePositiveEffect;
-        public string pieceMarks;
-
-        public int pieceElixirCount;
-        public bool[] pieceElixirState;
 
         public string tokenMessage;
+        
+        //card management stuff
+        public bool usingCards;
+        public int[] handNumbers;
+        public int[] handSuits;
+        public int[] fateNumbers;
+        public int[] fateSuits;
+        public int[] discardNumbers;
+        public int[] discardSuits;
+        public int[] aetherSuits;
+        public int[] aetherNumbers;
     }
 
     [System.Serializable]
@@ -1629,36 +1616,39 @@ public class PieceFile
             pees.colorR = pieceColor.r;
             pees.colorG = pieceColor.g;
             pees.colorB = pieceColor.b;
-
-            pees.pieceSize = pieces[i].pieceSize;
-
-            pees.pieceHeadPartID = pieces[i].headPartId;
-            pees.pieceBodyPartID = pieces[i].bodyPartId;
-            pees.pieceLWeaponPartID = pieces[i].weaponLPartId;
-            pees.pieceRWeaponPartID = pieces[i].weaponRPartId;
+            
             pees.pieceRotation = pieces[i].modelRotation;
 
             pees.pieceGraphicID = pieces[i].pieceImageID;
 
             if(pieces[i] is CharacterPiece)
             {
-                EsperCharacter iconChara = (pieces[i] as CharacterPiece).characterData;
-                pees.freshFlag = iconChara.freshFlag;
+                CharacterPiece charaPees = (pieces[i] as CharacterPiece);
+                EsperCharacter iconChara = charaPees.characterData;
                 pees.pieceID = iconChara.unitID;
-                pees.pieceHP = iconChara.baseHP;
                 pees.pieceCurrentHP = iconChara.currentHP;
                 pees.pieceAddedHP = iconChara.addedHP;
 
                 pees.pieceActiveBlight = PassToString(iconChara.activeBlights);
                 pees.pieceActiveStatus = PassToString(iconChara.activeStatus);
                 pees.pieceActivePositiveEffect = PassToString(iconChara.activePositiveEffects);
+
+                pees.usingCards = charaPees.usingCardMode;
+                PlayerDeck.IntDeck currentDeck = charaPees.GetCurrentDeck();
+                
+                pees.handNumbers = currentDeck.handNumbers;
+                pees.handSuits = currentDeck.handSuits;
+                pees.fateNumbers = currentDeck.fateNumbers;
+                pees.fateSuits = currentDeck.fateSuits;
+                pees.discardNumbers = currentDeck.discardNumbers;
+                pees.discardSuits = currentDeck.discardSuits;
+                pees.aetherNumbers = currentDeck.aetherNumbers;
+                pees.aetherSuits = currentDeck.aetherSuits;
             }
             else if(pieces[i] is FoePiece)
             {
                 EsperFoe iconFoe = (pieces[i] as FoePiece).foeData;
-                pees.freshFlag = iconFoe.freshFlag;
                 pees.pieceID = iconFoe.unitID;
-                pees.pieceHP = iconFoe.baseHP;
                 pees.pieceCurrentHP = iconFoe.currentHP;
                 pees.pieceAddedHP = iconFoe.addedHP;
 

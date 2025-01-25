@@ -85,7 +85,7 @@ public class FateCard : MonoBehaviour
             cardAnim.SetTrigger("FocusOff");
 
         isFocused = focus;
-
+            
         /*
         if (isFocused && !isHidden)
             overLabelCG.alpha = 1f;
