@@ -535,9 +535,25 @@ public class PieceDisplay : MonoBehaviour
         if (!activeCharaPiece)
             return;
         
-        Debug.Log("TO_DO: send card to roll operation");
+        rollOperationsPanel.gameObject.SetActive(true);
+        HotKeyManager._instance.EnableHotKeys(false);
+        rollOperationsPanel.GiveCard(playedCard);
         
         activeCharaPiece.EnableCards(false);
+    }
+
+    public void CloseRollOperator()
+    {
+        rollOperationsPanel.gameObject.SetActive(false);
+        HotKeyManager._instance.EnableHotKeys(true);
+
+        if (activeCharaPiece)
+        {
+            if (activeCharaPiece.usingCardMode)
+            {
+                activeCharaPiece.EnableCards(true);
+            }
+        }
     }
     
     #endregion

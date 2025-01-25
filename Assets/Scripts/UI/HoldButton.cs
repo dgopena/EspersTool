@@ -7,8 +7,10 @@ public class HoldButton : MonoBehaviour, IPointerClickHandler,IPointerDownHandle
 
     public bool isDown { get; private set; }
 
-    [Header("UI")] [SerializeField] private Image buttonGraphic;
+    
+    private Image buttonGraphic;
     private Color baseColor;
+    [Header("UI")] 
     [SerializeField] private bool brightOnHover = false;
     [SerializeField] private float brightenFactor = 0.2f;
     
@@ -19,6 +21,11 @@ public class HoldButton : MonoBehaviour, IPointerClickHandler,IPointerDownHandle
 
     private void Awake()
     {
+        if (brightOnHover)
+        {
+            buttonGraphic = GetComponent<Image>();
+        }
+        
         if(buttonGraphic != null)
             baseColor = buttonGraphic.color;
     }
