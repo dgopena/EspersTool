@@ -146,7 +146,7 @@ MonoBehaviour:
   equipment:
   - name: Ancient Bangle
     type: 0
-    effectType: 7
+    effectType: 6
     modRange: {x: 0, y: 0}
     modNumber: 0
     modEven: 0
@@ -158,7 +158,7 @@ MonoBehaviour:
   - name: Silver Bangle
     type: 0
     effectType: 0
-    modRange: {x: 0, y: 0}
+    modRange: {x: 1, y: 10}
     modNumber: 1
     modEven: 1
     modOdd: 0
@@ -169,7 +169,7 @@ MonoBehaviour:
   - name: Gold Bangle
     type: 0
     effectType: 0
-    modRange: {x: 0, y: 0}
+    modRange: {x: 1, y: 10}
     modNumber: 1
     modEven: 1
     modOdd: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   - name: Platinum Bangle
     type: 0
     effectType: 0
-    modRange: {x: 0, y: 0}
+    modRange: {x: 1, y: 10}
     modNumber: 1
     modEven: 1
     modOdd: 1
@@ -217,7 +217,7 @@ MonoBehaviour:
     modNumber: 2
     modEven: 0
     modOdd: 0
-    effect: Increases face cards values by +1
+    effect: Increases the value of 2 and 3 by +2
     price: 600
     rarity: 0
     size: 1
@@ -465,20 +465,20 @@ MonoBehaviour:
     size: 1
   - name: Emerald Earring
     type: 5
-    effectType: 6
+    effectType: 5
     modRange: {x: 0, y: 0}
-    modNumber: 0
+    modNumber: -1
     modEven: 0
     modOdd: 0
-    effect: 'Gains Advantage on first Combat Action of each encounter '
+    effect: Gains Advantage on first Combat Action of each encounter
     price: 900
     rarity: 1
     size: 1
   - name: Meteorite Earring
     type: 5
-    effectType: 6
+    effectType: 5
     modRange: {x: 0, y: 0}
-    modNumber: 0
+    modNumber: -1
     modEven: 0
     modOdd: 0
     effect: Gains Advantage and +2 on first Combat Action of each encounter

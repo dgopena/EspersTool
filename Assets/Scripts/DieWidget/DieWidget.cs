@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using static UnityEngine.Networking.UnityWebRequest;
 
@@ -57,7 +58,9 @@ public class DieWidget : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dieSlotLabel2;
     private RectTransform dieSlotRect2;
     [SerializeField] private CanvasGroup dieButtonCG;
-
+    [SerializeField] private CanvasGroup sideButtonsCG;
+    [SerializeField] private TextMeshProUGUI throwAcceptButtonLabel;
+    
     [Space(10f)]
     [SerializeField] private GameObject dieButtonPanel;
     [SerializeField] private GameObject[] dieButtons;
@@ -68,13 +71,18 @@ public class DieWidget : MonoBehaviour
     [SerializeField] private Toggle advantageCheck;
     private bool isWithAdvantage = false;
 
+    [Space(10f)] [SerializeField] private bool tryToSquareUI = true;
+    [SerializeField] private float screenFactor = 0.25f;
+
     [Header("Direct Input")]
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private GameObject inputScreen;
 
+    public UnityEvent<int> OnResultGet;
+    
     private void Awake()
     {
-        SetWidget(inputMode, 0, false);
+        //SetWidget(inputMode, 0, false);
     }
 
     private void SetUp()
@@ -115,11 +123,20 @@ public class DieWidget : MonoBehaviour
         if (!widgetSet)
             SetUp();
 
+        if(tryToSquareUI)
+            TrySquareUI();
+        
         midRoll = false;
 
         dieButtonCG.alpha = 1f;
         dieButtonCG.interactable = true;
         dieButtonCG.blocksRaycasts = true;
+
+        sideButtonsCG.alpha = 1f;
+        sideButtonsCG.interactable = true;
+        sideButtonsCG.blocksRaycasts = true;
+        
+        throwAcceptButtonLabel.transform.parent.gameObject.SetActive(false);
 
         inputScreen.SetActive(startInInput);
         dieScreen.SetActive(!startInInput);
@@ -130,7 +147,19 @@ public class DieWidget : MonoBehaviour
         }
         else
         {
-            ChangeDie(dieSelection);
+            int indexDie = 0;
+            if (dieSelection == 6)
+                indexDie = 1;
+            else if (dieSelection == 8)
+                indexDie = 2;
+            else if (dieSelection == 10)
+                indexDie = 3;
+            else if (dieSelection == 12)
+                indexDie = 4;
+            else if (dieSelection >= 20)
+                indexDie = 5;
+            
+            ChangeDie(indexDie);
 
             dieSlotLabel0.text = dieSlotLabel1.text = dieSlotLabel2.text = "";
 
@@ -138,6 +167,14 @@ public class DieWidget : MonoBehaviour
         }
     }
 
+    private void TrySquareUI()
+    {
+        float sizeLength = screenFactor * Screen.width;
+        
+        dieScreen.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeLength, sizeLength);
+        inputScreen.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeLength,sizeLength);
+    }
+    
     public void ToggleAdvantage()
     {
         if (midRoll)
@@ -222,6 +259,16 @@ public class DieWidget : MonoBehaviour
         dieButtonCG.interactable = false;
         dieButtonCG.blocksRaycasts = false;
 
+        sideButtonsCG.alpha = 0.2f;
+        sideButtonsCG.interactable = true;
+        sideButtonsCG.blocksRaycasts = true;
+        
+        throwAcceptButtonLabel.transform.parent.gameObject.SetActive(false);
+
+        dieSlotLabel0.text = " ";
+        dieSlotLabel1.text = " ";
+        dieSlotLabel2.text = " ";
+        
         StartCoroutine(RollSequence());
     }
 
@@ -280,7 +327,19 @@ public class DieWidget : MonoBehaviour
 
         yield return new WaitForSeconds(rollingResultWait);
 
-        AcceptResult();
+        dieButtonCG.alpha = 1f;
+        dieButtonCG.interactable = true;
+        dieButtonCG.blocksRaycasts = true;
+
+        sideButtonsCG.alpha = 1f;
+        sideButtonsCG.interactable = true;
+        sideButtonsCG.blocksRaycasts = true;
+
+        throwAcceptButtonLabel.text = "Accept (" + finalResult + ")";
+        throwAcceptButtonLabel.transform.parent.gameObject.SetActive(true);
+
+        midRoll = false;
+        //AcceptResult();
     }
 
     private int GetRandomResult()
@@ -302,9 +361,12 @@ public class DieWidget : MonoBehaviour
         return result;
     }
 
-    private void AcceptResult()
+    public void AcceptResult()
     {
-        //close window and give result back
+        Debug.Log("Sending result back: " + finalResult);
+        
+        if(OnResultGet != null)
+            OnResultGet.Invoke(finalResult);
     }
 
     #endregion
@@ -315,7 +377,7 @@ public class DieWidget : MonoBehaviour
         int result = 0;
         if(int.TryParse(inputField.text, out result))
         {
-            if (result > 0 && result < 20)
+            if (result > 0)
             {
                 finalResult = result;
                 AcceptResult();

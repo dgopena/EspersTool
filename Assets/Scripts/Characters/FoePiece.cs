@@ -21,7 +21,7 @@ public class FoePiece : UnitPiece
         BuildPiece(foeData);
     }
 
-    public override void BuildPiece(IconUnit source)
+    public override void BuildPiece(EsperUnit source)
     {
         base.BuildPiece(source);
     }

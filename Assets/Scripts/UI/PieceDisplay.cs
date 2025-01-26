@@ -106,7 +106,7 @@ public class PieceDisplay : MonoBehaviour
         public string description;
     }
 
-    private IconUnit activeUnit;
+    private EsperUnit activeUnit;
     private UnitPiece activePiece;
 
     public UnitPiece pieceDisplayed => activePiece;
@@ -154,6 +154,11 @@ public class PieceDisplay : MonoBehaviour
         BuildDisplay();
     }
 
+    public EsperUnit GetActiveUnit()
+    {
+        return activeUnit;
+    }
+    
     public void SetPanelToolsMode(int md) //0 - game normal, 1 - game seer, 2 - edit
     {
         Debug.Log("TO_DO: Implement selection of buttons at right panel");
@@ -522,7 +527,7 @@ public class PieceDisplay : MonoBehaviour
     
     #endregion
     
-    #region Card Stuff
+    #region Card Stuff / Roll Operation
 
     public void EnableCardHand(bool enabled)
     {

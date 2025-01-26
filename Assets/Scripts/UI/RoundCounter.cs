@@ -304,6 +304,11 @@ public class RoundCounter : MonoBehaviour
         SetContainerCentered();
     }
 
+    public int GetRoundNumber()
+    {
+        return roundCount;
+    }
+    
     public void RoundOptionListClick(int choiceIndex)
     {
         if(choiceIndex == 0)

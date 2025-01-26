@@ -11,7 +11,7 @@ public class StatusData : ScriptableObject
     public struct ImageBlight
     {
         public Sprite image;
-        public IconUnit.Blight blight;
+        public EsperUnit.Blight blight;
         public string blightDescription;
     }
 
@@ -21,7 +21,7 @@ public class StatusData : ScriptableObject
     public struct ImageStatus
     {
         public Sprite image;
-        public IconUnit.Status status;
+        public EsperUnit.Status status;
         public string statusDescription;
     }
 
@@ -32,7 +32,7 @@ public class StatusData : ScriptableObject
     public struct ImageEffect
     {
         public Sprite image;
-        public IconUnit.PositiveEffects effect;
+        public EsperUnit.PositiveEffects effect;
         public string effectDescription;
     }
 }

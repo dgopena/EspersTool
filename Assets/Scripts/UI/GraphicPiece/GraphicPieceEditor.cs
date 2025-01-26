@@ -923,7 +923,7 @@ public class GraphicPieceEditor : MonoBehaviour
         confirmSelectionButton.interactable = true;
     }
 
-    public void SetDisplayModel(IconUnit target)
+    public void SetDisplayModel(EsperUnit target)
     {
         LoadPieceWithID(target.graphicImageID, true);
     }

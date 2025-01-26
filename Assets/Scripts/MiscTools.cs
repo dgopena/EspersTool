@@ -215,7 +215,7 @@ public static class MiscTools
         return letterPart + j;
     }
 
-    public static int CompareUnitsByName(IconUnit unit1, IconUnit unit2)
+    public static int CompareUnitsByName(EsperUnit unit1, EsperUnit unit2)
     {
         if (unit1 == null)
         {
@@ -243,7 +243,7 @@ public static class MiscTools
         }
     }
 
-    public static int CompareUnitsByNewerDate(IconUnit unit1, IconUnit unit2)
+    public static int CompareUnitsByNewerDate(EsperUnit unit1, EsperUnit unit2)
     {
         if (unit1 == null)
         {

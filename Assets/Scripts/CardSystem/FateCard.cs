@@ -149,9 +149,6 @@ public class FateCard : MonoBehaviour
 
     public bool Equals(FateCard comparison)
     {
-        Debug.Log(">> " + cardNumber + "|" + comparison.cardNumber);
-        Debug.Log(">>>> " + cardSuit + "|" + comparison.cardSuit);
-        
         return cardNumber == comparison.cardNumber && 
                cardSuit == comparison.cardSuit;
     }

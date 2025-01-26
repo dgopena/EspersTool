@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IconUnit
+public class EsperUnit
 {
     public int unitID { get; private set; }
 

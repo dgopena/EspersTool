@@ -48,7 +48,7 @@ public class UnitPiece : MonoBehaviour
 
     protected MeshRenderer[] frameRends;
 
-    public virtual void BuildPiece(IconUnit source)
+    public virtual void BuildPiece(EsperUnit source)
     {
         modelObj = transform.GetChild(0);
         baseObj = transform.GetChild(1);

@@ -1669,7 +1669,7 @@ public class PieceFile
         this.pieces = savePieces;
     }
 
-    public string PassToString(List<IconUnit.Blight> blights)
+    public string PassToString(List<EsperUnit.Blight> blights)
     {
         string res = "";
         for(int i = 0; i < blights.Count; i++)
@@ -1682,17 +1682,17 @@ public class PieceFile
     }
 
     //returns the blight list of the mappiece requested, if there is one
-    public List<IconUnit.Blight> PassToBlightList(int index)
+    public List<EsperUnit.Blight> PassToBlightList(int index)
     {
         if (index < 0 || index > (pieces.Length - 1))
-            return new List<IconUnit.Blight>();
+            return new List<EsperUnit.Blight>();
 
         return PassToBlightList(pieces[index].pieceActiveBlight);
     }
 
-    public List<IconUnit.Blight> PassToBlightList(string text)
+    public List<EsperUnit.Blight> PassToBlightList(string text)
     {
-        List<IconUnit.Blight> blightList = new List<IconUnit.Blight>();
+        List<EsperUnit.Blight> blightList = new List<EsperUnit.Blight>();
         string aux = text;
         while (true)
         {
@@ -1701,7 +1701,7 @@ public class PieceFile
             {
                 int parsed = -1;
                 if(int.TryParse(aux, out parsed))
-                    blightList.Add((IconUnit.Blight)parsed);
+                    blightList.Add((EsperUnit.Blight)parsed);
                 break;
             }
             else
@@ -1710,14 +1710,14 @@ public class PieceFile
 
                 aux = aux.Substring(pointIndex + 1);
 
-                blightList.Add((IconUnit.Blight)parsed);
+                blightList.Add((EsperUnit.Blight)parsed);
             }
         }
 
         return blightList;
     }
 
-    public string PassToString(List<IconUnit.Status> status)
+    public string PassToString(List<EsperUnit.Status> status)
     {
         string res = "";
         for (int i = 0; i < status.Count; i++)
@@ -1730,17 +1730,17 @@ public class PieceFile
     }
 
     //returns the status list of the mappiece requested, if there is one
-    public List<IconUnit.Status> PassToStatusList(int index)
+    public List<EsperUnit.Status> PassToStatusList(int index)
     {
         if (index < 0 || index > (pieces.Length - 1))
-            return new List<IconUnit.Status>();
+            return new List<EsperUnit.Status>();
 
         return PassToStatusList(pieces[index].pieceActiveStatus);
     }
 
-    public List<IconUnit.Status> PassToStatusList(string text)
+    public List<EsperUnit.Status> PassToStatusList(string text)
     {
-        List<IconUnit.Status> statusList = new List<IconUnit.Status>();
+        List<EsperUnit.Status> statusList = new List<EsperUnit.Status>();
         string aux = text;
         while (true)
         {
@@ -1749,7 +1749,7 @@ public class PieceFile
             {
                 int parsed = -1;
                 if (int.TryParse(aux, out parsed))
-                    statusList.Add((IconUnit.Status)parsed);
+                    statusList.Add((EsperUnit.Status)parsed);
 
                 break;
             }
@@ -1759,14 +1759,14 @@ public class PieceFile
 
                 aux = aux.Substring(pointIndex + 1);
 
-                statusList.Add((IconUnit.Status)parsed);
+                statusList.Add((EsperUnit.Status)parsed);
             }
         }
 
         return statusList;
     }
 
-    public string PassToString(List<IconUnit.PositiveEffects> effects)
+    public string PassToString(List<EsperUnit.PositiveEffects> effects)
     {
         string res = "";
         for (int i = 0; i < effects.Count; i++)
@@ -1779,17 +1779,17 @@ public class PieceFile
     }
 
     //returns the status list of the mappiece requested, if there is one
-    public List<IconUnit.PositiveEffects> PassToEffectList(int index)
+    public List<EsperUnit.PositiveEffects> PassToEffectList(int index)
     {
         if (index < 0 || index > (pieces.Length - 1))
-            return new List<IconUnit.PositiveEffects>();
+            return new List<EsperUnit.PositiveEffects>();
 
         return PassToEffectList(pieces[index].pieceActivePositiveEffect);
     }
 
-    public List<IconUnit.PositiveEffects> PassToEffectList(string text)
+    public List<EsperUnit.PositiveEffects> PassToEffectList(string text)
     {
-        List<IconUnit.PositiveEffects> effectList = new List<IconUnit.PositiveEffects>();
+        List<EsperUnit.PositiveEffects> effectList = new List<EsperUnit.PositiveEffects>();
         string aux = text;
         while (true)
         {
@@ -1798,7 +1798,7 @@ public class PieceFile
             {
                 int parsed = -1;
                 if (int.TryParse(aux, out parsed))
-                    effectList.Add((IconUnit.PositiveEffects)parsed);
+                    effectList.Add((EsperUnit.PositiveEffects)parsed);
 
                 break;
             }
@@ -1808,7 +1808,7 @@ public class PieceFile
 
                 aux = aux.Substring(pointIndex + 1);
 
-                effectList.Add((IconUnit.PositiveEffects)parsed);
+                effectList.Add((EsperUnit.PositiveEffects)parsed);
             }
         }
 

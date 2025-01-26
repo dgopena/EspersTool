@@ -28,7 +28,7 @@ public class CharacterPiece : UnitPiece
         BuildPiece(characterData);
     }
 
-    public override void BuildPiece(IconUnit source)
+    public override void BuildPiece(EsperUnit source)
     {
         base.BuildPiece(source);
     }
@@ -196,6 +196,13 @@ public class CharacterPiece : UnitPiece
         SetPieceFaded(characterData.currentHP == 0);
     }
 
+    public Tuple<string, int>[] GetActiveBuffs(int statIndex, int cardNumber, bool attack)
+    {
+        return characterData.GetBuffs(statIndex, cardNumber, attack);
+    }
+    
+    #region Cards
+    
     public void SetUsingDeck(bool value)
     {
         usingCardMode = value;
@@ -224,7 +231,7 @@ public class CharacterPiece : UnitPiece
     {
         int totalCards = handNumbers.Length + fateNumbers.Length + discardNumbers.Length + aetherNumbers.Length;
         
-        Debug.Log("Received total cards: " + totalCards);
+        //Debug.Log("Received total cards: " + totalCards);
         
         if (totalCards == 0)
         {
@@ -256,4 +263,6 @@ public class CharacterPiece : UnitPiece
     {
         return cardHandsPanel;
     }
+    
+    #endregion
 }

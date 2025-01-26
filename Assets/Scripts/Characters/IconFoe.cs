@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class EsperFoe : IconUnit
+public class EsperFoe : EsperUnit
 {
     public FoeType type;
     public int classIndex;

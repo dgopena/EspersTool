@@ -152,7 +152,7 @@ public class StatusList : MonoBehaviour
         listShown = true;
     }
 
-    public void AddBlight(IconUnit.Blight blight)
+    public void AddBlight(EsperUnit.Blight blight)
     {
         if (type != ListType.Blight)
             return;
@@ -171,22 +171,22 @@ public class StatusList : MonoBehaviour
             AddIcon(targetIndex);
     }
 
-    public List<IconUnit.Blight> GetBlightList()
+    public List<EsperUnit.Blight> GetBlightList()
     {
         if (type != ListType.Blight)
             return null;
 
-        List<IconUnit.Blight> blightList = new List<IconUnit.Blight>();
+        List<EsperUnit.Blight> blightList = new List<EsperUnit.Blight>();
         for (int i = 0; i < icons.Count; i++)
         {
-            IconUnit.Blight match = displayBlights[icons[i].statusIndex].blight;
+            EsperUnit.Blight match = displayBlights[icons[i].statusIndex].blight;
             blightList.Add(match);
         }
 
         return blightList;
     }
 
-    public void AddStatus(IconUnit.Status status)
+    public void AddStatus(EsperUnit.Status status)
     {
         if (type != ListType.Status)
             return;
@@ -205,7 +205,7 @@ public class StatusList : MonoBehaviour
             AddIcon(targetIndex);
     }
 
-    public string GetStatusDescription(IconUnit.Status status)
+    public string GetStatusDescription(EsperUnit.Status status)
     {
         if (type != ListType.Status)
             return "";
@@ -234,7 +234,7 @@ public class StatusList : MonoBehaviour
         return displayStatus[statusIndex].statusDescription;
     }
 
-    public List<IconUnit.Status> GetStatusList()
+    public List<EsperUnit.Status> GetStatusList()
     {
         if (type != ListType.Status)
             return null;
@@ -242,17 +242,17 @@ public class StatusList : MonoBehaviour
         if (icons == null)
             return null;
 
-        List<IconUnit.Status> statusList = new List<IconUnit.Status>();
+        List<EsperUnit.Status> statusList = new List<EsperUnit.Status>();
         for (int i = 0; i < icons.Count; i++)
         {
-            IconUnit.Status match = displayStatus[icons[i].statusIndex].status;
+            EsperUnit.Status match = displayStatus[icons[i].statusIndex].status;
             statusList.Add(match);
         }
 
         return statusList;
     }
 
-    public void AddPositiveEffect(IconUnit.PositiveEffects effect)
+    public void AddPositiveEffect(EsperUnit.PositiveEffects effect)
     {
         if (type != ListType.Effect)
             return;
@@ -271,7 +271,7 @@ public class StatusList : MonoBehaviour
             AddIcon(targetIndex);
     }
 
-    public string GetEffectDescription(IconUnit.PositiveEffects status)
+    public string GetEffectDescription(EsperUnit.PositiveEffects status)
     {
         if (type != ListType.Effect)
             return "";
@@ -300,7 +300,7 @@ public class StatusList : MonoBehaviour
         return displayEffects[effectIndex].effectDescription;
     }
 
-    public List<IconUnit.PositiveEffects> GetEffectList()
+    public List<EsperUnit.PositiveEffects> GetEffectList()
     {
         if (type != ListType.Effect)
             return null;
@@ -308,10 +308,10 @@ public class StatusList : MonoBehaviour
         if (icons == null)
             return null;
 
-        List<IconUnit.PositiveEffects> effectList = new List<IconUnit.PositiveEffects>();
+        List<EsperUnit.PositiveEffects> effectList = new List<EsperUnit.PositiveEffects>();
         for(int i = 0; i < icons.Count; i++)
         {
-            IconUnit.PositiveEffects match = displayEffects[icons[i].statusIndex].effect;
+            EsperUnit.PositiveEffects match = displayEffects[icons[i].statusIndex].effect;
             effectList.Add(match);
         }
 

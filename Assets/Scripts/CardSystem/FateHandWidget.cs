@@ -104,8 +104,6 @@ public class FateHandWidget : MonoBehaviour
         List<FateCard> selectedCards = handDisplay.GetSelectedCards();
         handSource.SetCardsSelected(selectedCards);
         
-        Debug.Log(selectedCards.Count);
-        
         if (selectedCards.Count != 1)
             return;
 

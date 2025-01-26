@@ -12,11 +12,11 @@ public class GeneralDebug : MonoBehaviour
 
     private void TestBlightListBackForth()
     {
-        List<IconUnit.Blight> blights = new List<IconUnit.Blight>();
-        blights.Add(IconUnit.Blight.Burning);
-        blights.Add(IconUnit.Blight.Poisoned);
-        blights.Add(IconUnit.Blight.Electrified);
-        blights.Add(IconUnit.Blight.Burning);
+        List<EsperUnit.Blight> blights = new List<EsperUnit.Blight>();
+        blights.Add(EsperUnit.Blight.Burning);
+        blights.Add(EsperUnit.Blight.Poisoned);
+        blights.Add(EsperUnit.Blight.Electrified);
+        blights.Add(EsperUnit.Blight.Burning);
 
         PieceFile pf = new PieceFile();
 
@@ -24,7 +24,7 @@ public class GeneralDebug : MonoBehaviour
 
         Debug.Log(str);
 
-        List<IconUnit.Blight> bl = pf.PassToBlightList(str);
+        List<EsperUnit.Blight> bl = pf.PassToBlightList(str);
 
         str = "";
         for(int i = 0; i < bl.Count; i++)
@@ -36,12 +36,12 @@ public class GeneralDebug : MonoBehaviour
 
     private void TestStatusListBackForth()
     {
-        List<IconUnit.Status> status = new List<IconUnit.Status>();
-        status.Add(IconUnit.Status.Blind);
-        status.Add(IconUnit.Status.Incapacitated);
-        status.Add(IconUnit.Status.Shattered);
-        status.Add(IconUnit.Status.Hatred);
-        status.Add(IconUnit.Status.Hatred);
+        List<EsperUnit.Status> status = new List<EsperUnit.Status>();
+        status.Add(EsperUnit.Status.Blind);
+        status.Add(EsperUnit.Status.Incapacitated);
+        status.Add(EsperUnit.Status.Shattered);
+        status.Add(EsperUnit.Status.Hatred);
+        status.Add(EsperUnit.Status.Hatred);
 
         PieceFile pf = new PieceFile();
 
@@ -49,7 +49,7 @@ public class GeneralDebug : MonoBehaviour
 
         Debug.Log(str);
 
-        List<IconUnit.Status> st = pf.PassToStatusList(str);
+        List<EsperUnit.Status> st = pf.PassToStatusList(str);
 
         str = "";
         for (int i = 0; i < st.Count; i++)
@@ -61,12 +61,12 @@ public class GeneralDebug : MonoBehaviour
 
     private void TestEffectListBackForth()
     {
-        List<IconUnit.PositiveEffects> effect = new List<IconUnit.PositiveEffects>();
-        effect.Add(IconUnit.PositiveEffects.Dodge);
-        effect.Add(IconUnit.PositiveEffects.Flying);
-        effect.Add(IconUnit.PositiveEffects.Flying);
-        effect.Add(IconUnit.PositiveEffects.Skirmisher);
-        effect.Add(IconUnit.PositiveEffects.Unstoppable);
+        List<EsperUnit.PositiveEffects> effect = new List<EsperUnit.PositiveEffects>();
+        effect.Add(EsperUnit.PositiveEffects.Dodge);
+        effect.Add(EsperUnit.PositiveEffects.Flying);
+        effect.Add(EsperUnit.PositiveEffects.Flying);
+        effect.Add(EsperUnit.PositiveEffects.Skirmisher);
+        effect.Add(EsperUnit.PositiveEffects.Unstoppable);
 
         PieceFile pf = new PieceFile();
 
@@ -74,7 +74,7 @@ public class GeneralDebug : MonoBehaviour
 
         Debug.Log(str);
 
-        List<IconUnit.PositiveEffects> st = pf.PassToEffectList(str);
+        List<EsperUnit.PositiveEffects> st = pf.PassToEffectList(str);
 
         str = "";
         for (int i = 0; i < st.Count; i++)

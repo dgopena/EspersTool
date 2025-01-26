@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EsperCharacter : IconUnit
+public class EsperCharacter : EsperUnit
 {
     public int[] magicArts; //(magic art)
     public int[] magicArtLevels;
@@ -14,12 +15,6 @@ public class EsperCharacter : IconUnit
 
     //skills
     public int[] skillsIDs;
-
-    //aether
-
-    //fate
-
-    //hand
 
     public void SetupNewChara()
     {
@@ -93,6 +88,85 @@ public class EsperCharacter : IconUnit
         copy.currentHP = copy.currentHP;
 
         return copy;
+    }
+
+    public Tuple<string, int>[] GetBuffs(int statIndex, int cardNumber, bool attack, bool firstAction = false) //
+    {
+        List<Tuple<string, int>> buffSet = new List<Tuple<string, int>>();
+
+        //attack & weapon
+        if (attack && weaponID >= 0 && weaponID < UnitManager._instance.itemData.weapons.Count)
+        {
+            int atkMod = UnitManager._instance.itemData.weapons[weaponID].atkEffectModifier;
+            buffSet.Add(new Tuple<string, int>("Weapon", atkMod));
+        }
+
+        //equipment
+        for (int i = 0; i < equipmentInventory.Length; i++)
+        {
+            ItemsData.Equipment equip = UnitManager._instance.itemData.equipment[equipmentInventory[i]];
+            if (equip.effectType == ItemsData.EquipmentEffectType.CardValueIncrease)
+            {
+                if (cardNumber >= equip.modRange.x && cardNumber <= equip.modRange.y)
+                {
+                    if (equip.modEven && equip.modOdd)
+                    {
+                        buffSet.Add(new Tuple<string, int>(equip.name, equip.modNumber));
+                    }
+                    else if (equip.modEven && cardNumber % 2 == 0)
+                    {
+                        buffSet.Add(new Tuple<string, int>(equip.name, equip.modNumber));
+                    }
+                    else if (equip.modOdd && cardNumber % 2 == 1)
+                    {
+                        buffSet.Add(new Tuple<string, int>(equip.name, equip.modNumber));
+                    }
+                    else
+                    {
+                        buffSet.Add(new Tuple<string, int>(equip.name, equip.modNumber));
+                    }
+                }
+                else if (cardNumber == equip.modRange.x || cardNumber == equip.modRange.y)
+                {
+                    buffSet.Add(new Tuple<string, int>(equip.name, equip.modNumber));
+                }
+            }
+            else if (equip.effectType == ItemsData.EquipmentEffectType.ActionValueIncrease)
+            {
+                if(equip.modNumber == statIndex)
+                    buffSet.Add(new Tuple<string, int>(equip.name, 1));
+            }
+            else if (equip.effectType == ItemsData.EquipmentEffectType.AdvantageGain && firstAction)
+            {
+                if (equip.name.Equals("Meteorite Earring", StringComparison.OrdinalIgnoreCase))
+                    buffSet.Add(new Tuple<string, int>(equip.name, 2));
+            }
+        }
+        
+        return buffSet.ToArray();
+    }
+
+    public bool HasAdvantage(int statIndex, bool firstAction = false)
+    {
+        //equipment
+        for (int i = 0; i < equipmentInventory.Length; i++)
+        {
+            ItemsData.Equipment equip = UnitManager._instance.itemData.equipment[equipmentInventory[i]];
+            if (equip.effectType == ItemsData.EquipmentEffectType.AdvantageGain)
+            {
+                if (statIndex == equip.modNumber)
+                    return true;
+                else if (statIndex < 0 && firstAction)
+                {
+                    if (equip.name.Equals("Emerald Earring", StringComparison.OrdinalIgnoreCase))
+                        return true;
+                    else if (equip.name.Equals("Meteorite Earring", StringComparison.OrdinalIgnoreCase))
+                        return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
 

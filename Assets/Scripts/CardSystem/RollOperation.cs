@@ -9,14 +9,15 @@ using UnityEngine;
 public class RollOperation : MonoBehaviour
 {
     [SerializeField] private PieceDisplay pieceDisplay;
-    
-    [Header("UI")] 
-    [SerializeField] private GameObject cardBasePanel;
+
+    [Header("UI")] [SerializeField] private GameObject cardBasePanel;
     [SerializeField] private GameObject baseInputOptionPanel;
     [SerializeField] private GameObject baseResultOptionPanel;
     [SerializeField] private TMP_InputField baseNumberInput;
     [SerializeField] private TextMeshProUGUI baseNumberLabel;
 
+    private int baseResult = 0;
+    
     [Space(10f)] [SerializeField] private GameObject firstPlusSymbol;
 
     [Space(10f)] [SerializeField] private GameObject dicePanel;
@@ -24,37 +25,44 @@ public class RollOperation : MonoBehaviour
     [SerializeField] private GameObject diceResultsPanel;
     [SerializeField] private TextMeshProUGUI diceLabel;
     [SerializeField] private DieWidget diceWidget;
+
+    private int diceResult = 0;
     
     [Space(10f)] [SerializeField] private GameObject secondPlusSymbol;
-    
-    [Space(10f)] 
-    [SerializeField] private GameObject buffResultPanel;
+
+    [Space(10f)] [SerializeField] private GameObject buffResultPanel;
     [SerializeField] private TextMeshProUGUI buffResultLabel;
+    [SerializeField] private GameObject buffDetailPanel;
+    [SerializeField] private GameObject buffDetailButton;
+    [SerializeField] private Transform buffButtonArrowImage;
+    [SerializeField] private GameObject buffDetailPrefab;
+    
     private EsperCharacter charaSource;
     private EsperFoe foeSource;
     private bool isEsperChara = true;
-    
+
     [Space(10f)] [SerializeField] private GameObject equalSymbol;
-    
+
     [Space(10f)] [SerializeField] private TextMeshProUGUI totalResultLabel;
     [SerializeField] private GameObject acceptButton;
     [SerializeField] private TextMeshProUGUI rollTypeLabel;
-    
-    [Header("Resizing")] 
-    [SerializeField] private float screenWidthResizeFactor = 0.2f;
+
+    [Header("Resizing")] [SerializeField] private float screenWidthResizeFactor = 0.2f;
     [SerializeField] private float symbolsResizeFactor = 0.25f;
-    
-    [Header("Results List")] 
-    [SerializeField] private GameObject resultEntryPrefab;
+
+    [Header("Results List")] [SerializeField]
+    private GameObject resultEntryPrefab;
+
     private Transform resultEntriesParent;
 
+    private int currentRollType = 0;
 
     private void OnEnable()
     {
         //ResizeToScreen();
     }
 
-    
+
     //useless for now
     private void ResizeToScreen()
     {
@@ -68,13 +76,16 @@ public class RollOperation : MonoBehaviour
         panelRT.sizeDelta = new Vector2(Screen.width * screenWidthResizeFactor, panelRT.sizeDelta.y);
 
         panelRT = firstPlusSymbol.GetComponent<RectTransform>();
-        panelRT.sizeDelta = new Vector2(Screen.width * screenWidthResizeFactor * symbolsResizeFactor, panelRT.sizeDelta.y);
+        panelRT.sizeDelta =
+            new Vector2(Screen.width * screenWidthResizeFactor * symbolsResizeFactor, panelRT.sizeDelta.y);
 
         panelRT = secondPlusSymbol.GetComponent<RectTransform>();
-        panelRT.sizeDelta = new Vector2(Screen.width * screenWidthResizeFactor * symbolsResizeFactor, panelRT.sizeDelta.y);
+        panelRT.sizeDelta =
+            new Vector2(Screen.width * screenWidthResizeFactor * symbolsResizeFactor, panelRT.sizeDelta.y);
 
         panelRT = equalSymbol.GetComponent<RectTransform>();
-        panelRT.sizeDelta = new Vector2(Screen.width * screenWidthResizeFactor * symbolsResizeFactor, panelRT.sizeDelta.y);
+        panelRT.sizeDelta =
+            new Vector2(Screen.width * screenWidthResizeFactor * symbolsResizeFactor, panelRT.sizeDelta.y);
 
         panelRT = totalResultLabel.GetComponent<RectTransform>();
         panelRT.sizeDelta = new Vector2(Screen.width * screenWidthResizeFactor, panelRT.sizeDelta.y);
@@ -83,13 +94,13 @@ public class RollOperation : MonoBehaviour
     public void SetStep(int stepIndex)
     {
         cardBasePanel.SetActive(stepIndex >= 0);
-        
+
         firstPlusSymbol.SetActive(stepIndex > 0);
         dicePanel.SetActive(stepIndex > 0);
-        
+
         secondPlusSymbol.SetActive(stepIndex > 1);
         buffResultPanel.SetActive(stepIndex > 1);
-        
+
         equalSymbol.SetActive(stepIndex > 2);
         totalResultLabel.gameObject.SetActive(stepIndex > 2);
         acceptButton.SetActive(stepIndex > 2);
@@ -114,23 +125,23 @@ public class RollOperation : MonoBehaviour
     }
 
     #region Base Entry Panel
-    
+
     public void GiveBaseResult(int entry)
     {
         baseNumberInput.SetTextWithoutNotify(entry.ToString());
         baseNumberLabel.text = entry.ToString();
+
+        baseResult = entry;
         
-        SetPanelState(0,1);
-        
+        SetPanelState(0, 1);
+
         SetStep(1);
-        
-        SetPanelState(1,0);
+
+        SetPanelState(1, 0);
     }
 
     public void GiveCard(FateCard entryCard)
     {
-        Debug.Log(entryCard.cardSuit);
-        
         string actionType = "Attack";
         if (entryCard.cardSuit == 1)
             actionType = "Dodge";
@@ -139,6 +150,8 @@ public class RollOperation : MonoBehaviour
         else if (entryCard.cardSuit == 4)
             actionType = "Skill";
 
+        currentRollType = entryCard.cardSuit - 1;
+        
         rollTypeLabel.text = actionType;
 
         int valueEntry = 10;
@@ -146,7 +159,7 @@ public class RollOperation : MonoBehaviour
             valueEntry = entryCard.cardNumber;
         else if (entryCard.cardNumber == 1)
             valueEntry = 11;
-        
+
         GiveBaseResult(valueEntry);
     }
 
@@ -159,29 +172,130 @@ public class RollOperation : MonoBehaviour
             actionType = "Magic";
         else if (actionIndex == 4)
             actionType = "Skill";
+
+        currentRollType = actionIndex - 1;
         
         rollTypeLabel.text = actionType;
-        
+
         SetStep(0);
-        SetPanelState(0,0);
+        SetPanelState(0, 0);
     }
-    
+
     public void GiveBaseFromInput()
     {
         int result = int.Parse(baseNumberInput.text);
         GiveBaseResult(result);
     }
-    
+
     public void ToggleBaseInputEditMode()
     {
         if (baseInputOptionPanel.activeInHierarchy)
-        {       
+        {
             baseNumberInput.SetTextWithoutNotify(baseNumberLabel.text);
-            SetPanelState(0,1);
+            SetPanelState(0, 1);
         }
         else
         {
             SetPanelState(0, 0);
+        }
+    }
+
+    #endregion
+
+    #region Dice
+
+    public void OpenDiceWidget()
+    {
+        diceWidget.OnResultGet.RemoveAllListeners();
+        diceWidget.OnResultGet.AddListener(ReceiveDiceResult);
+
+        int startDie = 4;
+        int statIndex = 0;
+        bool firstRound = GameModeManager._instance.uiRoundCounter.GetRoundNumber() == 1;
+
+        EsperUnit unit = pieceDisplay.GetActiveUnit();
+        
+        if (currentRollType == 0) //dodge - dex
+        {
+            startDie = unit.statDEX;
+            statIndex = 2;
+        }
+        else if (currentRollType == 1) //attack - str
+        {
+            startDie = unit.statSTR;
+            statIndex = 0;
+        }
+        else if (currentRollType == 2) //magic - int
+        {
+            startDie = unit.statINT;
+            statIndex = 1;
+        }
+        else if (currentRollType == 3) //skill - cha
+        {
+            startDie = unit.statCHA;
+            statIndex = 3;
+        }
+
+        bool adv = false;
+        if (unit is EsperCharacter)
+        {
+            adv = (unit as EsperCharacter).HasAdvantage(statIndex, firstRound);
+        }
+        
+        diceWidget.SetWidget(false, startDie, adv);
+        
+        diceWidget.gameObject.SetActive(true);
+        
+    }
+
+    public void ReceiveDiceResult(int dieResult)
+    {
+        diceResult = dieResult;
+        
+        diceLabel.text = diceResult.ToString();
+        diceWidget.gameObject.SetActive(false);
+        
+        SetPanelState(1, 1);
+        
+        SetStep(2);
+    }
+    
+    #endregion
+    
+    #region Buff Panel
+
+    public void SetupBuffPanel()
+    {
+        
+    }
+    
+    public void GetBuffs()
+    {
+        bool firstRound = GameModeManager._instance.uiRoundCounter.GetRoundNumber() == 1;
+        
+        EsperUnit unit = pieceDisplay.GetActiveUnit();
+        if (unit is EsperCharacter)
+        {
+            int statIndex = 0;
+            if (currentRollType == 0) //dodge - dex
+            {
+                statIndex = 2;
+            }
+            else if (currentRollType == 2) //magic - int
+            {
+                statIndex = 1;
+            }
+            else if (currentRollType == 3) //skill - cha
+            {
+                statIndex = 3;
+            }
+
+            Tuple<string, int>[] activeBuffs =
+                (unit as EsperCharacter).GetBuffs(statIndex, baseResult, statIndex == 0, firstRound);
+        }
+        else if (unit is EsperFoe)
+        {
+            Debug.Log("TO_DO: Manage buffs for foes. The attack modifier");
         }
     }
     
