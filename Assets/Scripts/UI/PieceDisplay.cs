@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -68,9 +69,10 @@ public class PieceDisplay : MonoBehaviour
     [SerializeField] private Animator resultsListAnim;
     [SerializeField] private GameObject resultEntryPrefab;
     [SerializeField] private int maxResultEntries = 8;
-    [SerializeField] private RectTransform resultArrow;
     [SerializeField] private TextMeshProUGUI lastResultText;
 
+    private bool rollListOpen = false;
+    
     /*
 
 [Space(10f)]
@@ -190,7 +192,7 @@ public class PieceDisplay : MonoBehaviour
         nameLabel.text = activeUnit.unitName;
 
         int currentMaxHP = (activeUnit.baseHP + activeUnit.addedHP);
-        if (activeCharaPiece != null)
+        if (activeCharaPiece)
         {
             currentMaxHP = Mathf.FloorToInt((activeUnit.baseHP + activeUnit.addedHP));
         }
@@ -233,6 +235,10 @@ public class PieceDisplay : MonoBehaviour
             FateHandWidget handWidget = activeCharaPiece.GetCardHandPanel();
             handWidget.OnCardPlayed.RemoveAllListeners();
             handWidget.OnCardPlayed.AddListener(OnCardPlay);
+            handWidget.OnCloseCall.RemoveAllListeners();
+            handWidget.OnCloseCall.AddListener(CloseCardHand);
+
+            activeHandWidget = handWidget;
         }
         else if (activeFoePiece)
         {
@@ -242,6 +248,8 @@ public class PieceDisplay : MonoBehaviour
             
             //build ability list
         }
+        
+        UpdateRollListPanel();
     }
 
     #region Health Bars
@@ -528,13 +536,18 @@ public class PieceDisplay : MonoBehaviour
     #endregion
     
     #region Card Stuff / Roll Operation
-
+    
     public void EnableCardHand(bool enabled)
     {
         if(activeCharaPiece != null)
             activeCharaPiece.EnableCards(enabled);
     }
 
+    public void CloseCardHand()
+    {
+        EnableCardHand(false);
+    }
+    
     public void OnCardPlay(FateCard playedCard)
     {
         if (!activeCharaPiece)
@@ -558,6 +571,88 @@ public class PieceDisplay : MonoBehaviour
             {
                 activeCharaPiece.EnableCards(true);
             }
+        }
+    }
+
+    public void GetResultFromRollOperator(string actionType, int result)
+    {
+        Debug.Log("received " + actionType + " roll of " + result);
+        
+        if(activeHandWidget)
+            activeHandWidget.DiscardCard(); //we discard the played card
+        
+        //we add the result to the result list
+        GiveNewRollEntry(actionType,result);
+        
+        CloseRollOperator();
+    }
+    
+    #endregion
+    
+    #region Roll List
+    
+    private void GiveNewRollEntry(string actionType, int rollResult)
+    {
+        Tuple<string, int> entryTuple = new Tuple<string, int>(actionType, rollResult);
+        activePiece.AddToHistory(entryTuple, maxResultEntries);
+        
+        UpdateRollListPanel();
+    }
+
+    private void UpdateRollListPanel()
+    {
+        Transform resultListParent = resultEntryPrefab.transform.parent;
+        for (int i = resultListParent.childCount - 1; i >= 1; i--)
+        {
+            Destroy(resultListParent.GetChild(i).gameObject);
+        }
+
+        Tuple<string, int>[] rollList = activePiece.GetRollStringHistory();
+        for (int i = 0; i < rollList.Length; i++)
+        {
+            GameObject nuRollEntry = Instantiate(resultEntryPrefab, resultListParent);
+            Transform rollEntryTF = nuRollEntry.transform;
+            rollEntryTF.GetChild(0).GetComponent<TextMeshProUGUI>().text = rollList[i].Item1;
+            rollEntryTF.GetChild(1).GetComponent<TextMeshProUGUI>().text = rollList[i].Item2.ToString();
+            
+            nuRollEntry.SetActive(true);
+        }
+
+        EnableRollListPanel(rollList.Length > 0);
+
+        if (rollList.Length > 0)
+        {
+            SetRollListOpen(false, true);
+            lastResultText.text = rollList[0].Item2.ToString();
+        }
+    }
+
+    private void EnableRollListPanel(bool enabled)
+    {
+        resultsListAnim.gameObject.SetActive(enabled);
+    }
+    
+    public void ToggleRollListOpen()
+    {
+        SetRollListOpen(!rollListOpen);
+    }
+
+    public void SetRollListOpen(bool open)
+    {
+        SetRollListOpen(open, false);
+    }
+    
+    public void SetRollListOpen(bool open, bool skipAnim)
+    {
+        rollListOpen = open;
+
+        if (!skipAnim)
+        {
+            resultsListAnim.SetTrigger(open ? "Show" : "Hide");
+        }
+        else
+        {
+            resultsListAnim.SetTrigger(open ? "ShowSkip" : "HideSkip");
         }
     }
     

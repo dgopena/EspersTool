@@ -1173,6 +1173,7 @@ public class PieceManager : MonoBehaviour
                 
                 //get card data
                 castedChara.SetFateDeck(mainCanvas, smp.handNumbers, smp.handSuits, smp.fateNumbers, smp.fateSuits, smp.discardNumbers, smp.discardSuits, smp.aetherNumbers, smp.aetherSuits);
+                castedChara.LoadHistory(smp.actionRollTypes, smp.rollValues);
             }
 
             EsperFoe foeBase = UnitManager._instance.GetFoe(smp.pieceID);
@@ -1214,6 +1215,8 @@ public class PieceManager : MonoBehaviour
                 castedFoe.SetPieceRotation(smp.pieceRotation);
                 //castedFoe.SetMiniPanelActive(allowMiniPanel);
                 castedFoe.SetPieceFaded(castedFoe.foeData.currentHP == 0);
+                
+                castedFoe.LoadHistory(smp.actionRollTypes, smp.rollValues);
             }
 
             if(charaBase == null && foeBase == null)
@@ -1384,7 +1387,7 @@ public class PieceManager : MonoBehaviour
 
         if (activePieceType == 0)
         {
-            if (activeCharacterPiece == null)
+            if (!activeCharacterPiece)
                 return;
 
             characterInfoPanel.gameObject.SetActive(true);
@@ -1412,7 +1415,7 @@ public class PieceManager : MonoBehaviour
         }
         else if(activePieceType == 1)
         {
-            if (activeFoePiece == null)
+            if (!activeFoePiece)
                 return;
 
             foeInfoPanel.gameObject.SetActive(true);
@@ -1850,6 +1853,7 @@ public class PieceManager : MonoBehaviour
         List<string> menuList = new List<string>();
 
         menuList.Add("Show Details");
+        menuList.Add("Roll Accuracy Against Piece");
         menuList.Add("Edit Piece");
         menuList.Add("Delete Piece");
 
@@ -1867,7 +1871,11 @@ public class PieceManager : MonoBehaviour
             //details call
             InfoCall(false);
         }
-        else if(index == 1)
+        else if (index == 1)
+        {
+            Debug.Log("TO_DO: Implement accuracy checks by piece");
+        }
+        else if(index == 2)
         {
             //edit call
             InfoCall(true);

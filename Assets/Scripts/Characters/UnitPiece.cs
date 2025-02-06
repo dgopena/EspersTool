@@ -1,3 +1,4 @@
+using System;
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,6 +48,8 @@ public class UnitPiece : MonoBehaviour
     private float pieceFadeValue = 0.2f;
 
     protected MeshRenderer[] frameRends;
+
+    protected Tuple<string, int>[] rollHistory;
 
     public virtual void BuildPiece(EsperUnit source)
     {
@@ -123,7 +126,7 @@ public class UnitPiece : MonoBehaviour
     public void GiveMiniPanel(RectTransform miniPanel)
     {
         this.miniPanel = miniPanel;
-        
+
         RelocateMiniPanel();
         UpdateMiniPanel();
     }
@@ -162,7 +165,7 @@ public class UnitPiece : MonoBehaviour
         framePos = baseObj.GetChild(3).localPosition;
         framePos = new Vector3(0.5f * value, 0.05f, 0f);
         baseObj.GetChild(4).localPosition = framePos;
-        
+
         Vector3 frameSca = new Vector3(value, 0.15f, 0.1f);
         baseObj.GetChild(1).localScale = frameSca;
         baseObj.GetChild(3).localScale = frameSca;
@@ -183,7 +186,7 @@ public class UnitPiece : MonoBehaviour
 
     public void SetFocus(bool focused)
     {
-        for(int i = 0; i < frameRends.Length; i++)
+        for (int i = 0; i < frameRends.Length; i++)
         {
             frameRends[i].material.color = focused ? Color.red : Color.yellow;
         }
@@ -207,7 +210,7 @@ public class UnitPiece : MonoBehaviour
     {
         Debug.Log("set move for " + transform.name + " as " + moving);
 
-        for(int i = 1; i < baseObj.childCount; i++)
+        for (int i = 1; i < baseObj.childCount; i++)
         {
             baseObj.GetChild(i).GetChild(0).gameObject.SetActive(moving);
         }
@@ -277,7 +280,7 @@ public class UnitPiece : MonoBehaviour
     {
 
     }
-    
+
     */
 
     public void SetPieceColor(UnityEngine.Color color)
@@ -379,6 +382,7 @@ public class UnitPiece : MonoBehaviour
             meshTarget = PieceCamera._instance.GetWeaponPart(leftHandIndex).partObj.GetComponent<MeshFilter>().mesh;
             modelObj.GetChild(0).GetChild(2).GetComponent<MeshFilter>().mesh = meshTarget;
         }
+
         weaponLPartId = leftHandIndex;
 
         modelObj.GetChild(0).GetChild(3).gameObject.SetActive(rightHandIndex != 0);
@@ -387,6 +391,7 @@ public class UnitPiece : MonoBehaviour
             meshTarget = PieceCamera._instance.GetWeaponPart(rightHandIndex).partObj.GetComponent<MeshFilter>().mesh;
             modelObj.GetChild(0).GetChild(3).GetComponent<MeshFilter>().mesh = meshTarget;
         }
+
         weaponRPartId = rightHandIndex;
     }
 
@@ -395,7 +400,7 @@ public class UnitPiece : MonoBehaviour
         //modelObj child 1 is the one that should be the graphic piece in question
         GameObject loadedPiece = GraphicPieceEditor.Instance.LoadPieceWithID(hexID);
 
-        if(loadedPiece == null)
+        if (loadedPiece == null)
         {
             return false;
         }
@@ -458,4 +463,87 @@ public class UnitPiece : MonoBehaviour
         else
             collidingWith = null;
     }
+
+    #region Roll History
+    
+    public void LoadHistory(Tuple<string, int>[] history)
+    {
+        rollHistory = history;
+    }
+
+    public void LoadHistory(int[] actionIndeces, int[] actionValue)
+    {
+        if (actionIndeces == null || actionValue == null)
+        {
+            actionIndeces = new int[0];
+            actionValue = new int[0];
+        }
+        
+        //dodge = 0; attack = 1; magic = 2, skill = 3
+
+        List<Tuple<string, int>> history = new List<Tuple<string, int>>();
+        
+        for (int i = 0; i < actionIndeces.Length; i++)
+        {
+            string actionType = "Attack";
+            if (actionIndeces[i] == 0)
+                actionType = "Dodge";
+            else if (actionIndeces[i] == 2)
+                actionType = "Magic";
+            else if (actionIndeces[i] == 3)
+                actionType = "Skill";
+
+            Tuple<string, int> nuEntry = new Tuple<string, int>(actionType, actionValue[i]);
+            history.Add(nuEntry);
+        }
+        
+        LoadHistory(history.ToArray());
+    }
+
+    public void AddToHistory(Tuple<string, int> entry, int rollLimit)
+    {
+        if(rollHistory.Length == 0)
+            rollHistory = new Tuple<string, int>[1] { entry };
+        else
+        {
+            int histCount = rollHistory.Length + 1;
+            if (histCount > rollLimit)
+                histCount = rollLimit;
+            
+            Tuple<string, int>[] newHistory = new Tuple<string, int>[histCount];
+            newHistory[0] = entry;
+            for (int i = 1; i < newHistory.Length; i++)
+            {
+                newHistory[i] = rollHistory[i - 1];
+            }
+            
+            rollHistory = newHistory;
+        }
+    }
+
+    public Tuple<string, int>[] GetRollStringHistory()
+    {
+        return rollHistory;
+    }
+
+    public Tuple<int, int>[] GetRollIntHistory()
+    {
+        List<Tuple<int,int>> tupleList = new List<Tuple<int,int>>();
+        for (int i = 0; i < rollHistory.Length; i++)
+        {
+            int actIdx = 0;
+            if (rollHistory[i].Item1 == "Attack")
+                actIdx = 1;
+            else if (rollHistory[i].Item1 == "Magic")
+                actIdx = 2;
+            else if (rollHistory[i].Item1 == "Skill")
+                actIdx = 3;
+            
+            tupleList.Add(new Tuple<int,int>(actIdx, rollHistory[i].Item2));
+        }
+        
+        return tupleList.ToArray();
+    }
+    
+    #endregion
 }

@@ -1573,6 +1573,10 @@ public class PieceFile
         public int[] discardSuits;
         public int[] aetherSuits;
         public int[] aetherNumbers;
+        
+        //roll history
+        public int[] actionRollTypes;
+        public int[] rollValues;
     }
 
     [System.Serializable]
@@ -1621,6 +1625,18 @@ public class PieceFile
 
             pees.pieceGraphicID = pieces[i].pieceImageID;
 
+            Tuple<int, int>[] rollHistory = pieces[i].GetRollIntHistory();
+            int [] actIdx = new int [rollHistory.Length];
+            int[] actVal = new int[rollHistory.Length];
+            for (int r = 0; r < rollHistory.Length; r++)
+            {
+                actIdx[r] = rollHistory[r].Item1;
+                actVal[r] = rollHistory[r].Item2;
+            }
+
+            pees.actionRollTypes = actIdx;
+            pees.rollValues = actVal;
+            
             if(pieces[i] is CharacterPiece)
             {
                 CharacterPiece charaPees = (pieces[i] as CharacterPiece);

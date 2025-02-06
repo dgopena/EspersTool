@@ -113,6 +113,12 @@ MonoBehaviour:
   playCardButton: {fileID: 4070663135712924432}
   discardCardButton: {fileID: 2782792256080192005}
   autoSetup: 0
+  OnCardPlayed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCloseCall:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &782008517764315594
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,7 +605,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a11d17eac926f6a4f87461653a5210cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonGraphic: {fileID: 0}
   brightOnHover: 0
   brightenFactor: 0.2
   onDown:
@@ -713,7 +718,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a11d17eac926f6a4f87461653a5210cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonGraphic: {fileID: 3299886866521200660}
   brightOnHover: 1
   brightenFactor: 0.4
   onDown:
@@ -934,7 +938,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 20.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1066,7 +1070,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a11d17eac926f6a4f87461653a5210cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonGraphic: {fileID: 5733196575086853101}
   brightOnHover: 1
   brightenFactor: 0.4
   onDown:
@@ -1179,7 +1182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a11d17eac926f6a4f87461653a5210cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonGraphic: {fileID: 0}
   brightOnHover: 0
   brightenFactor: 0.2
   onDown:
@@ -1369,7 +1371,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a11d17eac926f6a4f87461653a5210cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonGraphic: {fileID: 0}
   brightOnHover: 0
   brightenFactor: 0.2
   onDown:
@@ -1380,7 +1381,19 @@ MonoBehaviour:
       m_Calls: []
   onRelease:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5169752198934128645}
+        m_TargetAssemblyTypeName: FateHandWidget, Assembly-CSharp
+        m_MethodName: CloseWidget
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4654899265685583510
 GameObject:
   m_ObjectHideFlags: 0
@@ -1473,7 +1486,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 20.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1967,7 +1980,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a11d17eac926f6a4f87461653a5210cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonGraphic: {fileID: 0}
   brightOnHover: 0
   brightenFactor: 0.2
   onDown:

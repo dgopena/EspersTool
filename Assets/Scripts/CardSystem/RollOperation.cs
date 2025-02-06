@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms.VisualStyles;
 using TMPro;
 using Unity.Properties;
@@ -26,6 +27,8 @@ public class RollOperation : MonoBehaviour
     [SerializeField] private TextMeshProUGUI diceLabel;
     [SerializeField] private DieWidget diceWidget;
 
+    [SerializeField] private GameObject[] hideWithDice;
+    
     private int diceResult = 0;
     
     [Space(10f)] [SerializeField] private GameObject secondPlusSymbol;
@@ -37,6 +40,8 @@ public class RollOperation : MonoBehaviour
     [SerializeField] private Transform buffButtonArrowImage;
     [SerializeField] private GameObject buffDetailPrefab;
     
+    private int buffResult = 0;
+    
     private EsperCharacter charaSource;
     private EsperFoe foeSource;
     private bool isEsperChara = true;
@@ -47,6 +52,8 @@ public class RollOperation : MonoBehaviour
     [SerializeField] private GameObject acceptButton;
     [SerializeField] private TextMeshProUGUI rollTypeLabel;
 
+    private int finalResult = 0;
+    
     [Header("Resizing")] [SerializeField] private float screenWidthResizeFactor = 0.2f;
     [SerializeField] private float symbolsResizeFactor = 0.25f;
 
@@ -241,6 +248,11 @@ public class RollOperation : MonoBehaviour
         {
             adv = (unit as EsperCharacter).HasAdvantage(statIndex, firstRound);
         }
+
+        for (int i = 0; i < hideWithDice.Length; i++)
+        {
+            hideWithDice[i].SetActive(false);
+        }
         
         diceWidget.SetWidget(false, startDie, adv);
         
@@ -252,22 +264,24 @@ public class RollOperation : MonoBehaviour
     {
         diceResult = dieResult;
         
+        for (int i = 0; i < hideWithDice.Length; i++)
+        {
+            hideWithDice[i].SetActive(true);
+        }
+        
         diceLabel.text = diceResult.ToString();
         diceWidget.gameObject.SetActive(false);
         
         SetPanelState(1, 1);
         
         SetStep(2);
+        
+        GetBuffs();
     }
     
     #endregion
     
     #region Buff Panel
-
-    public void SetupBuffPanel()
-    {
-        
-    }
     
     public void GetBuffs()
     {
@@ -292,12 +306,93 @@ public class RollOperation : MonoBehaviour
 
             Tuple<string, int>[] activeBuffs =
                 (unit as EsperCharacter).GetBuffs(statIndex, baseResult, statIndex == 0, firstRound);
+
+            buffDetailPanel.SetActive(false);
+            for (int i = buffDetailPanel.transform.childCount - 1; i >= 1; i--)
+            {
+                Destroy(buffDetailPanel.transform.GetChild(i).gameObject);
+            }
+            
+            if (activeBuffs.Length == 0)
+            {
+                buffDetailButton.SetActive(false);
+                buffResultLabel.text = "0";
+            }
+            else
+            {
+                buffDetailButton.SetActive(true);
+                buffButtonArrowImage.transform.rotation = Quaternion.identity;
+
+                int addBuffs = 0;
+                for (int i = 0; i < activeBuffs.Length; i++)
+                {
+                    GameObject nuBuffLabel = Instantiate<GameObject>(buffDetailPrefab, buffDetailPanel.transform);
+                    Transform nuBuffLabelTransform = nuBuffLabel.transform;
+
+                    nuBuffLabelTransform.GetChild(0).GetComponent<TextMeshProUGUI>().text = activeBuffs[i].Item1;
+                    
+                    addBuffs+=activeBuffs[i].Item2;
+                    
+                    string numLabel = activeBuffs[i].Item2.ToString();
+                    if (activeBuffs[i].Item2 > 0)
+                        numLabel = "+" + numLabel;
+                    nuBuffLabel.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = numLabel;
+                    
+                    nuBuffLabel.gameObject.SetActive(true);
+                }
+
+                buffResult = addBuffs;
+                
+                string totalResult = addBuffs.ToString();
+                if(addBuffs > 0)
+                    totalResult = "+" + totalResult;
+
+                buffResultLabel.text = totalResult;
+            }
         }
         else if (unit is EsperFoe)
         {
             Debug.Log("TO_DO: Manage buffs for foes. The attack modifier");
         }
+        
+        DisplayResults();
+    }
+
+    public void ToggleBuffDetailPanel()
+    {
+        if (buffDetailPanel.activeInHierarchy)
+        {
+            buffDetailPanel.SetActive(false);
+            buffButtonArrowImage.transform.rotation = Quaternion.identity;
+        }
+        else
+        {
+            buffDetailPanel.SetActive(true);
+            buffButtonArrowImage.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+        }
     }
     
     #endregion
+
+    public void DisplayResults()
+    {
+        finalResult = baseResult + diceResult + buffResult;
+
+        totalResultLabel.text = finalResult.ToString();
+        
+        SetStep(3);
+    }
+
+    public void AcceptResults()
+    {
+        string actionType = "Attack";
+        if (currentRollType == 0)
+            actionType = "Dodge";
+        else if (currentRollType == 2)
+            actionType = "Magic";
+        else if (currentRollType == 3)
+            actionType = "Skill";
+        
+        pieceDisplay.GetResultFromRollOperator(actionType, finalResult);
+    }
 }

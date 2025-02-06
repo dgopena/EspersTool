@@ -22,6 +22,7 @@ public class FateHandWidget : MonoBehaviour
     [SerializeField] private bool autoSetup = false;
 
     public UnityEvent<FateCard> OnCardPlayed;
+    public UnityEvent OnCloseCall;
     
     private void OnEnable()
     {
@@ -56,6 +57,12 @@ public class FateHandWidget : MonoBehaviour
         CheckCardsInSelection();
     }
 
+    public void CloseWidget()
+    {
+        if(OnCloseCall != null)
+            OnCloseCall.Invoke();
+    }
+    
     public void DrawCard()
     {
         FateCard draw = playerDeck.DrawCardToHand();
