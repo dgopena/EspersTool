@@ -388,7 +388,8 @@ public class PieceManager : MonoBehaviour
                             changedPiece = true;
                         }
 
-                        tokenPieceMainPanel.gameObject.SetActive(false);
+                        //tokenPieceMainPanel.gameObject.SetActive(false);
+                        
                         if (pieceOptionButtonActive && MapManager._instance.toolMode != MapManager.ToolMode.GameMode)
                         {
                             pieceRotationButtons.GetChild(2).gameObject.SetActive(true);
@@ -834,7 +835,7 @@ public class PieceManager : MonoBehaviour
         GameObject nuPiece = Instantiate<GameObject>(foePiecePrefab, transform);
         Transform nuPieceObj = nuPiece.transform;
         nuPieceObj.position = spawnPosition;
-
+        
         //set up foe
         FoePiece pieceLogic = nuPiece.GetComponent<FoePiece>();
         pieceLogic.GiveData(toSpawn);
@@ -1890,5 +1891,10 @@ public class PieceManager : MonoBehaviour
             //delete call
             CallDeleteWarning();
         }
+    }
+
+    public void MakeAccuracyCheck(UnitPiece targetPiece)
+    {
+        Debug.Log("TO_DO: Accuracy Check Logic");
     }
 }

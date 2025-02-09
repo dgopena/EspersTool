@@ -12,12 +12,21 @@ public class FoePiece : UnitPiece
 
     public void GiveData(EsperFoe data)
     {
+        
+
+        Debug.Log("<<<<<<<<<<<<<<<<<<" + data.baseHP + "|" + data.freshFlag);
+        
         foeData = data.MakeCopy();
+        
+        Debug.Log(">>>>>>>>>>>>>>>> " + foeData.baseHP);
+        
         unitName = foeData.unitName;
     }
 
     public void BuildPiece()
     {
+        Debug.Log(foeData.GetTotalHP());
+        
         BuildPiece(foeData);
     }
 

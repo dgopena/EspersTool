@@ -1576,6 +1576,8 @@ public class UnitManager : MonoBehaviour
         nuFoe.level = currentChosenChapter;
         nuFoe.classIndex = 0;
 
+        nuFoe.SetupNewFoe();
+        
         return nuFoe;
     }
 

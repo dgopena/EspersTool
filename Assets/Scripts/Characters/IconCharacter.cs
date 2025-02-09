@@ -62,9 +62,9 @@ public class EsperCharacter : EsperUnit
         }
         else
         {
-            copy.baseHP = 40;
+            copy.baseHP = baseHP;
             copy.addedHP = 0;
-            copy.currentHP = copy.baseHP;
+            copy.currentHP = baseHP;
         }
 
         return copy;

@@ -21,7 +21,7 @@ public class EsperFoe : EsperUnit
     private string atkModRaw = "";
     private string[] atkModStats;
     private string[] atckModOperations;
-
+    
     public EsperFoe MakeCopy()
     {
         EsperFoe copy = base.MakeCopyFoe();
@@ -41,10 +41,13 @@ public class EsperFoe : EsperUnit
 
         if (freshFlag)
         {
-            copy.currentHP = copy.baseHP;
+            copy.baseHP = baseHP;
+            copy.addedHP = 0;
+            copy.currentHP = baseHP;
         }
         else
         {
+            copy.currentHP = currentHP;
             copy.baseHP = baseHP;
         }
 
@@ -70,11 +73,7 @@ public class EsperFoe : EsperUnit
         statINT = 0;
         statDEX = 0;
         statCHA = 0;
-        // statModSTR = 0;
-        // statModINT = 0;
-        // statModDEX = 0;
-        // statModCHA = 0;
-        baseHP = 20;
+        baseHP = 40;
         defense = 0;
         speed = 40;
         atkModStats = Array.Empty<string>();

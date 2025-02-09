@@ -259,6 +259,7 @@ public class FoeMakerPanel : MonoBehaviour
         if (presetID >= 0)
         {
             FoePresets.FoePreset presetLoaded = foePresets.presets[presetID];
+            newFoe.SetBaseHP(presetLoaded.HPStat);
             newFoe.unitName = presetLoaded.presetName;
             newFoe.description = presetLoaded.foeDescription;
             newFoe.statSTR = presetLoaded.STRStat;

@@ -46,6 +46,7 @@ public class PieceDisplay : MonoBehaviour
 
     [Header("Piece Tools")]
     [SerializeField] private RectTransform panelTools;
+    [SerializeField] private GameObject accuracyCheckButton;
     [SerializeField] private GameObject cardModeButton;
     [SerializeField] private GameObject inputModeButton;
     [SerializeField] private GameObject itemsButton;
@@ -162,15 +163,30 @@ public class PieceDisplay : MonoBehaviour
     }
     
     #region Panel Tools
+
+    public void MakeAccuracyCheck()
+    {
+        PieceManager._instance.MakeAccuracyCheck(activePiece);
+    }
     
     public void SetPanelToolsMode(int md) // 0 - character, 1 - foe, 2 - edit
     {
+        accuracyCheckButton.SetActive(md != 2);
+        
         editButton.SetActive(md == 2);
-        deleteButton.SetActive(md == 2);
-        
-        cardModeButton.SetActive(activeCharaPiece.usingCardMode && md == 0);
-        inputModeButton.SetActive(!activeCharaPiece.usingCardMode && md == 0);
-        
+        deleteButton.SetActive(true);
+
+        if (md == 0)
+        {
+            cardModeButton.SetActive(!activeCharaPiece.usingCardMode);
+            inputModeButton.SetActive(activeCharaPiece.usingCardMode);
+        }
+        else
+        {
+            cardModeButton.SetActive(false);
+            inputModeButton.SetActive(false);
+        }
+
         itemsButton.SetActive(md == 0);
         
         detailsButton.SetActive(true);
@@ -185,6 +201,9 @@ public class PieceDisplay : MonoBehaviour
         
         charaActionsPanel.SetActive(!activeCharaPiece.usingCardMode);
         charaCardHandButton.SetActive(activeCharaPiece.usingCardMode);
+        
+        cardModeButton.SetActive(!activeCharaPiece.usingCardMode);
+        inputModeButton.SetActive(activeCharaPiece.usingCardMode);
     }
 
     public void ShowItems(bool enabled)
