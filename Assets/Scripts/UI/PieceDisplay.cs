@@ -161,11 +161,54 @@ public class PieceDisplay : MonoBehaviour
         return activeUnit;
     }
     
-    public void SetPanelToolsMode(int md) //0 - game normal, 1 - game seer, 2 - edit
+    #region Panel Tools
+    
+    public void SetPanelToolsMode(int md) // 0 - character, 1 - foe, 2 - edit
     {
-        Debug.Log("TO_DO: Implement selection of buttons at right panel");
+        editButton.SetActive(md == 2);
+        deleteButton.SetActive(md == 2);
+        
+        cardModeButton.SetActive(activeCharaPiece.usingCardMode && md == 0);
+        inputModeButton.SetActive(!activeCharaPiece.usingCardMode && md == 0);
+        
+        itemsButton.SetActive(md == 0);
+        
+        detailsButton.SetActive(true);
     }
 
+    public void SetCardMode(bool enabled)
+    {
+        if (!activeCharaPiece)
+            return;
+        
+        activeCharaPiece.usingCardMode = enabled;
+        
+        charaActionsPanel.SetActive(!activeCharaPiece.usingCardMode);
+        charaCardHandButton.SetActive(activeCharaPiece.usingCardMode);
+    }
+
+    public void ShowItems(bool enabled)
+    {
+        
+    }
+
+    public void ShowDetails(bool enabled)
+    {
+        
+    }
+
+    public void OpenEditPanel(bool enabled)
+    {
+        
+    }
+
+    public void DeletePieceCall()
+    {
+        
+    }
+    
+    #endregion
+    
     public void CloseDisplayPanel()
     {
         //CloseStatusEffectLists();
@@ -348,6 +391,22 @@ public class PieceDisplay : MonoBehaviour
         */
     }
 
+    #region Action Calls
+
+    public void ActionCall(int actionIndex) // 0 - Dodge, 1 - Attack, 2 - Magic, 3 - Skill
+    {
+        if (!activeCharaPiece)
+            return;
+        
+        rollOperationsPanel.gameObject.SetActive(true);
+        HotKeyManager._instance.EnableHotKeys(false);
+        rollOperationsPanel.StartWithoutCard(actionIndex);
+        
+        activeCharaPiece.EnableCards(false);
+    }
+
+    #endregion
+    
     #region Abilities
     
     public void AbilityButtonClick()
@@ -608,6 +667,9 @@ public class PieceDisplay : MonoBehaviour
         }
 
         Tuple<string, int>[] rollList = activePiece.GetRollStringHistory();
+        if (rollList == null)
+            rollList = Array.Empty<Tuple<string, int>>();
+        
         for (int i = 0; i < rollList.Length; i++)
         {
             GameObject nuRollEntry = Instantiate(resultEntryPrefab, resultListParent);

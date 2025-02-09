@@ -73,7 +73,7 @@ public class PointerEvents : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         {
             return;
         }
-
+        
         OnPointerDownEvent?.Invoke(eventData);
     }
 

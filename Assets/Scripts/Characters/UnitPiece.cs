@@ -529,6 +529,10 @@ public class UnitPiece : MonoBehaviour
     public Tuple<int, int>[] GetRollIntHistory()
     {
         List<Tuple<int,int>> tupleList = new List<Tuple<int,int>>();
+
+        if (rollHistory == null)
+            rollHistory = Array.Empty<Tuple<string, int>>();
+        
         for (int i = 0; i < rollHistory.Length; i++)
         {
             int actIdx = 0;

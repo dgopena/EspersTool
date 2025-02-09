@@ -1696,7 +1696,7 @@ public class PieceManager : MonoBehaviour
         if (castedPieces == null)
             return;
         
-        if (active && (activeCharacterPiece == null) && (activeFoePiece == null))
+        if (active && (!activeCharacterPiece) && (!activeFoePiece))
             return;
         
         pieceDisplayPanel.gameObject.SetActive(active);
@@ -1713,6 +1713,11 @@ public class PieceManager : MonoBehaviour
             int panelMode = 0;
             if (MapManager._instance.toolMode == MapManager.ToolMode.UnitMaker)
                 panelMode = 2;
+            else
+            {
+                if (activeFoePiece)
+                    panelMode = 1;
+            }
 
             pieceDisplayPanel.SetPanelToolsMode(panelMode);
             

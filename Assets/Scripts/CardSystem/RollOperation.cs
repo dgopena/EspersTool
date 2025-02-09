@@ -118,6 +118,7 @@ public class RollOperation : MonoBehaviour
         if (panelIndex == 0) //base panel
         {
             baseInputOptionPanel.SetActive(panelState == 0); //input mode
+            baseNumberInput.text = "";
             baseResultOptionPanel.SetActive(panelState == 1);
         }
         else if (panelIndex == 1) //die panel
@@ -173,14 +174,14 @@ public class RollOperation : MonoBehaviour
     public void StartWithoutCard(int actionIndex)
     {
         string actionType = "Attack";
-        if (actionIndex == 1)
+        if (actionIndex == 0)
             actionType = "Dodge";
-        else if (actionIndex == 3)
+        else if (actionIndex == 2)
             actionType = "Magic";
-        else if (actionIndex == 4)
+        else if (actionIndex == 3)
             actionType = "Skill";
 
-        currentRollType = actionIndex - 1;
+        currentRollType = actionIndex;
         
         rollTypeLabel.text = actionType;
 
@@ -221,6 +222,8 @@ public class RollOperation : MonoBehaviour
         bool firstRound = GameModeManager._instance.uiRoundCounter.GetRoundNumber() == 1;
 
         EsperUnit unit = pieceDisplay.GetActiveUnit();
+        
+        Debug.Log("current roll type: " + currentRollType);
         
         if (currentRollType == 0) //dodge - dex
         {
